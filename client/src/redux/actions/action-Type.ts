@@ -5,4 +5,10 @@ interface GetAllEventAction {
     payload: any // Se deja any para que no tire error pero especificar que tipo de datos va a manejar. ejemplo payload: string | number
 }
 
-export type Action = GetAllEventAction
+interface GetSearchAction{
+    type: ActionType.SEARCH_EVENT,
+    payload: any
+}
+
+export type Action = GetAllEventAction | GetSearchAction
+
