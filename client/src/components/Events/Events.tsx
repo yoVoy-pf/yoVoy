@@ -13,7 +13,7 @@ const Events = ({ allEvents }: Props) => {
 	//   })
 	// }
 
-	return <div>Events</div>;
+	return <div>Events Component</div>;
 };
 
 export default Events;
