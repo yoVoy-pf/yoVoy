@@ -7,42 +7,42 @@ import SearchBar from '../SearchBar/SearchBar'
 import s from './home.module.css';
 
 interface Event {
-    name: string;
-    image: string;
-    location: string;
-    place: string;
-    date: string;
+  name: string;
+  image: string;
+  location: string;
+  place: string;
+  date: string;
 }
 
 const Home = () => {
-    
-    const dispatch: AppDispatch = useDispatch();
-    const allEvents = useSelector((state: State) => state.allEvents)
 
-    useEffect(() => {
-        dispatch(getAllEvent())
-    }, [dispatch])
+  const dispatch: AppDispatch = useDispatch();
+  const allEvents = useSelector((state: State) => state.allEvents)
 
-    return(
-        <div>
-            <SearchBar/>
-            <div className={s.home}>
-            {
-                allEvents?.map((result: Event) => {
-                    return (
-                        <Card
-                         name={result.name}
-                         image={result.image}
-                         location={result.location}
-                         place={result.place}
-                         date={result.date}
-                        />
-                    )
-                })
-            }
-            </div>
-        </div>
-    )
+  useEffect(() => {
+    dispatch(getAllEvent())
+  }, [dispatch])
+
+  return (
+    <div>
+      <SearchBar />
+      <div className={s.home}>
+        {
+          allEvents?.map((result: Event) => {
+            return (
+              <Card
+                name={result.name}
+                image={result.image}
+                location={result.location}
+                place={result.place}
+                date={result.date}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+  )
 }
 
 export default Home
