@@ -2,8 +2,7 @@ import { ActionType } from "../actions";
 import { Action } from "../actions/action-Type";
 
 const initialState = {
-    allEvent: [],
-    eventId: []
+    allEvents: [],
 }
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -11,7 +10,7 @@ const rootReducer = (state = initialState, action: Action) => {
         case ActionType.GET_ALL_EVENT:
             return {
                 ...state,
-                allEvent: action.payload
+                allEvents: action.payload
             }
         default: return state
     }

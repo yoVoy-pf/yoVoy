@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvent } from "../../redux/actions/actions-Create";
+import { getAllEvent } from "../../redux/actions/actions-Create";
 import { AppDispatch, State } from "../../redux/store/store";
 import Card from "../Card/Card";
 import s from './home.module.css';
@@ -16,10 +16,10 @@ interface Event {
 const Home = () => {
     
     const dispatch: AppDispatch = useDispatch();
-    const allEvents = useSelector((state: State) => state.allEvent)
+    const allEvents = useSelector((state: State) => state.allEvents)
 
     useEffect(() => {
-        dispatch(getEvent())
+        dispatch(getAllEvent())
     }, [dispatch])
 
     return(

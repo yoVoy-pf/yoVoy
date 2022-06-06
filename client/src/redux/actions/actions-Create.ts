@@ -4,7 +4,7 @@ import { Action } from "./action-Type";
 import axios from "axios";
 
 // Ejemplo de como se puede realizar las acciones
-export const getEvent = () => {
+export const getAllEvent = () => {
     return async function (dispatch: Dispatch) {
         try {
             const event = await axios.get('http://localhost:3000/event')
