@@ -1,6 +1,8 @@
-import {Model, Column, Table, ForeignKey, HasMany} from 'sequelize-typescript';
+import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany} from 'sequelize-typescript';
 import { Organization } from './Organization';
 import { Date } from './Date';
+import { Category } from './Category';
+import { EventCategory } from './EventCategory';
 
 @Table
 export class Event extends Model<Event> {
@@ -17,6 +19,12 @@ export class Event extends Model<Event> {
     @Column
     organizationId!: number;
 
+    @BelongsTo(() => Organization)
+    organization!: Organization
+
     @HasMany(() => Date)
     dates!: Date[];
+
+    @BelongsToMany(() => Category, () => EventCategory)
+    categories!: Category[]
 }
