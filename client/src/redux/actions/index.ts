@@ -1,5 +1,5 @@
 // Aca van las constante que se hacen con js 
 export enum ActionType {
-    EVENT = 'event',
+    GET_ALL_EVENT = 'get_all_event',
     SEARCH_EVENT = "search_event"
 }
