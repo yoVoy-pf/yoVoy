@@ -3,6 +3,7 @@ import { Organization } from './Organization';
 import { Date } from './Date';
 import { Category } from './Category';
 import { EventCategory } from './EventCategory';
+import { Ticket } from './Ticket';
 
 @Table
 export class Event extends Model<Event> {
@@ -27,4 +28,7 @@ export class Event extends Model<Event> {
 
     @BelongsToMany(() => Category, () => EventCategory)
     categories!: Category[]
+
+    @HasMany(() => Ticket)
+    ticket!: Ticket
 }
