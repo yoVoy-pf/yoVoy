@@ -3,7 +3,7 @@ import { Event } from './Event';
 import { User } from './User';
 
 @Table
-export class Category extends Model<Category> {
+export class Ticket extends Model<Ticket> {
     @Column
     serialNumber!: number;
 
