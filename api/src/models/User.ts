@@ -1,15 +1,8 @@
-import {Model, Column, Table, BelongsTo, ForeignKey, DataType} from 'sequelize-typescript'
-import { sequelize } from '../db';
-import { StringLiteralLike } from 'typescript';
-
-interface UserAttributes{
-  name: string;
-  email: string;
-  password: string;
-}
+import {Model, Column, Table, HasMany} from 'sequelize-typescript'
+import {Ticket} from './Ticket'
 
 @Table
-export class User extends Model<UserAttributes>{
+export class User extends Model<User>{
   @Column
   name!: string;
 
@@ -19,34 +12,9 @@ export class User extends Model<UserAttributes>{
   @Column
   password!: string
   
+  @HasMany(()=> Ticket)
+  ticket!: Ticket
 }
-
-
-  // class User extends Model<UserAttributes>
-  // implements UserAttributes
-  // {
-  //   name!: string;
-  //   email!: string;
-  //   password!: string;
-  // }
-  // User.init({
-  //   name: {
-  //     type: DataType.STRING,
-  //     allowNull: false
-  //   },
-  //   email:{
-  //     type: DataType.STRING,
-  //     allowNull: false,
-  //     unique: true
-  //   },
-  //   password:{
-  //     type: DataType.STRING,
-  //     allowNull: false
-  //   }
-  // },{
-  //   sequelize,
-  //   tableName: 'User'
-  // })
 
 export default User
 
