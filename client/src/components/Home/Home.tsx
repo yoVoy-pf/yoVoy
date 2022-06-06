@@ -6,6 +6,7 @@ import Card from '../Card/Card';
 import Events from '../Events/Events';
 import SearchBar from '../SearchBar/SearchBar';
 
+
 import s from './home.module.css';
 
 const Home = () => {
@@ -25,5 +26,6 @@ const Home = () => {
 		</div>
 	);
 };
+
 
 export default Home;
