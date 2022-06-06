@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllEvent } from "../../redux/actions/actions-Create";
 import { AppDispatch, State } from "../../redux/store/store";
 import Card from "../Card/Card";
+import SearchBar from '../SearchBar/SearchBar'
 import s from './home.module.css';
 
 interface Event {
@@ -24,6 +25,7 @@ const Home = () => {
 
     return(
         <div>
+            <SearchBar/>
             <div className={s.home}>
             {
                 allEvents?.map((result: Event) => {

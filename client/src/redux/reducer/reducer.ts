@@ -7,8 +7,16 @@ const initialState = {
 
 const rootReducer = (state = initialState, action: Action) => {
     switch(action.type){
+
         case ActionType.GET_ALL_EVENT:
             return {
+                ...state,
+                allEvents: action.payload
+             }
+        // case ActionType.EVENT  ejemplo de case.
+        case ActionType.SEARCH_EVENT:
+            
+        return{
                 ...state,
                 allEvents: action.payload
             }
