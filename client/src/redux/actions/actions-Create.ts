@@ -17,3 +17,21 @@ import axios from "axios";
 //         }
 //     }
 // }
+
+export const getSearchEvent = (name:string|number) => {
+    return async function (dispatch: Dispatch) {
+        try {
+            const searchEvent = await axios.get(`http://localhost:3001/event?name=${name}`)
+            dispatch({ 
+                type: ActionType.SEARCH_EVENT, 
+                payload: searchEvent.data
+            })
+        } catch (error) {
+            console.error('Error la acciones de event');
+        }
+    }
+}
+
+
+
+
