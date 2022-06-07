@@ -4,6 +4,10 @@ export const router = Router()
 
 const pathRouter = `${__dirname}`
 
+router.use('/', (req, res) => {
+  res.send(`<h1>Welcome to the API</h1>`)
+})
+
 // Remove extension from routes files
 const removeExtension = (fileName:string) : string | undefined => fileName.split('.').shift();
 

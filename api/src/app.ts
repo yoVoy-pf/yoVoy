@@ -4,6 +4,8 @@ import express, {Application, NextFunction, Response, Request} from 'express';
 import morgan from 'morgan';
 import config from "../config"
 import {router} from "./routes/index"
+import { handleError } from './middlewares/handleError';
+import { notFound } from './middlewares/notFound';
 
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
@@ -22,18 +24,9 @@ app.use(
 
 app.use('/api', router)
 
-interface error{
-    status: number;
-    message: string;
-}
+app.use(notFound)
+app.use(handleError)
 
-app.use((err: error, req: Request, res: Response, next: NextFunction) => {
- // eslint-disable-line no-unused-vars
- const status = err.status || 500;
- const message = err.message || err;
- console.error(err);
- res.status(status).send(message);
-});
 
 
 export default app;
