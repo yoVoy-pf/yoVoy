@@ -9,7 +9,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
    const search = req.query.search as string
    let events;
    if (search) {
-      events = getEventsFromDbBySearch(search)
+      events = getEventsFromDbBySearch(search.trim())
    } else {
       events = getEventsFromDb()
    }
