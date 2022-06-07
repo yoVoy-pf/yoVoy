@@ -34,3 +34,23 @@ export const getSearchEvent = (name: string | number) => {
 		}
 	};
 };
+
+export const getEventId = (id: string | number) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const eventId = await axios.get(`http://localhost:3001/event/${id}`);
+			dispatch({
+				type: ActionType.GET_EVENT_ID,
+				payload: eventId.data,
+			});
+		} catch (error) {
+			console.error('Error la acciones de eventId');
+		}
+	};
+};
+
+export const clearEventId = () => {
+	return {
+		type: ActionType.CLEAR_EVENT_ID,
+	};
+};
