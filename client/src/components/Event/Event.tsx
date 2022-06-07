@@ -7,7 +7,7 @@ import { AppDispatch, State } from '../../redux/store/store';
 
 const Event = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const eventDetail: any = useSelector((state: State) => state.eventDetail);
+	const eventDetails: any = useSelector((state: State) => state.eventDetails);
 	const { id }: any = useParams<{ id: string }>();
 
 	useEffect(() => {
@@ -18,11 +18,11 @@ const Event = () => {
 		<div>
 			{
 				<div>
-					<h1>{eventDetail.name}</h1>
-					<img src={eventDetail.background_image} alt={eventDetail.name} />
+					<h1>{eventDetails.name}</h1>
+					<img src={eventDetails.background_image} alt={eventDetails.name} />
 					<br />
 
-					<small>{eventDetail.description}</small>
+					<small>{eventDetails.description}</small>
 					<h1>Aca van las fechas del evento</h1>
 				</div>
 			}
