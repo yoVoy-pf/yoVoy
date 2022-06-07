@@ -22,7 +22,7 @@ app.use(
  })
 );
 
-app.use('/api', router)
+app.use("/",routes)
 
 app.use(notFound)
 app.use(handleError)
