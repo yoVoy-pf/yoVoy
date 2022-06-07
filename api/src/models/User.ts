@@ -1,5 +1,5 @@
-import {Model, Column, Table, HasMany} from 'sequelize-typescript'
-import {Ticket} from './Ticket'
+import {Model, Column, Table, HasMany} from 'sequelize-typescript';
+import {Ticket} from './Ticket';
 
 @Table
 export class User extends Model<User>{
