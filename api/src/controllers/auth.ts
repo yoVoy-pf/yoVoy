@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import bcrypt from 'bcrypt'
-import { createUserInDB, getUserFromDbByName } from "../utils/users"
+import { createUserInDb, getUserFromDbByName } from "../utils/users"
 import { iUser } from "../models/User"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -8,7 +8,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
   try{
     const hashedPassword = await bcrypt.hash(user.password,10) // hash(password, salt)
     user = {...user, password: hashedPassword}
-    await createUserInDB(user)
+    await createUserInDb(user)
     res.sendStatus(201)
   }catch(error){
     next(error)
