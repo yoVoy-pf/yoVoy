@@ -13,7 +13,7 @@ export async function getEventsFromDbBySearch(search: string) {
     const eventsSearched = await Event.findAll(
        { where: {
         name: {
-            [Op.like] : `%${search}%`
+            [Op.iLike] : `%${search}%`
         }
        }
     }
