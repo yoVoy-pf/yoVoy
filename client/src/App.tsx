@@ -9,6 +9,7 @@ function App(): JSX.Element {
 			<Routes>
 				<Route path="/home" element={<Home />} />
 				<Route path="/events/:id" element={<Event />} />
+				<Route path='/login' element= ""/>
 			</Routes>
 		</div>
 	);
