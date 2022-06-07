@@ -3,17 +3,20 @@ import { AppDispatch } from "../../redux/store/store";
 import { useDispatch } from "react-redux";
 import { getSearchEvent } from "../../redux/actions/actions-Create";
 
+type FormElement = React.FormEvent<HTMLFormElement>;
+type Input = React.ChangeEvent<HTMLInputElement>
+
 const SearchBar = ()=>{
     const dispatch : AppDispatch = useDispatch();
     const [input, setInput] = useState("");
 
-    function onSubmit(e:any){
+    function onSubmit(e:FormElement){
         e.preventDefault();
         input?dispatch(getSearchEvent(input)): alert("oops! empty field");
         setInput("");
     };
 
-    function onInputChange(e:any){
+    function onInputChange(e:Input){
         setInput(e.target.value)
     }
 
