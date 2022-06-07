@@ -1,13 +1,8 @@
 import { Request, Response, NextFunction } from "express"
-import { iUser } from "../models/User"
-
-export const users : iUser[] = [{
-  name:'Pablo',
-  password:'12345'
-}]
+import { getUsersFromDb } from "../utils/users"
 
 export const getUsers = (req: Request,res: Response,next:NextFunction) => {
-  res.send(users)
+  getUsersFromDb().then(users => res.send(users)).catch(error => next(error))
 
 }
 export const getUser = (req: Request,res: Response,next:NextFunction) => {
