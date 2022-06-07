@@ -3,7 +3,7 @@ import { Action } from '../actions/action-Type';
 
 const initialState = {
 	allEvents: [],
-	eventId: [],
+	eventDetail: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -22,12 +22,12 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_EVENT_ID:
 			return {
 				...state,
-				eventId: action.payload,
+				eventDetail: action.payload,
 			};
 		case ActionType.CLEAR_EVENT_ID:
 			return {
 				...state,
-				eventId: [],
+				eventDetail: [],
 			};
 		default:
 			return state;

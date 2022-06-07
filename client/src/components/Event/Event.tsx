@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
+import { getEventId } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 
 const Event = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const eventId: any = useSelector((state: State) => state.eventId);
+	const eventDetail: any = useSelector((state: State) => state.eventDetail);
 	const { id }: any = useParams<{ id: string }>();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(getEventId(id));
@@ -19,11 +18,11 @@ const Event = () => {
 		<div>
 			{
 				<div>
-					<h1>{eventId.name}</h1>
-					<img src={eventId.background_image} alt={eventId.name} />
+					<h1>{eventDetail.name}</h1>
+					<img src={eventDetail.background_image} alt={eventDetail.name} />
 					<br />
 
-					<small>{eventId.description}</small>
+					<small>{eventDetail.description}</small>
 					<h1>Aca van las fechas del evento</h1>
 				</div>
 			}
