@@ -7,7 +7,6 @@ import { handleError } from './middlewares/handleError';
 import { notFound } from './middlewares/notFound';
 import {router} from "./routes/index"
 
-
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
 app.use(express.json({limit: '50mb'}));
