@@ -12,7 +12,6 @@ import s from './home.module.css';
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const allEvents = useSelector((state: State) => state.allEvents);
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(getAllEvent());
