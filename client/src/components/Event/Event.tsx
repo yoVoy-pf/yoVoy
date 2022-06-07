@@ -13,14 +13,7 @@ const Event = () => {
 
 	useEffect(() => {
 		dispatch(getEventId(id));
-		// dispatch(clearEventId());
 	}, [dispatch, id]);
-
-	useEffect(() => {
-		if (eventId.length === 0) {
-			navigate('/home');
-		}
-	});
 
 	return (
 		<div>
