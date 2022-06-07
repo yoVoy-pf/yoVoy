@@ -3,6 +3,8 @@ import cors from 'cors';
 import express, {Application, NextFunction, Response, Request} from 'express';
 import morgan from 'morgan';
 import config from "../config"
+import { handleError } from './middlewares/handleError';
+import { notFound } from './middlewares/notFound';
 import routes from "./routes/index"
 
 const app: Application = express();
@@ -20,20 +22,9 @@ app.use(
  })
 );
 
-interface error{
-    status: number;
-    message: string;
-}
-
-app.use((err: error, req: Request, res: Response, next: NextFunction) => {
- // eslint-disable-line no-unused-vars
- const status = err.status || 500;
- const message = err.message || err;
- console.error(err);
- res.status(status).send(message);
-});
-
 app.use("/",routes)
 
+app.use(notFound)
+app.use(handleError)
 
 export default app;
