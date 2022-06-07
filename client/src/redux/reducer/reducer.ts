@@ -22,7 +22,7 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_EVENT_ID:
 			return {
 				...state,
-				eventId: action.payload,
+				eventDetail: action.payload,
 			};
 		case ActionType.CLEAR_EVENT_ID:
 			return {

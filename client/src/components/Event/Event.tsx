@@ -13,6 +13,7 @@ const Event = () => {
 	useEffect(() => {
 		dispatch(getEventId(id));
 	}, [dispatch, id]);
+	console.log(eventDetail);
 
 	return (
 		<div>
