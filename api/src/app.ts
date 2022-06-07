@@ -3,7 +3,7 @@ import cors from 'cors';
 import express, {Application, NextFunction, Response, Request} from 'express';
 import morgan from 'morgan';
 import config from "../config"
-import {router} from "./routes/index"
+import {routes} from "./routes/index"
 import { handleError } from './middlewares/handleError';
 import { notFound } from './middlewares/notFound';
 
