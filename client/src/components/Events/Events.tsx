@@ -7,13 +7,13 @@ interface Props {
 }
 
 const Events = ({ allEvents }: Props) => {
-	const renderEvents = (): JSX.Element[] => {
-		return allEvents?.map((event) => {
-			return <Card key={event.id} event={event} />;
-		});
-	};
+	// const renderEvents = (): JSX.Element[] => {
+	//   return allEvents.map((event) => {
+	//     return event>
+	//   })
+	// }
 
-	return <div>{renderEvents()}</div>;
+	return <div>Events Component</div>;
 };
 
 export default Events;
