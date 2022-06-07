@@ -4,9 +4,10 @@ const { User } = sequelize.models
 
 
 // create new user in the database
-export async function createUserInDB(user: any) {
+export async function createUserInDb(user: iUser) {
+  const {name, password} = user
   try{
-    await User.create(user)
+    await User.create({name, password})
   }catch(error) {throw error}
 }
 
