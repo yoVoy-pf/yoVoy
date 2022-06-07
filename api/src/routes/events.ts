@@ -1,18 +1,19 @@
+import { Router, Response, Request, NextFunction } from "express"
+import { getEventsFromDb, getEventsFromDbBySearch } from '../utils/utilsEvents'
 
-import {Router, Response, Request } from "express"
-import {getEventsFromDb} from '../controllers/eventsController'
 
+export const router = Router()
 
-const routes = Router()
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
 
-routes.get('/', (req: Request, res: Response) =>{
-   res.status(200).send("prueba")
+   const search = req.query.search as string
+   let events;
+   if (search) {
+      events = getEventsFromDbBySearch(search)
+   } else {
+      events = getEventsFromDb()
+   }
+   res.status(200).json(search)
 })
 
-routes.get('/', (req: Request, res: Response) =>{
-   const {search} = req.query 
 
-})
-
-
-export default routes
