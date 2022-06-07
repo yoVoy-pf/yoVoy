@@ -15,7 +15,7 @@ const SearchBar = ()=>{
         setInput("");
     };
 
-    function onInputChange(e:Input){
+    function onInputChange(e:Input ){
         setInput(e.target.value)
     }
 
