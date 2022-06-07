@@ -3,7 +3,7 @@ import cors from 'cors';
 import express, {Application, NextFunction, Response, Request} from 'express';
 import morgan from 'morgan';
 import config from "../config"
-import routes from "./routes/index"
+import {router} from "./routes/index"
 
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
@@ -20,6 +20,8 @@ app.use(
  })
 );
 
+app.use('/api', router)
+
 interface error{
     status: number;
     message: string;
@@ -32,8 +34,6 @@ app.use((err: error, req: Request, res: Response, next: NextFunction) => {
  console.error(err);
  res.status(status).send(message);
 });
-
-app.use("/",routes)
 
 
 export default app;
