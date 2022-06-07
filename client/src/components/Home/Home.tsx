@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getAllEvent } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import Card from '../Card/Card';
+
 import Events from '../Events/Events';
 import SearchBar from '../SearchBar/SearchBar';
-
 
 import s from './home.module.css';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const allEvents = useSelector((state: State) => state.allEvents);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		dispatch(getAllEvent());
@@ -21,11 +22,14 @@ const Home = () => {
 		<div>
 			<SearchBar />
 			<div className={s.home}>
-				<Events allEvents={allEvents} />
+				{allEvents.length > 0 ? (
+					<Events allEvents={allEvents} />
+				) : (
+					<h1>Cargando</h1>
+				)}
 			</div>
 		</div>
 	);
 };
-
 
 export default Home;

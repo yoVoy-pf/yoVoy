@@ -7,9 +7,8 @@ interface Props {
 }
 
 const Events = ({ allEvents }: Props) => {
-	console.log(allEvents);
 	const renderEvents = (): JSX.Element[] => {
-		return allEvents.map((event) => {
+		return allEvents?.map((event) => {
 			return <Card key={event.id} event={event} />;
 		});
 	};
