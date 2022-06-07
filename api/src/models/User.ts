@@ -16,5 +16,3 @@ export class User extends Model<User>{
   ticket!: Ticket
 }
 
-export default User
-
