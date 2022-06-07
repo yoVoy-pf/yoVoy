@@ -5,7 +5,6 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
     try {
         const search = req.query.search as string
         let events;
-        let prueba;
         if (search) {
             events = await getEventsFromDbBySearch(search.trim())
         } else {
