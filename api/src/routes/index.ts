@@ -3,7 +3,6 @@ import fs from 'fs'
 export const router = Router()
 
 const pathRouter = `${__dirname}`
-
 // Remove extension from routes files
 const removeExtension = (fileName:string) : string | undefined => fileName.split('.').shift();
 
