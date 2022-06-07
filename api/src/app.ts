@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import config from "../config"
 import { handleError } from './middlewares/handleError';
 import { notFound } from './middlewares/notFound';
-import routes from "./routes/index"
+import {router} from "./routes/index"
 
 const app: Application = express();
 app.use(express.urlencoded({extended: true, limit: '50mb'})); //middleware
@@ -22,7 +22,7 @@ app.use(
  })
 );
 
-app.use("/",routes)
+app.use('/api', router)
 
 app.use(notFound)
 app.use(handleError)
