@@ -8,7 +8,7 @@ import axios from 'axios';
 export const getAllEvent = () => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const event = await axios.get('http://localhost:3001/event');
+			const event = await axios.get('http://localhost:3001/api/events');
 			dispatch({
 				type: ActionType.GET_ALL_EVENT,
 				payload: event.data,
@@ -23,7 +23,7 @@ export const getSearchEvent = (name: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
 			const searchEvent = await axios.get(
-				`http://localhost:3001/event?name=${name}`,
+				`http://localhost:3001/api/events?search=${name}`,
 			);
 			dispatch({
 				type: ActionType.SEARCH_EVENT,
@@ -35,10 +35,42 @@ export const getSearchEvent = (name: string | number) => {
 	};
 };
 
+export const getCategories = () => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const categories = await axios.get(
+				`http://localhost:3001/api/categories`,
+			);
+			dispatch({
+				type: ActionType.GET_CATEGORIES,
+				payload: categories.data,
+			});
+		} catch ({ error }) {
+			console.error('Error en getCategories');
+		}
+	};
+};
+
+export const getEventByCategory = (name: string) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const getEventByCategory = await axios.get(
+				`http://localhost:3001/api/events?filter=${name}`,
+			);
+			dispatch({
+				type: ActionType.GET_EVENT_BY_CATEGORY,
+				payload: getEventByCategory.data,
+			});
+		} catch (error) {
+			console.error('Error en getEventByCategory');
+		}
+	};
+};
+
 export const getEventId = (id: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const eventId = await axios.get(`http://localhost:3001/event/${id}`);
+			const eventId = await axios.get(`http://localhost:3001/api/event/${id}`);
 			dispatch({
 				type: ActionType.GET_EVENT_ID,
 				payload: eventId.data,

@@ -1,9 +1,12 @@
+// import { Action } from 'history';
 import { ActionType } from '../actions';
 import { Action } from '../actions/action-Type';
 
 const initialState = {
 	allEvents: [],
 	eventDetail: [],
+	categories: [],
+// 	eventsFiltered: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -28,6 +31,16 @@ const rootReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 				eventDetail: [],
+			};
+		case ActionType.GET_CATEGORIES:
+			return {
+				...state,
+				categories: action.payload,
+			};
+		case ActionType.GET_EVENT_BY_CATEGORY:
+			return {
+				...state,
+				allEvents: action.payload,
 			};
 		default:
 			return state;
