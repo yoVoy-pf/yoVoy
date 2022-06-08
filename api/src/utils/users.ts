@@ -17,14 +17,15 @@ export async function getUsersFromDb() {
     return users;
 }
 
-export async function getUserFromDbByName(name: string) {
+export async function getUserFromDbByField(field: string, value: string) {
     const user = await User.findOne({
       where: {
-        name
+        [field]:value
       }
     })
     if (!user) return null;
     let username : string= user?.getDataValue('name');
-    let password : string= user?.getDataValue('password')
-     return {name: username, password};
+    let password : string= user?.getDataValue('password');
+    let email : string= user?.getDataValue('email');
+     return {name: username, password, email};
 }
