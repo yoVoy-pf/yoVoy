@@ -1,5 +1,6 @@
 import {Model, Column, Table, BelongsTo, ForeignKey} from 'sequelize-typescript';
-import { EventLocation } from './EventLocation';
+import { Event } from './Event';
+import { Location } from './Location';
 
 
 @Table
@@ -10,11 +11,17 @@ export class Date extends Model<Date> {
     @Column
     price!: number;
 
-    @ForeignKey(() => EventLocation)
+    @ForeignKey(() => Event)
     @Column
-    eventLocationId!: number
+    eventId!: number
 
-    @BelongsTo(() => EventLocation)
-    event!: EventLocation
+    @BelongsTo(() => Event)
+    event!: Event
 
+    @ForeignKey(() => Location)
+    @Column
+    locationId!: number
+
+    @BelongsTo(() => Location)
+    location!: Location
 }

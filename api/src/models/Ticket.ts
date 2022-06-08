@@ -7,9 +7,6 @@ export class Ticket extends Model<Ticket> {
     @Column
     serialNumber!: number;
 
-    @Column
-    status!: string;
-
     @ForeignKey(() => Event)
     @Column
     eventId!: number
