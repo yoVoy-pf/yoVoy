@@ -3,8 +3,8 @@ import {Ticket} from './Ticket';
 
 export interface iUser {
   name : string;
-  email? : string;
   password : string;
+  email? : string;
   ticket? : Ticket
 }
 

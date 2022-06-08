@@ -1,7 +1,9 @@
+require('dotenv').config()
 import { Request, Response, NextFunction } from "express"
 import bcrypt from 'bcrypt'
 import { createUserInDb, getUserFromDbByName } from "../utils/users"
 import { iUser } from "../models/User"
+import { generateAccessToken } from "../utils/auth"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   let user : iUser = {name: req.body.name, password: req.body.password}
@@ -20,7 +22,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   if (!user) return next({status: 400, message: `Cannot find user`})
   try{
     if(await bcrypt.compare(req.body.password, user.password)){ // Compare the password sent by body with the one in the DB
-      res.send('Success')
+      const accessToken = generateAccessToken(user)
+      res.send({accessToken})
     } else res.send('Not Allowed')
   }catch(error){
     next(error)
