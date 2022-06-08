@@ -24,7 +24,7 @@ export class User extends Model<iUser>{
   refreshToken!: number;
   
   @HasMany(()=> Ticket)
-  ticket!: Ticket
+  tickets!: Ticket[]
 
   @HasMany(() => Event)
   favorites!: Event[];
