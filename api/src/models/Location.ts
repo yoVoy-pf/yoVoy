@@ -1,4 +1,5 @@
-import {Model, Column, Table, HasMany} from 'sequelize-typescript';
+import {Model, Column, Table, HasMany, BelongsTo, ForeignKey} from 'sequelize-typescript';
+import { City } from './City';
 import { Event } from './Event';
 
 
@@ -8,9 +9,6 @@ export class Location extends Model<Location> {
     name!: string;
 
     @Column
-    city!: string;
-
-    @Column
     address!: string;
 
     @Column
@@ -18,4 +16,11 @@ export class Location extends Model<Location> {
 
     @HasMany(() => Event)
     events!: Event[]
+
+    @ForeignKey(() => City)
+    @Column
+    cityId!: number;
+
+    @BelongsTo(() => City)
+    city!: City;
 }
