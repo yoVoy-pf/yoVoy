@@ -1,5 +1,6 @@
 import {Model, Column, Table, HasMany} from 'sequelize-typescript';
 import {Ticket} from './Ticket';
+import { Comment } from './Comment';
 
 export interface iUser {
   name : string;
@@ -18,6 +19,9 @@ export class User extends Model<iUser>{
 
   @Column
   password!: string
+
+  @HasMany(() => Comment)
+  comments!: Comment[];
   
   @HasMany(()=> Ticket)
   tickets!: Ticket[]
