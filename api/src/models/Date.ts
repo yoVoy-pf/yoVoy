@@ -18,10 +18,4 @@ export class Date extends Model<Date> {
     @BelongsTo(() => Event)
     event!: Event
 
-    @ForeignKey(() => Location)
-    @Column
-    locationId!: number
-
-    @BelongsTo(() => Location)
-    location!: Location
 }

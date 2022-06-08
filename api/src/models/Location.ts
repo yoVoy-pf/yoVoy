@@ -1,5 +1,5 @@
 import {Model, Column, Table, HasMany} from 'sequelize-typescript';
-import { Date } from './Date';
+import { Event } from './Event';
 
 
 @Table
@@ -13,6 +13,6 @@ export class Location extends Model<Location> {
     @Column
     map!: string;
 
-    @HasMany(() => Date)
-    dates!: Date[]
+    @HasMany(() => Event)
+    events!: Event[]
 }

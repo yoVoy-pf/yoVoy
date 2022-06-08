@@ -4,6 +4,7 @@ import { Date } from './Date';
 import { Category } from './Category';
 import { EventCategory } from './EventCategory';
 import { Ticket } from './Ticket';
+import { Location } from "./Location"
 
 @Table
 export class Event extends Model<Event> {
@@ -25,6 +26,9 @@ export class Event extends Model<Event> {
 
     @HasMany(() => Date)
     dates!: Date[];
+
+    @HasMany(() => Location)
+    locations!: Location[] 
 
     @BelongsToMany(() => Category, () => EventCategory)
     categories!: Category[]
