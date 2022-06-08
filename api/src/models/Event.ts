@@ -5,6 +5,7 @@ import { Category } from './Category';
 import { EventCategory } from './EventCategory';
 import { Ticket } from './Ticket';
 import { Location } from "./Location"
+import { User } from './User';
 
 @Table
 export class Event extends Model<Event> {
@@ -35,4 +36,7 @@ export class Event extends Model<Event> {
 
     @HasMany(() => Ticket)
     ticket!: Ticket
+
+    @HasMany(() => User)
+    users!: User[]
 }

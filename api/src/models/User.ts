@@ -1,4 +1,5 @@
 import {Model, Column, Table, HasMany} from 'sequelize-typescript';
+import { Event } from './Event';
 import {Ticket} from './Ticket';
 
 export interface iUser {
@@ -21,5 +22,8 @@ export class User extends Model<iUser>{
   
   @HasMany(()=> Ticket)
   ticket!: Ticket
+
+  @HasMany(() => Event)
+  favorites!: Event[];
 }
 
