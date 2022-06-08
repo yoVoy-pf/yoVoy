@@ -19,6 +19,9 @@ export class User extends Model<iUser>{
 
   @Column
   password!: string
+
+  @Column
+  refreshToken!: number;
   
   @HasMany(()=> Ticket)
   ticket!: Ticket
