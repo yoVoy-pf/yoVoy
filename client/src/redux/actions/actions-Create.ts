@@ -35,6 +35,38 @@ export const getSearchEvent = (name: string | number) => {
 	};
 };
 
+export const getCategories = () => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const categories = await axios.get(
+				`http://localhost:3001/api/categories`,
+			);
+			dispatch({
+				type: ActionType.GET_CATEGORIES,
+				payload: categories.data,
+			});
+		} catch ({ error }) {
+			console.error('Error en getCategories');
+		}
+	};
+};
+
+export const getEventByCategory = (name: string) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const getEventByCategory = await axios.get(
+				`http://localhost:3001/api/events?category=${name}`,
+			);
+			dispatch({
+				type: ActionType.GET_EVENT_BY_CATEGORY,
+				payload: getEventByCategory.data,
+			});
+		} catch (error) {
+			console.error('Error en getEventByCategory');
+		}
+	};
+};
+
 export const getEventId = (id: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
