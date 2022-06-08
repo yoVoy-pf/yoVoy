@@ -1,10 +1,12 @@
 import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany} from 'sequelize-typescript';
 import { Organization } from './Organization';
-import { Date } from './Date';
 import { Category } from './Category';
 import { EventCategory } from './EventCategory';
 import { Ticket } from './Ticket';
 import { Comment } from "./Comment"
+import { Location } from './Location';
+import { EventLocation } from './EventLocation';
+import { User } from './User';
 
 @Table
 export class Event extends Model<Event> {
@@ -24,8 +26,8 @@ export class Event extends Model<Event> {
     @BelongsTo(() => Organization)
     organization!: Organization
 
-    @HasMany(() => Date)
-    dates!: Date[];
+    @BelongsToMany(() => Location, () => EventLocation)
+    locations!: Location[]
 
     @HasMany(() => Comment)
     comments!: Comment[]
@@ -35,4 +37,7 @@ export class Event extends Model<Event> {
 
     @HasMany(() => Ticket)
     ticket!: Ticket
+
+    @HasMany(() => User)
+    users!: User[];
 }
