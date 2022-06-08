@@ -8,6 +8,9 @@ export class Location extends Model<Location> {
     name!: string;
 
     @Column
+    city!: string;
+
+    @Column
     address!: string;
 
     @Column
