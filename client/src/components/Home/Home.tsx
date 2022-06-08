@@ -4,6 +4,7 @@ import { getAllEvent } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import Card from '../Card/Card';
 import Events from '../Events/Events';
+import FilterEvent from '../FilterEvents/FilterEvents';
 import SearchBar from '../SearchBar/SearchBar';
 
 import s from './home.module.css';
@@ -19,6 +20,7 @@ const Home = () => {
 	return (
 		<div>
 			<SearchBar />
+			<FilterEvent />
 			<div className={s.home}>
 				{allEvents.length > 0 ? (
 					<Events allEvents={allEvents} />

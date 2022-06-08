@@ -4,4 +4,6 @@ export enum ActionType {
 	SEARCH_EVENT = 'search_event',
 	GET_EVENT_ID = 'get_event_id',
 	CLEAR_EVENT_ID = 'clear_event_id',
+	GET_CATEGORIES = 'get_categories',
+	GET_EVENT_BY_CATEGORY = 'get_event_by_category',
 }
