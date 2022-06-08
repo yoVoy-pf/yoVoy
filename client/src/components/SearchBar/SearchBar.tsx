@@ -23,7 +23,7 @@ const SearchBar = ()=>{
     return(
         <React.Fragment>
             <form onSubmit = {onSubmit}>
-                <input type="text" onChange={onInputChange} value={input} placeholder="Search..." />
+                <input type="text" onChange={onInputChange} value={input} placeholder="Buscar..." />
                 <input type="submit" value ="🔍" />
             </form>
 
