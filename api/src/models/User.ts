@@ -20,6 +20,6 @@ export class User extends Model<iUser>{
   password!: string
   
   @HasMany(()=> Ticket)
-  ticket!: Ticket
+  tickets!: Ticket[]
 }
 
