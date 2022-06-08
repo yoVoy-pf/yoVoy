@@ -6,7 +6,7 @@ const initialState = {
 	allEvents: [],
 	eventDetail: [],
 	categories: [],
-	eventsFiltered: [],
+// 	eventsFiltered: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
