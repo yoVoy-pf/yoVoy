@@ -27,5 +27,6 @@ export async function getUserFromDbByField(field: string, value: string) {
     let username : string= user?.getDataValue('name');
     let password : string= user?.getDataValue('password');
     let email : string= user?.getDataValue('email');
-     return {name: username, password, email};
+    let refreshToken : string = user?.getDataValue('refreshToken');
+     return {name: username, password, email, refreshToken};
 }
