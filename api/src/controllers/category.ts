@@ -6,7 +6,7 @@ export const postCategory = async (req: Request, res: Response, next: NextFuncti
         const {name} = req.body
         const category = await createCategory(name)
 
-        res.status(200).json(category)
+        res.status(201).json(category)
     }catch(error){
         next(error)
     }
