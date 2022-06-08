@@ -11,6 +11,9 @@ export class Ticket extends Model<Ticket> {
     @Column
     eventId!: number
 
+    @Column
+    status!: string;
+
     @BelongsTo(() => Event)
     event!: Event
 
