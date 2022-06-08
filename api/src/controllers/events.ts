@@ -11,7 +11,8 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
         } 
         if(filter){
             events = await getEventsFromDbByFilter(filter)
-        }else {
+        }
+        if(!filter && !search) {
             events = await getEventsFromDb()
         }
         res.status(200).json(events)

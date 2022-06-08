@@ -23,7 +23,7 @@ export class User extends Model<iUser>{
   @HasMany(() => Comment)
   comments!: Comment[];
   
-  @HasMany(() => Ticket)
-  ticket!: Ticket
+  @HasMany(()=> Ticket)
+  tickets!: Ticket[]
 }
 
