@@ -19,8 +19,20 @@ interface clearEventIdAction {
 	type: ActionType.CLEAR_EVENT_ID;
 }
 
+interface getCategoriesAction {
+	type: ActionType.GET_CATEGORIES;
+	payload: any;
+}
+
+interface getEventByCategoryAction {
+	type: ActionType.GET_EVENT_BY_CATEGORY;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
 	| getEventIdAction
-	| clearEventIdAction;
+	| clearEventIdAction
+	| getCategoriesAction
+	| getEventByCategoryAction;
