@@ -7,6 +7,7 @@ import { Comment } from "./Comment"
 import { Location } from './Location';
 import { EventLocation } from './EventLocation';
 import { User } from './User';
+import { Favorites } from './Favorites';
 
 @Table
 export class Event extends Model<Event> {
@@ -38,6 +39,6 @@ export class Event extends Model<Event> {
     @HasMany(() => Ticket)
     ticket!: Ticket
 
-    @HasMany(() => User)
+    @BelongsToMany(() => User, () => Favorites)
     users!: User[];
 }
