@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_EVENT_BY_CATEGORY:
 			return {
 				...state,
-				eventsFiltered: action.payload,
+				allEvents: action.payload,
 			};
 		default:
 			return state;
