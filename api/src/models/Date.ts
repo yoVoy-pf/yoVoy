@@ -13,7 +13,7 @@ export class Date extends Model<Date> {
 
     @ForeignKey(() => EventLocation)
     @Column
-    eventId!: number
+    eventLocationId!: number
 
     @BelongsTo(() => EventLocation)
     event!: EventLocation
