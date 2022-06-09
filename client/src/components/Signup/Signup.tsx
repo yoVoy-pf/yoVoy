@@ -1,10 +1,27 @@
-import React from "react";
+import React, { SyntheticEvent, useState } from "react";
+import { createUser } from "../../services/singupService";
 
 const Signup = () => {
+    const [user, setUser] = useState({
+        name: '',
+        password: ''
+    })
 
+    const onInputChange = (e:any) => {
+        e.preventDefault();
+        setUser({
+            ...user,
+            [e.target.name]:e.target.value
+        })
+    }
+
+    const onSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        await createUser(user)
+    }
     return(
         <React.Fragment>
-            <form>
+            <form onSubmit={onSubmit}>
                 <h1>Please register</h1>
 
                 <label>Name</label> <br />
@@ -13,15 +30,17 @@ const Signup = () => {
                 placeholder="Name" 
                 name='name'
                 required
+                onChange={onInputChange}
                 /> <br /> <br />
 
-                <label>Email</label>
+                {/* <label>Email</label>
                 <input 
                 type="email" 
                 placeholder="Email@Email.com" 
                 name='email'
                 required
-                /> <br /> <br />
+                onChange={onInputChange}
+                /> <br /> <br /> */}
 
                 <label>Pasword</label> <br />
                 <input 
@@ -29,6 +48,7 @@ const Signup = () => {
                 placeholder="Password"
                 name='password'
                 required
+                onChange={onInputChange}
                 /> <br /> <br />
 
                 <button type="submit">Registrarse</button> <br /> 
