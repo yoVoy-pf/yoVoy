@@ -1,8 +1,16 @@
-import {Model, Column, Table, HasMany} from 'sequelize-typescript';
+import {Model, Column, Table, HasMany, BelongsTo, ForeignKey, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
 import { Event } from './Event';
+import { User } from './User';
 
 @Table
 export class Organization extends Model<Organization> {
+    @ForeignKey(() => User)
+    @Column
+    userId!: number;
+
+    @BelongsTo(() => User)
+    user!: User;
+
     @Column
     name!: string;
 
