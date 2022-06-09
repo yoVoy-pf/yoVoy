@@ -1,4 +1,4 @@
-import {Model, Column, Table, HasMany, BelongsTo, ForeignKey, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
+import {Model, Column, Table, HasMany, BelongsTo, ForeignKey} from 'sequelize-typescript';
 import { Event } from './Event';
 import { User } from './User';
 
