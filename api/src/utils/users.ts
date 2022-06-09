@@ -1,5 +1,5 @@
 import { sequelize } from '../db'
-import { iUser } from '../models/User';
+import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 const { User, Role, UserRole } = sequelize.models
 
