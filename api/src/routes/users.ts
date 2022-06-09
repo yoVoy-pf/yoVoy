@@ -2,9 +2,11 @@ import {Router} from 'express'
 export const router = Router();
 import { authenticateToken } from '../middlewares/authenticateToken';
 import {getUsers,getUser,createUser,deleteUser} from '../controllers/users'
+import {ROLES_LIST} from '../authorization/roles'
+import {verifyRoles} from '../middlewares/authenticateRole'
 
 router.get('/getTest', getUsers)
-router.get('/', authenticateToken, getUsers)
+router.get('/',authenticateToken,verifyRoles(ROLES_LIST.Admin), getUsers)
 
 router.get('/:id', getUser)
 router.post('/', createUser)
