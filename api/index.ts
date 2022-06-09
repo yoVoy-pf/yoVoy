@@ -13,7 +13,7 @@ sequelize.sync({ force: true , logging: false}).then(() => {
 		console.log(`%s listening at ${config.port}`); // eslint-disable-line no-console
 
 		//Mock Data
-		MockData()
     createRoles()
+		MockData()
 	});
 });

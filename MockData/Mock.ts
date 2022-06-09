@@ -101,7 +101,30 @@ const categories = [
 {name: "Especiales"}
 ]
 
-const {Event, Date, Organization, Ticket, User, Location, Category, EventCategory} = sequelize.models
+const users = [
+{id:1,name:"Bartholomeus",email:"bstibbs0@over-blog.com"},
+{id:2,name:"Catha",email:"cgraver1@spotify.com"},
+{id:3,name:"Paul",email:"pburburough2@mozilla.com"},
+{id:4,name:"Holly-anne",email:"hmurricanes3@wisc.edu"},
+{id:5,name:"Verge",email:"vabram4@ed.gov"},
+{id:6,name:"Tricia",email:"tharnell5@behance.net"},
+{id:7,name:"Michele",email:"mors6@go.com"},
+{id:8,name:"Cleavland",email:"clarderot7@tamu.edu"},
+{id:9,name:"Indira",email:"iprobert8@prnewswire.com"},
+{id:10,name:"Jacky",email:"jwarbey9@sphinn.com"},
+{id:11,name:"Tobey",email:"tsuttya@cmu.edu"},
+{id:12,name:"Lauree",email:"leastbrookb@amazon.de"},
+{id:13,name:"Libbie",email:"lcoardc@theatlantic.com"},
+{id:14,name:"Rasla",email:"rwernhamd@npr.org"},
+{id:15,name:"Dodi",email:"dbumphriese@themeforest.net"},
+{id:16,name:"Rozele",email:"raccumf@nymag.com"},
+{id:17,name:"Mechelle",email:"mpitchfordg@netlog.com"},
+{id:18,name:"Tom",email:"thuntlyh@ca.gov"},
+{id:19,name:"Kai",email:"kshillinglawi@tripadvisor.com"},
+{id:20,name:"Abbott",email:"asamwysej@ted.com"},
+]
+
+const {Event, Date, Organization, Ticket, User, Location, Category, EventCategory, UserRole} = sequelize.models
 
 
 export async function MockData(){
@@ -109,6 +132,7 @@ export async function MockData(){
     Promise.all([Organization.bulkCreate(organization), Location.bulkCreate(locations), Category.bulkCreate(categories)])
     .then(async result => {
         let event = await Event.bulkCreate(events)
+        let user = await User.bulkCreate(users)
         
 		let organizationId = [4,2,2,10,3,1,7,10,6,9,3,8,4,1,5,7,9,9,3,10]
 		let categoriesId = [3,1,3,5,2,4,1,1,2,3,4,1,3,4,2,5,5,4,3,2]
@@ -116,6 +140,13 @@ export async function MockData(){
 			await event[i].update({organizationId: Math.floor(Math.random() * (11 - 1) + 1)})
 			await EventCategory.create({eventId: event[i].getDataValue("id"), categoryId: categoriesId[i]})
 		}
+
+    let rolesId = [1010, 2020, 3030]
+    for (let i = 0 ; i < users.length ; i++){
+      // await UserRole.create({userId: user[i].getDataValue('id'), roleId: rolesId[Math.floor((Math.random() * (3)))]})
+      await UserRole.create({userId: user[i].getDataValue('id'), roleId: 1010})
+      await UserRole.create({userId: user[i].getDataValue('id'), roleId: 2020})
+    }
 
 		await Date.bulkCreate(dates)
 
