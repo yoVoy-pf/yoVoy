@@ -1,6 +1,7 @@
 import { sequelize } from '../db'
 import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
+import {Model} from 'sequelize-typescript'
 const { User, Role, UserRole } = sequelize.models
 
 
@@ -32,6 +33,13 @@ export async function getUserFromDbByField(field: string, value: string) {
     const user = await User.findOne({
       where: {
         [field]:value
+      },
+      include: {
+        model: Role,
+        attributes:['id'],
+        through:{
+          attributes:[]
+        }
       }
     })
     if (!user) return null;
@@ -39,7 +47,8 @@ export async function getUserFromDbByField(field: string, value: string) {
     let password : string= user?.getDataValue('password');
     let email : string= user?.getDataValue('email');
     let refreshToken : string = user?.getDataValue('refreshToken');
-     return {name: username, password, email, refreshToken};
+    let rolesId : []= user?.getDataValue('roles').map((r : Model<any,any>) => r.getDataValue('id'))
+     return {name: username, password, email, refreshToken, rolesId};
 }
 
 export async function giveRoleToUser(user: iUser, role: number){
