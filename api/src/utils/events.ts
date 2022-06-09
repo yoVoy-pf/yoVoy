@@ -22,6 +22,7 @@ export async function getEventsFromDbBySearch(search: string) {
     return eventsSearched
 }
 
+//trae los eventos filtrados por categoria y locacion.
 export async function getEventsFromDbByFilter(category?: string, location?: string){
     let options: any = {include: []}
 
@@ -38,18 +39,6 @@ export async function getEventsFromDbByFilter(category?: string, location?: stri
         })
     }
     const events = await Event.findAll(options)
-    /*const events = await Event.findAll({include:[Category,Location]})
-    const filterEvents = events.filter(e=>{
-        let c = e.getDataValue("categories")[0].getDataValue("name")
-        let l = e.getDataValue("locations")[0].getDataValue("name")
-        if(category && location){
-            return c === category && l === location
-        }else if(category){
-            return c === category
-        } else if(location){
-            return l === location
-        }
-    })
-    console.log(filterEvents)*/
+   
     return events
 }
