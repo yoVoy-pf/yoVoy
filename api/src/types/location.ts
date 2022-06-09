@@ -1,4 +1,5 @@
 import { iCity } from "./city";
+import { iDate } from "./date";
 
 export interface iLocation {
 	id: number;
@@ -6,4 +7,5 @@ export interface iLocation {
 	address: string;
 	map: string;
 	city?: iCity;
+	dates?: iDate[];
 }
