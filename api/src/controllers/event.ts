@@ -9,3 +9,13 @@ export const getEventById = async (req: Request, res: Response, next: NextFuncti
 
     res.status(200).json(event)
 } 
+
+export const postEvent = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const eventCreated = await utils.createEvent(req.body)
+
+        res.status(201).json(eventCreated)
+    }catch(error){
+        next(error)
+    }
+}
