@@ -34,7 +34,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
 export const handleRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
   const cookies = req.cookies;
-  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return next({status: 401, message: `Invalid refresh token`})
+  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(401) // unauthorized
   const refreshToken = cookies.jwt;
   try{
     const user = await getUserFromDbByField('refreshToken',refreshToken);
@@ -43,6 +43,24 @@ export const handleRefreshToken = async (req: Request, res: Response, next: Next
     if (typeof newToken === 'string') res.send({newToken})
     else throw newToken    
   }catch(error){return next(error)}
+}
 
-  
+export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
+  const cookies = req.cookies;
+  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(204) // no content
+  const refreshToken = cookies.jwt;
+  try{
+    // Is refreshToken in db?
+    const user = await getUserFromDbByField('refreshToken',refreshToken);
+    // If we dont find a user with the refreshToken, we proceed to clear the cookie
+    if (!user) {
+      res.clearCookie('jwt', {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+      return res.sendStatus(204)
+    }
+    // Delete refreshToken in db
+    await updateRefreshToken(user, true) // errase true
+    res.clearCookie('jwt', {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+    res.sendStatus(204)
+    // if (!user)    
+  }catch(error){return next(error)}
 }

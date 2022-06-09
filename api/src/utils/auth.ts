@@ -8,8 +8,11 @@ export function generateAccessToken(user: iUser){
   return jwt.sign(currentUser, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '15s'})
 }
 
-export async function updateRefreshToken(user: iUser){
-  const token = jwt.sign(
+export async function updateRefreshToken(user: iUser, errase: boolean = false){
+  let token;
+  errase 
+  ? token = '' 
+  : token = jwt.sign(
         user,
         process.env.REFRESH_TOKEN_SECRET as string,
         {expiresIn: '1d'}
