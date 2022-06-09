@@ -1,4 +1,4 @@
-import {Model, Column, Table, ForeignKey, HasMany, PrimaryKey, AutoIncrement} from 'sequelize-typescript';
+import {Model, Column, Table, ForeignKey, HasMany, PrimaryKey, AutoIncrement, BelongsTo} from 'sequelize-typescript';
 import { Location } from './Location';
 import { Event } from './Event';
 import { Date } from './Date';
@@ -19,7 +19,14 @@ export class EventLocation extends Model<EventLocation> {
     @Column
     eventId!: number
 
+    @BelongsTo(() => Event)
+    event!: Event
+
     @ForeignKey(() => Location)
     @Column
     locationId!: number
+
+    @BelongsTo(() => Location)
+    location!: Location
+
 }
