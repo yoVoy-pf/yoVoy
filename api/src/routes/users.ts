@@ -3,7 +3,7 @@ export const router = Router();
 import { authenticateToken } from '../middlewares/authenticateToken';
 import {getUsers,getUser,createUser,deleteUser} from '../controllers/users'
 import {ROLES_LIST} from '../authorization/roles'
-import {verifyRoles} from '../middlewares/authenticateRole'
+import {verifyRoles} from '../middlewares/verifyRoles'
 
 router.get('/getTest', getUsers)
 router.get('/',authenticateToken,verifyRoles(ROLES_LIST.Admin), getUsers)
