@@ -11,8 +11,15 @@ const roles = [
   {name: 'User', id: ROLES_LIST.User}
 ]
 
-const {Role} = sequelize.models
+const {Role, User, UserRole} = sequelize.models
 
 export async function createRoles(){
   Role.bulkCreate(roles)
+  let admin = await User.create({
+    name: 'Admin',
+    password: 'Admin',
+  })
+  UserRole.create({userId: admin.getDataValue('id'), roleId: ROLES_LIST.Admin })
+  UserRole.create({userId: admin.getDataValue('id'), roleId: ROLES_LIST.Organization })
+  UserRole.create({userId: admin.getDataValue('id'), roleId: ROLES_LIST.User })
 }
