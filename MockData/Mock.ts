@@ -361,8 +361,7 @@ const cities = [
 {name:"Croatia"}
 ]
 
-const {Event, Date, Organization, EventLocation,Ticket, User, Location, Category, EventCategory, City} = sequelize.models
-
+const {Event, Date, Organization, EventLocation,Ticket, User, Location, Category, EventCategory, City, UserRole} = sequelize.models
 
 export async function MockData(){
 
@@ -370,7 +369,7 @@ export async function MockData(){
     .then(async result => {
 
 		await Location.bulkCreate(locations)
-        let eventcreated = await Event.bulkCreate(events)
+    let eventcreated = await Event.bulkCreate(events)
 		await EventLocation.bulkCreate(eventLocations)
 		await Date.bulkCreate(dates)
 		
@@ -380,5 +379,4 @@ export async function MockData(){
 		}
 
     })
-
 }

@@ -5,14 +5,7 @@ import { Event } from './Event';
 import { Favorites } from './Favorites';
 import { Role } from './Role';
 import { UserRole } from './UserRole';
-
-export interface iUser {
-  name : string;
-  password : string;
-  email? : string;
-  refreshToken? : string;
-  ticket? : Ticket
-}
+import { iUser } from '../types/user';
 
 @Table
 export class User extends Model<iUser>{
