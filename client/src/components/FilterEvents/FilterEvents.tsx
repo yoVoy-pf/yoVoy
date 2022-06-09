@@ -11,7 +11,7 @@ import { Category } from '../../types';
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const categories: Array<Category> = useSelector(
-		(state: State) => state.categories,
+		(state: State) => state.global.categories,
 	);
 
 	useEffect(() => {
