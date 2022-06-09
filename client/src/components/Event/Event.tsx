@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getEventId } from '../../redux/actions/actions-Create';
+import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
+import { Location } from '../../types';
 
 const Event = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -12,22 +13,30 @@ const Event = () => {
 
 	useEffect(() => {
 		dispatch(getEventId(id));
+		return () => {
+			dispatch(clearEventId());
+		};
 	}, [dispatch, id]);
-	console.log(eventDetail);
 
 	return (
-		<div>
-			{
-				<div>
-					<h1>{eventDetail.name}</h1>
-					<img src={eventDetail.background_image} alt={eventDetail.name} />
-					<br />
+		<React.Fragment>
+			<img src={eventDetail.background_image} alt={eventDetail.name} />
+			<h1>{eventDetail.name}</h1>
 
-					<small>{eventDetail.description}</small>
-					<h1>Aca van las fechas del evento</h1>
-				</div>
-			}
-		</div>
+			<br />
+			<h4>Precios</h4>
+			{eventDetail &&
+				eventDetail.locations?.map((location: Location) => {
+					return (
+						<div key={location.id}>
+							<p>-{location.name}</p>
+							<p>-{location.address}</p>
+						</div>
+					);
+				})}
+
+			<small>{eventDetail.description}</small>
+		</React.Fragment>
 	);
 };
 export default Event;
