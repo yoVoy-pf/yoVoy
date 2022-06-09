@@ -352,28 +352,6 @@ const categories = [
 {name: "Teatro"},
 {name: "Especiales"}
 ]
-const users = [
-{id:99921,name:"lcrafter0",email:"mnoyes0@discuz.net",password:"XfB0Cs"},
-{id:9992,name:"gboatwright1",email:"mmetson1@scientificamerican.com",password:"yqQF1Xpwcq"},
-{id:9993,name:"nsleigh2",email:"bfison2@patch.com",password:"TmfEuM0Hnlr"},
-{id:9994,name:"ehlavac3",email:"mpearch3@google.com",password:"Ox0sEyUlaU"},
-{id:9995,name:"wbestiman4",email:"rwenderott4@hp.com",password:"LIxJco8dmd2L"},
-{id:9996,name:"bboughton5",email:"cbaldung5@homestead.com",password:"0JNobFeC"},
-{id:9997,name:"hashwood6",email:"nsimmance6@quantcast.com",password:"64IT5c6TrP"},
-{id:9998,name:"tstorror7",email:"dlearman7@paginegialle.it",password:"0FfyP4JrYz"},
-{id:9999,name:"nwestfrimley8",email:"tcudworth8@washingtonpost.com",password:"AAh9fHJQx"},
-{id:99910,name:"jdrysdell9",email:"mkniveton9@smh.com.au",password:"NAgymR"},
-{id:99911,name:"jfogartya",email:"ctwininga@vk.com",password:"3lYUO2lfX"},
-{id:99912,name:"hpasbyb",email:"akristiansenb@soundcloud.com",password:"Udhuab7r"},
-{id:99913,name:"abartoszewskic",email:"nspantonc@pinterest.com",password:"7HP2nlLjZmyj"},
-{id:99914,name:"adabnerd",email:"dmorriartyd@nba.com",password:"M4gUGjNH4H"},
-{id:99915,name:"amathwene",email:"cmelsomee@4shared.com",password:"q0ZbzXxQe"},
-{id:99916,name:"kkingsnodef",email:"dcastellaf@chron.com",password:"kJmEfCnN"},
-{id:99917,name:"bhensg",email:"fskewisg@weather.com",password:"Crd7uxV"},
-{id:99918,name:"kguessh",email:"ttrembleyh@icio.us",password:"PnXnmeeLqOC"},
-{id:99919,name:"lkornackii",email:"awyleyi@reference.com",password:"ZojC1wRPPaPK"},
-{id:99920,name:"astolleryj",email:"mmaccrachenj@topsy.com",password:"mscPVT4"}
-]
 
 const cities = [
 {name:"Chile"},
@@ -390,7 +368,6 @@ export async function MockData(){
     Promise.all([Organization.bulkCreate(organization), City.bulkCreate(cities), Category.bulkCreate(categories)])
     .then(async result => {
 
-    let user = await User.bulkCreate(users)
 		await Location.bulkCreate(locations)
     let eventcreated = await Event.bulkCreate(events)
 		await EventLocation.bulkCreate(eventLocations)
@@ -401,11 +378,5 @@ export async function MockData(){
 			await EventCategory.create({eventId: eventcreated[i].getDataValue("id"), categoryId: Math.floor(Math.random() * (6 - 1) + 1)})
 		}
 
-    let rolesId = [1010, 2020, 3030]
-    for (let i = 0 ; i < users.length ; i++){
-      await UserRole.create({userId: user[i].getDataValue('id'), roleId: rolesId[Math.floor((Math.random() * (3)))]})
-      // await UserRole.create({userId: user[i].getDataValue('id'), roleId: 1010})
-      // await UserRole.create({userId: user[i].getDataValue('id'), roleId: 2020})
-    }
     })
 }
