@@ -7,7 +7,7 @@ import { AppDispatch, State } from '../../redux/store/store';
 
 const Event = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const eventDetail: any = useSelector((state: State) => state.eventDetail);
+	const eventDetail: any = useSelector((state: State) => state.global.eventDetail);
 	const { id }: any = useParams<{ id: string }>();
 
 	useEffect(() => {
