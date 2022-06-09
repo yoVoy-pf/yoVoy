@@ -41,7 +41,7 @@ export const handleRefreshToken = async (req: Request, res: Response, next: Next
     if (!user) return next({status:403 , message:'Not Allowed'})
     let newToken = verifyRefreshToken(user);
     if (typeof newToken === 'string') res.send({newToken})
-    else throw newToken    
+    else throw newToken   // obj error {status, message}
   }catch(error){return next(error)}
 }
 
