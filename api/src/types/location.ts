@@ -1,4 +1,4 @@
-import { iCity } from "./City";
+import { iCity } from "./city";
 
 export interface iLocation {
 	id: number;
