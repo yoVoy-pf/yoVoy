@@ -407,7 +407,5 @@ export async function MockData(){
       // await UserRole.create({userId: user[i].getDataValue('id'), roleId: 1010})
       // await UserRole.create({userId: user[i].getDataValue('id'), roleId: 2020})
     }
-
-		await Date.bulkCreate(dates)
     })
 }
