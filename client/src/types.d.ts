@@ -3,22 +3,36 @@ export interface Event {
 	name: string;
 	description?: string;
 	background_image: string;
-	dates: Dates[];
+	organization: Organization;
+	categories: Category[];
+	location: Location[];
 }
 
-export interface Dates {
+export interface Organization {
+	id: string;
+	name: string;
+}
+
+export interface Category {
 	id: number;
-	date: Date;
-	price: number;
-	location: Location;
+	name: string;
 }
 
 export interface Location {
 	id: number;
 	name: string;
 	address: string;
+	map: string;
+	city: City;
+	dates: Dates[];
+}
+export interface City {
+	id: number;
+	name: string;
 }
 
-export interface Category {
-	name: string;
+export interface Dates {
+	id: number;
+	date: Date;
+	price: number;
 }
