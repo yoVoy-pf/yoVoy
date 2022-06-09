@@ -23,7 +23,22 @@ export async function getEventsFromDbBySearch(search: string) {
 }
 
 export async function getEventsFromDbByFilter(category?: string, location?: string){
-    const events = await Event.findAll({include:[Category,Location]})
+    let options: any = {include: []}
+
+    if(category){
+        options.include.push({
+            model: Category,
+            where: {id: category}
+        })
+    }
+    if(location){
+        options.include.push({
+            model: Location,
+            where: {id: location}
+        })
+    }
+    const events = await Event.findAll(options)
+    /*const events = await Event.findAll({include:[Category,Location]})
     const filterEvents = events.filter(e=>{
         let c = e.getDataValue("categories")[0].getDataValue("name")
         let l = e.getDataValue("locations")[0].getDataValue("name")
@@ -35,6 +50,6 @@ export async function getEventsFromDbByFilter(category?: string, location?: stri
             return l === location
         }
     })
-    console.log(filterEvents)
-    return filterEvents
+    console.log(filterEvents)*/
+    return events
 }
