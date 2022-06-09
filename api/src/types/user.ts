@@ -6,4 +6,5 @@ export interface iUser {
     email? : string;
     refreshToken? : string;
     ticket? : Ticket
+    rolesId?: number[];
   }
