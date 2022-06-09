@@ -2,7 +2,7 @@ import { sequelize } from "../db";
 import { iEvent } from "../types/event";
 import { Model } from "sequelize-typescript";
 
-const {Event, Category, Date, Location, Organization, EventLocation, City} = sequelize.models
+const {Event, Category, Date, Location, Organization, EventLocation, City, EventCategory} = sequelize.models
 
 export default {
 
@@ -88,6 +88,33 @@ export default {
                 }
             })
         }
-    } 
+    },
+    
+    createEvent: async ({
+        name,
+        description,
+        background_image,
+        organizationId,
+        categoryIds,
+        locationId,
+        dates // {price,date}
+    }: any) => {
+        let event = await Event.create({name, description, background_image, organizationId})
+        let eventId = event.getDataValue("id")
+        categoryIds.forEach( async (id:number) => {
+            await EventCategory.create({eventId, categoryId: id})
+        });
+
+        let eventLocation = await EventLocation.create({eventId, locationId})
+        let eventLocationId = eventLocation.getDataValue("id")
+
+        dates = dates.map((date:any) => {
+            return {...date, eventLocationId}
+        })
+
+        await Date.bulkCreate(dates)
+
+        return event
+    }
 
 }
