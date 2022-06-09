@@ -2,7 +2,7 @@ require('dotenv').config()
 import { Request, Response, NextFunction } from "express"
 import bcrypt from 'bcrypt'
 import { createUserInDb, getUserFromDbByField } from "../utils/users"
-import { iUser } from "../models/User"
+import { iUser } from "../types/user"
 import { generateAccessToken, updateRefreshToken, verifyRefreshToken } from "../utils/auth"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
