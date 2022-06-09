@@ -3,6 +3,8 @@ import {Ticket} from './Ticket';
 import { Comment } from './Comment';
 import { Event } from './Event';
 import { Favorites } from './Favorites';
+import { Role } from './Role';
+import { UserRole } from './UserRole';
 
 export interface iUser {
   name : string;
@@ -34,5 +36,8 @@ export class User extends Model<iUser>{
 
   @BelongsToMany(() => Event, () => Favorites)
   favorites!: Event[];
+
+  @BelongsToMany(() => Role, () => UserRole)
+  roles!: Role[];
 }
 
