@@ -5,7 +5,7 @@ import { iUser, User } from "../models/User";
 export function generateAccessToken(user: iUser){
   let currentUser = {...user};
   delete currentUser.refreshToken;
-  return jwt.sign(currentUser, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '15s'})
+  return jwt.sign(currentUser, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '30m'})
 }
 
 export async function updateRefreshToken(user: iUser, errase: boolean = false){
