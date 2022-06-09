@@ -11,10 +11,12 @@ export function generateAccessToken(user: iUser){
 
 export async function updateRefreshToken(user: iUser, errase: boolean = false){
   let token;
+  let currentUser = {...user};
+  delete currentUser.refreshToken;
   errase 
   ? token = '' 
   : token = jwt.sign(
-        user,
+        currentUser,
         process.env.REFRESH_TOKEN_SECRET as string,
         {expiresIn: '1d'}
       )
