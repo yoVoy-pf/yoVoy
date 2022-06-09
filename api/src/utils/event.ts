@@ -6,7 +6,7 @@ const {Event, Category, Date, Location, Organization, EventLocation, City} = seq
 
 export default {
 
-    getEventById: async (id: string) => {
+    getEventById: async (id: string): Promise<iEvent> => {
         const event = await Event.findByPk(id,
             { 
             attributes: ["id", "name", "description", "background_image"],
