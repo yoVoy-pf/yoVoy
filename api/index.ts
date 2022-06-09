@@ -5,6 +5,7 @@ import {sequelize} from './src/db'
 import config from "./config"
 //Mock Data
 import {MockData} from "../MockData/Mock"
+import { createRoles } from './src/authorization/roles';
 
 // Syncing all the models at once.
 sequelize.sync({ force: true , logging: false}).then(() => {
@@ -12,7 +13,7 @@ sequelize.sync({ force: true , logging: false}).then(() => {
 		console.log(`%s listening at ${config.port}`); // eslint-disable-line no-console
 
 		//Mock Data
+    createRoles()
 		MockData()
-
 	});
 });
