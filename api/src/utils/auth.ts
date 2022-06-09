@@ -1,6 +1,7 @@
 require('dotenv').config()
 import  jwt  from "jsonwebtoken";
-import { iUser, User } from "../models/User";
+import { User } from "../models/User";
+import { iUser } from "../types/user";
 
 export function generateAccessToken(user: iUser){
   let currentUser = {...user};
