@@ -30,11 +30,15 @@ export class Event extends Model<Event> {
     @BelongsToMany(() => Location, () => EventLocation)
     locations!: Location[]
 
+    @HasMany(()=> EventLocation)
+    locations_m!: EventLocation[] 
+
     @HasMany(() => Comment)
     comments!: Comment[]
 
     @BelongsToMany(() => Category, () => EventCategory)
     categories!: Category[]
+
 
     @HasMany(() => Ticket)
     ticket!: Ticket

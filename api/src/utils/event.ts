@@ -1,6 +1,6 @@
 import { sequelize } from "../db";
 
-const {Event, Category, Date, Location, Organization} = sequelize.models
+const {Event, Category, Date, Location, Organization, EventLocation, City} = sequelize.models
 
 export default {
 
@@ -14,12 +14,30 @@ export default {
                     attributes: ["id", "name"]
                 },
                 {
-                    model: Date,
-                    include: [{
-                        model: Location,
-                        attributes: ["id","name","address"]
-                    }],
-                    attributes: ["id", "price", "date"],
+                    model: Location,
+                    attributes: ["id", "name", "map", "address"],
+                    include: [
+                        {
+                            model: City,
+                            attributes: ["id","name"]
+                        },
+                        {
+                            model: EventLocation,
+                            attributes: ["id"],
+                            where:{
+                                eventId: id
+                            },
+                            include: [
+                                {
+                                model: Date,
+                                attributes:["id", "date","price"]
+                                }
+                        ]   
+                        }
+                    ],
+                    through: {
+                        attributes: []
+                    }
                 },
                 {
                     model: Category,

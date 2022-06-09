@@ -1,4 +1,4 @@
-import {Model, Column, Table, BelongsTo, ForeignKey, BelongsToMany} from 'sequelize-typescript';
+import {Model, Column, Table, BelongsTo, ForeignKey, HasMany ,BelongsToMany} from 'sequelize-typescript';
 import { City } from './City';
 import { Event } from './Event';
 import { EventLocation } from './EventLocation';
@@ -17,6 +17,9 @@ export class Location extends Model<Location> {
 
     @BelongsToMany(() => Event, () => EventLocation)
     events!: Event[]
+
+    @HasMany(()=> EventLocation)
+    events_dates!: EventLocation[]
 
     @ForeignKey(() => City)
     @Column
