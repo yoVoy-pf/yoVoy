@@ -25,8 +25,8 @@ const SearchBar = () => {
         <React.Fragment>
             
                 <form onSubmit={onSubmit}>
-                    <input className="bg"  type="text" onChange={onInputChange} value={input} placeholder="Buscar..." />
-                    <input className="input2" type="submit" value="🔍" />
+                    <input className="searchBar-bg-input1"  type="text" onChange={onInputChange} value={input} placeholder="Buscar..." />
+                    <input className="searchBar-bg-input2" type="submit" value="🔍" />
                 </form>
           
 
