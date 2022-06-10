@@ -4,6 +4,7 @@ import { Model } from "sequelize-typescript";
 
 const {Event, Category, Date, Location, Organization, EventLocation, City, EventCategory} = sequelize.models
 
+
 export default {
 
     getEventById: async (id: string): Promise<iEvent> => {
@@ -142,5 +143,41 @@ export default {
 
         event?.destroy()
 
+    },
+
+    updateEvent: async ({
+        id,
+        name,
+        background_image,
+        description,
+        categoryIds,
+        locations
+    }: any) => {
+        let event = await Event.update({name, background_image, description}, {where: {id: id}})
+
+        await EventCategory.destroy({where: {eventId: id}})
+        categoryIds.forEach((category:number) => {
+            EventCategory.create({eventId: id, categoryId: category})
+        }) 
+
+        locations.forEach(async (location: any) => {
+            let eventLocation = await EventLocation.findOne({
+                where: {
+                    eventId: id,
+                    locationId: location.id
+                }
+            })
+
+            await Date.destroy({
+                where:{
+                    eventLocationId: eventLocation?.getDataValue("id")
+                }
+            })
+
+            location.dates.forEach((date: any) => {
+                Date.create({...date, eventLocationId: eventLocation?.getDataValue("id")})
+            })
+        })
+        return event
     }
 }

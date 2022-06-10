@@ -30,3 +30,14 @@ export const deleteEvent = async (req: Request, res: Response, next: NextFunctio
         next(error)
     }
 }
+
+export const putEvent = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const {id} = req.params
+        const eventUpdated = await utils.updateEvent({id, ...req.body})
+        // Manejar si eventUpdated llega [0]
+        res.status(201).json("The event was updated")
+    }catch(error){
+        next(error)
+    }
+}
