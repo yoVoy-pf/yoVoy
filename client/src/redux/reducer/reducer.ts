@@ -7,7 +7,8 @@ const initialState = {
 	eventDetail: [],
 	categories: [],
 	cities: [],
-// 	eventsFiltered: [],
+	locations: [],
+	// 	eventsFiltered: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -47,6 +48,11 @@ const rootReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 				cities: action.payload
+			}
+		case ActionType.GET_LOCATIONS:
+			return {
+				...state,
+				locations: action.payload
 			}
 		default:
 			return state;
