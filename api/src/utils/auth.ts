@@ -11,7 +11,7 @@ export function generateAccessToken(user: iUser){
       'email': user.email,
       'rolesId':user.rolesId
     }
-  }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '30m'})
+  }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '10m'})
 }
 
 export async function updateRefreshToken(user: iUser, errase: boolean = false){
