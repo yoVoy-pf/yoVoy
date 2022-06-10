@@ -115,6 +115,32 @@ export default {
         await Date.bulkCreate(dates)
 
         return event
-    }
+    },
 
+    destroyEvent: async (id: string) => {
+        let event = await Event.findOne({
+            where: {id: id},
+            attributes: ["id"],
+            include: [
+                {
+                    model: EventLocation,
+                    include: [
+                        {
+                            model: Date,
+                            attributes: ["id"]
+                        }
+                    ]
+                }
+            ]
+        })
+
+        event?.getDataValue("locations_m").forEach((l: Model<any>) => {
+            l.getDataValue("dates").forEach(async (d: Model<any>) => {
+                await Date.destroy({where:{id: d.getDataValue("id")}})
+            })
+        })
+
+        event?.destroy()
+
+    }
 }
