@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fruktur&family=Montserrat+Alternates:ital,wght@1,500&display=swap');
+
+
 .navbar{
     height: 10vh;
     background: rgba(97, 33, 15, 0.555);
@@ -17,34 +20,58 @@
     width: 6em;
 }
 
+.navbar_bg_ul{
+    margin-left: 70px;
+}
+
+.navbar_bg_li{
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 30px;
+}
+
+.navbar_bg_a{
+    text-decoration: none;
+}
+.prueba_btn{
+    display: flex;
+}
+
 .navBar-btn-login{
+    font-family: 'Fruktur', cursive;
+    font-family: 'Montserrat Alternates';
+    font-size: 1em;
     border-radius: 50px;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(90deg,#755bea,#ff72c0);
+    width: 100px;
+    height: 60px;
+    background: linear-gradient(90deg, rgba(255, 89, 0, 0.418), rgba(0, 81, 255, 0.253));
     transition: color 0.3s linear;
 }
 
 .navBar-btn-register{
-    position: absolute;
+    font-family: 'Fruktur', cursive;
+    font-family: 'Montserrat Alternates';
+    font-size: 1em;
     border-radius: 50px;
     cursor: pointer;
-    width: 100px;
-    height: 50px;
+    width: 115px;
+    height: 60px;
     margin-left: 2em;
     margin-right: -4em;
-    background: linear-gradient(90deg,#755bea,#ff72c0);
+    background: linear-gradient(90deg, rgba(255, 89, 0, 0.418), rgba(0, 81, 255, 0.253));
     transition: color 0.3s linear;
 }
 
 .navBar-btn-register:hover{
+    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253),rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     z-index: 1;
    
 }
 
 .navBar-btn-login:hover{
+    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253),rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     z-index: 1;
 }

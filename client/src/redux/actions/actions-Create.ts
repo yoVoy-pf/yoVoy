@@ -51,11 +51,11 @@ export const getCategories = () => {
 	};
 };
 
-export const getEventByCategory = (name: string) => {
+export const getEventByCategory = (id: string, filter: string) => {
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(
-				`http://localhost:3001/api/events?category=${name}`,
+				`http://localhost:3001/api/events?${filter}=${id}`,
 			);
 			dispatch({
 				type: ActionType.GET_EVENT_BY_CATEGORY,
@@ -101,16 +101,43 @@ export const getCities = () => {
 	}
 }
 
-export const putUpdateEvent = () => {
+
+export const putUpdateEvent = (id: any) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const cities = await axios.put("http://localhost:3001/api/event")
+			const updateEvent = await axios.put(`http://localhost:3001/api/event/${id}`)
 			dispatch({
 				type: ActionType.PUT_UPDATE_EVENT,
-				payload: cities.data,
+				payload: updateEvent.data,
 			});
 		} catch (error) {
 			console.log(error)
 		}
 	}
 }
+
+export const postCreateCategory = (payload: any) => {
+	return async function () {
+		try {
+			const response = await axios.post('http://localhost:3001/api/category', payload);
+			return response;
+      } catch (error) {
+			console.log(error)
+		}
+	}
+}
+export const getLocations = (city?: string | number) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const locations = await axios.get(`http://localhost:3001/api/locations?city=${city || ""}`)
+			dispatch({
+				type: ActionType.GET_LOCATIONS,
+				payload: locations.data,
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+		
+

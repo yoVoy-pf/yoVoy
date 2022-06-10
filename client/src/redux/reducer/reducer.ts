@@ -7,7 +7,8 @@ const initialState = {
 	eventDetail: [],
 	categories: [],
 	cities: [],
-// 	eventsFiltered: [],
+	locations: [],
+	// 	eventsFiltered: [],
 };
 
 const rootReducer = (state = initialState, action: Action) => {
@@ -47,11 +48,19 @@ const rootReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 				cities: action.payload
+			};
+		case ActionType.POST_CREATE_CATEGORY:
+			return {
+				...state,
+			}
+		case ActionType.GET_LOCATIONS:
+			return {
+				...state,
+				locations: action.payload
 			}
 		case ActionType.PUT_UPDATE_EVENT:
 			return {
 				...state,
-				allEvents: action.payload
 			}
 		default:
 			return state;
