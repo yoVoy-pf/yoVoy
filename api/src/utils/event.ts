@@ -153,7 +153,6 @@ export default {
         categoryIds,
         locations
     }: any) => {
-        console.log(id)
         let event = await Event.update({name, background_image, description}, {where: {id: id}})
 
         await EventCategory.destroy({where: {eventId: id}})
@@ -175,7 +174,7 @@ export default {
                 }
             })
 
-            locations.dates.forEach((date: any) => {
+            location.dates.forEach((date: any) => {
                 Date.create({...date, eventLocationId: eventLocation?.getDataValue("id")})
             })
         })
