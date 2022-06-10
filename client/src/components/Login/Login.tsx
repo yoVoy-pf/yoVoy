@@ -31,7 +31,8 @@ const Login = () => {
         e.preventDefault();
         try {
             const userData = await login({name: user, password}).unwrap()
-            dispatch(setCredentials({...userData, user}))
+            console.log(userData)
+            dispatch(setCredentials({user: userData.data, accessToken: userData.accessToken}))
             setUser('')
             setPassword('')
             navigate('/welcome')
