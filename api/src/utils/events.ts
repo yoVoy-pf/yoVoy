@@ -23,16 +23,28 @@ export async function getEventsFromDbBySearch(search: string) {
 }
 
 //trae los eventos filtrados por categoria y locacion.
-export async function getEventsFromDbByFilter(category?: string, location?: string){
+export async function getEventsFromDbByFilter(category?: string, location?: string, organization?: string, city?: string){
     let options: any = {include: []}
 
+    if(organization){
+        options.include.push({
+            model: Organization,
+            where: {id: organization}
+        })
+    }
+    if(city){
+        options.include.push({
+            model: Location,
+            where: {cityId: city}
+        })
+    }
     if(category){
         options.include.push({
             model: Category,
             where: {id: category}
         })
     }
-    if(location){
+    if(location && !city){
         options.include.push({
             model: Location,
             where: {id: location}
