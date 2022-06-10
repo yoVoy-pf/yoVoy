@@ -34,6 +34,15 @@ interface getCitiesAction {
 	payload: any;
 }
 
+interface postCreateCategory {
+	type: ActionType.POST_CREATE_CATEGORY;
+}
+
+interface getLocationsAction {
+	type: ActionType.GET_LOCATIONS;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -41,4 +50,6 @@ export type Action =
 	| clearEventIdAction
 	| getCategoriesAction
 	| getEventByCategoryAction
-	| getCitiesAction;
+	| getCitiesAction
+	| postCreateCategory
+	| getLocationsAction;
