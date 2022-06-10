@@ -25,7 +25,14 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       const accessToken =  generateAccessToken(user)
       const refreshToken = await updateRefreshToken(user)
       res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000}) // 1 day
-      res.send({accessToken})
+      res.send({
+      data: {
+      name : user.name,
+      email : user.email,
+      rolesId: user.rolesId,
+        },
+      accessToken: accessToken
+    })
     } else next({status:403 , message:'Not Allowed'})
   }catch(error){
     next(error)
@@ -42,6 +49,29 @@ export const handleRefreshToken = async (req: Request, res: Response, next: Next
     let newToken = verifyRefreshToken(user);
     if (typeof newToken === 'string') res.send({accessToken:newToken})
     else throw newToken   // obj error {status, message}
+  }catch(error){return next(error)}
+}
+
+// getUserAuth
+export const getUserAuth = async (req: Request, res: Response, next: NextFunction) => {
+  const cookies = req.cookies;
+  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(401) // unauthorized
+  const refreshToken = cookies.jwt;
+  try{
+    const user = await getUserFromDbByField('refreshToken',refreshToken);
+    if (!user) return next({status:404 , message:'Not session found'})
+    let newToken = verifyRefreshToken(user);
+    if (typeof newToken === 'string'){
+    return res.send({
+      data: {
+      name : user.name,
+      email : user.email,
+      rolesId: user.rolesId,
+        },
+      accessToken: newToken
+    })
+    } else throw newToken   // obj error {status, message}
+
   }catch(error){return next(error)}
 }
 
