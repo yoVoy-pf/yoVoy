@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSliceReducer from "../../authentication/authSlice";
 import rootReducer from '../reducer/reducer'
+import { apiSlice } from "../../authentication/apiSlice";
 
 export const store = configureStore({
     reducer:{
       global: rootReducer,
+      [apiSlice.reducerPath]: apiSlice.reducer,
       auth: authSliceReducer
-    }
+    },
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(apiSlice.middleware),
+    devTools: true
 })
 
 //se puede utilizar para el useSelector 
