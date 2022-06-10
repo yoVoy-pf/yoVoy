@@ -5,7 +5,7 @@ export interface Event {
 	background_image: string;
 	organization: Organization;
 	categories: Category[];
-	location: Location[];
+	locations: Location[];
 }
 
 export interface Organization {
@@ -38,13 +38,13 @@ export interface Dates {
 }
 
 export interface User {
-  name: string;
-  email: string;
-  rolesId: number[];
+	name: string;
+	email: string;
+	rolesId: number[];
 }
 
 export enum ROLES_LIST {
-  Admin = 3030,
-  Organization = 2020,
-  User = 1010
+	Admin = 3030,
+	Organization = 2020,
+	User = 1010,
 }
