@@ -25,7 +25,7 @@ export const deleteEvent = async (req: Request, res: Response, next: NextFunctio
         const {id} = req.params 
         await utils.destroyEvent(id)
 
-        res.status(200).json("Evento Eliminado")
+        res.status(200).json("An event was eliminated")
     }catch(error){
         next(error)
     }
