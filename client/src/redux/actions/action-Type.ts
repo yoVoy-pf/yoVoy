@@ -29,10 +29,16 @@ interface getEventByCategoryAction {
 	payload: any;
 }
 
+interface getCitiesAction {
+	type: ActionType.GET_CITIES;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
 	| getEventIdAction
 	| clearEventIdAction
 	| getCategoriesAction
-	| getEventByCategoryAction;
+	| getEventByCategoryAction
+	| getCitiesAction;
