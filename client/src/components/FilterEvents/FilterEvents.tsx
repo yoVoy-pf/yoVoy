@@ -8,7 +8,7 @@ import {
 	getLocations,
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { Category, City } from '../../types';
+import { Category, City, Location } from '../../types';
 
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -18,11 +18,22 @@ const FilterEvent = () => {
 	const cities: Array<City> = useSelector(
 		(state: State) => state.global.cities,
 	);
+	const locations: Array<Location> = useSelector(
+		(state: State) => state.global.locations,
+	);
 
 	useEffect(() => {
 		dispatch(getCategories());
-		dispatch(getCities());
+		dispatch(getCities());		
 	}, [dispatch]);
+
+     useEffect(() => {
+        const firstCity = document.getElementById("city1")
+		const idfirstCity = firstCity?.getAttribute("value")
+		if(idfirstCity) dispatch(getLocations(idfirstCity));
+	
+	 }, [cities])
+
 	const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		dispatch(getEventByCategory(e.target.value));
 	};
@@ -43,8 +54,16 @@ const FilterEvent = () => {
 
 			<select onChange={handleCitiesFilter}>
 				{cities.map((city) => (
-					<option key={city.name} value={city.id}>
+					<option id={`city${city.id}`}key={city.name} value={city.id}>
 						{city.name}
+					</option>
+				))}
+			</select>
+
+			<select  >
+				{locations.map((l) => (
+					<option key={l.name} value={l.id}>
+						{l.name}
 					</option>
 				))}
 			</select>
