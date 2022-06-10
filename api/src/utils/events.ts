@@ -1,6 +1,6 @@
 import { sequelize } from '../db'
 import { Op } from "sequelize";
-const { Event, Organization, Date, Category } = sequelize.models
+const { Event, Organization, Date, Category, Location } = sequelize.models
 
 //trae todos los eventos de la base de datos
 export async function getEventsFromDb() {
@@ -22,19 +22,23 @@ export async function getEventsFromDbBySearch(search: string) {
     return eventsSearched
 }
 
-export async function getEventsFromDbByFilter(filter: string){
-    const events = await Event.findAll({
-        include:{
-            model:Category,
-            where:{
-                name: filter
-            },
-            through: {
-                attributes: []
-            },
-            attributes: ["id", "name"]
-        }
-    })
+//trae los eventos filtrados por categoria y locacion.
+export async function getEventsFromDbByFilter(category?: string, location?: string){
+    let options: any = {include: []}
 
+    if(category){
+        options.include.push({
+            model: Category,
+            where: {id: category}
+        })
+    }
+    if(location){
+        options.include.push({
+            model: Location,
+            where: {id: location}
+        })
+    }
+    const events = await Event.findAll(options)
+   
     return events
 }

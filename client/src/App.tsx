@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Event from './components/Event/Event';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import NavBar from './components/NavBar/NavBar';
 import Signup from './components/Signup/Signup';
 
 function App(): JSX.Element {
