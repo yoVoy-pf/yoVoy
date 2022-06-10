@@ -7,7 +7,6 @@ import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth.ts/RequireAuth';
 import { Welcome } from './components/Welcome/Welcome';
 import UsersList from './components/UsersList/UsersList';
-
 import { useGetUserAuthQuery } from './authentication/authApiSlice'
 import CreateCategory from './components/CreateCategory/CreateCategory';
 
@@ -29,7 +28,6 @@ function App(): JSX.Element {
           <Route path='userslist' element={<UsersList />} />
           <Route path='/create-category' element={<CreateCategory/>} />
         </Route>
-       </Route>
     </Routes>
   )
 }
