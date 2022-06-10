@@ -8,4 +8,5 @@ export enum ActionType {
 	GET_EVENT_BY_CATEGORY = 'get_event_by_category',
 	GET_CITIES = 'get_cities',
 	POST_CREATE_CATEGORY = 'post_create_category',
+	GET_LOCATIONS = 'get_locations',
 }
