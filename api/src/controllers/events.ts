@@ -4,15 +4,17 @@ import { getEventsFromDb, getEventsFromDbBySearch, getEventsFromDbByFilter } fro
 export const getEvents = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const search = req.query.search as string
-        const filter = req.query.filter as string
+        const category = req.query.category as string
+        const location = req.query.location as string
         let events;
+        console.log(category, location)
         if (search) {
             events = await getEventsFromDbBySearch(search.trim())
         } 
-        if(filter){
-            events = await getEventsFromDbByFilter(filter)
+        if(category || location ){
+            events = await getEventsFromDbByFilter(category,location)
         }
-        if(!filter && !search) {
+        if(!category && !search && !location) {
             events = await getEventsFromDb()
         }
         res.status(200).json(events)
