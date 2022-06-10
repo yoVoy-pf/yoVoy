@@ -28,7 +28,6 @@ function App(): JSX.Element {
           <Route path='userslist' element={<UsersList />} />
           <Route path='/create-category' element={<CreateCategory/>} />
         </Route>
-        </Route>
     </Routes>
   )
 }

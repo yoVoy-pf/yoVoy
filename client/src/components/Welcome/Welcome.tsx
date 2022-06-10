@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 export const Welcome = () => {
   const user : any = useSelector(selectCurrentUser)
   const token = useSelector(selectCurrentToken)
+  console.log({user})
 
   const welcome = user ? `Welcome ${user.name}!`:`Welcome!`;
 
