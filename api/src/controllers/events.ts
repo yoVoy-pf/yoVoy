@@ -15,7 +15,7 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
         if(category || location || organization || city ){
             events = await getEventsFromDbByFilter(category,location,organization, city)
         }
-        if(!category && !search && !location) {
+        if(!category && !search && !location && !organization && !city) {
             events = await getEventsFromDb()
         }
         res.status(200).json(events)

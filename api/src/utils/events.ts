@@ -27,10 +27,10 @@ export async function getEventsFromDbByFilter(category?: string, location?: stri
     let options: any = {include: []}
 
     if(organization){
-        options.include.push({
-            model: Organization,
-            where: {id: organization}
-        })
+       options.include.push({
+        model: Organization,
+        where: {id: organization}
+       })
     }
     if(city){
         options.include.push({
