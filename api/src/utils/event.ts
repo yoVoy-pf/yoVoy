@@ -161,6 +161,24 @@ export default {
             EventCategory.create({eventId: id, categoryId: category})
         }) 
 
+        locations.forEach(async (location: any) => {
+            let eventLocation = await EventLocation.findOne({
+                where: {
+                    eventId: id,
+                    locationId: location.id
+                }
+            })
+
+            await Date.destroy({
+                where:{
+                    eventLocationId: eventLocation?.getDataValue("id")
+                }
+            })
+
+            locations.dates.forEach((date: any) => {
+                Date.create({...date, eventLocationId: eventLocation?.getDataValue("id")})
+            })
+        })
         return event
     }
 }
