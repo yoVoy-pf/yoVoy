@@ -66,7 +66,7 @@ const Login = () => {
           type="text"
           ref={userRef}
           placeholder="Name"
-          name='User'
+          name='user'
           required
           onChange={handleUserInput}
         /> <br /> <br />

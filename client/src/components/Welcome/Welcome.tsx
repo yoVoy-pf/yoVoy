@@ -2,11 +2,12 @@ import { useSelector } from "react-redux"
 import { selectCurrentUser,selectCurrentToken } from "../../authentication/authSlice"
 import { Link } from "react-router-dom"
 
+
 export const Welcome = () => {
-  const user = useSelector(selectCurrentUser)
+  const user : any = useSelector(selectCurrentUser)
   const token = useSelector(selectCurrentToken)
 
-  const welcome = user ? `Welcome ${user}!`:`Welcome!`;
+  const welcome = user ? `Welcome ${user.name}!`:`Welcome!`;
 
   const content = (
     <section>

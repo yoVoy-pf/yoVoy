@@ -1,36 +1,60 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState, useRef } from "react";
 import { createUser } from "../../services/singupService";
+import { useRegisterMutation } from "../../authentication/authApiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [user, setUser] = useState({
-        name: '',
-        password: ''
-    })
+    const userRef = useRef<HTMLInputElement | null>(null);
+    const errRef = useRef<HTMLParagraphElement | null>(null);
 
-    const onInputChange = (e:any) => {
-        e.preventDefault();
-        setUser({
-            ...user,
-            [e.target.name]:e.target.value
-        })
-    }
+    const [user, setUser] = useState('');
+    const [password, setPassword] = useState('');
+    const [errMsg, setErrMsg] = useState('')
+    const navigate = useNavigate();
+
+    const [register,{isLoading}] = useRegisterMutation();
+
+    useEffect(() => {
+      const input = userRef.current
+      input?.focus()
+    }, [])
+
+    useEffect(() => {
+      setErrMsg('')
+    }, [user, password])
 
     const onSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
-        await createUser(user)
+        try{
+          await register({name: user, password})
+          setUser('')
+          setPassword('')
+          navigate('/login')
+        }catch(err: any){
+          if (!err?.response) {
+            setErrMsg('Login Failed')
+          }
+        }
+      const error = errRef.current;
+      error?.focus();
     }
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => setUser(e.target.value)
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
+
     return(
         <React.Fragment>
+        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <form onSubmit={onSubmit}>
                 <h1>Please register</h1>
 
                 <label>Name</label> <br />
                 <input 
                 type="text" 
+                ref={userRef}
                 placeholder="Name" 
-                name='name'
+                name='user'
                 required
-                onChange={onInputChange}
+                onChange={handleUserInput}
                 /> <br /> <br />
 
                 {/* <label>Email</label>
@@ -48,7 +72,7 @@ const Signup = () => {
                 placeholder="Password"
                 name='password'
                 required
-                onChange={onInputChange}
+                onChange={handlePasswordInput}
                 /> <br /> <br />
 
                 <button type="submit">Registrarse</button> <br /> 
