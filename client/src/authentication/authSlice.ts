@@ -1,10 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { State } from "../redux/store/store";
-import {User} from '../types'
-
-interface authState {
-  user: User;
-}
 
 const authSlice = createSlice({
   name: 'auth',
@@ -15,7 +10,7 @@ const authSlice = createSlice({
       state.user = user
       state.token = accessToken
     },
-    logOut: (state, action) => {
+    logOut: (state) => {
       state.user = null;
       state.token = null;
     },

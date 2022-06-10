@@ -40,7 +40,7 @@ export const handleRefreshToken = async (req: Request, res: Response, next: Next
     const user = await getUserFromDbByField('refreshToken',refreshToken);
     if (!user) return next({status:403 , message:'Not Allowed'})
     let newToken = verifyRefreshToken(user);
-    if (typeof newToken === 'string') res.send({newToken})
+    if (typeof newToken === 'string') res.send({accessToken:newToken})
     else throw newToken   // obj error {status, message}
   }catch(error){return next(error)}
 }
