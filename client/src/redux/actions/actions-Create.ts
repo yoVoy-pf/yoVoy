@@ -55,7 +55,7 @@ export const getEventByCategory = (name: string) => {
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(
-				`http://localhost:3001/api/events?filter=${name}`,
+				`http://localhost:3001/api/events?category=${name}`,
 			);
 			dispatch({
 				type: ActionType.GET_EVENT_BY_CATEGORY,
@@ -86,3 +86,17 @@ export const clearEventId = () => {
 		type: ActionType.CLEAR_EVENT_ID,
 	};
 };
+
+export const getCities = () => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const cities = await axios.get("http://localhost:3001/api/cities")
+			dispatch({
+				type: ActionType.GET_CITIES,
+				payload: cities.data,
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}

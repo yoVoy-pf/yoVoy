@@ -6,6 +6,7 @@ const initialState = {
 	allEvents: [],
 	eventDetail: [],
 	categories: [],
+	cities: [],
 // 	eventsFiltered: [],
 };
 
@@ -42,6 +43,11 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				allEvents: action.payload,
 			};
+		case ActionType.GET_CITIES:
+			return {
+				...state,
+				cities: action.payload
+			}
 		default:
 			return state;
 	}
