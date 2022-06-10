@@ -100,3 +100,14 @@ export const getCities = () => {
 		}
 	}
 }
+
+export const postCreateCategory = (payload: any) => {
+	return async function () {
+		try {
+			const response = await axios.post('http://localhost:3001/api/category', payload);
+			return response;
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
