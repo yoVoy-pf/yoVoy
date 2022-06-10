@@ -34,6 +34,11 @@ interface getCitiesAction {
 	payload: any;
 }
 
+interface getLocationsAction {
+	type: ActionType.GET_LOCATIONS;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -41,4 +46,5 @@ export type Action =
 	| clearEventIdAction
 	| getCategoriesAction
 	| getEventByCategoryAction
-	| getCitiesAction;
+	| getCitiesAction
+	| getLocationsAction;
