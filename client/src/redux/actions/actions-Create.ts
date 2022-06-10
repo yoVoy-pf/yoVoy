@@ -51,11 +51,11 @@ export const getCategories = () => {
 	};
 };
 
-export const getEventByCategory = (name: string) => {
+export const getEventByCategory = (id: string, filter: string) => {
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(
-				`http://localhost:3001/api/events?category=${name}`,
+				`http://localhost:3001/api/events?${filter}=${id}`,
 			);
 			dispatch({
 				type: ActionType.GET_EVENT_BY_CATEGORY,

@@ -31,20 +31,23 @@ const FilterEvent = () => {
         const firstCity = document.getElementById("city1")
 		const idfirstCity = firstCity?.getAttribute("value")
 		if(idfirstCity) dispatch(getLocations(idfirstCity));
-	
 	 }, [cities])
 
-	const handleFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		dispatch(getEventByCategory(e.target.value));
+	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		dispatch(getEventByCategory(e.target.value, "category"));
 	};
 
 	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>)=> {
 		dispatch(getLocations(e.target.value));
 	}
 
+	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		dispatch(getEventByCategory(e.target.value, "location"));
+	};
+
 	return (
 		<div>
-			<select onChange={handleFilter}>
+			<select onChange={handleCategoryFilter}>
 				{categories.map((c) => (
 					<option key={c.name} value={c.id}>
 						{c.name}
@@ -60,7 +63,7 @@ const FilterEvent = () => {
 				))}
 			</select>
 
-			<select  >
+			<select onChange={handleLocationFilter}>
 				{locations.map((l) => (
 					<option key={l.name} value={l.id}>
 						{l.name}
