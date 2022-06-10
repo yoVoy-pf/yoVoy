@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { AriaAttributes, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
@@ -8,7 +8,7 @@ import {
 	getLocations,
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { Category, City, Location } from '../../types';
+import { Category, City, Location,Filter} from '../../types';
 
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -22,6 +22,8 @@ const FilterEvent = () => {
 		(state: State) => state.global.locations,
 	);
 
+	const [filters,setFilters] = useState<Array<Filter>>([])
+
 	useEffect(() => {
 		dispatch(getCategories());
 		dispatch(getCities());		
@@ -33,21 +35,40 @@ const FilterEvent = () => {
 		if(idfirstCity) dispatch(getLocations(idfirstCity));
 	 }, [cities])
 
+	 useEffect(()=>{
+		dispatch(getEventByCategory(filters));
+	 },[filters])
+
 	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		dispatch(getEventByCategory(e.target.value, "category"));
+		const categoryFilt: Filter = {
+			filter: "category",
+			id: e.target.value
+		}
+		setFilters([categoryFilt,filters[1]])	
 	};
 
 	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>)=> {
 		dispatch(getLocations(e.target.value));
+		const CityFilt: Filter = {
+			filter: "city",
+			id: e.target.value
+		}
+		setFilters([filters[0],CityFilt])
+		// dispatch(getEventByCategory(e.target.value, "city"));
 	}
 
 	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		dispatch(getEventByCategory(e.target.value, "location"));
+		const LocationFilt: Filter = {
+			filter: "location",
+			id: e.target.value
+		}
+		setFilters([filters[0],LocationFilt])
+		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
-
 	return (
 		<div>
 			<select onChange={handleCategoryFilter}>
+				<option key={"allCategories"} value="">todas las categorias</option>
 				{categories.map((c) => (
 					<option key={c.name} value={c.id}>
 						{c.name}
@@ -55,7 +76,8 @@ const FilterEvent = () => {
 				))}
 			</select>
 
-			<select onChange={handleCitiesFilter}>
+			<select id='cityFilter' onChange={handleCitiesFilter}>
+			<option key={"allCities"} value="">todas las ciudades</option>
 				{cities.map((city) => (
 					<option id={`city${city.id}`}key={city.name} value={city.id}>
 						{city.name}
@@ -64,6 +86,7 @@ const FilterEvent = () => {
 			</select>
 
 			<select onChange={handleLocationFilter}>
+			<option key={"allLocations"} value="">todas las locaciones</option>
 				{locations.map((l) => (
 					<option key={l.name} value={l.id}>
 						{l.name}

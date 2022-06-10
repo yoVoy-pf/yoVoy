@@ -2,6 +2,7 @@ import { ActionType } from './index';
 import { Dispatch } from 'redux';
 // import { Action } from "./action-Type";
 import axios from 'axios';
+import {Filter} from '../../types'
 
 // Ejemplo de como se puede realizar las acciones
 
@@ -51,12 +52,18 @@ export const getCategories = () => {
 	};
 };
 
-export const getEventByCategory = (id: string, filter: string) => {
+export const getEventByCategory = (filters: Filter[]) => {
+	let endPoint = "http://localhost:3001/api/events?"
+	if(filters[0]){
+		endPoint = endPoint + `${filters[0].filter}=${filters[0].id}`
+	}
+	if(filters[1]){
+		endPoint = endPoint + `&${filters[1].filter}=${filters[1].id}`
+	}
+	console.log(endPoint)
 	return async function (dispatch: Dispatch) {
 		try {
-			const getEventByCategory = await axios.get(
-				`http://localhost:3001/api/events?${filter}=${id}`,
-			);
+			const getEventByCategory = await axios.get(endPoint);
 			dispatch({
 				type: ActionType.GET_EVENT_BY_CATEGORY,
 				payload: getEventByCategory.data,

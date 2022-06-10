@@ -48,3 +48,8 @@ export enum ROLES_LIST {
   Organization = 2020,
   User = 1010
 }
+
+export interface Filter {
+	filter: string;
+	id: string | number;
+}
