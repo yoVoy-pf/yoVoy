@@ -6,10 +6,11 @@ import Card from '../Card/Card';
 import Events from '../Events/Events';
 import FilterEvent from '../FilterEvents/FilterEvents';
 import NavBar from '../NavBar/NavBar';
+import SearchBar from '../SearchBar/SearchBar';
 
 
 
-import s from './home.module.css';
+import home from './home.module.css';
 
 const Home = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -20,10 +21,15 @@ const Home = () => {
 	}, [dispatch]);
 
 	return (
-		<div className={s.container}>
-			<NavBar/>
-			<FilterEvent />
-			<div className={s.home}>
+		<div className={home.container}>
+			
+			<div className={home.searchbar}>
+				<SearchBar/>
+			</div>
+			<div>
+				<FilterEvent />
+			</div>
+			<div className={home.home}>
 				{allEvents.length > 0 ? (
 					<Events allEvents={allEvents} />
 				) : (
