@@ -39,6 +39,7 @@ const FilterEvent = () => {
 
 	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>)=> {
 		dispatch(getLocations(e.target.value));
+		dispatch(getEventByCategory(e.target.value, "city"));
 	}
 
 	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
