@@ -5,7 +5,9 @@ import { AppDispatch, State } from '../../redux/store/store';
 import Card from '../Card/Card';
 import Events from '../Events/Events';
 import FilterEvent from '../FilterEvents/FilterEvents';
-import SearchBar from '../SearchBar/SearchBar';
+import NavBar from '../NavBar/NavBar';
+
+
 
 import s from './home.module.css';
 
@@ -18,8 +20,8 @@ const Home = () => {
 	}, [dispatch]);
 
 	return (
-		<div>
-			<SearchBar />
+		<div className={s.container}>
+			<NavBar/>
 			<FilterEvent />
 			<div className={s.home}>
 				{allEvents.length > 0 ? (

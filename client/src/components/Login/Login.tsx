@@ -1,5 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
 import loginService from "../../services/loginService";
+import NavBar from "../NavBar/NavBar";
+
 
 const Login = () => {
     const [user, setUser] = useState(null);
@@ -30,6 +32,7 @@ const Login = () => {
 
     return(
         <React.Fragment>
+            <NavBar/>
             <form onSubmit={handleSubmit}>
                 <h1>Please login</h1>
 
