@@ -101,6 +101,17 @@ export const getCities = () => {
 	}
 }
 
+
+export const postCreateCategory = (payload: any) => {
+	return async function () {
+		try {
+			const response = await axios.post('http://localhost:3001/api/category', payload);
+			return response;
+      } catch (error) {
+			console.log(error)
+		}
+	}
+}
 export const getLocations = (city?: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
@@ -108,9 +119,6 @@ export const getLocations = (city?: string | number) => {
 			dispatch({
 				type: ActionType.GET_LOCATIONS,
 				payload: locations.data,
-			});
-		} catch (error) {
-			console.log(error)
-		}
-	}
-}
+});
+
+		

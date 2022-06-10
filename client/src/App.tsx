@@ -9,6 +9,7 @@ import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth.ts/RequireAuth';
 import { Welcome } from './components/Welcome/Welcome';
 import UsersList from './components/UsersList/UsersList';
+import CreateCategory from './components/CreateCategory/CreateCategory';
 
 function App(): JSX.Element {
 	return (
@@ -23,6 +24,7 @@ function App(): JSX.Element {
           <Route element={<RequireAuth/>}>
             <Route path='welcome' element={<Welcome />}/>
             <Route path='userslist' element={<UsersList />}/>
+            <Route path='/create-category' element={<CreateCategory/>} />
           </Route>
         </Route>
 			</Routes>
