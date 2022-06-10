@@ -126,6 +126,9 @@ export const getLocations = (city?: string | number) => {
 			dispatch({
 				type: ActionType.GET_LOCATIONS,
 				payload: locations.data,
-});
-
-		
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
