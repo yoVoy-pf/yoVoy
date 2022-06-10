@@ -34,6 +34,11 @@ interface getCitiesAction {
 	payload: any;
 }
 
+interface putUpdateEvent {
+	type: ActionType.PUT_UPDATE_EVENT;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -41,4 +46,5 @@ export type Action =
 	| clearEventIdAction
 	| getCategoriesAction
 	| getEventByCategoryAction
-	| getCitiesAction;
+	| getCitiesAction
+	| putUpdateEvent;

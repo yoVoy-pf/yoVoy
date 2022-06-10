@@ -100,3 +100,17 @@ export const getCities = () => {
 		}
 	}
 }
+
+export const putUpdateEvent = () => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const cities = await axios.put("http://localhost:3001/api/event")
+			dispatch({
+				type: ActionType.PUT_UPDATE_EVENT,
+				payload: cities.data,
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}

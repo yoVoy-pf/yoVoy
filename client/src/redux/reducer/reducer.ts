@@ -48,6 +48,11 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				cities: action.payload
 			}
+		case ActionType.PUT_UPDATE_EVENT:
+			return {
+				...state,
+				allEvents: action.payload
+			}
 		default:
 			return state;
 	}
