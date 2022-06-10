@@ -33,7 +33,7 @@ const Login = () => {
             dispatch(setCredentials({...userData, user}))
             setUser('')
             setPassword('')
-            navigate('/')
+            navigate('/welcome')
 
         } catch (err: any) {
             if (!err?.response){
