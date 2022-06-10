@@ -10,4 +10,4 @@ export const router = Router();
 
 router.get("/:id", getEventById)
 router.post("/",authenticateToken,verifyRoles(ROLES_LIST.Organization), postEvent)
-router.delete("/:id", deleteEvent)
+router.delete("/:id",authenticateToken,verifyRoles(ROLES_LIST.Organization), deleteEvent)
