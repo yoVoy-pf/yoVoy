@@ -101,7 +101,7 @@ export const getCities = () => {
 	}
 }
 
-export const getLocations = (city:number) => {
+export const getLocations = (city: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
 			const locations = await axios.get(`http://localhost:3001/api/locations?city=${city}`)

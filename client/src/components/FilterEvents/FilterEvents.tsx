@@ -5,6 +5,7 @@ import {
 	getCategories,
 	getEventByCategory,
 	getCities,
+	getLocations,
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City } from '../../types';
@@ -26,6 +27,10 @@ const FilterEvent = () => {
 		dispatch(getEventByCategory(e.target.value));
 	};
 
+	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>)=> {
+		dispatch(getLocations(e.target.value));
+	}
+
 	return (
 		<div>
 			<select onChange={handleFilter}>
@@ -36,7 +41,7 @@ const FilterEvent = () => {
 				))}
 			</select>
 
-			<select >
+			<select onChange={handleCitiesFilter}>
 				{cities.map((city) => (
 					<option key={city.name} value={city.id}>
 						{city.name}
