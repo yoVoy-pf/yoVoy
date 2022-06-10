@@ -5,7 +5,7 @@ import { authenticateToken } from '../middlewares/authenticateToken';
 
 router.post('/user/register', registerUser)
 router.post('/user/login', loginUser)
-router.get('/user/refresh-token', authenticateToken, handleRefreshToken)
+router.get('/user/refresh-token', handleRefreshToken)
 router.get('/user/logout', authenticateToken, logoutUser)
 
 
