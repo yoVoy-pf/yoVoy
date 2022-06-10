@@ -24,6 +24,8 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
+	console.log(eventDetail);
+
 	return (
 		<React.Fragment>
 			<nav>
