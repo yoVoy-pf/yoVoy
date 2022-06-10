@@ -8,6 +8,6 @@ import {verifyRoles} from '../middlewares/verifyRoles'
 router.get('/getTest', getUsers)
 router.get('/',authenticateToken,verifyRoles(ROLES_LIST.Admin), getUsers)
 
-router.get('/:id', getUser)
+router.get('/:id',authenticateToken, getUser)
 router.post('/', createUser)
-router.delete('/:id', deleteUser)
+router.delete('/:id', authenticateToken, verifyRoles(ROLES_LIST.Admin), deleteUser)

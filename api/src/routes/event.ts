@@ -1,7 +1,12 @@
 import { Router } from "express";
 import { getEventById, postEvent } from "../controllers/event";
+import { authenticateToken } from "../middlewares/authenticateToken";
+import { verifyRoles } from "../middlewares/verifyRoles";
+import { ROLES_LIST } from "../authorization/roles";
+
+
 
 export const router = Router();
 
 router.get("/:id", getEventById)
-router.post("/", postEvent)
+router.post("/",authenticateToken,verifyRoles(ROLES_LIST.Organization), postEvent)
