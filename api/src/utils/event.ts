@@ -150,34 +150,61 @@ export default {
         name,
         background_image,
         description,
-        categoryIds,
+        categoriesIds,
         locations
     }: any) => {
-        let event = await Event.update({name, background_image, description}, {where: {id: id}})
 
-        await EventCategory.destroy({where: {eventId: id}})
-        categoryIds.forEach((category:number) => {
-            EventCategory.create({eventId: id, categoryId: category})
-        }) 
-
-        locations.forEach(async (location: any) => {
-            let eventLocation = await EventLocation.findOne({
-                where: {
-                    eventId: id,
-                    locationId: location.id
-                }
+        const event = await Event.update(
+            {
+            name, 
+            background_image, 
+            description
+            }, {
+            where: {
+                id: id
+            }
             })
 
-            await Date.destroy({
-                where:{
-                    eventLocationId: eventLocation?.getDataValue("id")
-                }
-            })
-
-            location.dates.forEach((date: any) => {
-                Date.create({...date, eventLocationId: eventLocation?.getDataValue("id")})
-            })
+        const eventsCategories = await EventCategory.findAll({
+            where: {
+                eventId: id
+            }
         })
+
+        categoriesIds.forEach((category:number, i:number) => {
+            if(eventsCategories.length > i) eventsCategories[i].update({categoryId: category})
+
+            else EventCategory.create({eventId: id, categoryId: category})
+        })
+
+        const eventsLocations = await EventLocation.findAll({
+            where:{
+                eventId:id
+            }
+        })
+        
+        locations.forEach(async (location: any, i: number) => {
+            if(eventsLocations.length > i){
+                eventsLocations[i].update({locationId: location.id})
+                const eventLocationId = eventsLocations[i].getDataValue("id")
+                const dates = await Date.findAll({where:{eventLocationId}}) 
+                
+                location.dates.forEach((date:any, j: number) => {
+                    if(dates.length > j) dates[j].update({...date})
+                    else Date.create({...date, eventLocationId})
+                })
+
+            }
+            
+            else{
+                const eventLocationCreated = await EventLocation.create({eventId:id, locationId: location.id})
+
+                location.dates.forEach((date: any) => {
+                    Date.create({...date, eventLocationId: eventLocationCreated.getDataValue("id")})
+                })
+            }
+        })
+
         return event
     }
 }
