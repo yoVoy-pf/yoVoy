@@ -1,9 +1,9 @@
 import React, { SyntheticEvent, useEffect, useState, useRef } from 'react';
-import { createUser } from '../../services/singupService';
+// import { createUser } from '../../services/singupService';
 import { useRegisterMutation } from '../../authentication/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { validatePassword, validateUser } from './SignupValidate';
-
+import register_style from "./Signup.module.css"
 
 const Signup = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);
@@ -17,7 +17,7 @@ const Signup = () => {
 	const navigate = useNavigate();
 
 
-  const [register] = useRegisterMutation();
+	const [register] = useRegisterMutation();
 
 	useEffect(() => {
 		const input = userRef.current;
@@ -64,44 +64,47 @@ const Signup = () => {
 				{errMsg}
 			</p>
 			<form onSubmit={onSubmit}>
-				<h1>Registrarse</h1>
-				<label>Usuario</label> <br />
-				<input
-					type="text"
-					ref={userRef}
-					placeholder="Usuario"
-					name="user"
-					autoComplete="off"
-					required={true}
-					onChange={(e) => handleUserInput(e)}
-				/>
-				{errorsUser.user && <p>{errorsUser.user}</p>}
-				<br /> <br />
-				<label>Contraseña</label> <br />
-				<input
-					type="password"
-					placeholder="Contraseña"
-					name="password"
-					autoComplete="off"
-					required={true}
-					onChange={(e) => handlePasswordInput(e)}
-				/>
-				{errorsPassword.password && <p>{errorsPassword.password}</p>}
-				<br /> <br />
-				<button
-					type="submit"
-					disabled={
-						Object.keys(errorsUser).length > 0 ||
-						Object.keys(errorsPassword).length > 0 ||
-						errorsUser.user ||
-						errorsPassword.password
-							? true
-							: false
-					}
-				>
-					Registrarse
-				</button>{' '}
-				<br />
+				<div className={register_style.form}>
+
+					<h1>Registrarse</h1>
+					<label>Usuario</label> <br />
+					<input
+						type="text"
+						ref={userRef}
+						placeholder="Usuario"
+						name="user"
+						autoComplete="off"
+						required={true}
+						onChange={(e) => handleUserInput(e)}
+					/>
+					{errorsUser.user && <p>{errorsUser.user}</p>}
+					<br /> <br />
+					<label>Contraseña</label> <br />
+					<input
+						type="password"
+						placeholder="Contraseña"
+						name="password"
+						autoComplete="off"
+						required={true}
+						onChange={(e) => handlePasswordInput(e)}
+					/>
+					{errorsPassword.password && <p>{errorsPassword.password}</p>}
+					<br /> <br />
+					<button className={register_style.bottom}
+						type="submit"
+						disabled={
+							Object.keys(errorsUser).length > 0 ||
+								Object.keys(errorsPassword).length > 0 ||
+								errorsUser.user ||
+								errorsPassword.password
+								? true
+								: false
+						}
+					>
+						Registrarse
+					</button>{' '}
+					<br />
+				</div>
 			</form>
 		</React.Fragment>
 	);
