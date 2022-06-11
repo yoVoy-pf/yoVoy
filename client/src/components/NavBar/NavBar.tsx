@@ -20,7 +20,7 @@ const NavBar = ()=>{
 
             <div className="prueba_btn">
                 <Link to="/login">
-                    <button className="navBar-btn-login">Iniciar Sesion</button>
+                    <button className="navBar-btn-login">Iniciar Sesión</button>
                 </Link>
                 <Link to="/signup">
                     <button className="navBar-btn-register">Registrarse</button>
