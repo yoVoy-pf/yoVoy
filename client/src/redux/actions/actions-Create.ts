@@ -54,12 +54,14 @@ export const getCategories = () => {
 
 export const getEventByCategory = (filters: Filter[]) => {
 	let endPoint = "http://localhost:3001/api/events?"
+	let queries = []
 	if(filters[0]){
-		endPoint = endPoint + `${filters[0].filter}=${filters[0].id}`
+		queries.push(`${filters[0].filter}=${filters[0].id}`)
 	}
 	if(filters[1]){
-		endPoint = endPoint + `&${filters[1].filter}=${filters[1].id}`
+		queries.push(`${filters[1].filter}=${filters[1].id}`)
 	}
+	endPoint = endPoint + queries.join("&")
 	console.log(endPoint)
 	return async function (dispatch: Dispatch) {
 		try {
