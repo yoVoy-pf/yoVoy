@@ -1,5 +1,3 @@
-import React from 'react';
-
 const validateUser = (input: any) => {
 	let errorsUser: any = {};
 	if (input.user.includes(' ')) {

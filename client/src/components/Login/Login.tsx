@@ -1,22 +1,27 @@
-import React, { SyntheticEvent, useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../authentication/authSlice';
-import { useLoginMutation } from '../../authentication/authApiSlice';
-import { validateUser } from './LoginValidate';
-import { validatePassword } from './LoginValidate';
+import React, { SyntheticEvent, useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../../slices/authentication/authSlice";
+import { useLoginMutation } from "../../slices/authentication/authApiSlice";
+import { selectCurrentToken } from "../../slices/authentication/authSlice";
+import { validatePassword } from "./LoginValidate";
+import { validateUser } from "./LoginValidate";
 import login_style from "./Login.module.css"
 
-const Login = () => {
-	const userRef = useRef<HTMLInputElement | null>(null);
-	const errRef = useRef<HTMLParagraphElement | null>(null);
 
-	const [user, setUser] = useState({});
-	const [password, setPassword] = useState({});
-	const [errMsg, setErrMsg] = useState('');
-	const [errorsUser, setErrorsUser]: any = useState({});
-	const [errorsPassword, setErrorsPassword]: any = useState({});
-	const navigate = useNavigate();
+const Login = () => {
+  const userRef = useRef<HTMLInputElement | null>(null);
+  const errRef = useRef<HTMLParagraphElement | null>(null);
+  const currentToken = useSelector(selectCurrentToken);
+
+  const [user, setUser] = useState({});
+  const [password, setPassword] = useState({});
+  const [errMsg, setErrMsg] = useState('')
+  const [errorsUser, setErrorsUser]: any = useState({});
+  const [errorsPassword, setErrorsPassword]: any = useState({});
+  const navigate = useNavigate();
+  const location : any = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
 	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
@@ -30,26 +35,30 @@ const Login = () => {
 		setErrMsg('');
 	}, [user, password]);
 
-	const handleSubmit = async (e: SyntheticEvent) => {
-		e.preventDefault();
-		try {
-			e.preventDefault();
-			const userData = await login({ name: user, password }).unwrap();
-			dispatch(setCredentials({ ...userData, user }));
-			setUser('');
-			setPassword('');
-			navigate('/welcome');
-		} catch (err: any) {
-			if (!err?.response) {
-				setErrMsg('No Server Response');
-			} else if (err.status === 400) {
-				setErrMsg('Missing Username or Password');
-			} else if (err.status === 401) {
-				setErrMsg('Unauthorized');
-			} else {
-				setErrMsg('Login Failed');
-			}
-		}
+  useEffect(() => {
+    if (currentToken) navigate(from, {replace: true})
+  },[currentToken, navigate, from])
+
+  const handleSubmit = async (e: SyntheticEvent) => {
+      e.preventDefault();
+      try {
+          const userData = await login({name: user, password}).unwrap()
+          console.log(userData)
+          dispatch(setCredentials({user: userData.data, accessToken: userData.accessToken}))
+          setUser('')
+          setPassword('')
+          navigate(from,{replace: true})
+      } catch (err: any) {
+        if (!err?.response) {
+          setErrMsg('No Server Response');
+        } else if (err.status === 400) {
+          setErrMsg('Missing Username or Password');
+        } else if (err.status === 401) {
+          setErrMsg('Unauthorized');
+        } else {
+          setErrMsg('Login Failed');
+        }
+      }
 		const error = errRef.current;
 		error?.focus();
 	};

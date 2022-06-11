@@ -1,9 +1,9 @@
-import React, { SyntheticEvent, useEffect, useState, useRef } from 'react';
-// import { createUser } from '../../services/singupService';
-import { useRegisterMutation } from '../../authentication/authApiSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { SyntheticEvent, useEffect, useState, useRef } from "react";
+import { useRegisterMutation } from "../../slices/authentication/authApiSlice";
+import { useNavigate } from "react-router-dom";
 import { validatePassword, validateUser } from './SignupValidate';
 import register_style from "./Signup.module.css"
+
 
 const Signup = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);

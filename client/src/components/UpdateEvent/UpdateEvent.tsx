@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { useGetEventQuery, useUpdateEventMutation } from "../../services/eventsApiSlice"
+import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/eventsApiSlice"
 import { useParams } from "react-router-dom";
 import { putEvent } from "../../types";
 

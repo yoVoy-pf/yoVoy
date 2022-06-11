@@ -1,5 +1,5 @@
 import { apiSlice } from "../authentication/apiSlice";
-import { User } from "../types";
+import { User } from "../../types";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({

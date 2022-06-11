@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { useCreateCategoryMutation } from "../../services/categoriesApiSlice";
+import { useCreateCategoryMutation } from "../../slices/app/categoriesApiSlice";
 
 const CreateCategory = () => {
     const navigate = useNavigate()

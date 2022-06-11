@@ -1,15 +1,22 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCurrentToken } from "../../authentication/authSlice";
+import { selectCurrentToken, selectCurrentUser } from "../../slices/authentication/authSlice";
 
-const RequireAuth = () => {
+interface Props{
+  allowedRoles: number[];
+}
+
+const RequireAuth = ({allowedRoles}:Props) => {
   const token = useSelector(selectCurrentToken)
+  const currentUser : any = useSelector(selectCurrentUser)
   const location = useLocation()
 
   return (
-    token
+    token && currentUser?.rolesId?.find((role: number)=> allowedRoles?.includes(role))
     ? <Outlet/>
-    : <Navigate to="/" state={{from: location}} replace />
+    : token
+      ? <Navigate to="/unauthorized" state={{from: location}} replace />
+      : <Navigate to="/login" state={{from: location}} replace />
   )
 }
 
