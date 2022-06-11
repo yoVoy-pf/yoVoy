@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../authentication/authSlice";
-import { useLoginMutation } from "../../authentication/authApiSlice";
+import { setCredentials } from "../../slices/authentication/authSlice";
+import { useLoginMutation } from "../../slices/authentication/authApiSlice";
 
 
 

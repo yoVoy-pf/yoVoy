@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useEffect, useState, useRef } from "react";
-import { useRegisterMutation } from "../../authentication/authApiSlice";
+import { useRegisterMutation } from "../../slices/authentication/authApiSlice";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {

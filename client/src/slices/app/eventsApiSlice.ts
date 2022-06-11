@@ -1,5 +1,5 @@
 import { apiSlice } from "../authentication/apiSlice";
-import { Event } from "../types";
+import { Event } from "../../types";
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({

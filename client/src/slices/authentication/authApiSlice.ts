@@ -1,7 +1,5 @@
 import { apiSlice } from "./apiSlice";
-
-import { useDispatch, useSelector } from 'react-redux'
-import { setCredentials } from '../authentication/authSlice';
+import { setCredentials } from './authSlice';
 
 
 
