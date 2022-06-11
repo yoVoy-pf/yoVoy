@@ -3,13 +3,16 @@ import NavBar from "../NavBar/NavBar";
 import home from '../Home/home.module.css'
 
 const Layout = () => {
-  return(
+  return (
     <div className={home.container}>
-    <NavBar/>
 
-   <Outlet/>
+      <div className={home.container}>
+        <NavBar />
+
+        <Outlet />
+      </div>
     </div>
-  ) 
+  )
 }
 
 export default Layout
