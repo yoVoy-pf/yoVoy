@@ -10,6 +10,8 @@ import {
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City, Location, Filter } from '../../types';
 
+import filterStyle from "./FilterEvents.module.css"
+
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const categories: Array<Category> = useSelector(
@@ -78,11 +80,13 @@ const FilterEvent = () => {
 		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
 	return (
-		<div>
+		<div className={filterStyle.bg_div}>
+			<div className={filterStyle.bg_div1}>
+
 			<select onChange={handleCategoryFilter}>
-				<option key={"allCategories"} value="">todas las categorias</option>
+				<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
 				{categories.map((c) => (
-					<option key={c.name} value={c.id}>
+					<option className={filterStyle.option} key={c.name} value={c.id}>
 						{c.name}
 					</option>
 				))}
@@ -91,7 +95,7 @@ const FilterEvent = () => {
 			<select id='cityFilter' onChange={handleCitiesFilter}>
 				<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
 				{cities.map((city) => (
-					<option className="optionCity" id={`city${city.id}`} key={city.name} value={city.id}>
+					<option  id={`city${city.id}`} key={city.name} value={city.id}>
 						{city.name}
 					</option>
 				))}
@@ -105,6 +109,8 @@ const FilterEvent = () => {
 					</option>
 				))}
 			</select>
+			</div>
+			<div className={filterStyle.line}></div>
 		</div>
 	);
 };
