@@ -1,5 +1,4 @@
 import React, { SyntheticEvent, useEffect, useState, useRef } from "react";
-import { createUser } from "../../services/singupService";
 import { useRegisterMutation } from "../../authentication/authApiSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +11,7 @@ const Signup = () => {
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate();
 
-    const [register,{isLoading}] = useRegisterMutation();
+    const [register] = useRegisterMutation();
 
     useEffect(() => {
       const input = userRef.current

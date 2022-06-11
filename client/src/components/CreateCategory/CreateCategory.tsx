@@ -1,13 +1,11 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux";
-import { postCreateCategory } from "../../redux/actions/actions-Create";
-import { AppDispatch } from "../../redux/store/store"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { useCreateCategoryMutation } from "../../services/categoriesApiSlice";
 
 const CreateCategory = () => {
-    const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate()
 
+    const [createCategory] = useCreateCategoryMutation();
     const [category, setCategory] = useState({
         name: ''
     });
@@ -20,9 +18,10 @@ const CreateCategory = () => {
         });
     }
 
-    const onSubmit = (e:any) => {
+    const onSubmit = async (e:any) => {
         e.preventDefault();
-        dispatch(postCreateCategory(category))
+        console.log(category.name)
+        if (category) await createCategory({category: category.name})
         setCategory({
             name: ''
         })

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch } from "react-redux";
-import { putUpdateEvent } from "../../redux/actions/actions-Create";
-import { AppDispatch } from "../../redux/store/store"
 import { useNavigate } from "react-router-dom";
 import { useGetEventQuery, useUpdateEventMutation } from "../../services/eventsApiSlice"
 import { useParams } from "react-router-dom";
@@ -19,8 +16,8 @@ const UpdateEvent = () => {
 
     useEffect(() => {
 
-      let mappedCategoriesIds = eventInfo?.categories?.map(c => c.id)
-      let mappedLocations = eventInfo?.locations?.map(loc => ({
+      let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
+      let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
         id: loc.id,
         dates: loc.dates
       }))
