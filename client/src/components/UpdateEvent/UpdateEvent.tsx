@@ -7,7 +7,6 @@ import { putEvent } from "../../types";
 
 
 const UpdateEvent = () => {
-    // const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate()
     const {eventId} = useParams()
     const {data: eventInfo} = useGetEventQuery({id: '1'});
@@ -15,7 +14,6 @@ const UpdateEvent = () => {
     const [updateEvent] = useUpdateEventMutation()
 
     useEffect(() => {
-
       let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
       let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
         id: loc.id,
@@ -50,7 +48,6 @@ const UpdateEvent = () => {
 
     const onSubmit = async (e: any) => {
         e.preventDefault();
-        // dispatch(putUpdateEvent(event))
         console.log({eventId});
         const updatedData = {
           name: event.name,

@@ -26,9 +26,9 @@ const Event = () => {
 
 	return (
 		<React.Fragment>
-			<nav>
+			{/* <nav>
 				<NavBar />
-			</nav>
+			</nav> */}
 			<br />
 			<img src={eventDetail.background_image} alt={eventDetail.name} />
 			<h1>Evento: {eventDetail.name}</h1>

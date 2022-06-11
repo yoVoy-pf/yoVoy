@@ -8,6 +8,7 @@ export interface Event {
 	locations: Location[];
 }
 
+
 export interface postCategory{
   name: string;
 }

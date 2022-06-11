@@ -21,7 +21,7 @@ const Home = () => {
 	}, [dispatch]);
 
 	return (
-		<div className={home.container}>
+		<div >
 			
 			<div className={home.searchbar}>
 				<SearchBar/>
