@@ -58,6 +58,10 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				locations: action.payload
 			}
+		case ActionType.PUT_UPDATE_EVENT:
+			return {
+				...state,
+			}
 		default:
 			return state;
 	}

@@ -15,6 +15,7 @@ export const Welcome = () => {
       <h1>{welcome}</h1>
       <p>Token: {token}</p>
       <p><Link to='/userslist'>Go to the Users List</Link></p>
+      <p><Link to='/create-category'>Crear Category</Link></p>
     </section>
   )
   return content

@@ -109,6 +109,20 @@ export const getCities = () => {
 }
 
 
+export const putUpdateEvent = (id: any) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const updateEvent = await axios.put(`http://localhost:3001/api/event/${id}`)
+			dispatch({
+				type: ActionType.PUT_UPDATE_EVENT,
+				payload: updateEvent.data,
+			});
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
 export const postCreateCategory = (payload: any) => {
 	return async function () {
 		try {
@@ -132,3 +146,5 @@ export const getLocations = (city?: string | number) => {
 		}
 	}
 }
+		
+

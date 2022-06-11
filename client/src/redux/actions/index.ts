@@ -7,6 +7,7 @@ export enum ActionType {
 	GET_CATEGORIES = 'get_categories',
 	GET_EVENT_BY_CATEGORY = 'get_event_by_category',
 	GET_CITIES = 'get_cities',
+	PUT_UPDATE_EVENT = 'put_update_event',
 	POST_CREATE_CATEGORY = 'post_create_category',
 	GET_LOCATIONS = 'get_locations',
 }

@@ -34,6 +34,11 @@ interface getCitiesAction {
 	payload: any;
 }
 
+
+interface putUpdateEvent {
+	type: ActionType.PUT_UPDATE_EVENT;
+}
+
 interface postCreateCategory {
 	type: ActionType.POST_CREATE_CATEGORY;
 }
@@ -51,5 +56,7 @@ export type Action =
 	| getCategoriesAction
 	| getEventByCategoryAction
 	| getCitiesAction
+	| putUpdateEvent
 	| postCreateCategory
 	| getLocationsAction;
+
