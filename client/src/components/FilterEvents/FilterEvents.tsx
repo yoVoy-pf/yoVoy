@@ -8,7 +8,7 @@ import {
 	getLocations,
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { Category, City, Location,Filter} from '../../types';
+import { Category, City, Location, Filter } from '../../types';
 
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -22,38 +22,41 @@ const FilterEvent = () => {
 		(state: State) => state.global.locations,
 	);
 
-	const [filters,setFilters] = useState<Array<Filter>>([])
+	const [filters, setFilters] = useState<Array<Filter>>([])
+	const [citySelected, setCitySelected] = useState<string>("")
 
 	useEffect(() => {
 		dispatch(getCategories());
-		dispatch(getCities());		
+		dispatch(getCities());
 	}, [dispatch]);
 
-     useEffect(() => {
-        const firstCity = document.getElementById("city1")
-		const idfirstCity = firstCity?.getAttribute("value")
-		if(idfirstCity) dispatch(getLocations(idfirstCity));
-	 }, [cities])
+	useEffect(() => {
+		// const firstCity = document.getElementById("city1")
+		// const idfirstCity = firstCity?.getAttribute("value")
+		// if (idfirstCity) dispatch(getLocations(idfirstCity));
+		dispatch(getLocations())
+	}, [cities])
 
-	 useEffect(()=>{
+	useEffect(() => {
 		dispatch(getEventByCategory(filters));
-	 },[filters])
+	}, [filters])
 
 	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const categoryFilt: Filter = {
 			filter: "category",
 			id: e.target.value
 		}
-		setFilters([categoryFilt,filters[1]])	
+		setFilters([categoryFilt, filters[1]])
 	};
 
-	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>)=> {
+	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		dispatch(getLocations(e.target.value));
 		const CityFilt: Filter = {
 			filter: "city",
 			id: e.target.value
 		}
-		setFilters([filters[0],CityFilt])
+		setCitySelected(e.target.value)
+		setFilters([filters[0], CityFilt])
 		// dispatch(getEventByCategory(e.target.value, "city"));
 	}
 
@@ -62,7 +65,16 @@ const FilterEvent = () => {
 			filter: "location",
 			id: e.target.value
 		}
-		setFilters([filters[0],LocationFilt])
+		if (e.target.value !== "") {
+			setFilters([filters[0], LocationFilt])
+		} else {
+			const CityFilt: Filter = {
+				filter: "city",
+				id: citySelected
+			}
+			setFilters([filters[0], CityFilt])
+		}
+
 		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
 	return (
@@ -77,16 +89,16 @@ const FilterEvent = () => {
 			</select>
 
 			<select id='cityFilter' onChange={handleCitiesFilter}>
-			<option key={"allCities"} value="">todas las ciudades</option>
+				<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
 				{cities.map((city) => (
-					<option id={`city${city.id}`}key={city.name} value={city.id}>
+					<option className="optionCity" id={`city${city.id}`} key={city.name} value={city.id}>
 						{city.name}
 					</option>
 				))}
 			</select>
 
 			<select onChange={handleLocationFilter}>
-			<option key={"allLocations"} value="">todas las locaciones</option>
+				<option key={"allLocations"} value="">todas las locaciones</option>
 				{locations.map((l) => (
 					<option key={l.name} value={l.id}>
 						{l.name}
