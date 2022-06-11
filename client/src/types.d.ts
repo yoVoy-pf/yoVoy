@@ -8,7 +8,12 @@ export interface Event {
 	locations: Location[];
 }
 
-interface putEvent {
+
+export interface postCategory{
+  name: string;
+}
+
+export interface putEvent {
   name: string;
   description: string;
   background_image: string;
@@ -16,7 +21,7 @@ interface putEvent {
   locations: putLocation[]
 }
 
-interface putLocation {
+export interface putLocation {
   id: number;
   dates: Dates[];
 }
