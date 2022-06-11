@@ -1,0 +1,39 @@
+.form{
+    box-sizing: border-box;
+    width: 400px;
+    background: #24303c83;
+    padding: 30px;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 25px;
+    font-family: 'calibri';
+    color: white;
+    box-shadow: 7px 13px 37px #000;
+    margin-bottom: 20px;
+}
+
+.form input{
+    width: 94%;
+    background: #24303c84;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #1f53c5;
+    font-family: 'calibri';
+    font-size: 18px;
+    color: white;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.bottom {
+    width: 100%;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+}
