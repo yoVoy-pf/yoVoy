@@ -113,16 +113,7 @@ export default {
                 Date.create({...date, eventLocationId})
             })
         })
-        /*
-        let eventLocation = await EventLocation.create({eventId, locationId})
-        let eventLocationId = eventLocation.getDataValue("id")
-
-        dates = dates.map((date:any) => {
-            return {...date, eventLocationId}
-        })
-
-        await Date.bulkCreate(dates)
-        */
+        
         return event
     },
 
