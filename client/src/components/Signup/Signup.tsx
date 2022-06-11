@@ -4,6 +4,7 @@ import { useRegisterMutation } from '../../authentication/authApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { validatePassword, validateUser } from './SignupValidate';
 
+
 const Signup = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);
 	const errRef = useRef<HTMLParagraphElement | null>(null);
@@ -15,7 +16,8 @@ const Signup = () => {
 	const [errMsg, setErrMsg] = useState('');
 	const navigate = useNavigate();
 
-	const [register, { isLoading }] = useRegisterMutation();
+
+  const [register] = useRegisterMutation();
 
 	useEffect(() => {
 		const input = userRef.current;
