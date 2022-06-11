@@ -14,6 +14,7 @@ const NavBar = ()=>{
                     <li className="navbar_bg_li"> <NavLink className="navbar_bg_a" to="/">Home</NavLink> </li>
                     <li className="navbar_bg_li"> <NavLink className="navbar_bg_a" to="#">Sobre Nosotros</NavLink> </li>
                     <li className="navbar_bg_li"> <NavLink className="navbar_bg_a" to="#">Contacto</NavLink> </li>
+                    <li className="navbar_bg_li"> <NavLink className="navbar_bg_a" to="/update-event/1">Put event 1</NavLink> </li>
                 </ul>
             </div>
 

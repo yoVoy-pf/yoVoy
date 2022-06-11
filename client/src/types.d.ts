@@ -5,7 +5,20 @@ export interface Event {
 	background_image: string;
 	organization: Organization;
 	categories: Category[];
-	location: Location[];
+	locations: Location[];
+}
+
+interface putEvent {
+  name: string;
+  description: string;
+  background_image: string;
+  categoriesIds: number[];
+  locations: putLocation[]
+}
+
+interface putLocation {
+  id: number;
+  dates: Dates[];
 }
 
 export interface Organization {

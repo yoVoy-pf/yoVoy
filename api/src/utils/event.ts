@@ -150,13 +150,13 @@ export default {
         name,
         background_image,
         description,
-        categoryIds,
+        categoriesIds,
         locations
     }: any) => {
         let event = await Event.update({name, background_image, description}, {where: {id: id}})
 
         await EventCategory.destroy({where: {eventId: id}})
-        categoryIds.forEach((category:number) => {
+        categoriesIds.forEach((category:number) => {
             EventCategory.create({eventId: id, categoryId: category})
         }) 
 
