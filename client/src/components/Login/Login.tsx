@@ -1,19 +1,23 @@
 import React, { SyntheticEvent, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../../slices/authentication/authSlice";
 import { useLoginMutation } from "../../slices/authentication/authApiSlice";
+import { selectCurrentToken } from "../../slices/authentication/authSlice";
 
 
 
 const Login = () => {
     const userRef = useRef<HTMLInputElement | null>(null);
     const errRef = useRef<HTMLParagraphElement | null>(null);
+    const currentToken = useSelector(selectCurrentToken);
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('')
     const navigate = useNavigate();
+    const location : any = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const [login, {isLoading}] = useLoginMutation();
     const dispatch = useDispatch();
@@ -27,6 +31,10 @@ const Login = () => {
       setErrMsg('')
     },[user,password])
 
+    useEffect(() => {
+      if (currentToken) navigate(from, {replace: true})
+    },[currentToken, navigate, from])
+
     const handleSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
         try {
@@ -35,7 +43,7 @@ const Login = () => {
             dispatch(setCredentials({user: userData.data, accessToken: userData.accessToken}))
             setUser('')
             setPassword('')
-            navigate('/welcome')
+            navigate(from,{replace: true})
 
         } catch (err: any) {
             if (!err?.response){

@@ -61,12 +61,6 @@ export interface User {
   rolesId: number[];
 }
 
-export enum ROLES_LIST {
-  Admin = 3030,
-  Organization = 2020,
-  User = 1010
-}
-
 export interface Filter {
 	filter: string;
 	id: string | number;
