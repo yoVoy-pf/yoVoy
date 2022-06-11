@@ -96,16 +96,24 @@ export default {
         description,
         background_image,
         categoryIds,
-        locationId,
-        dates,
+        locationsIds,
         user
     }: any) => {
         let event = await Event.create({name, description, background_image, organizationId: user.organizationId})
         let eventId = event.getDataValue("id")
-        categoryIds.forEach( async (id:number) => {
-            await EventCategory.create({eventId, categoryId: id})
+        categoryIds.forEach(async (id:number) => {
+            EventCategory.create({eventId, categoryId: id})
         });
 
+        locationsIds.forEach(async (location: any) => {
+            let eventLocation = await EventLocation.create({eventId, locationId: location.id})
+            let eventLocationId = eventLocation.getDataValue("id")
+
+            location.dates.forEach((date:any) => {
+                Date.create({...date, eventLocationId})
+            })
+        })
+        /*
         let eventLocation = await EventLocation.create({eventId, locationId})
         let eventLocationId = eventLocation.getDataValue("id")
 
@@ -114,7 +122,7 @@ export default {
         })
 
         await Date.bulkCreate(dates)
-
+        */
         return event
     },
 
