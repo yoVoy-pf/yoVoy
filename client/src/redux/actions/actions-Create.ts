@@ -30,8 +30,8 @@ export const getSearchEvent = (name: string | number) => {
 				type: ActionType.SEARCH_EVENT,
 				payload: searchEvent.data,
 			});
-		} catch (error) {
-			console.error('Error la acciones de event');
+		} catch {
+			return alert('El evento que buscar no existe');
 		}
 	};
 };
