@@ -5,6 +5,7 @@ import { setCredentials } from '../../authentication/authSlice';
 import { useLoginMutation } from '../../authentication/authApiSlice';
 import { validateUser } from './LoginValidate';
 import { validatePassword } from './LoginValidate';
+import login_style from "./Login.module.css"
 
 const Login = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);
@@ -67,7 +68,7 @@ const Login = () => {
 	const content = isLoading ? (
 		<h1>Loading...</h1>
 	) : (
-		<React.Fragment>
+		<div className={login_style.bg}>
 			<p
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
@@ -77,45 +78,48 @@ const Login = () => {
 			</p>
 			<form onSubmit={handleSubmit}>
 				<h1>Ingresar</h1>
-				<label>Usuario</label> <br />
-				<input
-					type="text"
-					ref={userRef}
-					placeholder="Usuario"
-					name="user"
-					autoComplete="off"
-					required={true}
-					onChange={(e) => handleUserInput(e)}
-				/>
-				{errorsUser.user && <p>{errorsUser.user}</p>}
-				<br /> <br />
-				<label>Contraseña</label> <br />
-				<input
-					type="password"
-					placeholder="Contraseña"
-					name="password"
-					autoComplete="off"
-					required={true}
-					onChange={(e) => handlePasswordInput(e)}
-				/>
-				{errorsPassword.password && <p>{errorsPassword.password}</p>}
-				<br /> <br />
-				<button
-					type="submit"
-					disabled={
-						Object.keys(errorsUser).length > 0 ||
-						Object.keys(errorsPassword).length > 0 ||
-						errorsUser.user ||
-						errorsPassword.password
-							? true
-							: false
-					}
-				>
-					Iniciar sesion
-				</button>
+				<div className={login_style.form} >
+
+					<label className={login_style.label}>Usuario</label> <br />
+					<input
+						type="text"
+						ref={userRef}
+						placeholder="Usuario"
+						name="user"
+						autoComplete="off"
+						required={true}
+						onChange={(e) => handleUserInput(e)}
+					/>
+					{errorsUser.user && <p>{errorsUser.user}</p>}
+					<br /> <br />
+					<label>Contraseña</label> <br />
+					<input
+						type="password"
+						placeholder="Contraseña"
+						name="password"
+						autoComplete="off"
+						required={true}
+						onChange={(e) => handlePasswordInput(e)}
+					/>
+					{errorsPassword.password && <p>{errorsPassword.password}</p>}
+					<br /> <br />
+					<button className={login_style.bottom}
+						type="submit"
+						disabled={
+							Object.keys(errorsUser).length > 0 ||
+								Object.keys(errorsPassword).length > 0 ||
+								errorsUser.user ||
+								errorsPassword.password
+								? true
+								: false
+						}
+					>
+						Iniciar sesion
+					</button>
+				</div>
 				<br />
 			</form>
-		</React.Fragment>
+		</div>
 	);
 
 	return content;
