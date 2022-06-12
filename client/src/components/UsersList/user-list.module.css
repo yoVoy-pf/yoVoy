@@ -3,6 +3,30 @@
     justify-content: center;
 } 
 
+.text_style_user {
+    color: white;
+}
+
 .list_user{
-    list-style:none
+    list-style: none;
+    color: white;
+    font-size: 20px;
+    border: 2px solid white;
+    background: rgba(156, 49, 20, 0.302);
+    border-radius: 2%;
+    padding: 15px;
+}
+
+.link_user_list {
+    display: flex;
+    justify-content: center; 
+}
+
+.link_style_user_list{
+    padding: 10px;
+    background: rgba(156, 49, 20, 0.302);
+    border: 2px solid white;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
 }
