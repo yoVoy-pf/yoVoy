@@ -1,6 +1,7 @@
 import React, { AriaAttributes, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
 	getCategories,
 	getEventByCategory,
@@ -9,7 +10,6 @@ import {
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City, Location, Filter } from '../../types';
-
 import filterStyle from "./FilterEvents.module.css"
 
 const FilterEvent = () => {
@@ -26,6 +26,7 @@ const FilterEvent = () => {
 
 	const [filters, setFilters] = useState<Array<Filter>>([])
 	const [citySelected, setCitySelected] = useState<string>("")
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		dispatch(getCategories());
@@ -80,13 +81,11 @@ const FilterEvent = () => {
 		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
 	return (
-		<div className={filterStyle.bg_div}>
-			<div className={filterStyle.bg_div1}>
-
+		<div>
 			<select onChange={handleCategoryFilter}>
-				<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
+				<option key={"allCategories"} value="">todas las categorias</option>
 				{categories.map((c) => (
-					<option className={filterStyle.option} key={c.name} value={c.id}>
+					<option key={c.name} value={c.id}>
 						{c.name}
 					</option>
 				))}
@@ -95,7 +94,7 @@ const FilterEvent = () => {
 			<select id='cityFilter' onChange={handleCitiesFilter}>
 				<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
 				{cities.map((city) => (
-					<option  id={`city${city.id}`} key={city.name} value={city.id}>
+					<option className="optionCity" id={`city${city.id}`} key={city.name} value={city.id}>
 						{city.name}
 					</option>
 				))}
@@ -109,8 +108,6 @@ const FilterEvent = () => {
 					</option>
 				))}
 			</select>
-			</div>
-			<div className={filterStyle.line}></div>
 		</div>
 	);
 };
