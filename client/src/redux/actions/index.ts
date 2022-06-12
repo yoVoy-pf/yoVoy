@@ -10,4 +10,5 @@ export enum ActionType {
 	PUT_UPDATE_EVENT = 'put_update_event',
 	POST_CREATE_CATEGORY = 'post_create_category',
 	GET_LOCATIONS = 'get_locations',
+	POST_CREATE_EVENT = 'post_create_event',
 }
