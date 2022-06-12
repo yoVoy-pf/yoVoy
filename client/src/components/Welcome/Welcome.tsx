@@ -20,8 +20,8 @@ export const Welcome = () => {
         {/* <p>Token: {token}</p> */}
         <div className={styleWelcome.links_welcome}>
           <div className={styleWelcome.order_welcome}>
-            <p><Link className={styleWelcome.links_style} to='/userslist'>Ir a la lista de usuarios</Link></p>
-            <p><Link className={styleWelcome.links_style} to='/create-category'>Crear Categoría</Link></p>
+            <p><Link className={styleWelcome.links_style} to='/admin-panel'>Ir al panel de admin</Link></p>
+            {/* <p><Link className={styleWelcome.links_style} to='/create-category'>Crear Categoría</Link></p> */}
           </div>
         </div>
     </section>
