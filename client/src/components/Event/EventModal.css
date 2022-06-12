@@ -1,3 +1,4 @@
+
 .modal {
 	position: fixed;
 	z-index: 999;
@@ -9,28 +10,45 @@
 	display: none;
 	justify-content: center;
 	align-items: center;
+	transition: all .4s;
 }
 
 .modal.is-open {
 	display: flex;
+	transition: all 1s;
 	/* */
 }
 
 .modal-container {
 	position: relative;
+	border: 2px solid #fff;
+	border-radius: 5%;
 	padding: 1rem;
+	width: 400px;
 	min-width: 300px;
 	max-width: 480px;
 	min-height: 200px;
+	max-height: 600px;
 
 	overflow-y: auto;
-	background-color: #fff;
+	background-color: rgb(35, 71, 189);
+	pointer-events: visible;
+	transition: all 1s;
 }
 
 .modal-close {
 	position: absolute;
-	top: 1rem;
-	right: 1rem;
+	width: 50px;
+	top: 0.5rem;
+	right: 0.5rem;
 	padding: 10px;
 	cursor: pointer;
+	color: #fff;
+	border-color: #fff;
+	background-color: red;
+	border-radius: 10px;
+}
+
+.modal-close:hover{
+	transform: scale(1.2);
 }
