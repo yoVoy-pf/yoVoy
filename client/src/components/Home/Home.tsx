@@ -30,9 +30,9 @@ const Home = () => {
 				<FilterEvent />
 			</div>
 			<div className={home.home}>
-				{allEvents.length > 0 ? (
+				{allEvents.length > 0 ? allEvents[0] !== "no hay eventos"? (
 					<Events allEvents={allEvents} />
-				) : (
+				) : <h1>no se encontraron eventos con estas caracteristicas</h1> : (
 					<h1>Cargando</h1>
 				)}
 			</div>

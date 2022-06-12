@@ -71,8 +71,11 @@ export const getEventByCategory = (filters: Filter[]) => {
 				payload: getEventByCategory.data,
 			});
 		} catch (error) {
-			console.error('Error en getEventByCategory');
-		}
+			dispatch({
+				type: ActionType.DONT_EVENTS,
+				payload: ["no hay eventos"],
+			});
+		} 
 	};
 };
 

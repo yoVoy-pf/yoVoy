@@ -48,6 +48,11 @@ interface getLocationsAction {
 	payload: any;
 }
 
+interface dontEventsAction{
+	type: ActionType.DONT_EVENTS;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -58,5 +63,6 @@ export type Action =
 	| getCitiesAction
 	| putUpdateEvent
 	| postCreateCategory
-	| getLocationsAction;
+	| getLocationsAction
+	| dontEventsAction;
 
