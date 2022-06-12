@@ -50,7 +50,7 @@ const CreateEvent = () => {
 		description: '',
 		background_image: '',
 		locations: '',
-		categoryIds: [],
+		categories: [],
 		dates: [],
 	});
 
@@ -65,7 +65,7 @@ const CreateEvent = () => {
         description: '',
         background_image: '',
         locations: '',
-        categoryIds: [],
+        categories: [],
         dates: [],
       });
     }catch(error){console.log(error)}
