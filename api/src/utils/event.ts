@@ -96,8 +96,7 @@ export default {
         description,
         background_image,
         categoryIds,
-        locationId,
-        dates,
+        locationsIds,
         user
     }: any) => {
         let event = await Event.create({name, description, background_image, organizationId: user.organizationId})
@@ -106,14 +105,17 @@ export default {
             await EventCategory.create({eventId, categoryId: id})
         });
 
-        let eventLocation = await EventLocation.create({eventId, locationId})
-        let eventLocationId = eventLocation.getDataValue("id")
+        locationsIds.forEach(async (locationId:any) => {
 
-        dates = dates.map((date:any) => {
-            return {...date, eventLocationId}
+            let eventLocation = await EventLocation.create({eventId, locationId: locationId.id})
+            let eventLocationId = eventLocation.getDataValue("id")
+    
+            locationId.dates = locationId.dates.map((date:any) => {
+                return {...date, eventLocationId}
+            })
+    
+            await Date.bulkCreate(locationId.dates)
         })
-
-        await Date.bulkCreate(dates)
 
         return event
     },
