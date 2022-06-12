@@ -26,7 +26,7 @@ function App(): JSX.Element {
 				<Route path="signup" element={<Signup />} />
 				<Route path="events/:id" element={<Event />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
-				<Route path="create-event" element={<CreateEvent />} />
+
 				{/* protected routes */}
 				{/* <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
           
@@ -40,6 +40,7 @@ function App(): JSX.Element {
 					element={<RequireAuth allowedRoles={[ROLES_LIST.Organization]} />}
 				>
 					<Route path="update-event/:eventId" element={<UpdateEvent />} />
+					<Route path="create-event" element={<CreateEvent />} />
 				</Route>
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
