@@ -18,10 +18,18 @@ export const useCreateEvent = (inputs: any) => {
 	const handleCategoryChange = ({
 		target,
 	}: React.ChangeEvent<HTMLInputElement>) => {
-		setInput({
-			...input,
-			categories: [...input.categories, parseInt(target.value)],
-		});
+    console.log(target.checked)
+    if (target.checked){
+      setInput({
+        ...input,
+        categories: [...input.categories, parseInt(target.value)],
+      });
+    }else{
+      setInput({
+        ...input,
+        categories: input.categories.filter((c: number) => c!==parseInt(target.value))
+      })
+    }
 	};
 
 	const [inputDate, setInputDate] = useState({
