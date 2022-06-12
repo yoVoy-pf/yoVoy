@@ -1,5 +1,7 @@
+import { build } from "@reduxjs/toolkit/dist/query/core/buildMiddleware/cacheLifecycle";
+import any from "react/jsx-runtime";
 import { apiSlice } from "./apiSlice";
-import { setCredentials } from './authSlice';
+import { logOut, setCredentials } from './authSlice';
 
 
 
@@ -32,6 +34,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { ...credentials }
       })
+    }),
+    logout: builder.mutation<any,void>({
+      query: () => '/api/auth/user/logout',
+      async onQueryStarted(_,{dispatch,queryFulfilled}){
+        try{
+          await queryFulfilled
+          console.log('asd')
+          dispatch(logOut())
+        } catch(err){console.log(err)}
+      }
     })
   })
 })
@@ -39,5 +51,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useGetUserAuthQuery,
-  useRegisterMutation
+  useRegisterMutation,
+  useLogoutMutation
 } = authApiSlice
