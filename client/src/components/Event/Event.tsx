@@ -50,15 +50,15 @@ const Event = () => {
 									{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
 
 									<h4>Lugar: {location.name}</h4>
-									<small>{location.address},</small>
-									<small> {location.city.name}.</small>
+									<small className={event_style.small1}>{location.address},</small>
+									<small className={event_style.small1}> {location.city.name}.</small>
 									<h4>
 										Dirección: <small>{location.address}.</small>
 									</h4>
 								</React.Fragment>
 							);
 						})}
-					<button onClick={openModal}>Ver todas las fechas y precios</button>
+					<button className={event_style.button1} onClick={openModal}>Ver todas las fechas y precios</button>
 					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
 						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
 						<p>{eventDetail.name}</p>
@@ -80,7 +80,7 @@ const Event = () => {
 						})}
 					</EventModal>
 					<hr />
-					<button>COMPRAR</button>
+					<button className={event_style.button2}>COMPRAR</button>
 				</div>
 
 			</div>

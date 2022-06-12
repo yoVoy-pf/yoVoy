@@ -39,7 +39,35 @@
     margin-bottom: 25px;
     font-size: 2em;
 }
-
+.div2 .small1{
+    font-size: 1.4em;
+}
 .div2 small{
-    font-size: 0.9em;
+    font-size: 0.8em;
+}
+
+.button1{
+    width: 100%;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+}
+
+.button2{
+    width: 100%;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000; 
 }

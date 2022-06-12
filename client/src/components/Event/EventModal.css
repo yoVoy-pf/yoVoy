@@ -31,23 +31,24 @@
 	max-height: 600px;
 
 	overflow-y: auto;
-	background-color: rgb(52, 49, 49);
+	background-color: rgb(35, 71, 189);
 	pointer-events: visible;
 	transition: all 1s;
 }
 
 .modal-close {
 	position: absolute;
-	top: 1rem;
-	right: 1rem;
+	width: 50px;
+	top: 0.5rem;
+	right: 0.5rem;
 	padding: 10px;
 	cursor: pointer;
 	color: #fff;
+	border-color: #fff;
 	background-color: red;
 	border-radius: 10px;
 }
 
 .modal-close:hover{
 	transform: scale(1.2);
-
 }
