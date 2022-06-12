@@ -10,6 +10,7 @@ import {
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City, Location, Filter } from '../../types';
+import filterStyle from "./FilterEvents.module.css"
 
 const FilterEvent = () => {
 	const dispatch: AppDispatch = useDispatch();
