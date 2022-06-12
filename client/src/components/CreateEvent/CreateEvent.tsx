@@ -72,7 +72,7 @@ const CreateEvent = () => {
 		setInputDate({ price: 0, date: '' });
 		closeModal();
 	};
-
+	let id = 1;
 	return (
 		<React.Fragment>
 			<form onSubmit={handleSubmit}>
@@ -102,7 +102,7 @@ const CreateEvent = () => {
 					<label htmlFor="background_image">Imagen:</label>
 					<input
 						name="background_image"
-						type="text"
+						type="file"
 						id="background_image"
 						placeholder="Imagen..."
 						onChange={handleInputChange}
@@ -169,7 +169,7 @@ const CreateEvent = () => {
 
 					{input.dates?.map((date: any) => {
 						return (
-							<React.Fragment key={date.date}>
+							<React.Fragment key={id++}>
 								<h5>$: {date.price}</h5>
 								<h5>Fecha: {date.date}</h5>
 							</React.Fragment>
