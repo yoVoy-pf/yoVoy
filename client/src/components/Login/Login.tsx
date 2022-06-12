@@ -85,10 +85,11 @@ const Login = () => {
 				{errMsg}
 			</p>
 			<form onSubmit={handleSubmit}>
-				<div className={login_style.form} >
+			<div className={login_style.form} >
 					<h1>Ingresar</h1>
-
-					<label className={login_style.label}>Usuario</label> <br />
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label className={login_style.label}>Usuario</label> <br /> */}
+					<legend className={login_style.legend}>Usuario:</legend>
 					<input
 						type="text"
 						ref={userRef}
@@ -99,8 +100,10 @@ const Login = () => {
 						onChange={(e) => handleUserInput(e)}
 					/>
 					{errorsUser.user && <p>{errorsUser.user}</p>}
-					<br /> <br />
-					<label>Contraseña</label> <br />
+					</fieldset> <br /> <br />
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label>Contraseña</label> <br /> */}
+					<legend className={login_style.legend}>Contraseña:</legend>
 					<input
 						type="password"
 						placeholder="Contraseña"
@@ -110,7 +113,7 @@ const Login = () => {
 						onChange={(e) => handlePasswordInput(e)}
 					/>
 					{errorsPassword.password && <p>{errorsPassword.password}</p>}
-					<br /> <br />
+					</fieldset> <br /> <br />
 					<button className={login_style.bottom}
 						type="submit"
 						disabled={
