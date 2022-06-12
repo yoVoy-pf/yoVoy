@@ -13,6 +13,7 @@ import UpdateEvent from './components/UpdateEvent/UpdateEvent';
 import Unauthorized from './components/Unauthorized/Unauthorized';
 import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
+import Loading from './components/Loading/Loading';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -26,11 +27,8 @@ function App(): JSX.Element {
 				<Route path="signup" element={<Signup />} />
 				<Route path="events/:id" element={<Event />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
-
+        <Route path='loading' element={<Loading />}/>
 				{/* protected routes */}
-				{/* <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
-          
-        </Route> */}
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
 					<Route path="welcome" element={<Welcome />} />
