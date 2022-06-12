@@ -12,6 +12,7 @@ import { useCreateEvent } from '../CreateEvent/useCreateEvent';
 import { useDatesModal } from '../CreateEvent/CreateEventModal/useDatesModal';
 import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/eventsApiSlice"
 import { useNavigate, useParams } from "react-router-dom";
+import styleUpdateEvent from './update-event.module.css'
 
 interface CreateEventState {
   event: Array<{}>;
@@ -111,75 +112,87 @@ const UpdateEvent = () => {
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit}>
-        <fieldset>
-          <label htmlFor="name">Nombre del evento:</label>
+        <div className={styleUpdateEvent.form_update}>
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          {/* <label htmlFor="name">Nombre del evento:</label> */}
+          <legend className={styleUpdateEvent.legend_update}>Nombre del evento:</legend>
           <input
             name="name"
             type="text"
             id="name"
             placeholder="Nombre del evento"
+            className={styleUpdateEvent.input_update}
             onChange={handleInputChange}
             value={input.name}
           />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="description">Descripcion:</label>
+        </fieldset>  <br />
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          {/* <label htmlFor="description">Descripcion:</label> */}
+          <legend className={styleUpdateEvent.legend_update}>Descripcion:</legend>
           <textarea
             name="description"
             id="description"
             placeholder="Descripcion..."
+            className={styleUpdateEvent.input_update}
             onChange={handleInputChange}
             value={input.description}
           />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="background_image">Imagen:</label>
+        </fieldset>  <br />
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          {/* <label htmlFor="background_image">Imagen:</label> */}
+          <legend className={styleUpdateEvent.legend_update}>Imagen:</legend>
           <input
             name="background_image"
             type="text"
             id="background_image"
             placeholder="Imagen..."
+            className={styleUpdateEvent.input_update}
             onChange={handleInputChange}
             value={input.background_image}
           />
-        </fieldset>
-        <fieldset>
+        </fieldset>  <br />
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          <legend className={styleUpdateEvent.legend_update}>Seleccione la ciudad:</legend>
           <select
             name="locations"
             id="locations"
+            className={styleUpdateEvent.form_cities_update}
             onChange={handleLocationChange}
             defaultValue={"default"}
           >
             <option value="default" disabled>{input.locations ? getLocationFormatted(input.locations) : `Seleccione la ciudad...`}</option>
             {locations?.map((location: Location) => {
               return (
-                <option key={location.id} value={location.id} >
+                <option key={location.id} value={location.id} className={styleUpdateEvent.form_citie_update}>
                   {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
                 </option>
               );
             })}
           </select>
-        </fieldset>
+        </fieldset>  <br />
 
-        <fieldset>
-          <label htmlFor="categories">Seleccione las categorias...</label>
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          {/* <label htmlFor="categories">Seleccione las categorias...</label> */}
+          <legend className={styleUpdateEvent.legend_update}>Seleccione las categorias:</legend>
           {categories?.map((category: Category) => {
             return (
               <React.Fragment key={category.id}>
+                <br />
                 <input
                   value={category.id}
                   type="checkbox"
                   checked={input.categories.includes(category.id)}
                   onChange={handleCategoryChange}
                 />
-                <span>{`-${category.id}, ${category.name}`}.</span>
+                <span>{` ${category.id} ${category.name}`}.</span>
               </React.Fragment>
             );
           })}
-        </fieldset>
+        </fieldset>  <br />
 
-        <fieldset>
-          <button onClick={openModal} type="button">
+        <fieldset className={styleUpdateEvent.fieldset_update}>
+          <legend className={styleUpdateEvent.legend_update}>Seleccione Fecha:</legend>
+          <button onClick={openModal} type="button" className={styleUpdateEvent.text_from_update}>
             Agregar fechas
           </button>
           <DatesModal isOpen={isOpenModal} closeModal={closeModal}>
@@ -211,8 +224,9 @@ const UpdateEvent = () => {
               </React.Fragment>
             );
           })}
-        </fieldset>
-        <button type="submit">Create</button>
+        </fieldset>  <br />
+        <button type="submit" className={styleUpdateEvent.bottom_form_update}>Actualizar Evento</button>
+        </div>
       </form>
     </React.Fragment>
   );
