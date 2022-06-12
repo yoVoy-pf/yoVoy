@@ -23,7 +23,7 @@ export interface putEvent {
 
 export interface putLocation {
   id: number;
-  dates: Dates[];
+  dates: any[];
 }
 
 export interface Organization {

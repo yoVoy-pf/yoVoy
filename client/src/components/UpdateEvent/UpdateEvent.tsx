@@ -19,7 +19,7 @@ const UpdateEvent = () => {
       let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
         id: loc.id,
         dates: loc.dates
-      }))
+      }),[eventInfo])
 
       console.log({mappedLocations})
       setEvent({
@@ -41,14 +41,16 @@ const UpdateEvent = () => {
     
     const onInputChange = (e: Input | InputText) => {
         e.preventDefault();
-        if(e.target.name === 'price'){
-            let response: any = [...event.locations]
+      if (e.target.name === 'price' || e.target.name === 'date'){
+            console.log({...event})
+          let response: any = JSON.parse(JSON.stringify(event.locations));
             let newDate = {...response[0].dates[0]}
-
-            console.log('response:', response[0].dates[0].price)
             newDate[e.target.name] = e.target.value
+            console.log('response:', response[0].dates[0])
             console.log('newDate:', newDate)
-            response[0].dates[0] = newDate
+            Object.assign(response[0].dates[0], newDate)
+            // response[0].dates[0] = newDate
+            console.log(response)
             setEvent({
                 ...event,
                 locations: response
@@ -121,8 +123,8 @@ const UpdateEvent = () => {
                 /> <br />
                 <label>Fecha</label> <br />
                 <input 
-                    type="text" 
-                    // value={event?.locations[0]?.dates[0]?.date}
+                    type="date" 
+                    value={event?.locations[0]?.dates[0]?.date}
                     name='date'
                     onChange={onInputChange}
                 /> <br />
