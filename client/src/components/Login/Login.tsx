@@ -10,18 +10,18 @@ import login_style from "./Login.module.css"
 
 
 const Login = () => {
-  const userRef = useRef<HTMLInputElement | null>(null);
-  const errRef = useRef<HTMLParagraphElement | null>(null);
-  const currentToken = useSelector(selectCurrentToken);
+	const userRef = useRef<HTMLInputElement | null>(null);
+	const errRef = useRef<HTMLParagraphElement | null>(null);
+	const currentToken = useSelector(selectCurrentToken);
 
-  const [user, setUser] = useState({});
-  const [password, setPassword] = useState({});
-  const [errMsg, setErrMsg] = useState('')
-  const [errorsUser, setErrorsUser]: any = useState({});
-  const [errorsPassword, setErrorsPassword]: any = useState({});
-  const navigate = useNavigate();
-  const location : any = useLocation();
-  const from = location.state?.from?.pathname || '/';
+	const [user, setUser] = useState({});
+	const [password, setPassword] = useState({});
+	const [errMsg, setErrMsg] = useState('')
+	const [errorsUser, setErrorsUser]: any = useState({});
+	const [errorsPassword, setErrorsPassword]: any = useState({});
+	const navigate = useNavigate();
+	const location: any = useLocation();
+	const from = location.state?.from?.pathname || '/';
 
 	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
@@ -35,30 +35,30 @@ const Login = () => {
 		setErrMsg('');
 	}, [user, password]);
 
-  useEffect(() => {
-    if (currentToken) navigate(from, {replace: true})
-  },[currentToken, navigate, from])
+	useEffect(() => {
+		if (currentToken) navigate(from, { replace: true })
+	}, [currentToken, navigate, from])
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-      e.preventDefault();
-      try {
-          const userData = await login({name: user, password}).unwrap()
-          console.log(userData)
-          dispatch(setCredentials({user: userData.data, accessToken: userData.accessToken}))
-          setUser('')
-          setPassword('')
-          navigate(from,{replace: true})
-      } catch (err: any) {
-        if (!err?.response) {
-          setErrMsg('No Server Response');
-        } else if (err.status === 400) {
-          setErrMsg('Missing Username or Password');
-        } else if (err.status === 401) {
-          setErrMsg('Unauthorized');
-        } else {
-          setErrMsg('Login Failed');
-        }
-      }
+	const handleSubmit = async (e: SyntheticEvent) => {
+		e.preventDefault();
+		try {
+			const userData = await login({ name: user, password }).unwrap()
+			console.log(userData)
+			dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
+			setUser('')
+			setPassword('')
+			navigate(from, { replace: true })
+		} catch (err: any) {
+			if (!err?.response) {
+				setErrMsg('No Server Response');
+			} else if (err.status === 400) {
+				setErrMsg('Missing Username or Password');
+			} else if (err.status === 401) {
+				setErrMsg('Unauthorized');
+			} else {
+				setErrMsg('Login Failed');
+			}
+		}
 		const error = errRef.current;
 		error?.focus();
 	};
@@ -77,7 +77,8 @@ const Login = () => {
 	const content = isLoading ? (
 		<h1>Loading...</h1>
 	) : (
-		<div className={login_style.bg}>
+		<React.Fragment>
+
 			<p
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
@@ -86,8 +87,8 @@ const Login = () => {
 				{errMsg}
 			</p>
 			<form onSubmit={handleSubmit}>
-				<h1>Ingresar</h1>
 				<div className={login_style.form} >
+					<h1>Ingresar</h1>
 
 					<label className={login_style.label}>Usuario</label> <br />
 					<input
@@ -128,7 +129,7 @@ const Login = () => {
 				</div>
 				<br />
 			</form>
-		</div>
+		</React.Fragment>
 	);
 
 	return content;
