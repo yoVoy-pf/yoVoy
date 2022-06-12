@@ -1,0 +1,8 @@
+.text_user_list {   
+    display: flex;
+    justify-content: center;
+} 
+
+.list_user{
+    list-style:none
+}
