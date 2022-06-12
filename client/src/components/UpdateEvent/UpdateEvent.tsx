@@ -4,7 +4,8 @@ import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/event
 import { useParams } from "react-router-dom";
 import { putEvent } from "../../types";
 
-
+type Input = React.ChangeEvent<HTMLInputElement>;
+type InputText = React.ChangeEvent<HTMLTextAreaElement>;
 
 const UpdateEvent = () => {
     const navigate = useNavigate()
@@ -38,12 +39,27 @@ const UpdateEvent = () => {
         locations: [],
     });
     
-    const onInputChange = (e:any) => {
+    const onInputChange = (e: Input | InputText) => {
         e.preventDefault();
-        setEvent({
-          ...event,
-          [e.target.name]: e.target.value,
-        });
+        if(e.target.name === 'price'){
+            let response: any = [...event.locations]
+            let newDate = {...response[0].dates[0]}
+
+            console.log('response:', response[0].dates[0].price)
+            newDate[e.target.name] = e.target.value
+            console.log('newDate:', newDate)
+            response[0].dates[0] = newDate
+            setEvent({
+                ...event,
+                locations: response
+            })
+        } else {
+            setEvent({
+                ...event,
+                [e.target.name]: e.target.value,
+              });
+        }
+       
     }
 
     const onSubmit = async (e: any) => {
@@ -82,10 +98,32 @@ const UpdateEvent = () => {
                     name='description'
                     onChange={onInputChange}
                 /> <br />
-                <label>Descripción</label> <br />
-                <textarea 
-                    value={event.description}
-                    name='description'
+                <label>Imagen</label> <br />
+                <input 
+                    type="text" 
+                    value={event.background_image}
+                    name='background_image'
+                    onChange={onInputChange}
+                /> <br />
+                <label>Categoria</label> <br />
+                <input
+                    type="text" 
+                    value={event.categoriesIds[0]}
+                    name='categoriesIds'
+                    onChange={onInputChange}
+                /> <br />
+                <label>Precio</label> <br />
+                <input 
+                    type="text" 
+                    value={event?.locations[0]?.dates[0]?.price}
+                    name='price'
+                    onChange={onInputChange}
+                /> <br />
+                <label>Fecha</label> <br />
+                <input 
+                    type="text" 
+                    // value={event?.locations[0]?.dates[0]?.date}
+                    name='date'
                     onChange={onInputChange}
                 /> <br />
                 <button type="submit">¡Actualizar Evento!</button>

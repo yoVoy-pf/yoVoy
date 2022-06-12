@@ -12,7 +12,7 @@ import login_style from "./Login.module.css"
 const Login = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);
 	const errRef = useRef<HTMLParagraphElement | null>(null);
-	const currentToken = useSelector(selectCurrentToken);
+	
 
 	const [user, setUser] = useState({});
 	const [password, setPassword] = useState({});
@@ -35,9 +35,7 @@ const Login = () => {
 		setErrMsg('');
 	}, [user, password]);
 
-	useEffect(() => {
-		if (currentToken) navigate(from, { replace: true })
-	}, [currentToken, navigate, from])
+
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();

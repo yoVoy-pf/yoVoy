@@ -79,8 +79,8 @@ export default {
                 }
             }),
             organization: {
-                id: event?.getDataValue("organization").getDataValue("id"),
-                name: event?.getDataValue("organization").getDataValue("name"),
+                id: event?.getDataValue("organization")?.getDataValue("id"),
+                name: event?.getDataValue("organization")?.getDataValue("name"),
             },
             categories: event?.getDataValue("categories").map((category: Model<any>) => {
                 return {
@@ -95,18 +95,18 @@ export default {
         name,
         description,
         background_image,
-        categoryIds,
-        locationId,
+        categories,
+        locations,
         dates,
         user
     }: any) => {
         let event = await Event.create({name, description, background_image, organizationId: user.organizationId})
         let eventId = event.getDataValue("id")
-        categoryIds.forEach( async (id:number) => {
+        categories.forEach( async (id:number) => {
             await EventCategory.create({eventId, categoryId: id})
         });
 
-        let eventLocation = await EventLocation.create({eventId, locationId})
+        let eventLocation = await EventLocation.create({eventId, locationId: locations})
         let eventLocationId = eventLocation.getDataValue("id")
 
         dates = dates.map((date:any) => {
