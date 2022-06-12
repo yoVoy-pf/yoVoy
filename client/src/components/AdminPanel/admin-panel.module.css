@@ -1,0 +1,30 @@
+.title_admin {
+    display: flex;
+    justify-content: center;
+}
+
+.title_style {
+    margin-top: 30px;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 25px;
+    background: rgba(156, 49, 20, 0.302);
+}
+
+.buttons_admin {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.links_style {
+    text-decoration: none;
+    color: white;
+}
+
+.buttons_style {
+    margin-right: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    background: rgba(156, 49, 20, 0.302);
+}
