@@ -31,10 +31,7 @@ export const getSearchEvent = (name: string | number) => {
 				payload: searchEvent.data,
 			});
 		} catch {
-			dispatch({
-				type: ActionType.DONT_EVENTS,
-				payload: ["no hay eventos","bySearch"],
-			});
+			return alert('El evento que buscar no existe');
 		}
 	};
 };
@@ -74,11 +71,8 @@ export const getEventByCategory = (filters: Filter[]) => {
 				payload: getEventByCategory.data,
 			});
 		} catch (error) {
-			dispatch({
-				type: ActionType.DONT_EVENTS,
-				payload: ["no hay eventos","byFilter"],
-			});
-		} 
+			console.error('Error en getEventByCategory');
+		}
 	};
 };
 
