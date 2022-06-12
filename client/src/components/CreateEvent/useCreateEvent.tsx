@@ -6,7 +6,6 @@ export const useCreateEvent = (inputs: any) => {
 	const handleInputChange = ({
 		target,
 	}: React.ChangeEvent<HTMLInputElement>) => {
-		console.log('asdasdasd', input);
 		setInput({ ...input, [target.name]: target.value });
 	};
 
@@ -41,7 +40,6 @@ export const useCreateEvent = (inputs: any) => {
 	const handleInputDateChange = ({
 		target,
 	}: React.ChangeEvent<HTMLInputElement>) => {
-		console.log('asdasdasd', input);
 		setInputDate({ ...inputDate, [target.name]: target.value });
 	};
 
