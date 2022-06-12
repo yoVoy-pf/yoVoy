@@ -14,6 +14,7 @@ import Unauthorized from './components/Unauthorized/Unauthorized';
 import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -42,6 +43,7 @@ function App(): JSX.Element {
 				</Route>
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+					<Route path="admin-panel" element={<AdminPanel />} />
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
 				</Route>
