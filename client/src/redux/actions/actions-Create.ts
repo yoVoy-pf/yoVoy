@@ -2,7 +2,7 @@ import { ActionType } from './index';
 import { Dispatch } from 'redux';
 // import { Action } from "./action-Type";
 import axios from 'axios';
-import {Filter} from '../../types'
+import { Filter } from '../../types';
 
 // Ejemplo de como se puede realizar las acciones
 
@@ -56,16 +56,16 @@ export const getCategories = () => {
 };
 
 export const getEventByCategory = (filters: Filter[]) => {
-	let endPoint = "http://localhost:3001/api/events?"
-	let queries = []
-	if(filters[0]){
-		queries.push(`${filters[0].filter}=${filters[0].id}`)
+	let endPoint = 'http://localhost:3001/api/events?';
+	let queries = [];
+	if (filters[0]) {
+		queries.push(`${filters[0].filter}=${filters[0].id}`);
 	}
-	if(filters[1]){
-		queries.push(`${filters[1].filter}=${filters[1].id}`)
+	if (filters[1]) {
+		queries.push(`${filters[1].filter}=${filters[1].id}`);
 	}
-	endPoint = endPoint + queries.join("&")
-	console.log(endPoint)
+	endPoint = endPoint + queries.join('&');
+	console.log(endPoint);
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(endPoint);
@@ -105,54 +105,72 @@ export const clearEventId = () => {
 export const getCities = () => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const cities = await axios.get("http://localhost:3001/api/cities")
+			const cities = await axios.get('http://localhost:3001/api/cities');
 			dispatch({
 				type: ActionType.GET_CITIES,
 				payload: cities.data,
 			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
-}
-
+	};
+};
 
 export const putUpdateEvent = (id: any) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const updateEvent = await axios.put(`http://localhost:3001/api/event/${id}`)
+			const updateEvent = await axios.put(
+				`http://localhost:3001/api/event/${id}`,
+			);
 			dispatch({
 				type: ActionType.PUT_UPDATE_EVENT,
 				payload: updateEvent.data,
 			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
-}
+	};
+};
 
 export const postCreateCategory = (payload: any) => {
 	return async function () {
 		try {
-			const response = await axios.post('http://localhost:3001/api/category', payload);
+			const response = await axios.post(
+				'http://localhost:3001/api/category',
+				payload,
+			);
 			return response;
-      } catch (error) {
-			console.log(error)
+		} catch (error) {
+			console.log(error);
 		}
-	}
-}
+	};
+};
 export const getLocations = (city?: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const locations = await axios.get(`http://localhost:3001/api/locations?city=${city || ""}`)
+			const locations = await axios.get(
+				`http://localhost:3001/api/locations?city=${city || ''}`,
+			);
 			dispatch({
 				type: ActionType.GET_LOCATIONS,
 				payload: locations.data,
 			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
-}
-		
+	};
+};
 
+export const postCreateEvent = (payload: any) => {
+	return async function () {
+		try {
+			const response = await axios.post(
+				'http://localhost:3001/api/event',
+				payload,
+			);
+			return response;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};

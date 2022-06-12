@@ -47,17 +47,17 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_CITIES:
 			return {
 				...state,
-				cities: action.payload
+				cities: action.payload,
 			};
 		case ActionType.POST_CREATE_CATEGORY:
 			return {
 				...state,
-			}
+			};
 		case ActionType.GET_LOCATIONS:
 			return {
 				...state,
-				locations: action.payload
-			}
+				locations: action.payload,
+			};
 		case ActionType.PUT_UPDATE_EVENT:
 			return {
 				...state,
@@ -67,6 +67,10 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				allEvents: action.payload
 			}
+		case ActionType.POST_CREATE_EVENT:
+			return {
+				...state,
+			};
 		default:
 			return state;
 	}
