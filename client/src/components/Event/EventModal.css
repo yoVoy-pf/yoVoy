@@ -28,11 +28,8 @@
 	min-width: 300px;
 	max-width: 480px;
 	min-height: 200px;
-<<<<<<< HEAD
 	max-height: 600px;
-=======
 
->>>>>>> main
 	overflow-y: auto;
 	background-color: rgb(52, 49, 49);
 	pointer-events: visible;
