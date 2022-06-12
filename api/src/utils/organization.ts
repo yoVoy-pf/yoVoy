@@ -19,3 +19,13 @@ export const createOrganization = async (name: string, userId: string) => {
 
     return organization
 }
+
+export const getOrganizationById = async (id: string | number) => {
+    const organization = Organization.findOne({
+        where:{
+            id:id
+        }
+    })
+
+    return organization
+}
