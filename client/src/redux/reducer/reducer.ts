@@ -66,6 +66,11 @@ const rootReducer = (state = initialState, action: Action) => {
 			return {
 				...state,
 			};
+		case ActionType.DONT_EVENTS:
+			return {
+				...state,
+				allEvents: action.payload
+			}
 		default:
 			return state;
 	}
