@@ -11,6 +11,7 @@ import { Category, Location } from '../../types';
 import DatesModal from './CreateEventModal/DatesModal';
 import { useCreateEvent } from './useCreateEvent';
 import { useDatesModal } from './CreateEventModal/useDatesModal';
+import {useCreateEventMutation} from '../../slices/app/eventsApiSlice'
 
 interface CreateEventState {
 	event: Array<{}>;
@@ -18,6 +19,7 @@ interface CreateEventState {
 
 const CreateEvent = () => {
 	const [isOpenModal, openModal, closeModal] = useDatesModal(false);
+  const [createEvent] = useCreateEventMutation();
 	const dispatch: AppDispatch = useDispatch();
 
 	const locations: Array<Location> = useSelector(
@@ -52,18 +54,21 @@ const CreateEvent = () => {
 		dates: [],
 	});
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		dispatch(postCreateEvent(input));
-		setEvent([...event, input]);
-		setInput({
-			name: '',
-			description: '',
-			background_image: '',
-			locations: '',
-			categories: [],
-			dates: [],
-		});
+		// dispatch(postCreateEvent(input));
+    try{
+      await createEvent({newEvent: input})
+      setEvent([...event, input]);
+      setInput({
+        name: '',
+        description: '',
+        background_image: '',
+        locations: '',
+        categories: [],
+        dates: [],
+      });
+    }catch(error){console.log(error)}
 	};
 
 	const addDate = (e: React.ChangeEvent<HTMLInputElement>) => {
