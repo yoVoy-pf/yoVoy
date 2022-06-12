@@ -6,7 +6,7 @@ import "./NavBar.css"
 const NavBar = ()=>{
     return(
         <nav className="navbar">
-            <Link to="/" className="navbar-log">
+            <Link to="/" className="navbar-log" onClick={()=>window.location.reload()}>
                 <img src={image} alt="img" />
             </Link>
             <div className="navbar_bg_mid">
