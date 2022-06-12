@@ -17,6 +17,12 @@ export class User extends Model<iUser>{
   email!: string;
 
   @Column
+  surname!: string;
+
+  @Column
+  DNI!: number;
+
+  @Column
   password!: string
 
   @Column(DataType.STRING(500))
