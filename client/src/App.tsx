@@ -7,7 +7,7 @@ import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth.ts/RequireAuth';
 import { Welcome } from './components/Welcome/Welcome';
 import UsersList from './components/UsersList/UsersList';
-import {useGetUserAuthQuery} from './slices/authentication/authApiSlice'
+import { useGetUserAuthQuery } from './slices/authentication/authApiSlice'
 import CreateCategory from './components/CreateCategory/CreateCategory';
 import UpdateEvent from './components/UpdateEvent/UpdateEvent';
 import Unauthorized from './components/Unauthorized/Unauthorized';
