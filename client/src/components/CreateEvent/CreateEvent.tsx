@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import {
 	getCategories,
 	getLocations,
-	postCreateEvent,
 } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, Location } from '../../types';
