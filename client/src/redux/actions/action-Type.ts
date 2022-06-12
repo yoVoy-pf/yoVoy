@@ -51,6 +51,11 @@ interface postCreateEvent {
 	type: ActionType.POST_CREATE_EVENT;
 }
 
+interface getDonEventsAction {
+	type: ActionType.DONT_EVENTS;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -62,4 +67,5 @@ export type Action =
 	| putUpdateEvent
 	| postCreateCategory
 	| getLocationsAction
-	| postCreateEvent;
+	| postCreateEvent
+	| getDonEventsAction;
