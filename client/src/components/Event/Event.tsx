@@ -9,10 +9,12 @@ import NavBar from '../NavBar/NavBar';
 import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from "./Event.module.css"
+import { selectCurrentToken } from '../../slices/authentication/authSlice';
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const dispatch: AppDispatch = useDispatch();
+	const currentUser = useSelector(selectCurrentToken)
 	const eventDetail: any = useSelector(
 		(state: State) => state.global.eventDetail,
 	);
@@ -42,13 +44,18 @@ const Event = () => {
 				</div>
 
 				<div className={event_style.div2}>
+				{	currentUser && 
+					<div className={event_style.button_delete}>
+					<button className={event_style.button_delete_style}>Eliminar Evento</button>
+					</div>
+				}
+					
 
 					{eventDetail &&
 						eventDetail.locations?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
 									{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
-
 									<h4>Lugar: {location.name}</h4>
 									<small className={event_style.small1}>{location.address},</small>
 									<small className={event_style.small1}> {location.city.name}.</small>
