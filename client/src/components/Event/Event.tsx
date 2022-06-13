@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Dates, Location } from '../../types';
@@ -9,10 +9,15 @@ import NavBar from '../NavBar/NavBar';
 import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from "./Event.module.css"
+import { selectCurrentToken } from '../../slices/authentication/authSlice';
+import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
+	const [deleteEvent] = useDeleteEventMutation();
+	const navigate = useNavigate();
 	const dispatch: AppDispatch = useDispatch();
+	const currentUser = useSelector(selectCurrentToken);
 	const eventDetail: any = useSelector(
 		(state: State) => state.global.eventDetail,
 	);
@@ -42,6 +47,17 @@ const Event = () => {
 				</div>
 
 				<div className={event_style.div2}>
+				
+				{	currentUser && 
+					<div className={event_style.button_delete}>
+					<button 
+					className={event_style.button_delete_style}
+					onClick={() => deleteEvent(id).then(() => navigate('/'))}
+					>
+						Eliminar Evento
+					</button>
+					</div>
+				}
 
 					{eventDetail &&
 						eventDetail.locations?.map((location: Location) => {
