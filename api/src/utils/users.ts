@@ -55,3 +55,30 @@ export async function getUserFromDbByField(field: string, value: string) {
 export async function giveRoleToUser(user: iUser, role: number){
 
 }
+
+export async function getUserById(id: string | number) {
+  const user = await User.findByPk(id)
+
+  return user
+}
+
+export async function destroyUser(id: string | number){
+  const user = await User.destroy({
+    where: {
+      id: id
+    }
+  })
+
+  return user
+}
+
+
+export async function updateUser(id: string | number, {name, email}:any ){
+  const user = await User.update({name, email},{
+    where:{
+      id: id
+    }
+  })
+  
+  return user
+}

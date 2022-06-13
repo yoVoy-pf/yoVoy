@@ -1,7 +1,7 @@
 import {Router} from 'express'
 export const router = Router();
 import { authenticateToken } from '../middlewares/authenticateToken';
-import {getUsers,getUser,createUser,deleteUser} from '../controllers/users'
+import {getUsers,getUser,createUser,deleteUser,putUser} from '../controllers/users'
 import {ROLES_LIST} from '../authorization/roles'
 import {verifyRoles} from '../middlewares/verifyRoles'
 
@@ -11,3 +11,4 @@ router.get('/',authenticateToken,verifyRoles(ROLES_LIST.Admin), getUsers)
 router.get('/:id',authenticateToken, getUser)
 router.post('/', createUser)
 router.delete('/:id', authenticateToken, verifyRoles(ROLES_LIST.Admin), deleteUser)
+router.put("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), putUser)
