@@ -36,7 +36,6 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         return {
           url:`api/event/${id}`,
           method:`Delete`,
-          Credential: 'include'
         }
       }
     })
