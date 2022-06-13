@@ -59,7 +59,7 @@ const Event = () => {
 						Eliminar Evento
 					</button>
 					<button 
-					className={event_style.button_delete_style}
+					className={event_style.button_update_style}
 					onClick={() => navigate(`/update-event/${id}`)}
 					>
 						Actualizar Evento
