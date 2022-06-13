@@ -19,3 +19,13 @@ export const createOrganization = async (name: string, userId: string) => {
 
     return organization
 }
+
+export const destroyOrganization = async (id: string | number) => {
+    const number = await Organization.destroy({
+        where: {
+            id: id
+        }
+    })
+
+    return number
+}
