@@ -32,9 +32,9 @@ const Home = () => {
 			<div className={home.home}>
 				{allEvents.length > 0 ? allEvents[0] !== "no hay eventos"? (
 					<Events allEvents={allEvents} />
-				) : (allEvents[1]==="byFilter"? <h1>No hay eventos con estas caracteristicas</h1>: 
-			    <h1>0 resultados de busqueda</h1>) : (
-					<h1>Cargando</h1>
+				) : (allEvents[1]==="byFilter"? <h1 className={home.text_alert}>No hay eventos con estas caracteristicas</h1>: 
+			    <h1 className={home.text_alert}>0 resultados de busqueda</h1>) : (
+					<h1 className={home.text_alert}>Cargando...</h1>
 				)}
 			</div>
 		</div>
