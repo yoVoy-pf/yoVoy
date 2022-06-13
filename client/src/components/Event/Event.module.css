@@ -10,6 +10,12 @@
     margin-top: 1em;
 }
 
+.button_delete{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .button_delete_style {
     color: red;
     padding: 5px;

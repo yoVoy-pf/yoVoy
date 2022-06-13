@@ -97,7 +97,7 @@ const UpdateEvent = () => {
         categories: [],
         dates: [],
       });
-      navigate('/')
+      navigate(`/events/${eventInfo.id}`)
     } catch (error) { console.log(error) }
   };
 
