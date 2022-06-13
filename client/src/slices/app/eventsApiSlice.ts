@@ -30,6 +30,15 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         url: `api/event/${id}`
       }
       }
+    }),
+    deleteEvent: builder.mutation<Event, {id: number}>({
+      query(id) {
+        return {
+          url:`api/event/${id}`,
+          method:`Delete`,
+          Credential: 'include'
+        }
+      }
     })
   })
 })
@@ -38,4 +47,5 @@ export const{
   useUpdateEventMutation,
   useCreateEventMutation,
   useGetEventQuery,
+  useDeleteEventMutation,
 } = eventsApiSlice
