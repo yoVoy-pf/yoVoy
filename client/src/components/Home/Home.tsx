@@ -34,7 +34,7 @@ const Home = () => {
 					<Events allEvents={allEvents} />
 				) : (allEvents[1]==="byFilter"? <h1 className={home.text_alert}>No hay eventos con estas caracteristicas</h1>: 
 			    <h1 className={home.text_alert}>0 resultados de busqueda</h1>) : (
-					<h1 className={home.text_alert}>Cargando</h1>
+					<h1 className={home.text_alert}>Cargando...</h1>
 				)}
 			</div>
 		</div>
