@@ -23,7 +23,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         }
       }
     }),
-    getEvent: builder.query<Event,{id: string}>({
+    getEvent: builder.query<any,{id: string}>({
       query: ({id}) => {
       console.log({id})
       return {

@@ -45,14 +45,14 @@ const Login = () => {
 			dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
 			setUser('')
 			setPassword('')
-			navigate(from, { replace: true })
+			navigate('/welcome')
 		} catch (err: any) {
-			if (!err?.response) {
+			if (!err?.data) {
 				setErrMsg('No Server Response');
-			} else if (err.status === 400) {
+			} else if (err.originalStatus === 400) {
 				setErrMsg('Missing Username or Password');
-			} else if (err.status === 401) {
-				setErrMsg('Unauthorized');
+      } else if (err.originalStatus === 403) {
+				setErrMsg('Wrong Username or Password');
 			} else {
 				setErrMsg('Login Failed');
 			}

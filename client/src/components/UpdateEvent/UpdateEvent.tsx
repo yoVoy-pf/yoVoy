@@ -41,21 +41,26 @@ const UpdateEvent = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
-    // let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
-    //   id: loc.id,
-    //   dates: loc.dates
-    // }))
-
-    // console.log({ mappedLocations })
-    setInput({
-      name: eventInfo?.name || '',
-      description: eventInfo?.description || '',
-      background_image: eventInfo?.background_image || '',
-      locations: eventInfo?.locations[0].id || '',
-      categories: mappedCategoriesIds || [],
-      dates: eventInfo?.locations[0].dates || []
-    })
+    if(eventInfo){
+      console.log(eventInfo)
+      let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
+      // let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
+      //   id: loc.id,
+      //   dates: loc.dates
+      // }))
+  
+      // console.log({ mappedLocations })
+      if (Object.keys(eventInfo).length > 1){
+        setInput({
+          name: eventInfo?.name || '',
+          description: eventInfo?.description || '',
+          background_image: eventInfo?.background_image || '',
+          locations: eventInfo?.locations[0]?.id || '',
+          categories: mappedCategoriesIds || [],
+          dates: eventInfo?.locations[0].dates || []
+        })
+      } else navigate('/')
+    }
   }, [eventInfo])
 
   const [event, setEvent] = useState<CreateEventState['event']>([]);
@@ -102,7 +107,6 @@ const UpdateEvent = () => {
     setInputDate({ price: 0, date: '' });
     closeModal();
   };
-  console.log(input)
 
   const getLocationFormatted = (locId: number) => {
     const loc = locations?.find((loc) => loc?.id === input.locations)

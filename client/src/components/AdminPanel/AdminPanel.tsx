@@ -24,6 +24,9 @@ const AdminPanel = () => {
             <button className={styleAdminPanel.buttons_style}>
               <Link className={styleAdminPanel.links_style} to='/create-category'>Crear Categoria</Link>
               </button>
+            <button className={styleAdminPanel.buttons_style}>
+              <Link className={styleAdminPanel.links_style} to='/create-event'>Crear Evento</Link>
+            </button>
             {/* <button className={styleAdminPanel.buttons_style}>button 3</button> */}
 
       </Stack>
