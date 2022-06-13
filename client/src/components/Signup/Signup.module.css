@@ -1,20 +1,6 @@
-.bg_h1{
-    display: flex;
-    justify-content: center;
-}
 .form{
-    /* display: flex;
-    border-radius: 50px;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-left: 40%;
-    align-items: center;
-    background-color: rgba(78, 76, 163, 0.521);
-    width: 450px;
-    height: 500px; */
     box-sizing: border-box;
     width: 400px;
-    /* background: #24303c83; */
     background-image: linear-gradient(180deg, rgba(255, 89, 0, 0.287), rgba(253, 109, 69, 0.507));
     padding: 30px;
     margin: auto;
@@ -26,30 +12,21 @@
     margin-bottom: 20px;
 }
 
-
 .form input{
     width: 93%;
-    /* background: #24303c84; */
     background: #5e3a2e84;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
-    /* border: 1px solid #1f53c5; */
     border: 1px solid #c56f1f93;
     font-family: 'calibri';
     font-size: 18px;
     color: white;
     box-shadow: 7px 13px 37px #000;
-    
-}
-
-p{
-    transition: 10s linear;
 }
 
 .bottom {
     width: 100%;
-    /* background: #1746ae98; */
     background-color: rgba(147, 79, 24, 0.526);
     border: none;
     border-radius: 5px;
@@ -65,6 +42,7 @@ p{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     transition: 0.5s;
 }
+
 .legend {
     background-color: rgba(141, 90, 48, 0.526);
     color: white;
@@ -73,7 +51,7 @@ p{
     border-radius: 5px;
 }
 
-.fieldset_login {
+.fieldset_signUp {
     border-color: rgb(184, 28, 11);
     border: 9px groove (internal value);
     border-radius: 7px;

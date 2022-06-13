@@ -23,7 +23,7 @@ export interface putEvent {
 
 export interface putLocation {
   id: number;
-  dates: Dates[];
+  dates: any[];
 }
 
 export interface Organization {
@@ -59,12 +59,6 @@ export interface User {
   name: string;
   email: string;
   rolesId: number[];
-}
-
-export enum ROLES_LIST {
-  Admin = 3030,
-  Organization = 2020,
-  User = 1010
 }
 
 export interface Filter {

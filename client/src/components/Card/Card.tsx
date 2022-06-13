@@ -14,10 +14,10 @@ const Card = ({ event }: Props) => {
 			<Link className='Card_a' to={`/events/${event.id}`}>
 			<div className='Card_bg'>
 				<ul className='bg-ul'>
-					<img width="250px" height="250px" src={event.background_image} alt={event.name} />
+					<img width="260px" height="300px" src={event.background_image} alt={event.name} />
 					<li className='Card_bg_li' key={event.id}>
 						<h4>{event.name}</h4>
-						<p>{event.description?.substring(0, 100)}...</p>
+						{/* <p>{event.description?.substring(0, 100)}...</p> */}
 					</li>
 				</ul>
 
