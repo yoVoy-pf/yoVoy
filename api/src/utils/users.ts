@@ -71,3 +71,14 @@ export async function destroyUser(id: string | number){
 
   return user
 }
+
+
+export async function updateUser(id: string | number, {name, email}:any ){
+  const user = await User.update({name, email},{
+    where:{
+      id: id
+    }
+  })
+  
+  return user
+}
