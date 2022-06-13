@@ -53,16 +53,17 @@ const Signup = () => {
 			validatePassword({ ...password, [e.target.name]: e.target.value }),
 		);
 	};
-
+	const spanStyle = {color : 'red', fontSize:'25px'}
 	return (
 		<React.Fragment>
-			<p
+			<span
+				style={spanStyle}
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
 				aria-live="assertive"
 			>
 				{errMsg}
-			</p>
+			</span>
 			<form onSubmit={onSubmit}>
 				<div className={register_style.form}>
 

@@ -71,19 +71,20 @@ const Login = () => {
 			validatePassword({ ...password, [e.target.name]: e.target.value }),
 		);
 	};
-
+	const spanStyle = {color : 'red', fontSize:'25px'}
 	const content = isLoading ? (
 		<h1>Loading...</h1>
 	) : (
 		<React.Fragment>
 
-			<p
+			<span
+				style={spanStyle}
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
 				aria-live="assertive"
 			>
 				{errMsg}
-			</p>
+			</span>
 			<form onSubmit={handleSubmit}>
 			<div className={login_style.form} >
 					<h1>Ingresar</h1>
