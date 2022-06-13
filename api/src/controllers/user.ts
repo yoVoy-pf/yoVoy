@@ -20,7 +20,7 @@ export const postFavorite = async (req: Request,res: Response,next:NextFunction)
 
         const favorite = await createFavorite(user.id, eventId)
         
-         res.status(200).json(favorite)
+         res.status(201).json(favorite)
     }catch(error){
         next(error)
     }
