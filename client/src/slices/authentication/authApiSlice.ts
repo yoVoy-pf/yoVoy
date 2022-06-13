@@ -1,9 +1,6 @@
 import { apiSlice } from "./apiSlice";
-
-import { useDispatch, useSelector } from 'react-redux'
-import { setCredentials } from '../authentication/authSlice';
-
-
+import { logOut, setCredentials } from './authSlice';
+import { isLoadingOff, isLoadingOn } from "../uiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -18,12 +15,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
       query: () => '/api/auth/user/get-auth',
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         // `onStart` side-effect
+        dispatch(isLoadingOn())
         try {
           const { data } = await queryFulfilled
           // `onSuccess` side-effect
-          dispatch(setCredentials({ user: data?.data, accessToken: data?.accessToken }))
+          dispatch(setCredentials({ user: data?.data, accessToken: data?.accessToken, authFetched: true }))
+          dispatch(isLoadingOff())
         } catch (err) {
           // `onError` side-effect
+          dispatch(setCredentials({user: null, accesToken: null, authFetched: true}))
+          dispatch(isLoadingOff())
           console.log('Error fetching post!')
         }
       },
@@ -34,6 +35,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { ...credentials }
       })
+    }),
+    logout: builder.mutation<any,void>({
+      query: () => '/api/auth/user/logout',
+      async onQueryStarted(_,{dispatch,queryFulfilled}){
+        try{
+          await queryFulfilled
+          console.log('asd')
+          dispatch(logOut())
+        } catch(err){console.log(err)}
+      }
     })
   })
 })
@@ -41,5 +52,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useGetUserAuthQuery,
-  useRegisterMutation
+  useRegisterMutation,
+  useLogoutMutation
 } = authApiSlice
