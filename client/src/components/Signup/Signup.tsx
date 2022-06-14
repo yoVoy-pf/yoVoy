@@ -48,7 +48,7 @@ const Signup = () => {
 	};
 
 	const handleCallbackResponse = async (response: any) => {
-		handleRegister({ googleToken: response.credential });
+		handleRegister({ googleToken: response.credential, clientId: response.clientId });
 	};
 
 	useEffect(() => {
