@@ -150,7 +150,7 @@ export default {
         name,
         background_image,
         description,
-        categoriesIds,
+        categories,
         locations
     }: any) => {
 
@@ -171,7 +171,7 @@ export default {
             }
         })
 
-        categoriesIds.forEach((category:number, i:number) => {
+        categories.forEach((category:number, i:number) => {
             if(eventsCategories.length > i) eventsCategories[i].update({categoryId: category})
 
             else EventCategory.create({eventId: id, categoryId: category})
