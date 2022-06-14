@@ -14,7 +14,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
       const {email, name, email_verified: check} = decodedUserInfo
       // Check if mail is verified
       if(!check) return next({status: 403, message: `El email no esta verificado`})
-      const password = await bcrypt.hash(email, 10)
+      const password = await bcrypt.hash(req.body.clientId, 10)
       user = {name, password, email}
       console.log(user)
       req.body = {
