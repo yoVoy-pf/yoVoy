@@ -95,17 +95,17 @@ export default {
         name,
         description,
         background_image,
-        categoryIds,
-        locationsIds,
+        categories,
+        locations,
         user
     }: any) => {
         let event = await Event.create({name, description, background_image, organizationId: user.organizationId})
         let eventId = event.getDataValue("id")
-        categoryIds.forEach(async (id:number) => {
+        categories.forEach(async (id:number) => {
             EventCategory.create({eventId, categoryId: id})
         });
 
-        locationsIds.forEach(async (location: any) => {
+        locations.forEach(async (location: any) => {
             let eventLocation = await EventLocation.create({eventId, locationId: location.id})
             let eventLocationId = eventLocation.getDataValue("id")
 
