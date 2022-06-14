@@ -1,21 +1,20 @@
 import mercadopago from "mercadopago"
 import config from "../../config"
 
-export const createPreference= (items:any, user: any, organization:any) => {
+export const createPreference= (items:any, user: any) => {
 
     mercadopago.configure({
-        access_token: organization.getDataValue("ACCESS_TOKEN"),
-        client_id: organization.getDataValue("CLIENT_ID"),
-        client_secret: organization.getDataValue("CLIENT_SECRET")
+        access_token: config.ACCESS_TOKEN
     })
+
     const preference = mercadopago.preferences.create({
         payer:{
             name: user.name,
-            surname: user.surname,
-            email: user.email,
+            surname: user.surname || "",
+            email: user.email || "test@userTest.com",
             identification:{
                 type: "DNI",
-                number: user.DNI
+                number: user.DNI || "12345678"
             }
         },
         items,

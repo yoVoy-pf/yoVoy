@@ -6,9 +6,8 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
     try{
         const {user,list} = req.body
 
-        Promise.all(list.map((item:any) => utils.getEventByDate(item.eventId, item.locationId, item.dateId)))
+        Promise.all(list.map((item:any) => utils.getEventByDate(item.dateId)))
         .then((data) => {
-            let organization = data[0].getDataValue("organization")
             data = data.map((item: any, i: number) => {
                 return {
                         id: String(item.getDataValue("id")),
@@ -22,7 +21,7 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                 }
             })
 
-            createPreference(data,user, organization)
+            createPreference(data,user)
             .then((preference) => {
                 res.status(200).json(preference.body.sandbox_init_point)
             })
