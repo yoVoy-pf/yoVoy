@@ -17,3 +17,9 @@ export const getAllFavorites = async(id:string | number) => {
     return favorites
 }
 
+export const createFavorite = async(id:string | number, eventId:string) => {
+    const favorite = await Favorites.create({userId: id, eventId})
+
+    return favorite
+}
+

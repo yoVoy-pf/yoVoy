@@ -38,7 +38,7 @@ const UsersList = () => {
           <tr>
             <th></th>
             <th style={{ textAlign: "center" }}>Name</th>
-            {/* <th style={{ textAlign: "center" }}>Email</th> */}
+            <th style={{ textAlign: "center" }}>Email</th>
             <th style={{ textAlign: "center" }}>Roles</th>
             <th style={{ textAlign: "center" }}>Action</th>
           </tr>
@@ -49,7 +49,7 @@ const UsersList = () => {
               <tr key={user.id}>
                 <th scope="row">{index + 1}</th>
                 <td className={styleUserList.th_users}>{user.name}</td>
-                {/* <td className={styleUserList.th_users}>{user.email}</td> */}
+                <td className={styleUserList.th_users}>{user.email}</td>
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
                 <td className={styleUserList.th_users}>
                   <Link to={`/update-user/${user.id}`}>

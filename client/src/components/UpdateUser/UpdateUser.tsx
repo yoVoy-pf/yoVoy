@@ -7,9 +7,10 @@ const Updateuser = () => {
     const [updateUser] = useUpdateUserMutation();
     const { id }: any = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { data, error } = useGetUserQuery(id);
+    const { data, error, refetch } = useGetUserQuery(id);
     const [user, setUser] = useState({
-        name: ''
+        name: '',
+        email: ''
     })
     
     useEffect(()=> {
@@ -33,8 +34,10 @@ const Updateuser = () => {
         e.preventDefault();
         try {
             id && await updateUser({id: id, updateUser: user});
+            refetch()
             setUser({
-                name: ''
+                name: '',
+                email: ''
             });
             navigate('/userslist')
         } catch (error) {
@@ -51,20 +54,22 @@ const Updateuser = () => {
                         <input 
                         type="text" 
                         name="name"
+                        className={styleUser.inputs_user}
                         value={user.name}
                         onChange={onChange}
                         />
                     </fieldset> <br />
-                    {/* <fieldset>
+                    <fieldset>
                         <legend>Email:</legend>
                         <input 
                         type="text"
                         name="email"
+                        className={styleUser.inputs_user}
                         value={user.email}
                         onChange={onChange} 
                         />
-                    </fieldset> */}
-                    <button type="submit">Actualizar User</button>
+                    </fieldset>
+                    <button type="submit" className={styleUser.button_user}>Actualizar User</button>
                 </div>
             </form>
         </div>
