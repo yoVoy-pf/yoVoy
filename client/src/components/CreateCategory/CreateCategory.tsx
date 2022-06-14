@@ -1,13 +1,12 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux";
-import { postCreateCategory } from "../../redux/actions/actions-Create";
-import { AppDispatch } from "../../redux/store/store"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { useCreateCategoryMutation } from "../../slices/app/categoriesApiSlice";
+import styleCreateCategory from './create-category.module.css'
 
 const CreateCategory = () => {
-    const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate()
 
+    const [createCategory] = useCreateCategoryMutation();
     const [category, setCategory] = useState({
         name: ''
     });
@@ -20,9 +19,10 @@ const CreateCategory = () => {
         });
     }
 
-    const onSubmit = (e:any) => {
+    const onSubmit = async (e:any) => {
         e.preventDefault();
-        dispatch(postCreateCategory(category))
+        console.log(category.name)
+        if (category) await createCategory({category: category.name})
         setCategory({
             name: ''
         })
@@ -31,16 +31,22 @@ const CreateCategory = () => {
     return(
         <div>
             <form onSubmit={onSubmit}>
-                <label>Nombre de la Categoria</label> <br />
-                <input 
-                    type="text" 
-                    placeholder="Nombre"
-                    value={category.name}
-                    name='name'
-                    required
-                    onChange={onInputChange}
-                /> <br />
-                <button type="submit">¡Crear Categoria!</button>
+                <div className={styleCreateCategory.form_create_category}>
+                <fieldset>
+                    {/* <label>Nombre de la Categoria</label> <br /> */}
+                    <legend className={styleCreateCategory.legend_create_category}>Nombre de la Categoria:</legend>
+                    <input 
+                        type="text" 
+                        placeholder="Nombre"
+                        name='name'
+                        required
+                        className={styleCreateCategory.input_create_categoty}
+                        onChange={onInputChange}
+                        value={category.name}
+                    /> 
+                </fieldset> <br />
+                <button className={styleCreateCategory.buttom_create_category} type="submit">¡Crear Categoria!</button>
+                </div>
             </form>
         </div>
     )
