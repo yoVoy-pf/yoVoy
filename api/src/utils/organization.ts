@@ -21,6 +21,20 @@ export const createOrganization = async (name: string, userId: string) => {
 }
 
 export const destroyOrganization = async (id: string | number) => {
+    
+    const user = await User.findOne({
+        where:{
+            organizationId: id
+        }
+    })
+
+    await UserRole.destroy({where:{
+        userId: user?.getDataValue("id"),
+        roleId: ROLES_LIST.Organization
+    }})
+
+    await user?.update({organizationId: null})
+
     const number = await Organization.destroy({
         where: {
             id: id
