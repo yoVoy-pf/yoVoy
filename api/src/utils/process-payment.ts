@@ -1,4 +1,5 @@
 import mercadopago from "mercadopago"
+import config from "../../config"
 
 export const createPreference= (items:any, user: any, organization:any) => {
 
