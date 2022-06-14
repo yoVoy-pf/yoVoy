@@ -41,3 +41,16 @@ export const putEvent = async (req: Request, res: Response, next: NextFunction) 
         next(error)
     }
 }
+
+export const getEventByDate = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const {id} = req.params
+
+        const event = await utils.getEventByDate(id)
+
+        res.status(200).json(event)
+    }catch(error){
+        next(error)
+    }
+}
+
