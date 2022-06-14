@@ -15,6 +15,7 @@ import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import EventsConfig from './components/EventsConfig/EventsConfig';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -28,7 +29,7 @@ function App(): JSX.Element {
 				<Route path="signup" element={<Signup />} />
 				<Route path="events/:id" element={<Event />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
-        <Route path='loading' element={<Loading />}/>
+				<Route path="loading" element={<Loading />} />
 				{/* protected routes */}
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
@@ -46,6 +47,7 @@ function App(): JSX.Element {
 					<Route path="admin-panel" element={<AdminPanel />} />
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
+					<Route path="events-config" element={<EventsConfig />} />
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
