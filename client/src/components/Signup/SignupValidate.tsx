@@ -2,13 +2,23 @@ import React from 'react';
 
 const validateUser = (input: any) => {
 	let errorsUser: any = {};
-	if (input.user.includes(' ')) {
+	// if (input.user.includes(' ')) {
+	// 	errorsUser.user =
+	// 		'El Nombre debe contener al menos 4 a 20 caracteres y solo admite letras';
+	// }
+	if (
+		!input.user.match(/^[ÁÉÍÓÚA-Z][a-záéíóú]+(\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$/)
+	) {
 		errorsUser.user =
-			'El Usuario debe contener al menos 6 a 16 caracteres y solo admite letras o numeros';
+			'El nombre debe contener al menos 4 a 20 caracteres y solo admite letras';
 	}
-	if (!input.user.match(/^([a-zA-Z0-9]){6,16}$/)) {
+	if (input.user.length < 4) {
 		errorsUser.user =
-			'El Usuario debe contener al menos 6 a 16 caracteres y solo admite letras o numeros';
+			'El nombre debe contener al menos 4 a 20 caracteres y solo admite letras';
+	}
+	if (input.user.length > 20) {
+		errorsUser.user =
+			'El nombre debe contener al menos 4 a 20 caracteres y solo admite letras';
 	}
 	return errorsUser;
 };
