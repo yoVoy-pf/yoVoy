@@ -16,6 +16,7 @@ import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 import EventsConfig from './components/EventsConfig/EventsConfig';
+import CreateOrganization from './components/CreateOrganization/CreateOrganization';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -34,6 +35,7 @@ function App(): JSX.Element {
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
 					<Route path="welcome" element={<Welcome />} />
+					<Route path='create-Organization' element={<CreateOrganization/>}/>
 				</Route>
 
 				<Route
