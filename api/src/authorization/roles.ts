@@ -21,6 +21,7 @@ export async function createRoles(){
   let user = await User.create({
     name: 'Administrador',
     password: hashedPassword,
+    email: 'admin@gmail.com'
   })
   UserRole.create({userId: user.getDataValue('id'), roleId: ROLES_LIST.Admin })
   UserRole.create({userId: user.getDataValue('id'), roleId: ROLES_LIST.Organization })
@@ -31,6 +32,7 @@ export async function createRoles(){
   user = await User.create({
     name: 'Organizacion',
     password: hashedPassword,
+    email: 'org@gmail.com',
   })
   UserRole.create({userId: user.getDataValue('id'), roleId: ROLES_LIST.Organization })
   UserRole.create({userId: user.getDataValue('id'), roleId: ROLES_LIST.User })
@@ -40,6 +42,7 @@ export async function createRoles(){
   user = await User.create({
     name: 'Usuario',
     password: hashedPassword,
+    email: 'user@gmail.com',
   })
   UserRole.create({userId: user.getDataValue('id'), roleId: ROLES_LIST.User })
 }
