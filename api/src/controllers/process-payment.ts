@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import { createPreference } from "../utils/process-payment"
 import utils from "../utils/event"
+import { createTickets } from "../utils/tickets"
 
 export const process_payment = (req: Request,res: Response,next:NextFunction) => {
     try{
@@ -23,6 +24,7 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
 
             createPreference(data,user)
             .then((preference) => {
+                createTickets(preference.body.id, data, user)
                 res.status(200).json(preference.body.sandbox_init_point)
             })
         })
