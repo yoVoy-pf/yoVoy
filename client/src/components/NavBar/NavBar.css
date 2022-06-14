@@ -247,9 +247,7 @@
 
 @media (max-width:1210px){
     .navbar{
-        display:grid;
-        grid-template-columns: 15% 55% 30%;
-        
+        display:contents;
     }
     .navbar_bg_mid{
        margin-left: 20%;
@@ -258,11 +256,28 @@
     }
     .navbar_bg_ul{
         padding-left: 0%;
+        margin-left: 100px;
     }
     .prueba_btn{
-        margin-left: 3%;
+        margin-left: 450px;
     }
     .navbar-log img{
+        margin-left: 380px;
+        height: 5em;
+        width: 5em;
+    }
+}
+
+@media (max-width:1085px){
+    .navbar_bg_ul{
+        padding-left: 0%;
+        margin-left: -10px;
+    }
+    .prueba_btn{
+        margin-left: 240px;
+    }
+    .navbar-log img{
+        margin-left: 230px;
         height: 5em;
         width: 5em;
     }
