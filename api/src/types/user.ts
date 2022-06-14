@@ -8,4 +8,5 @@ export interface iUser {
     refreshToken? : string;
     ticket? : Ticket
     rolesId?: number[];
+    organizationId?: number;
   }

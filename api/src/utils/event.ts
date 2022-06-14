@@ -79,8 +79,8 @@ export default {
                 }
             }),
             organization: {
-                id: event?.getDataValue("organization").getDataValue("id"),
-                name: event?.getDataValue("organization").getDataValue("name"),
+                id: event?.getDataValue("organization")?.getDataValue("id"),
+                name: event?.getDataValue("organization")?.getDataValue("name"),
             },
             categories: event?.getDataValue("categories").map((category: Model<any>) => {
                 return {
@@ -95,26 +95,25 @@ export default {
         name,
         description,
         background_image,
-        categoryIds,
-        locationId,
-        dates,
+        categories,
+        locations,
         user
     }: any) => {
         let event = await Event.create({name, description, background_image, organizationId: user.organizationId})
         let eventId = event.getDataValue("id")
-        categoryIds.forEach( async (id:number) => {
-            await EventCategory.create({eventId, categoryId: id})
+        categories.forEach(async (id:number) => {
+            EventCategory.create({eventId, categoryId: id})
         });
 
-        let eventLocation = await EventLocation.create({eventId, locationId})
-        let eventLocationId = eventLocation.getDataValue("id")
+        locations.forEach(async (location: any) => {
+            let eventLocation = await EventLocation.create({eventId, locationId: location.id})
+            let eventLocationId = eventLocation.getDataValue("id")
 
-        dates = dates.map((date:any) => {
-            return {...date, eventLocationId}
+            location.dates.forEach((date:any) => {
+                Date.create({...date, eventLocationId})
+            })
         })
-
-        await Date.bulkCreate(dates)
-
+        
         return event
     },
 
@@ -150,34 +149,56 @@ export default {
         name,
         background_image,
         description,
-        categoriesIds,
-        locations
+        categories,
+        locations,
+        dates,
     }: any) => {
         let event = await Event.update({name, background_image, description}, {where: {id: id}})
 
         await EventCategory.destroy({where: {eventId: id}})
-        categoriesIds.forEach((category:number) => {
+        categories.forEach((category:number) => {
             EventCategory.create({eventId: id, categoryId: category})
         }) 
 
-        locations.forEach(async (location: any) => {
-            let eventLocation = await EventLocation.findOne({
-                where: {
-                    eventId: id,
-                    locationId: location.id
-                }
-            })
+        let eventLocation = await EventLocation.findOne({where:{eventId:id}})
 
-            await Date.destroy({
-                where:{
-                    eventLocationId: eventLocation?.getDataValue("id")
-                }
-            })
+        await Date.destroy({where:{eventLocationId: eventLocation?.getDataValue("id")}})
 
-            location.dates.forEach((date: any) => {
-                Date.create({...date, eventLocationId: eventLocation?.getDataValue("id")})
-            })
+        eventLocation?.destroy()
+
+        eventLocation = await EventLocation.create({locationId: locations, eventId: id})
+
+        dates.forEach((date: any) => {
+            Date.create({price: date.price, date: date.date, eventLocationId: eventLocation?.getDataValue("id")})
         })
+        
         return event
+    },
+
+    getEventByDate: (dateId:string) => {
+        let event = Event.findOne({
+            attributes: ["id","name","background_image", "description"],
+            include:[
+                {
+                model: Organization,
+                attributes: ["id","name","ACCESS_TOKEN"]
+                },
+                {
+                    model:EventLocation,
+                    attributes:["id"],
+                    include:[
+                        {
+                        model: Date,
+                        attributes:["id","price","date"],
+                        where:{
+                            id: dateId
+                        }
+                        }
+                    ]
+                }
+            ]
+        })
+
+        return event 
     }
 }

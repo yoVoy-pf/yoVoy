@@ -10,18 +10,18 @@ import login_style from "./Login.module.css"
 
 
 const Login = () => {
-  const userRef = useRef<HTMLInputElement | null>(null);
-  const errRef = useRef<HTMLParagraphElement | null>(null);
-  const currentToken = useSelector(selectCurrentToken);
+	const userRef = useRef<HTMLInputElement | null>(null);
+	const errRef = useRef<HTMLParagraphElement | null>(null);
+	
 
-  const [user, setUser] = useState({});
-  const [password, setPassword] = useState({});
-  const [errMsg, setErrMsg] = useState('')
-  const [errorsUser, setErrorsUser]: any = useState({});
-  const [errorsPassword, setErrorsPassword]: any = useState({});
-  const navigate = useNavigate();
-  const location : any = useLocation();
-  const from = location.state?.from?.pathname || '/';
+	const [user, setUser] = useState({});
+	const [password, setPassword] = useState({});
+	const [errMsg, setErrMsg] = useState('')
+	const [errorsUser, setErrorsUser]: any = useState({});
+	const [errorsPassword, setErrorsPassword]: any = useState({});
+	const navigate = useNavigate();
+	const location: any = useLocation();
+	const from = location.state?.from?.pathname || '/';
 
 	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
@@ -35,30 +35,28 @@ const Login = () => {
 		setErrMsg('');
 	}, [user, password]);
 
-  useEffect(() => {
-    if (currentToken) navigate(from, {replace: true})
-  },[currentToken, navigate, from])
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-      e.preventDefault();
-      try {
-          const userData = await login({name: user, password}).unwrap()
-          console.log(userData)
-          dispatch(setCredentials({user: userData.data, accessToken: userData.accessToken}))
-          setUser('')
-          setPassword('')
-          navigate(from,{replace: true})
-      } catch (err: any) {
-        if (!err?.response) {
-          setErrMsg('No Server Response');
-        } else if (err.status === 400) {
-          setErrMsg('Missing Username or Password');
-        } else if (err.status === 401) {
-          setErrMsg('Unauthorized');
-        } else {
-          setErrMsg('Login Failed');
-        }
-      }
+
+	const handleSubmit = async (e: SyntheticEvent) => {
+		e.preventDefault();
+		try {
+			const userData = await login({ name: user, password }).unwrap()
+			console.log(userData)
+			dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
+			setUser('')
+			setPassword('')
+			navigate('/welcome')
+		} catch (err: any) {
+			if (!err?.data) {
+				setErrMsg('No Server Response');
+			} else if (err.originalStatus === 400) {
+				setErrMsg('Missing Username or Password');
+      } else if (err.originalStatus === 403) {
+				setErrMsg('Wrong Username or Password');
+			} else {
+				setErrMsg('Login Failed');
+			}
+		}
 		const error = errRef.current;
 		error?.focus();
 	};
@@ -73,23 +71,26 @@ const Login = () => {
 			validatePassword({ ...password, [e.target.name]: e.target.value }),
 		);
 	};
-
+	const spanStyle = {color : 'red', fontSize:'25px'}
 	const content = isLoading ? (
 		<h1>Loading...</h1>
 	) : (
-		<div className={login_style.bg}>
-			<p
+		<React.Fragment>
+
+			<span
+				style={spanStyle}
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
 				aria-live="assertive"
 			>
 				{errMsg}
-			</p>
+			</span>
 			<form onSubmit={handleSubmit}>
-				<h1>Ingresar</h1>
-				<div className={login_style.form} >
-
-					<label className={login_style.label}>Usuario</label> <br />
+			<div className={login_style.form} >
+					<h1>Ingresar</h1>
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label className={login_style.label}>Usuario</label> <br /> */}
+					<legend className={login_style.legend}>Usuario:</legend>
 					<input
 						type="text"
 						ref={userRef}
@@ -100,8 +101,10 @@ const Login = () => {
 						onChange={(e) => handleUserInput(e)}
 					/>
 					{errorsUser.user && <p>{errorsUser.user}</p>}
-					<br /> <br />
-					<label>Contraseña</label> <br />
+					</fieldset> <br /> <br />
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label>Contraseña</label> <br /> */}
+					<legend className={login_style.legend}>Contraseña:</legend>
 					<input
 						type="password"
 						placeholder="Contraseña"
@@ -111,7 +114,7 @@ const Login = () => {
 						onChange={(e) => handlePasswordInput(e)}
 					/>
 					{errorsPassword.password && <p>{errorsPassword.password}</p>}
-					<br /> <br />
+					</fieldset> <br /> <br />
 					<button className={login_style.bottom}
 						type="submit"
 						disabled={
@@ -128,7 +131,7 @@ const Login = () => {
 				</div>
 				<br />
 			</form>
-		</div>
+		</React.Fragment>
 	);
 
 	return content;
