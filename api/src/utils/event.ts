@@ -174,5 +174,32 @@ export default {
         })
         
         return event
+    },
+
+    getEventByDate: (dateId:string) => {
+        let event = Event.findOne({
+            attributes: ["id","name","background_image", "description"],
+            include:[
+                {
+                model: Organization,
+                attributes: ["id","name","ACCESS_TOKEN"]
+                },
+                {
+                    model:EventLocation,
+                    attributes:["id"],
+                    include:[
+                        {
+                        model: Date,
+                        attributes:["id","price","date"],
+                        where:{
+                            id: dateId
+                        }
+                        }
+                    ]
+                }
+            ]
+        })
+
+        return event 
     }
 }

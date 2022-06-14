@@ -29,3 +29,13 @@ export const destroyOrganization = async (id: string | number) => {
 
     return number
 }
+
+export const getOrganizationById = async (id: string | number) => {
+    const organization = Organization.findOne({
+        where:{
+            id:id
+        }
+    })
+
+    return organization
+}

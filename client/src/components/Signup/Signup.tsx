@@ -53,21 +53,24 @@ const Signup = () => {
 			validatePassword({ ...password, [e.target.name]: e.target.value }),
 		);
 	};
-
+	const spanStyle = {color : 'red', fontSize:'25px'}
 	return (
 		<React.Fragment>
-			<p
+			<span
+				style={spanStyle}
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
 				aria-live="assertive"
 			>
 				{errMsg}
-			</p>
+			</span>
 			<form onSubmit={onSubmit}>
 				<div className={register_style.form}>
 
 					<h1>Registrarse</h1>
-					<label>Usuario</label> <br />
+					<fieldset className={register_style.fieldset_signUp}>
+					{/* <label>Usuario</label> <br /> */}
+					<legend className={register_style.legend}>Usuario</legend>
 					<input
 						type="text"
 						ref={userRef}
@@ -78,8 +81,10 @@ const Signup = () => {
 						onChange={(e) => handleUserInput(e)}
 					/>
 					{errorsUser.user && <p>{errorsUser.user}</p>}
-					<br /> <br />
-					<label>Contraseña</label> <br />
+					</fieldset> <br /> <br />
+					{/* <label>Contraseña</label> <br /> */}
+					<fieldset className={register_style.fieldset_signUp}>
+					<legend className={register_style.legend}>Contraseña</legend>
 					<input
 						type="password"
 						placeholder="Contraseña"
@@ -89,7 +94,7 @@ const Signup = () => {
 						onChange={(e) => handlePasswordInput(e)}
 					/>
 					{errorsPassword.password && <p>{errorsPassword.password}</p>}
-					<br /> <br />
+					</fieldset> <br /> <br />
 					<button className={register_style.bottom}
 						type="submit"
 						disabled={

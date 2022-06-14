@@ -23,12 +23,20 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         }
       }
     }),
-    getEvent: builder.query<Event,{id: string}>({
+    getEvent: builder.query<any,{id: string}>({
       query: ({id}) => {
       console.log({id})
       return {
         url: `api/event/${id}`
       }
+      }
+    }),
+    deleteEvent: builder.mutation<Event, {id: number}>({
+      query(id) {
+        return {
+          url:`api/event/${id}`,
+          method:`Delete`,
+        }
       }
     })
   })
@@ -38,4 +46,5 @@ export const{
   useUpdateEventMutation,
   useCreateEventMutation,
   useGetEventQuery,
+  useDeleteEventMutation,
 } = eventsApiSlice

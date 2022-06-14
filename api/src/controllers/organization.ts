@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createOrganization, destroyOrganization } from "../utils/organization"
+import { createOrganization, getOrganizationById, destroyOrganization} from "../utils/organization"
 
 
 export const postOrganization = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,4 +29,16 @@ export const deleteOrganization = async(req: Request, res: Response, next: NextF
         next(error)
     }
 
+}
+
+export const getOrganization = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const {id} = req.params
+
+        const organization = await getOrganizationById(id)
+
+        res.status(200).json(organization)
+    }catch(error){
+        next(error)
+    }
 }

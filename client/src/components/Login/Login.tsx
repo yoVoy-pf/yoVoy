@@ -45,14 +45,14 @@ const Login = () => {
 			dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
 			setUser('')
 			setPassword('')
-			navigate(from, { replace: true })
+			navigate('/welcome')
 		} catch (err: any) {
-			if (!err?.response) {
+			if (!err?.data) {
 				setErrMsg('No Server Response');
-			} else if (err.status === 400) {
+			} else if (err.originalStatus === 400) {
 				setErrMsg('Missing Username or Password');
-			} else if (err.status === 401) {
-				setErrMsg('Unauthorized');
+      } else if (err.originalStatus === 403) {
+				setErrMsg('Wrong Username or Password');
 			} else {
 				setErrMsg('Login Failed');
 			}
@@ -71,24 +71,26 @@ const Login = () => {
 			validatePassword({ ...password, [e.target.name]: e.target.value }),
 		);
 	};
-
+	const spanStyle = {color : 'red', fontSize:'25px'}
 	const content = isLoading ? (
 		<h1>Loading...</h1>
 	) : (
 		<React.Fragment>
 
-			<p
+			<span
+				style={spanStyle}
 				ref={errRef}
 				className={errMsg ? 'errmsg' : 'offscreen'}
 				aria-live="assertive"
 			>
 				{errMsg}
-			</p>
+			</span>
 			<form onSubmit={handleSubmit}>
-				<div className={login_style.form} >
+			<div className={login_style.form} >
 					<h1>Ingresar</h1>
-
-					<label className={login_style.label}>Usuario</label> <br />
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label className={login_style.label}>Usuario</label> <br /> */}
+					<legend className={login_style.legend}>Usuario:</legend>
 					<input
 						type="text"
 						ref={userRef}
@@ -99,8 +101,10 @@ const Login = () => {
 						onChange={(e) => handleUserInput(e)}
 					/>
 					{errorsUser.user && <p>{errorsUser.user}</p>}
-					<br /> <br />
-					<label>Contraseña</label> <br />
+					</fieldset> <br /> <br />
+					<fieldset className={login_style.fieldset_login}>
+					{/* <label>Contraseña</label> <br /> */}
+					<legend className={login_style.legend}>Contraseña:</legend>
 					<input
 						type="password"
 						placeholder="Contraseña"
@@ -110,7 +114,7 @@ const Login = () => {
 						onChange={(e) => handlePasswordInput(e)}
 					/>
 					{errorsPassword.password && <p>{errorsPassword.password}</p>}
-					<br /> <br />
+					</fieldset> <br /> <br />
 					<button className={login_style.bottom}
 						type="submit"
 						disabled={

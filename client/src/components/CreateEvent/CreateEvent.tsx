@@ -105,9 +105,8 @@ const CreateEvent = () => {
 						<legend className={styleCreateEvent.legend_form}>
 							Descripcion:
 						</legend>
-						<input
+						<textarea
 							name="description"
-							type="text"
 							id="description"
 							placeholder="Descripcion..."
 							className={styleCreateEvent.input_create}
@@ -121,7 +120,7 @@ const CreateEvent = () => {
 						<legend className={styleCreateEvent.legend_form}>Imagen:</legend>
 						<input
 							name="background_image"
-							type="file"
+							type="text"
 							id="background_image"
 							placeholder="Imagen..."
 							className={styleCreateEvent.input_create}
