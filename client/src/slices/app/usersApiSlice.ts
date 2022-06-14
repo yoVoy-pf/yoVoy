@@ -3,10 +3,10 @@ import { User } from "../../types";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
-    getUsers: builder.query<User[],void>({
-      query: () => '/api/users',
+    getUsers: builder.query<User[],{_:string}>({
+      query: ({_}) => '/api/users',
     }),
-    getUser: builder.query<User,{id: string}>({
+    getUser: builder.query<User,{id: any}>({
       query(id){
         console.log(id)
        return{ 
@@ -14,12 +14,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
        }
       }
     }),
-    updateUser: builder.mutation<User[],{id: any, newUser: any}>({
-      query: ({id, ...newUser}) => {
+    updateUser: builder.mutation<User[],{id: any, updateUser: any}>({
+      query: ({id, ...updateUser}) => {
         return {
           url: `api/users/${id}`,
           method: `PUT`,
-          body: {...newUser}
+          body: {...updateUser}
         }
       }
     }),
