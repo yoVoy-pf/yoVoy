@@ -49,7 +49,8 @@ export async function getUserFromDbByField(field: string, value: string) {
     let refreshToken : string = user?.getDataValue('refreshToken');
     let rolesId : []= user?.getDataValue('roles').map((r : Model<any,any>) => r.getDataValue('id'))
     let id : number = user?.getDataValue("id");
-     return {name: username, password, email, refreshToken, rolesId, id};
+    let organizationId: number = user?.getDataValue("organizationId")
+     return {name: username, password, email, refreshToken, rolesId, id, organizationId};
 }
 
 export async function giveRoleToUser(user: iUser, role: number){

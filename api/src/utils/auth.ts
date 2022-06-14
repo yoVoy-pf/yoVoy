@@ -10,7 +10,8 @@ export function generateAccessToken(user: iUser){
       'name': user.name,
       'email': user.email,
       'rolesId':user.rolesId,
-      "id": user.id
+      "id": user.id,
+      "organizationId": user.organizationId
     }
   }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '10m'})
 }
