@@ -11,9 +11,6 @@ export class Organization extends Model<Organization> {
     @BelongsTo(() => User)
     user!: User;
 
-    @Column(DataType.STRING(500))
-    ACCESS_TOKEN!: string;
-
     @Column
     name!: string;
 
