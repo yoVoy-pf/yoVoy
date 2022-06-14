@@ -1,15 +1,16 @@
-const validateUser = (input: any) => {
-	let errorsUser: any = {};
-	if (input.user.includes(' ')) {
-		errorsUser.user =
-			'El Usuario debe contener al menos 6 a 16 caracteres y solo admite letras o numeros';
+const validateEmail = (input: any) => {
+	let errorsEmail: any = {};
+	if (input.email.includes(' ')) {
+		errorsEmail.email = 'Introduzca un Email valido';
 	}
-	if (!input.user.match(/^([a-zA-Z0-9]){6,16}$/)) {
-		errorsUser.user =
-			'El Usuario debe contener al menos 6 a 16 caracteres y solo admite letras o numeros';
+	if (
+		!input.email.match(
+			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+		)
+	) {
+		errorsEmail.email = 'Introduzca un Email valido';
 	}
-	console.log(input.user);
-	return errorsUser;
+	return errorsEmail;
 };
 
 const validatePassword = (input: any) => {
@@ -31,8 +32,7 @@ const validatePassword = (input: any) => {
 		errorsPassword.password =
 			'La contraseña debe contener al menos 6 a 15 caracteres y solo admite letras o numeros';
 	}
-	console.log(input.password);
 	return errorsPassword;
 };
 
-export { validateUser, validatePassword };
+export { validateEmail, validatePassword };
