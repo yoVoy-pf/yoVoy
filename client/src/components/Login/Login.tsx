@@ -1,51 +1,69 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { SyntheticEvent, useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch} from "react-redux";
 import { setCredentials } from "../../slices/authentication/authSlice";
 import { useLoginMutation } from "../../slices/authentication/authApiSlice";
-import { selectCurrentToken } from "../../slices/authentication/authSlice";
 import { validatePassword } from "./LoginValidate";
 import { validateUser } from "./LoginValidate";
 import login_style from "./Login.module.css"
-
+declare var google: any
 
 const Login = () => {
-	const userRef = useRef<HTMLInputElement | null>(null);
+	const emailRef = useRef<HTMLInputElement | null>(null);
 	const errRef = useRef<HTMLParagraphElement | null>(null);
 	
-
-	const [user, setUser] = useState({});
+	const [email, setEmail] = useState({});
 	const [password, setPassword] = useState({});
 	const [errMsg, setErrMsg] = useState('')
 	const [errorsUser, setErrorsUser]: any = useState({});
 	const [errorsPassword, setErrorsPassword]: any = useState({});
 	const navigate = useNavigate();
-	const location: any = useLocation();
-	const from = location.state?.from?.pathname || '/';
 
 	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
 
+  const handleLogin = async (credentials: any) => {
+    const userData = await login(credentials).unwrap()
+    console.log(userData)
+    dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
+    setEmail('')
+    setPassword('')
+    navigate('/welcome')
+  }
+
+  const handleCallbackResponse = async (response: any) => {
+    console.log('Encoded jwt ID token: ', response)
+    handleLogin({ googleToken: response.credential })
+  }
+
 	useEffect(() => {
-		const input = userRef.current;
+    if (google){
+      google?.accounts?.id?.initialize({
+        client_id: '210425083362-pkn3890s07pe9r7f0l2s1ev492j4hh13.apps.googleusercontent.com',
+        callback: handleCallbackResponse
+      })
+  
+      google?.accounts?.id?.renderButton(
+        document.getElementById('signInDiv'),
+        {theme: 'outline', size: 'large'}
+      )
+    }
+
+		const input = emailRef.current;
 		input?.focus();
 	}, []);
 
 	useEffect(() => {
 		setErrMsg('');
-	}, [user, password]);
+	}, [email, password]);
 
 
 
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		try {
-			const userData = await login({ name: user, password }).unwrap()
-			console.log(userData)
-			dispatch(setCredentials({ user: userData.data, accessToken: userData.accessToken }))
-			setUser('')
-			setPassword('')
-			navigate('/welcome')
+      handleLogin({ email: email, password })
 		} catch (err: any) {
 			if (!err?.data) {
 				setErrMsg('No Server Response');
@@ -61,9 +79,9 @@ const Login = () => {
 		error?.focus();
 	};
 
-	const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setUser(e.target.value);
-		setErrorsUser(validateUser({ ...user, [e.target.name]: e.target.value }));
+	const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value);
+		setErrorsUser(validateUser({ ...email, [e.target.name]: e.target.value }));
 	};
 	const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value);
@@ -90,15 +108,15 @@ const Login = () => {
 					<h1>Ingresar</h1>
 					<fieldset className={login_style.fieldset_login}>
 					{/* <label className={login_style.label}>Usuario</label> <br /> */}
-					<legend className={login_style.legend}>Usuario:</legend>
+					<legend className={login_style.legend}>Email:</legend>
 					<input
 						type="text"
-						ref={userRef}
-						placeholder="Usuario"
-						name="user"
+						ref={emailRef}
+						placeholder="Email"
+						name="email"
 						autoComplete="off"
 						required={true}
-						onChange={(e) => handleUserInput(e)}
+						onChange={(e) => handleEmailInput(e)}
 					/>
 					{errorsUser.user && <p>{errorsUser.user}</p>}
 					</fieldset> <br /> <br />
@@ -128,6 +146,9 @@ const Login = () => {
 					>
 						Iniciar sesion
 					</button>
+          <div id='signInDiv'>
+
+          </div>
 				</div>
 				<br />
 			</form>

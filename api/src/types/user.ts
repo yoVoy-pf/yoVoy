@@ -4,7 +4,7 @@ export interface iUser {
     name : string;
     password : string;
     id?:number;
-    email? : string;
+    email : string;
     refreshToken? : string;
     ticket? : Ticket
     rolesId?: number[];

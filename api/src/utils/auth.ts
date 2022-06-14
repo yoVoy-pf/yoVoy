@@ -1,5 +1,5 @@
 require('dotenv').config()
-import  jwt  from "jsonwebtoken";
+import  jwt from "jsonwebtoken";
 import { User } from "../models/User";
 import { iUser } from "../types/user";
 import { DecodedUserInfo } from "../types/utilsTypes";
@@ -46,4 +46,8 @@ export function verifyRefreshToken(user:iUser){
   }
   )
   return newToken;
+}
+
+export function decodeGoogleToken(token: string){
+  return jwt.decode(token)
 }

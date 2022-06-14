@@ -3,25 +3,66 @@ import { Request, Response, NextFunction } from "express"
 import bcrypt from 'bcrypt'
 import { createUserInDb, getUserFromDbByField } from "../utils/users"
 import { iUser } from "../types/user"
-import { generateAccessToken, updateRefreshToken, verifyRefreshToken } from "../utils/auth"
+import { decodeGoogleToken, generateAccessToken, updateRefreshToken, verifyRefreshToken } from "../utils/auth"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
-  let user : iUser = {name: req.body.name, password: req.body.password}
+  let user : iUser;
   try{
-    const hashedPassword = await bcrypt.hash(user.password,10) // hash(password, salt)
-    user = {...user, password: hashedPassword}
-    await createUserInDb(user)
-    res.sendStatus(201)
+    if (req.body.googleToken){
+      // Desencrypt google token
+      const decodedUserInfo : any = decodeGoogleToken(req.body.googleToken)
+      const {email, name, email_verified: check} = decodedUserInfo
+      // Check if mail is verified
+      if(!check) return next({status: 403, message: `El email no esta verificado`})
+      const password = await bcrypt.hash(email, 10)
+      user = {name, password, email}
+      console.log(user)
+      req.body = {
+        googleToken: req.body.googleToken,
+      }
+    }
+    else{
+      const password = await bcrypt.hash(req.body.password,10) // hash(password, salt)
+      user = {name: req.body.name, email: req.body.email, password}
+      req.body ={
+        email: user.email,
+        password: req.body.password
+      }
+    }
+    // Verify if user already exists
+    const userExists = await getUserFromDbByField('email', user.email);
+    if (userExists) return next({status: 400, message: `Ya existe un usuario con ese email`})
+    else{
+      await createUserInDb(user)
+      res.redirect(307,'./login')
+    }
   }catch(error){
     next(error)
   }
 }
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  const user = await getUserFromDbByField('name',req.body.name) // Find in DB
-  if (!user) return next({status: 400, message: `Cannot find user`})
+  // Check if is google user
+  let user;
   try{
-    if(await bcrypt.compare(req.body.password, user.password)){ // Compare the password sent by body with the one in the DB
+      if(req.body.googleToken){
+      // Desencrypt google token
+      const decodedUserInfo : any = decodeGoogleToken(req.body.googleToken)
+      const {email, name, email_verified: check} = decodedUserInfo
+      // Check if mail is verified
+      if(!check) return next({status: 403, message: `El email no esta verificado`})
+      // check if user exists in Db
+      user = await getUserFromDbByField('email', email)
+      if(!user) return next({status: 400, message: `El usuario no existe`})
+    }
+      else{
+          // Checks if user exists in Db
+          user = await getUserFromDbByField('email', req.body.email) 
+          if (!user) return next({status: 400, message: `El usuario no existe`})
+          // Compare the password sent by body with the one in the DB
+          if(!await bcrypt.compare(req.body.password, user.password)) return next({status:403 , message:'Contraseña incorrecta'})
+      } 
+      // Generate access token
       const accessToken =  generateAccessToken(user)
       const refreshToken = await updateRefreshToken(user)
       res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000}) // 1 day
@@ -32,20 +73,21 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       rolesId: user.rolesId,
         },
       accessToken: accessToken
-    })
-    } else next({status:403 , message:'Not Allowed'})
+      })
   }catch(error){
     next(error)
-  }
+      }
+  
 }
 
 export const handleRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
   const cookies = req.cookies;
+  if (!cookies) return res.sendStatus(401)
   if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(401) // unauthorized
   const refreshToken = cookies.jwt;
   try{
     const user = await getUserFromDbByField('refreshToken',refreshToken);
-    if (!user) return next({status:403 , message:'Not Allowed'})
+    if (!user) return next({status:403 , message:'El usuario con ese token no existe'})
     let newToken = verifyRefreshToken(user);
     if (typeof newToken === 'string') res.send({accessToken:newToken})
     else throw newToken   // obj error {status, message}
@@ -55,11 +97,12 @@ export const handleRefreshToken = async (req: Request, res: Response, next: Next
 // getUserAuth
 export const getUserAuth = async (req: Request, res: Response, next: NextFunction) => {
   const cookies = req.cookies;
+  console.log(cookies)
   if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(401) // unauthorized
   const refreshToken = cookies.jwt;
   try{
     const user = await getUserFromDbByField('refreshToken',refreshToken);
-    if (!user) return next({status:404 , message:'Not session found'})
+    if (!user) return next({status:404 , message:'No se encontro una sesion activa'})
     let newToken = verifyRefreshToken(user);
     if (typeof newToken === 'string'){
     return res.send({

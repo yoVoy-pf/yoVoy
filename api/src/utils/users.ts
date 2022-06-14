@@ -7,9 +7,9 @@ const { User, Role, UserRole } = sequelize.models
 
 // create new user in the database
 export async function createUserInDb(user: iUser) {
-  const {name, password} = user
+  const {name, password, email} = user
   try{
-    const newUser = await User.create({name, password})
+    const newUser = await User.create({name, password, email})
     let id : number = newUser?.getDataValue('id')
     UserRole.create({userId: id, roleId: ROLES_LIST.User})
   }catch(error) {throw error}
