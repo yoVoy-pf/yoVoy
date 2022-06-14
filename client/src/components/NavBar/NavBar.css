@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Fruktur&family=Montserrat+Alternates:ital,wght@1,500&display=swap');
 
 
-.navbar{
+.navbar {
     height: 10vh;
-    background: rgba(97, 33, 15, 0.555);
+    background: rgba(253, 109, 69, 0.507);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,44 +13,137 @@
     border-bottom-right-radius: 25px;
     border-bottom: 3px solid rgba(0, 0, 0, 0.454);
     box-shadow: 7px 13px 20px #000;
-  
+ 
 }
-.navbar-log img{
+
+.navbar-log img {
     height: 6em;
     width: 6em;
 }
 
-.navbar_bg_ul{
-    margin-left: 70px;
+.navbar_bg_ul {
+    margin-left: 15px 0px;
+    margin-left: 180px;
 }
 
-.navbar_bg_li{
+.navbar_bg_li {
     list-style-type: none;
     display: inline-block;
-    padding: 10px 30px;
+    /* padding: 20px 30px; */
+    position: relative;
+    margin: 0 20px;
+
+}
+.navbar_bg_li::before{
+    content: "";
+    height: 3px;
+    width: 0%;
+    background: #000;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transition: 0.4s ease-out;
+}
+.navbar_bg_li:hover:before{
+    width: 100%;
 }
 
-.navbar_bg_a{
+.navbar_bg_a {
     text-decoration: none;
+    color: #fff;
+    font-size: 1.2em;
+    
 }
-.prueba_btn{
+
+
+.prueba_btn {
     display: flex;
 }
 
-.navBar-btn-login{
-    font-family: 'Fruktur', cursive;
+:root {
+    --clr-neon: rgb(0, 0, 0);
+    --clr-bg: rgb(0, 103, 248);
+}
+
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+.navbar .prueba_btn .navBar-btn-login {
+    /* font-family: 'Fruktur', cursive;
     font-family: 'Montserrat Alternates';
     font-size: 1em;
     border-radius: 50px;
     cursor: pointer;
     width: 100px;
     height: 60px;
-    background: linear-gradient(90deg, rgba(255, 89, 0, 0.418), rgba(0, 81, 255, 0.253));
-    transition: color 0.3s linear;
+    background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
+    transition: color 0.3s linear; */
+    font-size: 1.2rem;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color:rgb(0, 0, 0);
+    border: currentColor 0.125em solid;
+    padding: -1em 1em;
+    background-color: rgb(253, 253, 253);
+    margin-bottom: 20px;
+    border-radius: 0.80em;
+    
+    
+    /* text-shadow: 0 0 0.125em rgba(245, 245, 245, 0.514), 0 0 0.45em currentColor; */
+    /* box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon); */
+  
+    position: relative;
 }
 
-.navBar-btn-register{
-    font-family: 'Fruktur', cursive;
+.navbar .prueba_btn .navBar-btn-login::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    background: var(--clr-neon);
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.80em;
+  
+    transform: perspective(0.9em)rotateX(30deg) scale(1 , 0.35);
+    filter: blur(0.4em);
+}
+
+.navbar .prueba_btn .navBar-btn-login::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 2em 0.5em var(--clr-neon);
+    opacity: 0;
+    transition: opacity 100ms linear;
+    border-radius: 0.80em;
+}
+
+/* 
+.navbar .prueba_btn .navBar-btn-login:hover,
+.navbar .prueba_btn .navBar-btn-login:focus {
+    background: rgb(0, 0, 0);
+    color: var(--clr-bg);
+    text-shadow: none;
+    border-radius: 0.80em;
+}
+
+.navbar .prueba_btn .navBar-btn-login:hover::after{
+    opacity: 1;
+    border-radius: 0.80em;
+} */
+
+
+
+.navbar .prueba_btn .navBar-btn-register {
+    /* font-family: 'Fruktur', cursive;
     font-family: 'Montserrat Alternates';
     font-size: 1em;
     border-radius: 50px;
@@ -59,19 +152,62 @@
     height: 60px;
     margin-left: 2em;
     margin-right: -4em;
-    background: linear-gradient(90deg, rgba(255, 89, 0, 0.418), rgba(0, 81, 255, 0.253));
-    transition: color 0.3s linear;
+    background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
+    transition: color 0.3s linear; */
+    font-size: 1.2rem;
+    margin-right: -2em;
+    margin-left: 2em;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color:rgb(0, 0, 0);
+    border: currentColor 0.125em solid;
+    padding: -1em 1em;
+    background-color: rgb(250, 250, 250);
+    margin-bottom: 20px;
+    border-radius: 0.80em;
+    position: relative;
+}
+.navBar-btn-register::before{
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    background: var(--clr-neon);
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.80em;
+  
+    transform: perspective(0.9em)rotateX(30deg) scale(1 , 0.35);
+    filter: blur(0.4em);
+}
+ .navBar-btn-register::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 2em 0.5em var(--clr-neon);
+    opacity: 0;
+    transition: opacity 100ms linear;
+    border-radius: 0.80em;
 }
 
-.navBar-btn-register:hover{
-    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253),rgba(255, 89, 0, 0.418));
+
+
+
+
+.navBar-btn-register:hover {
+    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     z-index: 1;
-   
+
 }
 
-.navBar-btn-login:hover{
-    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253),rgba(255, 89, 0, 0.418));
+.navBar-btn-login:hover {
+    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     z-index: 1;
 }

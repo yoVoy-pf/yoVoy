@@ -1,0 +1,36 @@
+.bg_div{
+    display: block;
+}
+
+.bg_div1{
+    display: flex;
+    justify-content: center;
+}
+
+.line{
+    width: 81%;
+    height: 0.5rem;
+    background-color: rgba(128, 128, 128, 0.678);
+    margin-top: 3em;
+    margin-bottom: 3em;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(12%);
+}
+
+.bg_div1 select{
+    width: 180px;
+    height: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    margin-left: 2em;
+    padding: 0 5px;
+    color: #000;
+    outline: none;
+    border: 1px solid silver;
+    border-radius: 10px ;
+    cursor: pointer;
+    
+}
+
+
