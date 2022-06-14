@@ -1,8 +1,11 @@
 import { useGetUsersQuery } from "../../slices/app/usersApiSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styleUserList from './user-list.module.css'
+import { useDeleteUserMutation } from "../../slices/app/usersApiSlice";
 
 const UsersList = () => {
+  const [deleteUser] = useDeleteUserMutation();
+  const navigate = useNavigate();
   const{
     data: users,
     isLoading,
@@ -11,6 +14,16 @@ const UsersList = () => {
     error
   } = useGetUsersQuery()
 
+  const handleDelete = async (id: any) => {
+    if (
+      window.confirm('Seguro que quieres eliminar este usuario?')
+    ){
+      await deleteUser(id)
+      alert('Usuario eliminado correactamente')
+      navigate('/userslist')
+    }
+  }
+
   let content = <span></span>;
   if (isLoading){
     content = <p>Loading...</p>
@@ -18,7 +31,7 @@ const UsersList = () => {
     content = (
       <div style={{ marginTop: "100px" }}>
       <table className={styleUserList.table_users}>
-  
+          <tbody>
           <tr>
             <th></th>
             <th style={{ textAlign: "center" }}>Name</th>
@@ -39,18 +52,21 @@ const UsersList = () => {
                   <Link to={`/update-user/${user.id}`}>
                     <button>Edit</button>
                   </Link>
-                  <button>
+                  <button
+                  onClick={()=> handleDelete(user.id)}
+                  >
                     Delete
                   </button>
-                  <Link to={`/user-detail/${user.id}`}>
+                  {/* <Link to={`/user-detail/${user.id}`}>
                     <button>
                       View
                     </button>
-                  </Link>
+                  </Link> */}
                 </td>
               </tr>
               );
             })}
+            </tbody>
         </table>
       </div>
     )
