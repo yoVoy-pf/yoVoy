@@ -12,6 +12,9 @@ const config = {
  port: process.env.API_PORT || '3001',
  host: process.env.API_host || 'localhost',
  cors: process.env.CORS || 'localhost:3000',
+ ACCESS_TOKEN: process.env.ACCESS_TOKEN || "TEST-6618463267359012-061115-bb4818d20c1253649161e38df3c16fc7-612785330",
+ CLIENT_ID: process.env.CLIENT_ID,
+ CLIENT_SECRET: process.env.CLIENT_SECRET
 };
 
 export default config;

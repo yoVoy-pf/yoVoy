@@ -1,5 +1,5 @@
 require('dotenv').config()
-import  jwt  from "jsonwebtoken";
+import  jwt from "jsonwebtoken";
 import { User } from "../models/User";
 import { iUser } from "../types/user";
 import { DecodedUserInfo } from "../types/utilsTypes";
@@ -10,7 +10,8 @@ export function generateAccessToken(user: iUser){
       'name': user.name,
       'email': user.email,
       'rolesId':user.rolesId,
-      "id": user.id
+      "id": user.id,
+      "organizationId": user.organizationId
     }
   }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '10m'})
 }
@@ -46,4 +47,8 @@ export function verifyRefreshToken(user:iUser){
   }
   )
   return newToken;
+}
+
+export function decodeGoogleToken(token: string){
+  return jwt.decode(token)
 }

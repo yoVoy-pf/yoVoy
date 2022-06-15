@@ -10,6 +10,7 @@
     margin-top: 1em;
 }
 
+
 .button_delete{
   display: flex;
   flex-direction: column;
@@ -47,12 +48,12 @@
 }
 
 .img_event{
-    width: 600px;
+    width: 90%;
     height: 300px;
     border-radius: 10px;
     box-sizing: border-box;
     padding-right: 2em;
-
+    
 }
 
 .div2{
@@ -94,4 +95,64 @@
     font-size: 16px;
     cursor: pointer;
     box-shadow: 7px 13px 37px #000; 
+}
+
+
+@media (max-width:1280px){
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .img_event{
+        margin-left: -5%;
+    }
+    .div2{
+        margin-top: 100px;
+        margin-right: 150px;
+    }
+
+}
+
+@media (max-width:1010px){
+    .container{
+        background: url("../../img/kisspng-quotation-mime-icon-hand-painted-graffiti-quotation-marks-dotted-text-5a6eabce531535.5905431915172023823403.png") no-repeat ;
+        background-size: 100% 50%;
+        width: 70%;
+    }
+    .img_event{
+        margin-left: 0%;
+    }
+}
+
+
+@media (max-width:700px){
+    .container{
+        width: 10px;   
+    }
+    .div1{
+        margin-left: 300px;
+        width: 640px;
+    } 
+
+    .img_event{
+        margin-left: 200px;
+        width: 450px;
+
+    }
+
+    .h1{
+        margin-left: 200px;
+        width: 400px;
+    }
+    .p{
+        margin-left: 200px;
+    }
+     .small{
+        margin-left: 200px;
+    }
+    .div2{
+        margin-top: -20px;
+        margin-left: 700px;
+    }
+    
 }

@@ -45,7 +45,7 @@ const Event = () => {
 					</div>
 					<img className={event_style.img_event} src={eventDetail.background_image} alt={eventDetail.name} />
 					<p className={event_style.p}>Descripción del evento:</p>
-					<small>{eventDetail.description}</small>
+					<small className={event_style.small}>{eventDetail.description}</small>
 				</div>
 
 				<div className={event_style.div2}>

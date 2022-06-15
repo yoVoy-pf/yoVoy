@@ -1,32 +1,24 @@
-.text_user_list {   
-    display: flex;
-    justify-content: center;
-} 
-
-.text_style_user {
+.table_users {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table_users td , th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .th_users {
+    background-color: grey;
     color: white;
-}
-
-.list_user{
-    list-style: none;
+    transition: 0.5s;
+  }
+  
+  .table_users th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: darkblue;
     color: white;
-    font-size: 20px;
-    border: 2px solid white;
-    background: rgba(156, 49, 20, 0.302);
-    border-radius: 2%;
-    padding: 15px;
-}
-
-.link_user_list {
-    display: flex;
-    justify-content: center; 
-}
-
-.link_style_user_list{
-    padding: 10px;
-    background: rgba(156, 49, 20, 0.302);
-    border: 2px solid white;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-}
+  }

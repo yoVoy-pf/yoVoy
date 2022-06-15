@@ -7,9 +7,9 @@ const { User, Role, UserRole } = sequelize.models
 
 // create new user in the database
 export async function createUserInDb(user: iUser) {
-  const {name, password} = user
+  const {name, password, email} = user
   try{
-    const newUser = await User.create({name, password})
+    const newUser = await User.create({name, password, email})
     let id : number = newUser?.getDataValue('id')
     UserRole.create({userId: id, roleId: ROLES_LIST.User})
   }catch(error) {throw error}
@@ -49,7 +49,8 @@ export async function getUserFromDbByField(field: string, value: string) {
     let refreshToken : string = user?.getDataValue('refreshToken');
     let rolesId : []= user?.getDataValue('roles').map((r : Model<any,any>) => r.getDataValue('id'))
     let id : number = user?.getDataValue("id");
-     return {name: username, password, email, refreshToken, rolesId, id};
+    let organizationId: number = user?.getDataValue("organizationId")
+     return {name: username, password, email, refreshToken, rolesId, id, organizationId};
 }
 
 export async function giveRoleToUser(user: iUser, role: number){
@@ -73,8 +74,8 @@ export async function destroyUser(id: string | number){
 }
 
 
-export async function updateUser(id: string | number, {name, email}:any ){
-  const user = await User.update({name, email},{
+export async function updateUser(id: string | number, { updateUser }:any ){
+  const user = await User.update({name: updateUser.name, email: updateUser.email},{
     where:{
       id: id
     }
