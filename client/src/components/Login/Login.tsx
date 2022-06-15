@@ -67,16 +67,16 @@ const Login = () => {
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		try {
-			handleLogin({ email: email, password });
+			await handleLogin({ email: email, password });
 		} catch (err: any) {
 			if (!err?.data) {
-				setErrMsg('No Server Response');
+				setErrMsg('El Server no responde.');
 			} else if (err.originalStatus === 400) {
-				setErrMsg('Missing Username or Password');
+				setErrMsg('Usuario o contraseña incorrectos.');
 			} else if (err.originalStatus === 403) {
-				setErrMsg('Wrong Username or Password');
+				setErrMsg('Usuario o contraseña incorrectos.');
 			} else {
-				setErrMsg('Login Failed');
+				setErrMsg('Fallo al ingresar');
 			}
 		}
 		const error = errRef.current;
@@ -142,7 +142,6 @@ const Login = () => {
 					<br /> <br />
 					<button
 						className={login_style.bottom}
-						type="submit"
 						disabled={
 							Object.keys(errorsEmail).length > 0 ||
 							Object.keys(errorsPassword).length > 0 ||
