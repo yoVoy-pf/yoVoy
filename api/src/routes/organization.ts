@@ -9,5 +9,5 @@ export const router = Router();
 router.post("/",authenticateToken, postOrganization)
 router.delete("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), deleteOrganization)
 router.get("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), getOrganization)
-router.get("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), putOrganization)
+router.put("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), putOrganization)
 
