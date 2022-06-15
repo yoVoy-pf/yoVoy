@@ -9,7 +9,7 @@ const config = {
  dbName: process.env.DB_NAME || 'yovoy',
  dbPort: process.env.DB_PORT || '5432',
  dev: process.env.NODE_ENV !== 'production',
- port: process.env.PORT || '3001',
+ port: process.env.PORT,
  host: process.env.HOST || 'localhost',
  cors: process.env.CORS || 'localhost:3000',
 };
