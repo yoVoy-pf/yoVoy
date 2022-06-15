@@ -5,7 +5,7 @@ import { User } from './User';
 @Table
 export class Comment extends Model<Comment> {
     @Column
-    description!: string;
+    text!: string;
 
     @ForeignKey(() => User)
     @Column
