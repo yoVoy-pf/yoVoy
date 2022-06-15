@@ -23,7 +23,7 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
             })
 
             createPreference(data,user)
-            .then((preference) => {
+            .then((preference: any) => {
                 createTickets(preference.body.id, data, user)
                 res.status(200).json(preference.body.sandbox_init_point)
             })
