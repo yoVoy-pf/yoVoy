@@ -25,6 +25,8 @@ export const sequelize =
 					keepAlive: true,
 				},
 				ssl: true,
+        storage: ':memory:',
+        models: [__dirname + '/models'],
 		  })
 		: new Sequelize({
           dialect: 'postgres',
