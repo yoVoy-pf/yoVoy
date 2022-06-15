@@ -15,6 +15,7 @@ import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
 import AdminPanel from './components/AdminPanel/AdminPanel';
+import Favorites from './components/Favorites/Favorites';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -33,6 +34,7 @@ function App(): JSX.Element {
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
 					<Route path="welcome" element={<Welcome />} />
+					<Route path="favorites" element={<Favorites />} />
 				</Route>
 
 				<Route
