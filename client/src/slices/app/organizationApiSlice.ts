@@ -18,11 +18,20 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
           url:`/api/organizations`
         }
       }
-    })
+    }),
+    deleteOrganization: builder.mutation<postOrganization,{id: number | string}>({
+      query(id) {
+        return {
+          url:`api/organization/${id}`,
+          method:`Delete`
+        }
+      }
+    }) 
   })
 })
 
 export const{
   useCreateOrganizationMutation,
   useGetOrganizationsQuery,
+  useDeleteOrganizationMutation,
 } = eventsApiSlice
