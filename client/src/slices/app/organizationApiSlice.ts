@@ -1,5 +1,5 @@
 import { apiSlice } from "../authentication/apiSlice";
-import { postOrganization } from "../../types";
+import { postOrganization, getOrganization } from "../../types";
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -11,10 +11,18 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
           body: {name: organization}
         }
       }
+    }),
+    getOrganizations: builder.query<getOrganization[],{_:string}>({
+      query: ({_}) => {
+        return{
+          url:`/api/organizations`
+        }
+      }
     })
   })
 })
 
 export const{
   useCreateOrganizationMutation,
+  useGetOrganizationsQuery,
 } = eventsApiSlice

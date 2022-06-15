@@ -1,9 +1,9 @@
 import { sequelize } from "../db";
 
-const { Organizaiton } = sequelize.models
+const { Organization } = sequelize.models
 
 export const getAllOrganizations = async () => {
-    const organizations = await Organizaiton.findAll()
+    const organizations = await Organization.findAll()
 
     return organizations
 }
