@@ -54,8 +54,8 @@ export const getOrganizationById = async (id: string | number) => {
     return organization
 }
 
-export const updateOrganization = async (id: string | number, {name}: any) => {
-    const organization = await Organization.update({name}, {
+export const updateOrganization = async (id: string | number, {updateOrganization}: any) => {
+    const organization = await Organization.update({name: updateOrganization.name}, {
         where: {
             id: id
         }

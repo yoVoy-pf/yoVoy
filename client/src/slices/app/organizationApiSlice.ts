@@ -19,6 +19,15 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         }
       }
     }),
+    updateOrganization: builder.mutation<getOrganization,{id: any, updateOrganization: any}>({
+      query: ({id, ...updateOrganization}) => {
+        return {
+          url: `api/organization/${id}`,
+          method: `PUT`,
+          body: {...updateOrganization}
+        }
+      }
+    }),
     deleteOrganization: builder.mutation<postOrganization,{id: number | string}>({
       query(id) {
         return {
@@ -33,5 +42,6 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 export const{
   useCreateOrganizationMutation,
   useGetOrganizationsQuery,
+  useUpdateOrganizationMutation,
   useDeleteOrganizationMutation,
 } = eventsApiSlice
