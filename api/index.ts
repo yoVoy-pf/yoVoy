@@ -3,6 +3,7 @@
 import app from './src/app';
 import {sequelize} from './src/db'
 import config from "./config"
+import { MockData } from './MockData/Mock';
 //Mock Data
 // import { createRoles } from './src/authorization/roles';
 
@@ -13,6 +14,6 @@ sequelize.sync({ force: false , logging: false}).then(() => {
 
 		//Mock Data
     // createRoles()
-		// MockData()
+		MockData()
 	});
 });

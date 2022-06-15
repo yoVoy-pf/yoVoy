@@ -1,4 +1,4 @@
-import { sequelize } from "../api/src/db"
+import { sequelize } from "../src/db"
 
 const organization = [
 	{name: "Netherlands"},
