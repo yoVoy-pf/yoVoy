@@ -45,7 +45,7 @@ export const destroyOrganization = async (id: string | number) => {
 }
 
 export const getOrganizationById = async (id: string | number) => {
-    const organization = Organization.findOne({
+    const organization = await Organization.findOne({
         where:{
             id:id
         }
@@ -55,7 +55,7 @@ export const getOrganizationById = async (id: string | number) => {
 }
 
 export const updateOrganization = async (id: string | number, {name}: any) => {
-    const organization = Organization.update({name}, {
+    const organization = await Organization.update({name}, {
         where: {
             id: id
         }
