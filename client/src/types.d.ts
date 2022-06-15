@@ -13,6 +13,10 @@ export interface postCategory{
   name: string;
 }
 
+export interface postOrganization{
+	name: string;
+  }
+
 export interface putEvent {
   name: string;
   description: string;
