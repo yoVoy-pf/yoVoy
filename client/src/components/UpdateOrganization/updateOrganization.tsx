@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOrganizationQuery, useUpdateOrganizationMutation } from "../../slices/app/organizationApiSlice";
+import styleUpdateOrganization from './update-organization.module.css'
 
 const UpdateOrganization = () =>{
     const [updateOrganization] = useUpdateOrganizationMutation()
@@ -42,16 +43,19 @@ const UpdateOrganization = () =>{
     return(
         <div>
             <form onSubmit={onSubmit}>
+                <div className={styleUpdateOrganization.form_organization}>
                 <fieldset>
                     <legend>Nombre de la Organizacion:</legend>
                     <input 
                     type="text" 
                     name="name"
+                    className={styleUpdateOrganization.inputs_organization}
                     value={organization.name}
                     onChange={onChange}
                     />
                 </fieldset>
-                <button type="submit">Actualizar Organizacion</button>
+                <button className={styleUpdateOrganization.button_organization} type="submit">Actualizar Organizacion</button>
+            </div>
             </form>
         </div>
     )
