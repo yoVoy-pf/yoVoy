@@ -53,3 +53,13 @@ export const getOrganizationById = async (id: string | number) => {
 
     return organization
 }
+
+export const updateOrganization = async (id: string | number, {name}: any) => {
+    const organization = Organization.update({name}, {
+        where: {
+            id: id
+        }
+    })
+
+    return organization
+}
