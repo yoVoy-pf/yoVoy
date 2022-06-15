@@ -74,8 +74,8 @@ export async function destroyUser(id: string | number){
 }
 
 
-export async function updateUser(id: string | number, {name, email}:any ){
-  const user = await User.update({name, email},{
+export async function updateUser(id: string | number, { updateUser }:any ){
+  const user = await User.update({name: updateUser.name, email: updateUser.email},{
     where:{
       id: id
     }
