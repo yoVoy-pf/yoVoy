@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styleAdminPanel from './admin-panel.module.css';
 
 const AdminPanel = () => {
+
 	return (
 		<div>
 			<div className={styleAdminPanel.title_admin}>
@@ -37,11 +38,15 @@ const AdminPanel = () => {
 							Crear Evento
 						</Link>
 					</button>
+          <button className={styleAdminPanel.buttons_style}>
+              <Link className={styleAdminPanel.links_style} to='/organization-list'>Ir a la lista de Organizaciones</Link>
+          </button>
 					{/* <button className={styleAdminPanel.buttons_style}>button 3</button> */}
 				</Stack>
 			</div>
 		</div>
 	);
 };
+
 
 export default AdminPanel;

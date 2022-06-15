@@ -19,7 +19,8 @@ import Favorites from './components/Favorites/Favorites';
 import Updateuser from './components/UpdateUser/UpdateUser';
 import EventsConfig from './components/EventsConfig/EventsConfig';
 import CreateOrganization from './components/CreateOrganization/CreateOrganization';
-
+import OrganizationList from './components/OrganizationList/OrganizationList';
+import UpdateOrganization from './components/UpdateOrganization/updateOrganization';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -55,6 +56,8 @@ function App(): JSX.Element {
 					<Route path="create-category" element={<CreateCategory />} />
 					<Route path="update-user/:id" element={<Updateuser/>}/>
 					<Route path="events-config" element={<EventsConfig />} />
+					<Route path='organization-list' element={<OrganizationList/>}/>
+					<Route path='update-organization/:id' element={<UpdateOrganization/>}/>
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />

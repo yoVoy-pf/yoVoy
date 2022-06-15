@@ -15,7 +15,12 @@ export interface postCategory{
 
 export interface postOrganization{
 	name: string;
-  }
+}
+
+export interface getOrganization{
+	name: string;
+	id: number;
+}
 
 export interface putEvent {
   name: string;
