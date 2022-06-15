@@ -1,7 +1,8 @@
-import { useGetOrganizationsQuery } from "../../slices/app/organizationApiSlice";
+import { useGetOrganizationsQuery, useDeleteOrganizationMutation } from "../../slices/app/organizationApiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const OrganizationList = () => {
+  const [deleteOrganization] = useDeleteOrganizationMutation();
   const navigate = useNavigate();
   const{
     data: organizations,
@@ -11,6 +12,16 @@ const OrganizationList = () => {
     error,
     refetch
   } = useGetOrganizationsQuery({_:''}, {refetchOnMountOrArgChange: true,})
+
+  const handleDelete = async (id: any) => {
+    if (
+      window.confirm('Seguro que quieres eliminar esta organizacion?')
+    ){
+      await deleteOrganization(id)
+      refetch()
+      alert('Organizacion eliminada correactamente')
+    }
+  }
 
   let content = <span></span>;
   if (isLoading){
@@ -37,7 +48,9 @@ const OrganizationList = () => {
                   <Link to={`/update-organization/${organization.id}`}>
                     <button>Editar</button>
                   </Link>
-                  <button>
+                  <button
+                  onClick={()=> handleDelete(organization.id)}
+                  >
                     Eliminar
                   </button>
                 </td>
