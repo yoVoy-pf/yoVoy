@@ -2,23 +2,24 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
+import { clearEventId, getEventId} from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Dates, Location } from '../../types';
 import NavBar from '../NavBar/NavBar';
 import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from "./Event.module.css"
-import { selectCurrentToken } from '../../slices/authentication/authSlice';
-import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
+import { selectCurrentUser } from '../../slices/authentication/authSlice';
+import { useDeleteEventMutation, useAddEventToFavoriteMutation } from '../../slices/app/eventsApiSlice';
 
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
+	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
 	const dispatch: AppDispatch = useDispatch();
-	const currentUser = useSelector(selectCurrentToken);
+	const currentUser: any = useSelector(selectCurrentUser);
 	const eventDetail: any = useSelector(
 		(state: State) => state.global.eventDetail,
 	);
@@ -102,6 +103,7 @@ const Event = () => {
 							);
 						})}
 					</EventModal>
+					<button onClick={()=>addEventToFavorite({eventId: id})}>Agregar a favoritas</button>
 					<hr />
 					<button className={event_style.button2}>COMPRAR</button>
 				</div>
