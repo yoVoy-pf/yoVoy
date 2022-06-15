@@ -1,8 +1,8 @@
 import { sequelize } from '../db'
-const {Comments} = sequelize.models
+const {Comment} = sequelize.models
 
 export const getAllCommentsByEvent = async (id: string | number) => {
-    const comments = await Comments.findAll({
+    const comments = await Comment.findAll({
         where:{
             eventId: id
         }

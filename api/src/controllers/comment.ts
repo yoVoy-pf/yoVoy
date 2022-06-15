@@ -6,7 +6,7 @@ export const postComment = async (req: Request, res: Response, next: NextFunctio
     try {
         const {id} = req.params
         const {text, user} = req.body
-        const comment = await createComment(id, user, text, );
+        const comment = await createComment(id, user, text);
 
         res.status(201).json(comment)
     } catch (error) {
