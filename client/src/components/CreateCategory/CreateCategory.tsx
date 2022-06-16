@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCreateCategoryMutation } from "../../slices/app/categoriesApiSlice";
 import styleCreateCategory from './create-category.module.css'
@@ -30,6 +31,9 @@ const CreateCategory = () => {
     }
     return(
         <div>
+            <span className={styleCreateCategory.category_link}>
+					<Link className={styleCreateCategory.category_link_style} to='/admin-panel'>Volver</Link>
+				</span>
             <form onSubmit={onSubmit}>
                 <div className={styleCreateCategory.form_create_category}>
                 <fieldset>

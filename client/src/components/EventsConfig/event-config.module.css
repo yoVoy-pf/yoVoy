@@ -1,9 +1,10 @@
-.table_users {
+.table_config {
     font-family: Arial, Helvetica, sans-serif;
     width: 99%;
     margin-left: 9px; 
     margin-right: 1px;
   }
+
   .table_title{
     display: flex;
     justify-content: center;
@@ -16,8 +17,8 @@
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.126);
   }
-
-  .table_users td , th {
+  
+  .table_config td , th {
     border: 1px solid #ddd;
     padding: 8px;
     border-radius: 10px;
@@ -73,15 +74,15 @@
     border-radius: 5px;
     transition: 0.5s;
   }
-
-  .th_users {
+  
+  .th_config {
     text-align: center;
     background-color: rgba(176, 176, 176, 0.309);
     color: white;
     transition: 0.5s;
   }
   
-  .table_users th {
+  .table_config th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;

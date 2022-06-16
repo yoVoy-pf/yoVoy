@@ -29,12 +29,17 @@ const OrganizationList = () => {
     content = <p>Cargando...</p>
   } else if (isSuccess){
     content = (
-      <div style={{ marginTop: "70px" }}>
-        <h1 style={{ textAlign: "center" }}>Lista de Organizaciones</h1>
+      <div style={{ marginTop: "50px" }}>
+          <span className={styleListOrganization.table_link}>
+            <Link className={styleListOrganization.table_link_style} to='/admin-panel' >Volver</Link>
+          </span>
+          <div className={styleListOrganization.table_title}>
+          <h1 className={styleListOrganization.table_title_style} >Lista de Organizaciones</h1>
+        </div>
       <table className={styleListOrganization.table_organizations}>
-          <tbody>
+          <tbody className={styleListOrganization.thead_dark}>
           <tr>
-            <th></th>
+          <th style={{ textAlign: "center" }}>ID</th>
             <th style={{ textAlign: "center" }}>Name</th>
             <th style={{ textAlign: "center" }}>Action</th>
           </tr>
@@ -44,13 +49,14 @@ const OrganizationList = () => {
           {organizations?.map((organization: any, index: any) => {
             return (
               <tr key={organization.id}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row" style={{ textAlign: "center" }}>{index + 1}</th>
                 <td className={styleListOrganization.th_organizations}>{organization.name}</td>
-                <td>
-                  <Link to={`/update-organization/${organization.id}`}>
-                    <button>Editar</button>
+                <td className={styleListOrganization.th_organizations}>
+                  <Link to={`/update-organization/${organization.id}`} className={styleListOrganization.buttom}>
+                    <button className={styleListOrganization.buttom_style_left}>Editar</button>
                   </Link>
                   <button
+                  className={styleListOrganization.buttom_style_right}
                   onClick={()=> handleDelete(organization.id)}
                   >
                     Eliminar
