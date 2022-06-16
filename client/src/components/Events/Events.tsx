@@ -27,18 +27,10 @@ const Events = ({ allEvents }: Props) => {
 					<div className={style.divhover}>
 						<img src={allEventsPrueba1.background_image} alt="" />
 						<div className={style.divdeprueba}>
-
-							<h1>{allEventsPrueba1.name}</h1>
-
-							<a href="#">Más Informarcíon</a>
-
-							<a href="#">Mas Informarcíon</a>
-
-
-							<div className={style.divh1}>
+							<div >
 								<h1>{allEventsPrueba1.name}</h1>
 							</div>
-							<div className={style.diva}>
+							<div className={style.diva} >
 								<a href="#">Más Informarcíon</a>
 							</div>
 
