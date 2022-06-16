@@ -27,11 +27,20 @@ const Events = ({ allEvents }: Props) => {
 					<div className={style.divhover}>
 						<img src={allEventsPrueba1.background_image} alt="" />
 						<div className={style.divdeprueba}>
+
 							<h1>{allEventsPrueba1.name}</h1>
 
 							<a href="#">Más Informarcíon</a>
 
 							<a href="#">Mas Informarcíon</a>
+
+
+							<div className={style.divh1}>
+								<h1>{allEventsPrueba1.name}</h1>
+							</div>
+							<div className={style.diva}>
+								<a href="#">Más Informarcíon</a>
+							</div>
 
 						</div>
 					</div>
@@ -40,8 +49,14 @@ const Events = ({ allEvents }: Props) => {
 					<div className={style.divhover}>
 						<img src={allEventsPrueba2.background_image} alt="" />
 						<div className={style.divdeprueba}>
-							<h1>{allEventsPrueba2.name}</h1>
-							<a href="#">Más Informarcíon</a>
+							<div>
+								<h1>{allEventsPrueba2.name}</h1>
+
+							</div>
+							<div >
+								<a href="#">Más Informarcíon</a>
+
+							</div>
 						</div>
 					</div>
 				</Link>

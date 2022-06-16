@@ -18,7 +18,7 @@ interface CreateEventState {
 }
 
 const CreateEvent = () => {
-	const [isOpenModal, openModal, closeModal] = useDatesModal(false);
+	const [isOpen, openModal, closeModal] = useDatesModal(false);
 	const [createEvent] = useCreateEventMutation();
 	const dispatch: AppDispatch = useDispatch();
 
@@ -56,7 +56,6 @@ const CreateEvent = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// dispatch(postCreateEvent(input));
 		try {
 			await createEvent({ newEvent: input });
 			setEvent([...event, input]);
@@ -186,7 +185,7 @@ const CreateEvent = () => {
 							Agregar fechas
 						</button>
 						<DatesModal
-							isOpen={isOpenModal}
+							isOpen={isOpen}
 							closeModal={closeModal}
 							className={styleCreateEvent.form_dates_modal}
 						>

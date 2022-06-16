@@ -9,20 +9,26 @@
 .div1{
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     margin-right: -65px;
     padding-bottom: 25px;
     
 }
 .divdeprueba{
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
     position: absolute;
-    left: 0;
-    top:50px;
-    width: 100%;
-    padding: 15px;
+    left: -15px;
+    top:20px;
+    width: 100%; 
+    padding: 0px;
     text-align: center;
     color: #fff;
 
+}
+.diva{
+    margin-top: 40px;
 }
 
 .divdeprueba h1{
@@ -46,6 +52,13 @@
     transition: all 0.3s ease-out;
 }
 
+/* .divh1{
+    margin-bottom: 100px;
+} */
+
+.divdeprueba a:hover{
+    background: #0e6290;
+}
 
 .divdeprueba a:hover{
     background: #0e6290;
@@ -60,6 +73,10 @@
 }
 
  img{
+
+
+    object-fit: contain;
+
 
     object-fit: contain;
 

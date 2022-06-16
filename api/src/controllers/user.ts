@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createFavorite, getAllFavorites} from "../utils/user"
-import { getUserFromDbByField } from "../utils/users"
+import { createFavorite, getAllFavorites, getAllTickets} from "../utils/user"
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -20,6 +19,20 @@ export const postFavorite = async (req: Request,res: Response,next:NextFunction)
         const favorite = await createFavorite(user.id, eventId)
         
          res.status(201).json(favorite)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const getTickets = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user} = req.body
+        const tickets = await getAllTickets(user.id)
+        if(!tickets.length){
+            next({status: 404, message: "Tickets not Found"})
+        }else{
+            res.status(201).json(tickets)
+        }
     }catch(error){
         next(error)
     }

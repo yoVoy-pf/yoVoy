@@ -213,7 +213,7 @@ export default {
             include:[
                 {
                 model: Organization,
-                attributes: ["id","name","ACCESS_TOKEN"]
+                attributes: ["id","name"]
                 },
                 {
                     model:EventLocation,

@@ -1,12 +1,11 @@
 .container{
     display: flex;
-    align-items: center;
     color: #fff;
     background: url("../../img/kisspng-quotation-mime-icon-hand-painted-graffiti-quotation-marks-dotted-text-5a6eabce531535.5905431915172023823403.png") no-repeat ;
-    background-size: 900px 700px;
-    padding-bottom: 12em;
-    padding-top: 2em;
-    margin-left: 12%;
+    background-size: 930px 820px;
+    padding-bottom: 16em;
+    padding-top: 3em;
+    margin-left: 5%;
     margin-top: 1em;
 }
 
@@ -54,6 +53,9 @@
     box-sizing: border-box;
     padding-right: 2em;
     
+}
+.divpandsmall{
+    width: 300px;
 }
 
 .div2{
@@ -107,10 +109,9 @@
         margin-left: -5%;
     }
     .div2{
-        margin-top: 100px;
+        margin-top: 200px;
         margin-right: 150px;
     }
-
 }
 
 @media (max-width:1010px){
