@@ -3,32 +3,26 @@ import { useGetFavoritesQuery } from "../../slices/app/usersApiSlice"
 import Card from '../Card/Card';
 import style from "../Events/Events.module.css"
 
-
-
 const Favorites = () => {
 
-
-    let { data } = useGetFavoritesQuery({ _: "" }, { refetchOnMountOrArgChange: true, })
-    if (!data) {
-        data = ["no hay"]
-    }
-
-    console.log(data)
-
-
+    const [favorites, setFavorites] = useState([]);
+    let { data, isError,isFetching } = useGetFavoritesQuery({ _: "" }, { refetchOnMountOrArgChange: true, })
     useEffect(() => {
-        return () => {
-            data = [] //vacia los ententos, pero no funciona.
-            console.log(data)
-        }
-    }, [])
+    if (!isFetching){
+      isError
+      ? setFavorites([])
+      : setFavorites(data)
+    }
+    }, [isFetching])
 
+    const content = isFetching
+    ?  <h1>Cargando...</h1>
+    : <div className={style.container}>
+        {favorites && favorites?.length > 0 && favorites?.map((e: any) => <Card key={e.id} event={e} />)}
+      </div>
     return (
         <div>
-            <div className={style.container}>
-                {data && data?.length > 0 ? data?.map((e: any) => <Card key={e.id} event={e} />) : <h1>cargando</h1>}
-            </div>
-            {/* <button onClick={() => { console.log(data) }}>ver data</button> */}
+          {content}
         </div>
     )
 }
