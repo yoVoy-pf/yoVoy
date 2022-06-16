@@ -1,4 +1,4 @@
-import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany} from 'sequelize-typescript';
+import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany, DataType} from 'sequelize-typescript';
 import { Organization } from './Organization';
 import { Category } from './Category';
 import { EventCategory } from './EventCategory';
@@ -14,7 +14,7 @@ export class Event extends Model<Event> {
     @Column
     name!: string;
 
-    @Column
+    @Column(DataType.TEXT)
     description!: string;
 
     @Column
