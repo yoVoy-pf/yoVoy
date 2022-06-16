@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Event } from '../../types';
 import Card from '../Card/Card';
 import style from "./Events.module.css"
@@ -7,14 +8,47 @@ interface Props {
 	allEvents: Array<Event>;
 }
 
+
+
 const Events = ({ allEvents }: Props) => {
+	const allEventsPrueba1 = allEvents[0]
+	const allEventsPrueba2 = allEvents[1]
+
 	const renderEvents = (): JSX.Element[] => {
-		return allEvents?.map((event) => {
+		return allEvents?.slice(2).map((event) => {
 			return <Card key={event.id} event={event} />
 		});
 	};
 
-	return <div className={style.container}>{renderEvents()}</div>;
+	return (
+		<div>
+			<div className={style.div1}>
+				<Link to="/events/1">
+					<div className={style.divhover}>
+						<img src={allEventsPrueba1.background_image} alt="" />
+						<div className={style.divdeprueba}>
+							<h1>{allEventsPrueba1.name}</h1>
+							<a href="#">Mas Informarcíon</a>
+						</div>
+					</div>
+				</Link>
+				<Link to="/events/2">
+					<div className={style.divhover}>
+						<img src={allEventsPrueba2.background_image} alt="" />
+						<div className={style.divdeprueba}>
+							<h1>{allEventsPrueba2.name}</h1>
+							<a href="#">Más Informarcíon</a>
+						</div>
+					</div>
+				</Link>
+			</div>
+
+			<div className={style.container}>
+				{renderEvents()}
+			</div>
+
+		</div>
+	)
 };
 
 export default Events;
