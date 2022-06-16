@@ -45,9 +45,19 @@ export const destroyOrganization = async (id: string | number) => {
 }
 
 export const getOrganizationById = async (id: string | number) => {
-    const organization = Organization.findOne({
+    const organization = await Organization.findOne({
         where:{
             id:id
+        }
+    })
+
+    return organization
+}
+
+export const updateOrganization = async (id: string | number, {updateOrganization}: any) => {
+    const organization = await Organization.update({name: updateOrganization.name}, {
+        where: {
+            id: id
         }
     })
 

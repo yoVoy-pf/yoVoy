@@ -3,7 +3,7 @@ import { State } from '../../redux/store/store'
 import {setCredentials, logOut} from './authSlice'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3001',
+  baseUrl: process.env.REACT_APP_API || "http://localhost:3001",
   credentials: 'include', // this will send back the HTTP only secury cookie with the refresh token
   prepareHeaders: (Headers, {getState}) => {
     const token =  (getState() as State).auth.token

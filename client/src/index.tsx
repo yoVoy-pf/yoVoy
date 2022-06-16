@@ -5,8 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import { store } from './redux/store/store'
+import axios from 'axios';
+
+axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

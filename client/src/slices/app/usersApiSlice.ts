@@ -1,8 +1,11 @@
 import { apiSlice } from "../authentication/apiSlice";
-import { User } from "../../types";
+import { User, Event } from "../../types";
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
+    getFavorites: builder.query<any,{_:string}>({
+      query: ({_}) => '/api/user/favorites',
+    }),
     getUsers: builder.query<User[],{_:string}>({
       query: ({_}) => '/api/users',
     }),
@@ -36,6 +39,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 export const{
   useGetUsersQuery,
+  useGetFavoritesQuery,
   useGetUserQuery,
   useDeleteUserMutation,
   useUpdateUserMutation,

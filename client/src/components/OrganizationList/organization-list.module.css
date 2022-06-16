@@ -1,0 +1,24 @@
+.table_organizations {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table_organizations td , th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .th_organizations {
+    background-color: grey;
+    color: white;
+    transition: 0.5s;
+  }
+  
+  .table_organizations th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: darkblue;
+    color: white;
+  }
