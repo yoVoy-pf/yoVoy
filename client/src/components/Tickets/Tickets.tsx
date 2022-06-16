@@ -10,9 +10,10 @@ const Tickets = ({ ticket }: Props) => {
 		<React.Fragment>
 			<div>
 				<h1>{ticket.event.name}</h1>
-				<h3>{ticket.quantity}</h3>
-				<h3>{ticket.paymentType}</h3>
-				<h3>{ticket.transaction_amount}</h3>
+				<h4>Cantidad de Tickets: {ticket.quantity}</h4>
+				<h4>Precio: {ticket.transaction_amount}</h4>
+				<h4>Estado de la Compra: {ticket.status}</h4>
+				<h4>Tipo de Pago: {ticket.paymentType}</h4>
 			</div>
 		</React.Fragment>
 	);
