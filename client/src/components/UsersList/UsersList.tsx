@@ -29,36 +29,44 @@ const UsersList = () => {
 
   let content = <span></span>;
   if (isLoading){
-    content = <p>Loading...</p>
+    content = <p>Cargando...</p>
   } else if (isSuccess){
     content = (
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ marginTop: "30px" }}>
+          <span className={styleUserList.table_link}>
+            <Link className={styleUserList.table_link_style} to='/admin-panel' >Volver</Link>
+          </span>
+        <div className={styleUserList.table_title}>
+          <h1 className={styleUserList.table_title_style} >Lista de usuarios</h1>
+        </div>
       <table className={styleUserList.table_users}>
-          <tbody>
-          <tr>
-            <th></th>
-            <th style={{ textAlign: "center" }}>Name</th>
-            <th style={{ textAlign: "center" }}>Email</th>
-            <th style={{ textAlign: "center" }}>Roles</th>
-            <th style={{ textAlign: "center" }}>Action</th>
-          </tr>
-      
+          <thead className={styleUserList.thead_dark}>
+            <tr>
+              <th style={{ textAlign: "center" }}>ID</th>
+              <th style={{ textAlign: "center" }}>Name</th>
+              <th style={{ textAlign: "center" }}>Email</th>
+              <th style={{ textAlign: "center" }}>Roles</th>
+              <th style={{ textAlign: "center" }}>Action</th>
+            </tr>
+          </thead>
 
+          <tbody>
           {users?.map((user: any, index: any) => {
             return (
               <tr key={user.id}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row" style={{ textAlign: "center" }}>{index + 1}</th>
                 <td className={styleUserList.th_users}>{user.name}</td>
                 <td className={styleUserList.th_users}>{user.email}</td>
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
                 <td className={styleUserList.th_users}>
-                  <Link to={`/update-user/${user.id}`}>
-                    <button>Edit</button>
+                  <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
+                    <button className={styleUserList.buttom_style_left}>Editar</button>
                   </Link>
                   <button
+                  className={styleUserList.buttom_style_right}
                   onClick={()=> handleDelete(user.id)}
                   >
-                    Delete
+                    Eliminar
                   </button>
                   {/* <Link to={`/user-detail/${user.id}`}>
                     <button>
