@@ -69,6 +69,13 @@
     display: flex;
 }
 
+.navBar-btn-login{
+    margin-top: 15px;
+}
+.navBar-btn-register{
+    margin-top: 15px;
+}
+
 :root {
     --clr-neon: rgb(0, 0, 0);
     --clr-bg: rgb(0, 103, 248);

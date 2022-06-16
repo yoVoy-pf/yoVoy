@@ -46,6 +46,9 @@
     transition: all 0.3s ease-out;
 }
 
+.divdeprueba a:hover{
+    background: #0e6290;
+}
 
 .divhover{
     width: 650px;
@@ -55,6 +58,7 @@
 }
 
  img{
+    object-fit: contain;
     width: 500px;
     height: 300px;
  }
@@ -106,6 +110,11 @@ img:hover{
         gap: 5px 100px;
         margin-right: 300px;
     }
+    .div1{
+        display: flex;
+        flex-direction: column;
+        padding-left: 30%;
+    }
 }
 
 @media all and (max-width:805px){
@@ -114,5 +123,10 @@ img:hover{
         grid-template-columns: 50px;
         gap: 5px;
         margin-right: 300px;
+    }
+    .div1{
+        display: flex;
+        flex-direction: column;
+        padding-left: 10%;
     }
 }

@@ -12,16 +12,15 @@ const Card = ({ event }: Props) => {
 	return (
 		<React.Fragment>
 			<Link className='Card_a' to={`/events/${event.id}`}>
-			<div className='Card_bg'>
-				<ul className='bg-ul'>
+				<div className='Card_bg'>
 					<img  src={event.background_image} alt={event.name} />
-					<li className='Card_bg_li' key={event.id}>
-						<h4>{event.name}</h4>
-						{/* <p>{event.description?.substring(0, 100)}...</p> */}
-					</li>
-				</ul>
+					<div className='Card_bg_li'>
+						{/* <h4>{event.name}</h4> */}
+						<a href="#">Más Informacíon</a>
+					</div>
+					{/* <p>{event.description?.substring(0, 100)}...</p> */}
 
-			</div>
+				</div>
 			</Link>
 		</React.Fragment>
 	);
