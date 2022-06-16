@@ -21,6 +21,7 @@ import EventsConfig from './components/EventsConfig/EventsConfig';
 import CreateOrganization from './components/CreateOrganization/CreateOrganization';
 import OrganizationList from './components/OrganizationList/OrganizationList';
 import UpdateOrganization from './components/UpdateOrganization/updateOrganization';
+import UserPurchaseDetail from './components/UserPurchaseDetail/UserPurchaseDetail';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -40,7 +41,8 @@ function App(): JSX.Element {
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
 					<Route path="welcome" element={<Welcome />} />
 					<Route path="favorites" element={<Favorites />} />
-					<Route path='create-Organization' element={<CreateOrganization/>}/>
+					<Route path="create-Organization" element={<CreateOrganization />} />
+					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 				</Route>
 
 				<Route
@@ -54,10 +56,13 @@ function App(): JSX.Element {
 					<Route path="admin-panel" element={<AdminPanel />} />
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
-					<Route path="update-user/:id" element={<Updateuser/>}/>
+					<Route path="update-user/:id" element={<Updateuser />} />
 					<Route path="events-config" element={<EventsConfig />} />
-					<Route path='organization-list' element={<OrganizationList/>}/>
-					<Route path='update-organization/:id' element={<UpdateOrganization/>}/>
+					<Route path="organization-list" element={<OrganizationList />} />
+					<Route
+						path="update-organization/:id"
+						element={<UpdateOrganization />}
+					/>
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
