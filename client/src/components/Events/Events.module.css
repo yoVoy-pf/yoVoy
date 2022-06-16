@@ -60,6 +60,11 @@
     background: #0e6290;
 }
 
+.divdeprueba a:hover{
+    background: #0e6290;
+}
+
+
 .divhover{
     width: 650px;
     background:radial-gradient(#111 50% #000 100%);
@@ -68,7 +73,13 @@
 }
 
  img{
+
+
     object-fit: contain;
+
+
+    object-fit: contain;
+
     width: 500px;
     height: 300px;
  }
