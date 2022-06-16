@@ -6,7 +6,9 @@ export const getTicket = async (req: Request, res: Response, next: NextFunction)
         const {id} = req.params
         const ticket = await getTicketFromDb(id)
 
-        res.status(200).json(ticket)
+        if(!ticket) next({status: 404, message: "Ticket not found"})
+        else res.status(200).json(ticket)
+        
     }catch(error){
         next(error)
     }

@@ -7,14 +7,11 @@ export const getCommentsByEvent = async (req: Request, res: Response, next: Next
         const {id} = req.params
         const comments = await getAllCommentsByEvent(id);
 
-        if(!comments.length){
-            next({status: 404, message:"Comments not found"})
-        }
-        else{
-            res.status(200).send(comments)
-        }
+        if(!comments.length) next({status: 404, message:"Comments not found"})
+        else res.status(200).send(comments)
+        
     } catch (error) {
-        res.status(400).send(error)
+        next(error)
     }
 
 }
