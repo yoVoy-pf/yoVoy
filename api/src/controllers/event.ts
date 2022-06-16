@@ -3,11 +3,18 @@ import utils from "../utils/event"
 
 
 export const getEventById = async (req: Request, res: Response, next: NextFunction) => {
-    const {id} = req.params
+    try{
 
-    const event = await utils.getEventById(id)
+        const {id} = req.params
+        
+        const event = await utils.getEventById(id)
+        
+        if(!event) next({status:404, message: "Event not found"})
+        else res.status(200).json(event)
 
-    res.status(200).json(event)
+    }catch(error){
+        next(404)
+    }
 } 
 
 export const postEvent = async (req: Request, res: Response, next: NextFunction) => {
@@ -35,8 +42,10 @@ export const putEvent = async (req: Request, res: Response, next: NextFunction) 
     try{
         const {id} = req.params
         const eventUpdated = await utils.updateEvent({id, ...req.body})
-        // Manejar si eventUpdated llega [0]
-        res.status(201).json("The event was updated")
+
+        if(!eventUpdated[0]) next({status:404, message: "Event not Found"})
+        else res.status(201).json("The event was updated")
+
     }catch(error){
         next(error)
     }
@@ -47,8 +56,10 @@ export const getEventByDate = async (req: Request, res: Response, next: NextFunc
         const {id} = req.params
 
         const event = await utils.getEventByDate(id)
-
-        res.status(200).json(event)
+        
+        if(!event) next({status: 404, message: "Event not found"})
+        else res.status(200).json(event)
+        
     }catch(error){
         next(error)
     }
