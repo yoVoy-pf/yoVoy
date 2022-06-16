@@ -46,9 +46,11 @@
     transition: all 0.3s ease-out;
 }
 
+
 .divdeprueba a:hover{
     background: #0e6290;
 }
+
 
 .divhover{
     width: 650px;
@@ -58,7 +60,9 @@
 }
 
  img{
+
     object-fit: contain;
+
     width: 500px;
     height: 300px;
  }

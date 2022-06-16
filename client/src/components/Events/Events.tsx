@@ -28,7 +28,11 @@ const Events = ({ allEvents }: Props) => {
 						<img src={allEventsPrueba1.background_image} alt="" />
 						<div className={style.divdeprueba}>
 							<h1>{allEventsPrueba1.name}</h1>
+
 							<a href="#">Más Informarcíon</a>
+
+							<a href="#">Mas Informarcíon</a>
+
 						</div>
 					</div>
 				</Link>
