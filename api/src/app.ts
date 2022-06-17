@@ -1,7 +1,6 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express, {Application, NextFunction, Response, Request} from 'express';
-const session = require('express-session')
 import morgan from 'morgan';
 import config from "../config"
 import {router} from "./routes/index"
@@ -20,16 +19,6 @@ app.use(
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
   allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'authorization'],
  }),
- session({
-  secret: 'street',
-  resave: true,
-  saveUninitialized: true,
-  proxy: true,
-  cookie: {
-      sameSite:'none',
-      secure:true
-  },
- })
 );
 
 app.use('/api', router)
