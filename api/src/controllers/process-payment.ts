@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createPreference } from "../utils/process-payment"
+import { createPreference, updatePaymentById } from "../utils/process-payment"
 import utils from "../utils/event"
 import { createTickets } from "../utils/tickets"
 
@@ -32,5 +32,17 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
     }catch(error){
         next(error)
     }
-
 }
+
+export const updatePayment = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const preference_id = req.query.preference_id as string
+        const payment_id = req.query.payment_id as string
+        
+        await updatePaymentById(preference_id, payment_id)
+
+        res.redirect("http://localhost:3000")
+    }catch(error){
+        next(error)
+    }
+} 
