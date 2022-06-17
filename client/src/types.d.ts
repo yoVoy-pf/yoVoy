@@ -54,6 +54,11 @@ export interface Category {
 	name: string;
 }
 
+export interface putRolUser {
+	usedId: number;
+	roleId: number[];
+}
+
 export interface Location {
 	id: number;
 	name: string;
