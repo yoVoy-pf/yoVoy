@@ -1,6 +1,7 @@
 .bg {
     display: flex;
     margin-top: 15px;
+    margin-left: 20%;
 }
 
 :root {
@@ -59,6 +60,12 @@
     background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     /* z-index: 1; */
+}
+
+@media (max-width:1330px){
+    .bg{
+        margin-left: 540px;
+    }
 }
 
 @media (max-width:1210px){

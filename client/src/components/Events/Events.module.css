@@ -3,14 +3,14 @@
     display: grid;
     grid-template-columns: 15% 15% 15% 15%;
     justify-content: space-evenly;
-    gap: 10px;
+    gap: 5px;
     margin-right: 5%;
 }
 .div1{
+    width: 100%;
     display: flex;
     justify-content: center;
     gap: 30px;
-    margin-right: -65px;
     padding-bottom: 25px;
     
 }
@@ -66,6 +66,7 @@
 
 
 .divhover{
+    margin-left: 55px;
     width: 650px;
     background:radial-gradient(#111 50% #000 100%);
     overflow: hidden;
@@ -106,13 +107,14 @@
  /* img{
     max-width: 100%;
     display: block;
-}
 
-img:hover{
+} */
+
+/* img:hover{
     background-color: blue;
     z-index: 1;
     cursor: pointer;
-} */
+}  */
 
 
 @media  all and (max-width: 1592px){
@@ -135,6 +137,9 @@ img:hover{
         display: flex;
         flex-direction: column;
         padding-left: 30%;
+    }
+    .divhover{
+        margin-left: -1%;
     }
 }
 
