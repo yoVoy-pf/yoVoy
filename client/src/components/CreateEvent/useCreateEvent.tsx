@@ -35,6 +35,9 @@ export const useCreateEvent = ({locations} : any) => {
 	const handleInputChange = ({
 		target,
 	}: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(input)
+    console.log(locsAux)
+    console.log(locsForSubmit)
 		setInput({ ...input, [target.name]: target.value });
 	};
 
@@ -73,7 +76,11 @@ export const useCreateEvent = ({locations} : any) => {
   const handleAddDate = (e : any) => {
     e.preventDefault();
     if (locsAux[currentLocId]) {
-      setLocsAux((prevState: any) => ({...prevState, [currentLocId]:{...prevState[currentLocId],dates:[...prevState[currentLocId].dates,{...currentDate}]}}))
+      setLocsAux((prevState: any) =>{
+        const dates = [...prevState[currentLocId].dates];
+        dates.push(currentDate)
+        return {...prevState, [currentLocId]:{dates}}
+      })
       console.log('guardado')
       setCurrentDate({});
     }
@@ -94,6 +101,27 @@ export const useCreateEvent = ({locations} : any) => {
     setLocsForSubmit((prevState: any) => prevState.filter((loc: any) => loc.id !== id))
   }
 
+  const handleUpdadteFetch = (eventInfo : any) => {
+    console.log(eventInfo)
+    let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
+    let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
+      id: loc.id,
+      dates: loc.dates
+    }))
+    console.log(mappedLocations)
+    setInput({
+      name: eventInfo?.name || '',
+      description: eventInfo?.description || '',
+      background_image: eventInfo?.background_image || '',
+      locations: mappedLocations || [],
+      categories: mappedCategoriesIds || [],
+    })
+    mappedLocations.forEach((loc: any) => {
+      setLocsAux((prevState: any) => ({...prevState, [loc.id]:{...prevState[loc.id],dates:loc.dates}}))
+    })
+    setLocsForSubmit(mappedLocations)
+  }
+
 	return [
 		input,
     resetState,
@@ -109,5 +137,6 @@ export const useCreateEvent = ({locations} : any) => {
     handleConfirm,
     locsForSubmit,
     handleRemoveLoc,
+    handleUpdadteFetch
 	];
 };
