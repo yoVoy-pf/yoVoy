@@ -14,7 +14,6 @@ import Unauthorized from './components/Unauthorized/Unauthorized';
 import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
-import AdminPanel from './components/AdminPanel/AdminPanel';
 import Favorites from './components/Favorites/Favorites';
 import Updateuser from './components/UpdateUser/UpdateUser';
 import EventsConfig from './components/EventsConfig/EventsConfig';
@@ -53,7 +52,6 @@ function App(): JSX.Element {
 				</Route>
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-					<Route path="admin-panel" element={<AdminPanel />} />
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
 					<Route path="update-user/:id" element={<Updateuser />} />

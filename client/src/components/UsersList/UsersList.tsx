@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import styleUserList from './user-list.module.css'
 import { useDeleteUserMutation } from "../../slices/app/usersApiSlice";
 import { useEffect } from "react";
+import SideBar from "../SideBar/SideBar";
+
 
 const UsersList = () => {
   const [deleteUser] = useDeleteUserMutation();
@@ -32,10 +34,8 @@ const UsersList = () => {
     content = <p>Cargando...</p>
   } else if (isSuccess){
     content = (
-      <div style={{ marginTop: "30px" }}>
-          <span className={styleUserList.table_link}>
-            <Link className={styleUserList.table_link_style} to='/admin-panel' >Volver</Link>
-          </span>
+      <div >
+        <SideBar/>
         <div className={styleUserList.table_title}>
           <h1 className={styleUserList.table_title_style} >Lista de usuarios</h1>
         </div>
