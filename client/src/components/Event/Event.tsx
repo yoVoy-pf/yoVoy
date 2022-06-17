@@ -86,7 +86,7 @@ const Event = () => {
 					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
 						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
 						<p>{eventDetail.name}</p>
-
+            {console.log(eventDetail.locations)}
 						{eventDetail.locations?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
@@ -94,7 +94,7 @@ const Event = () => {
 										return (
 											<React.Fragment key={date.id}>
 												<h5>Precio: ${date.price}</h5>
-												<h5>Fecha: {date.date.toLocaleString()}</h5>
+												<h5>Fecha: {(date.date) as any}</h5>
 											</React.Fragment>
 										);
 									})}

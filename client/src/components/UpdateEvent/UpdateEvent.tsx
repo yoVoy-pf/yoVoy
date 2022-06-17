@@ -73,15 +73,7 @@ const UpdateEvent = () => {
     handleLocationChange,
     inputDate,
     setInputDate,
-    handleInputDateChange,
-  ] = useCreateEvent({
-    name: '',
-    description: '',
-    background_image: '',
-    locations: '',
-    categories: [],
-    dates: [],
-  });
+  ] = useCreateEvent(locations);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -206,14 +198,14 @@ const UpdateEvent = () => {
               name="price"
               type="number"
               id="price"
-              onChange={handleInputDateChange}
+              onChange={() => {}}
               value={inputDate.price}
             />
             <input
               name="date"
               type="date"
               id="date"
-              onChange={handleInputDateChange}
+                onChange={() => { }}
               value={inputDate.date}
             />
 

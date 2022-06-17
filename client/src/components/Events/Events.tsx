@@ -25,18 +25,18 @@ const Events = ({ allEvents }: Props) => {
 			<div className={style.div1}>
 				<Link to="/events/1">
 					<div className={style.divhover}>
-						<img src={allEventsPrueba1.background_image} alt="" />
+						<img src={allEventsPrueba1?.background_image} alt="" />
 						<div className={style.divdeprueba}>
-							<h1>{allEventsPrueba1.name}</h1>
+							<h1>{allEventsPrueba1?.name}</h1>
 							<a href="#">Mas Informarcíon</a>
 						</div>
 					</div>
 				</Link>
 				<Link to="/events/2">
 					<div className={style.divhover}>
-						<img src={allEventsPrueba2.background_image} alt="" />
+						<img src={allEventsPrueba2?.background_image} alt="" />
 						<div className={style.divdeprueba}>
-							<h1>{allEventsPrueba2.name}</h1>
+							<h1>{allEventsPrueba2?.name}</h1>
 							<a href="#">Más Informarcíon</a>
 						</div>
 					</div>
