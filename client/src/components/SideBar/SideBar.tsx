@@ -49,6 +49,7 @@ const SideBar = () => {
               </MenuItem>
               <MenuItem icon={<FaList />}><Link to='/userslist'>Lista De Usuarios</Link></MenuItem>
               <MenuItem icon={<FaList />}><Link to='/organization-list'>Lista De Organizaciones</Link></MenuItem>
+              <MenuItem icon={<FaList />}><Link to='/detail-payment'>Detalles de compras</Link></MenuItem>
               <MenuItem icon={<FiEdit />}><Link to='/events-config'>Config. de Eventos</Link></MenuItem>
               <MenuItem icon={<FiEdit />}><Link to='/create-category'>Crear Categoria</Link></MenuItem>
             </Menu>
