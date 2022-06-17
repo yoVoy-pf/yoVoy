@@ -1,5 +1,5 @@
 import { apiSlice } from '../authentication/apiSlice';
-import { User, Event } from '../../types';
+import { User, Event, putRolUser } from '../../types';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -29,6 +29,16 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		updateRolUser: builder.mutation<putRolUser, { userId: any, roleId: any }>({
+			query: ({ userId,  roleId }) => {
+				console.log('asdgagasdg:',userId, 'gfsadgagagd:',roleId )
+				return {
+					url: `api/user/role`,
+					method: `PUT`,
+					body: { userId: userId, roleId: roleId },
+				};
+			},
+		}),
 		deleteUser: builder.mutation<User, { id: number }>({
 			query(id) {
 				return {
@@ -47,4 +57,5 @@ export const {
 	useDeleteUserMutation,
 	useUpdateUserMutation,
 	useGetTicketsQuery,
+	useUpdateRolUserMutation,
 } = usersApiSlice;

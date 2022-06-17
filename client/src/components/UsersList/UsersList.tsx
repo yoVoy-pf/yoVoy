@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import styleUserList from './user-list.module.css'
 import { useDeleteUserMutation } from "../../slices/app/usersApiSlice";
 import { useEffect } from "react";
+import SideBar from "../SideBar/SideBar";
+
 
 const UsersList = () => {
   const [deleteUser] = useDeleteUserMutation();
@@ -32,10 +34,8 @@ const UsersList = () => {
     content = <p>Cargando...</p>
   } else if (isSuccess){
     content = (
-      <div style={{ marginTop: "30px" }}>
-          <span className={styleUserList.table_link}>
-            <Link className={styleUserList.table_link_style} to='/admin-panel' >Volver</Link>
-          </span>
+      <div >
+        <SideBar/>
         <div className={styleUserList.table_title}>
           <h1 className={styleUserList.table_title_style} >Lista de usuarios</h1>
         </div>
@@ -54,13 +54,16 @@ const UsersList = () => {
           {users?.map((user: any, index: any) => {
             return (
               <tr key={user.id}>
-                <th scope="row" style={{ textAlign: "center" }}>{index + 1}</th>
+                <th scope="row" style={{ textAlign: "center" }}>{user.id}</th>
                 <td className={styleUserList.th_users}>{user.name}</td>
                 <td className={styleUserList.th_users}>{user.email}</td>
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
                 <td className={styleUserList.th_users}>
                   <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
                     <button className={styleUserList.buttom_style_left}>Editar</button>
+                  </Link>
+                  <Link to={`/update-rol/${user.id}`} className={styleUserList.buttom}>
+                    <button className={styleUserList.buttom_style_left}>Editar-Rol</button>
                   </Link>
                   <button
                   className={styleUserList.buttom_style_right}

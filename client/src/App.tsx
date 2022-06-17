@@ -14,7 +14,6 @@ import Unauthorized from './components/Unauthorized/Unauthorized';
 import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import Loading from './components/Loading/Loading';
-import AdminPanel from './components/AdminPanel/AdminPanel';
 import Favorites from './components/Favorites/Favorites';
 import Updateuser from './components/UpdateUser/UpdateUser';
 import EventsConfig from './components/EventsConfig/EventsConfig';
@@ -22,6 +21,8 @@ import CreateOrganization from './components/CreateOrganization/CreateOrganizati
 import OrganizationList from './components/OrganizationList/OrganizationList';
 import UpdateOrganization from './components/UpdateOrganization/updateOrganization';
 import UserPurchaseDetail from './components/UserPurchaseDetail/UserPurchaseDetail';
+import DetailPayment from './components/DetailPayment/DetailPayment';
+import UpdateRol from './components/UpdateRol/UpdateRol';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -53,7 +54,6 @@ function App(): JSX.Element {
 				</Route>
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-					<Route path="admin-panel" element={<AdminPanel />} />
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
 					<Route path="update-user/:id" element={<Updateuser />} />
@@ -63,6 +63,8 @@ function App(): JSX.Element {
 						path="update-organization/:id"
 						element={<UpdateOrganization />}
 					/>
+					<Route path='detail-payment' element={<DetailPayment/>}/>
+					<Route path='update-rol/:id' element={<UpdateRol/>}/>
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
