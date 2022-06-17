@@ -66,7 +66,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       // Generate access token
       const accessToken =  generateAccessToken(user)
       const refreshToken = await updateRefreshToken(user)
-      res.cookie('jwt', refreshToken, {httpOnly: true, secure: true, domain:config.cors, maxAge: 24 * 60 * 60 * 1000}) // 1 day
+      res.cookie('jwt', refreshToken, {httpOnly: true, secure: true, domain:'herokuapp.com', sameSite: 'none', maxAge: 24 * 60 * 60 * 1000}) // 1 day
       res.send({
       data: {
       name : user.name,
@@ -128,12 +128,12 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
     const user = await getUserFromDbByField('refreshToken',refreshToken);
     // If we dont find a user with the refreshToken, we proceed to clear the cookie
     if (!user) {
-      res.clearCookie('jwt', {httpOnly: true, secure: true, domain:config.cors, maxAge: 24 * 60 * 60 * 1000})
+      res.clearCookie('jwt', {httpOnly: true, secure: true, domain:'herokuapp.com', sameSite: 'none', maxAge: 24 * 60 * 60 * 1000})
       return res.sendStatus(204)
     }
     // Delete refreshToken in db
     await updateRefreshToken(user, true) // errase true
-    res.clearCookie('jwt', {httpOnly: true, secure: true, domain:config.cors, maxAge: 24 * 60 * 60 * 1000})
+    res.clearCookie('jwt', {httpOnly: true, secure: true, domain:'herokuapp.com',sameSite: 'none', maxAge: 24 * 60 * 60 * 1000})
     res.sendStatus(204)
     // if (!user)    
   }catch(error){return next(error)}
