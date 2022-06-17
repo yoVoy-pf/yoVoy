@@ -52,6 +52,8 @@ const SideBar = () => {
               <MenuItem icon={<FaList />}><Link to='/detail-payment'>Detalles de compras</Link></MenuItem>
               <MenuItem icon={<FiEdit />}><Link to='/events-config'>Config. de Eventos</Link></MenuItem>
               <MenuItem icon={<FiEdit />}><Link to='/create-category'>Crear Categoria</Link></MenuItem>
+              <MenuItem icon={<FiEdit />}><Link to='/create-event'>Crear Evento</Link></MenuItem>
+              <MenuItem icon={<FiEdit />}><Link to='/update-event'>Editar Evento</Link></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>
