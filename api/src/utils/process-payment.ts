@@ -1,5 +1,8 @@
 import mercadopago from "mercadopago"
 import config from "../../config"
+import { sequelize } from "../db"
+
+const { Ticket } = sequelize.models
 
 export const createPreference= (items:any, user: any) => {
 
@@ -19,11 +22,26 @@ export const createPreference= (items:any, user: any) => {
         },
         items,
         back_urls:{
-            success: "http://localhost:3000/",
+            success: "http://localhost:3001/",
             failure: "http://localhost:3000/",
             pending: "http://localhost:3000/"
         }
     })
 
     return preference
+}
+
+
+export const updatePaymentById = async(preferenceId: string, paymentId: string) => {
+    mercadopago.configure({
+        access_token: config.ACCESS_TOKEN
+    })
+
+    const {body}  = await mercadopago.payment.findById(Number(paymentId))
+
+    await Ticket.update({status: body.status , status_detail: body.status_detail , paymentId , paymentType: body.payment_type_id},{
+        where:{
+            preferenceId
+        }
+    })
 }
