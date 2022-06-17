@@ -58,7 +58,14 @@ export async function giveRoleToUser(user: iUser, role: number){
 }
 
 export async function getUserById(id: string | number) {
-  const user = await User.findByPk(id)
+  const user = await User.findByPk(id, {
+    include: {
+      model: Role,
+      through:{
+        attributes: []
+      }
+    }
+  })
 
   return user
 }

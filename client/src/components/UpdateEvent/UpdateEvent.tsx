@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
@@ -14,16 +14,13 @@ import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/event
 import { useNavigate, useParams } from "react-router-dom";
 import styleUpdateEvent from './update-event.module.css'
 
-interface CreateEventState {
-  event: Array<{}>;
-}
-
 const UpdateEvent = () => {
-  const [isOpenModal, openModal, closeModal] = useDatesModal(false);
+  const locSelect = useRef<any>()
+  const [isOpen, openModal, closeModal] = useDatesModal(false);
   const [updateEvent] = useUpdateEventMutation();
   const dispatch: AppDispatch = useDispatch();
   const { eventId } = useParams();
-  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' })
+  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' },{refetchOnMountOrArgChange: true})
 
   const navigate = useNavigate()
 
@@ -34,6 +31,23 @@ const UpdateEvent = () => {
     (state: State) => state.global.categories,
   );
 
+  const [
+    input,
+    resetState,
+    handleInputChange,
+    handleInputDateChange,
+    currentDate,
+    currentLocId,
+    locsAux,
+    isAlreadyAdded,
+    handleAddDate,
+    handleCategoryChange,
+    handleLocationChange,
+    handleConfirm,
+    locsForSubmit,
+    handleRemoveLoc,
+    handleUpdateFetch
+  ] = useCreateEvent({ locations });
 
   useEffect(() => {
     dispatch(getLocations());
@@ -43,193 +57,209 @@ const UpdateEvent = () => {
   useEffect(() => {
     if(eventInfo){
       console.log(eventInfo)
-      let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
-      // let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
-      //   id: loc.id,
-      //   dates: loc.dates
-      // }))
-  
-      // console.log({ mappedLocations })
-      if (Object.keys(eventInfo).length > 1){
-        setInput({
-          name: eventInfo?.name || '',
-          description: eventInfo?.description || '',
-          background_image: eventInfo?.background_image || '',
-          locations: eventInfo?.locations[0]?.id || '',
-          categories: mappedCategoriesIds || [],
-          dates: eventInfo?.locations[0].dates || []
-        })
-      } else navigate('/')
+      if (!(Object.keys(eventInfo).length > 1)) navigate ('/')
+      else {
+        console.log('chau')
+        handleUpdateFetch(eventInfo)}
     }
   }, [eventInfo])
 
-  const [event, setEvent] = useState<CreateEventState['event']>([]);
-
-  const [
-    input,
-    handleInputChange,
-    setInput,
-    handleCategoryChange,
-    handleLocationChange,
-    inputDate,
-    setInputDate,
-    handleInputDateChange,
-  ] = useCreateEvent({
-    name: '',
-    description: '',
-    background_image: '',
-    locations: '',
-    categories: [],
-    dates: [],
-  });
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // dispatch(postCreateEvent(input));
+    const event ={
+      ...input,
+      locations: locsForSubmit
+    }
     try {
-      eventId && await updateEvent({id: eventId ,updatedEvent: input })
-      setEvent([...event, input]);
-      setInput({
-        name: '',
-        description: '',
-        background_image: '',
-        locations: '',
-        categories: [],
-        dates: [],
-      });
+      eventId && await updateEvent({id: eventId ,updatedEvent: event })
+      resetState();
       navigate(`/events/${eventInfo.id}`)
     } catch (error) { console.log(error) }
   };
 
-  const addDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setInput({ ...input, dates: [...input.dates, inputDate] });
-    setInputDate({ price: 0, date: '' });
-    closeModal();
-  };
-
-  const getLocationFormatted = (locId: number) => {
-    const loc = locations?.find((loc) => loc?.id === input.locations)
-    return `-${loc?.id}, ${loc?.address}, ${loc?.name}, ${loc?.city['name']}.`
-  }
 
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit}>
-        <div className={styleUpdateEvent.form_update}>
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          {/* <label htmlFor="name">Nombre del evento:</label> */}
-          <legend className={styleUpdateEvent.legend_update}>Nombre del evento:</legend>
-          <input
-            name="name"
-            type="text"
-            id="name"
-            placeholder="Nombre del evento"
-            className={styleUpdateEvent.input_update}
-            onChange={handleInputChange}
-            value={input.name}
-          />
-        </fieldset>  <br />
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          {/* <label htmlFor="description">Descripcion:</label> */}
-          <legend className={styleUpdateEvent.legend_update}>Descripcion:</legend>
-          <textarea
-            name="description"
-            id="description"
-            placeholder="Descripcion..."
-            className={styleUpdateEvent.input_update}
-            onChange={handleInputChange}
-            value={input.description}
-          />
-        </fieldset>  <br />
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          {/* <label htmlFor="background_image">Imagen:</label> */}
-          <legend className={styleUpdateEvent.legend_update}>Imagen:</legend>
-          <input
-            name="background_image"
-            type="text"
-            id="background_image"
-            placeholder="Imagen..."
-            className={styleUpdateEvent.input_update}
-            onChange={handleInputChange}
-            value={input.background_image}
-          />
-        </fieldset>  <br />
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          <legend className={styleUpdateEvent.legend_update}>Seleccione la ciudad:</legend>
-          <select
-            name="locations"
-            id="locations"
-            className={styleUpdateEvent.form_cities_update}
-            onChange={handleLocationChange}
-            defaultValue={"default"}
-          >
-            <option value="default" disabled>{input.locations ? getLocationFormatted(input.locations) : `Seleccione la ciudad...`}</option>
-            {locations?.map((location: Location) => {
+        <div className={styleUpdateEvent.form_order}>
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            {/* <label htmlFor="name">Nombre del evento:</label> */}
+            <legend className={styleUpdateEvent.legend_form}>
+              Nombre del evento:
+            </legend>
+            <input
+              name="name"
+              type="text"
+              id="name"
+              placeholder="Nombre del evento"
+              className={styleUpdateEvent.input_create}
+              onChange={handleInputChange}
+              value={input.name}
+            />
+          </fieldset>{' '}
+          <br />
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            {/* <label htmlFor="description">Descripcion:</label> */}
+            <legend className={styleUpdateEvent.legend_form}>
+              Descripcion:
+            </legend>
+            <textarea
+              name="description"
+              id="description"
+              placeholder="Descripcion..."
+              className={styleUpdateEvent.input_create}
+              onChange={handleInputChange}
+              value={input.description}
+            />
+          </fieldset>{' '}
+          <br />
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            {/* <label htmlFor="background_image">Imagen:</label> */}
+            <legend className={styleUpdateEvent.legend_form}>Imagen:</legend>
+            <input
+              name="background_image"
+              type="text"
+              id="background_image"
+              placeholder="Imagen..."
+              className={styleUpdateEvent.input_create}
+              onChange={handleInputChange}
+              value={input.background_image}
+            />
+          </fieldset>{' '}
+          <br />
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            <legend className={styleUpdateEvent.legend_form}>
+              Seleccione las categorias:
+            </legend>
+            {categories?.map((category: Category) => {
               return (
-                <option key={location.id} value={location.id} className={styleUpdateEvent.form_citie_update}>
-                  {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
-                </option>
+                <React.Fragment key={category.id}>
+                  <br />
+                  <input
+                    value={category.id}
+                    type="checkbox"
+                    onChange={handleCategoryChange}
+                  />
+                  <span>{` ${category.id}  ${category.name}`}.</span>
+                </React.Fragment>
               );
             })}
-          </select>
-        </fieldset>  <br />
-
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          {/* <label htmlFor="categories">Seleccione las categorias...</label> */}
-          <legend className={styleUpdateEvent.legend_update}>Seleccione las categorias:</legend>
-          {categories?.map((category: Category) => {
-            return (
-              <React.Fragment key={category.id}>
-                <br />
+          </fieldset>{' '}
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            <legend className={styleUpdateEvent.legend_form}>
+              Localidades agregadas:
+            </legend>
+            {
+              locsForSubmit.length > 0
+                ? locsForSubmit
+                  .map((loc: any) => {
+                    let locData = locations.find((location) => location.id === parseInt(loc.id));
+                    return locData ?
+                      (
+                        <div>
+                          <span>{` ${locData.name} `}</span>
+                          <span>{` ${locData.address} `}</span>
+                          <button onClick={(e) => handleRemoveLoc(e, loc.id)}>X</button>
+                          <ul>
+                            {loc.dates.map((date: any) => (
+                              <li key={date.date}>{`$${date.price} || ${date.date}`}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
+                      : null
+                  })
+                : <h1>No hay localidades cargadas para el evento</h1>
+            }
+          </fieldset>{' '}
+          <br />
+          {/* MODAL */}
+          <fieldset className={styleUpdateEvent.fieldset_form}>
+            <legend className={styleUpdateEvent.legend_form}>
+              Agrege detalles de el/los eventos
+            </legend>
+            <button
+              onClick={() => openModal()}
+              type="button"
+              className={styleUpdateEvent.text_from}
+            >
+              +
+            </button>
+            <DatesModal
+              isOpen={isOpen}
+              closeModal={closeModal}
+              className={styleUpdateEvent.form_dates_modal}
+            >
+              <select
+                name="id"
+                ref={locSelect}
+                placeholder="Seleccione un lugar"
+                className={styleUpdateEvent.form_cities}
+                onChange={handleLocationChange}
+              >
+                <option value="default">Seleccione la ciudad...</option>
+                {locations?.map((location: Location) => {
+                  return (
+                    <option
+                      key={location.id}
+                      value={location.id}
+                      className={styleUpdateEvent.form_citie}
+                      disabled={isAlreadyAdded(location.id)}
+                    >
+                      {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
+                    </option>
+                  );
+                })}
+              </select>
+              <div>
                 <input
-                  value={category.id}
-                  type="checkbox"
-                  checked={input.categories.includes(category.id)}
-                  onChange={handleCategoryChange}
+                  name="price"
+                  type="number"
+                  value={currentDate?.price || '0'}
+                  placeholder="Indique el precio..."
+                  onChange={handleInputDateChange}
                 />
-                <span>{` ${category.id} ${category.name}`}.</span>
-              </React.Fragment>
-            );
-          })}
-        </fieldset>  <br />
+                <input type="date" name="date" onChange={handleInputDateChange} />
+                <button type="button" onClick={handleAddDate}>
+                  +
+                </button>
+              </div>
 
-        <fieldset className={styleUpdateEvent.fieldset_update}>
-          <legend className={styleUpdateEvent.legend_update}>Seleccione Fecha:</legend>
-          <button onClick={openModal} type="button" className={styleUpdateEvent.text_from_update}>
-            Agregar fechas
+              <div>
+                {locsAux[currentLocId]?.dates?.map((date: any) => {
+                  console.log(date)
+                  return (
+                    <fieldset className={styleUpdateEvent.legend_form}>
+                      <ul>
+                        <li key={`${date.price} - ${date.date}`}>
+                          <React.Fragment>
+                            <p>{`Precio: ${date.price}`} </p>
+                            <p>{`Fecha: ${date.date}`} </p>
+                          </React.Fragment>
+                        </li>
+                      </ul>
+                      <React.Fragment>
+                        <button type="button" key={date.id}>X</button>
+                      </React.Fragment>
+                    </fieldset>
+                  );
+                })}
+              </div>
+              <br />
+              <button type="button" onClick={(e) => {
+                let select = locSelect.current
+                select.value = 'default'
+                handleConfirm(e)
+                closeModal()
+              }}>
+                Confirmar
+              </button>
+            </DatesModal>
+          </fieldset>{' '}
+          {/* EN MODAL */}
+          <button type="submit" className={styleUpdateEvent.bottom_form}>
+            Create
           </button>
-          <DatesModal isOpen={isOpenModal} closeModal={closeModal}>
-            <h3>Agregar fechas.</h3>
-
-            <input
-              name="price"
-              type="number"
-              id="price"
-              onChange={handleInputDateChange}
-              value={inputDate.price}
-            />
-            <input
-              name="date"
-              type="date"
-              id="date"
-              onChange={handleInputDateChange}
-              value={inputDate.date}
-            />
-
-            <button onClick={(e: any) => addDate(e)}>+</button>
-          </DatesModal>
-
-          {input.dates?.map((date: any) => {
-            return (
-              <React.Fragment key={date.date}>
-                <h5>$: {date.price}</h5>
-                <h5>Fecha: {date.date}</h5>
-              </React.Fragment>
-            );
-          })}
-        </fieldset>  <br />
-        <button type="submit" className={styleUpdateEvent.bottom_form_update}>Actualizar Evento</button>
         </div>
       </form>
     </React.Fragment>

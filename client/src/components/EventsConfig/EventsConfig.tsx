@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAllEvent } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
+import SideBar from '../SideBar/SideBar';
 import styleConfigEvent from './event-config.module.css';
 
 const EventsConfig = () => {
@@ -26,10 +27,8 @@ const EventsConfig = () => {
 
 	return (
 		<React.Fragment>
-			<div style={{ marginTop: "30px" }}>
-				<span className={styleConfigEvent.table_link}>
-					<Link className={styleConfigEvent.table_link_style} to='/admin-panel' >Volver</Link>
-				</span>
+			<div>
+				<SideBar/>
 				<div className={styleConfigEvent.table_title}>
 					<h1 className={styleConfigEvent.table_title_style} >Configurar Eventos</h1>
 				</div>

@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import { getTicketFromDb, updateTicket} from "../utils/ticket"
+import { getTicketFromDb} from "../utils/ticket"
 
 export const getTicket = async (req: Request, res: Response, next: NextFunction) => {
     try{
@@ -9,17 +9,6 @@ export const getTicket = async (req: Request, res: Response, next: NextFunction)
         if(!ticket) next({status: 404, message: "Ticket not found"})
         else res.status(200).json(ticket)
         
-    }catch(error){
-        next(error)
-    }
-} 
-
-export const putTicket = async (req: Request, res: Response, next: NextFunction) => {
-    try{
-        const {preferenceId, paymentId} = req.body
-        const ticket = await updateTicket(preferenceId, paymentId)
-
-        res.status(200).json(ticket)
     }catch(error){
         next(error)
     }

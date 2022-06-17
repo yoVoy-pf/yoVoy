@@ -22,6 +22,15 @@ export interface getOrganization{
 	id: number;
 }
 
+export interface getTickets{
+	id: number;
+	status: string;
+	quantity: number;
+	eventId: number;
+	userId: number;
+	transaction_amount: number;
+}
+
 export interface putEvent {
   name: string;
   description: string;
@@ -43,6 +52,11 @@ export interface Organization {
 export interface Category {
 	id: number;
 	name: string;
+}
+
+export interface putRolUser {
+	usedId: number;
+	roleId: number[];
 }
 
 export interface Location {
@@ -67,10 +81,23 @@ export interface Dates {
 export interface User {
   name: string;
   email: string;
-  rolesId: number[];
+  roles: any;
+  id: any;
 }
 
 export interface Filter {
 	filter: string;
 	id: string | number;
+}
+
+export interface Ticket {
+	paymentId: number;
+	status: string;
+	status_detail: string;
+	paymentType: string;
+	transaction_amount: number;
+	quantity: number;
+	event: {
+		name: string;
+	};
 }
