@@ -15,10 +15,10 @@ const UpdateRol = () => {
         roles: ''
 	});
 	useEffect(() => {
-        let mape = data?.roles.map((e:any) => e.id);
+        let mappeRoles = data?.roles.map((e:any) => e.id);
         setUser({
             id: data?.id || '',
-            roles: mape || ''
+            roles: mappeRoles || ''
         });
 	}, [id, data]);
 	const onChangeRol = (e: any) => {    
@@ -84,7 +84,3 @@ const UpdateRol = () => {
 }
 
 export default UpdateRol
-
-function roles(id: any, arg1: any, roles: any, arg3: any) {
-    throw new Error('Function not implemented.');
-}
