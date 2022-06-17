@@ -1,7 +1,7 @@
 import { sequelize } from "../db";
 import { ROLES_LIST } from "../authorization/roles";
 
-const {Organization, User, UserRole} = sequelize.models
+const {Organization, User, UserRole, Event} = sequelize.models
 
 
 
@@ -62,4 +62,14 @@ export const updateOrganization = async (id: string | number, {updateOrganizatio
     })
 
     return organization
+}
+
+export const getAllEvents = async (organizationId: string | number) => {
+   const events = await Event.findAll({
+    where:{
+        organizationId
+    }
+   })
+
+   return events
 }

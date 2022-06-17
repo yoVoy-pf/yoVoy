@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization} from "../utils/organization"
+import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization, getAllEvents} from "../utils/organization"
 
 
 export const postOrganization = async (req: Request, res: Response, next: NextFunction) => {
@@ -55,3 +55,16 @@ export const putOrganization = async (req: Request, res: Response, next: NextFun
     }
 }
 
+export const getEvents = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const {user} = req.body
+
+        const events = await getAllEvents(user.organizationId)
+
+        if(!events) next({status:404, message: "Events not found"})
+        else res.status(200).json(events)
+        
+    }catch(error){
+        next(error)
+    }
+}
