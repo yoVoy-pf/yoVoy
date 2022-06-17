@@ -336,7 +336,7 @@
     }
 
     .prueba_btn {
-        margin-left: 35%;
+        margin-left: 20%;
     }
 
     .navbar-log img {
@@ -349,7 +349,6 @@
 @media (max-width:375px) {
     .navbar {
         display: contents;
-
     }
 
     .navbar_bg_ul {
@@ -360,7 +359,7 @@
     }
 
     .prueba_btn {
-        margin-left: 35%;
+        margin-left: 15%;
     }
 
     .navbar-log img {
