@@ -81,7 +81,8 @@ export interface Dates {
 export interface User {
   name: string;
   email: string;
-  rolesId: number[];
+  roles: any;
+  id: any;
 }
 
 export interface Filter {

@@ -29,12 +29,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-		updateRolUser: builder.mutation<putRolUser[], { updateUser: any }>({
-			query: ({ ...updateUser }) => {
+		updateRolUser: builder.mutation<putRolUser, { userId: any, roleId: any }>({
+			query: ({ userId,  roleId }) => {
+				console.log('asdgagasdg:',userId, 'gfsadgagagd:',roleId )
 				return {
 					url: `api/user/role`,
 					method: `PUT`,
-					body: { ...updateUser },
+					body: { userId: userId, roleId: roleId },
 				};
 			},
 		}),

@@ -22,6 +22,7 @@ import OrganizationList from './components/OrganizationList/OrganizationList';
 import UpdateOrganization from './components/UpdateOrganization/updateOrganization';
 import UserPurchaseDetail from './components/UserPurchaseDetail/UserPurchaseDetail';
 import DetailPayment from './components/DetailPayment/DetailPayment';
+import UpdateRol from './components/UpdateRol/UpdateRol';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -63,6 +64,7 @@ function App(): JSX.Element {
 						element={<UpdateOrganization />}
 					/>
 					<Route path='detail-payment' element={<DetailPayment/>}/>
+					<Route path='update-rol/:id' element={<UpdateRol/>}/>
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
