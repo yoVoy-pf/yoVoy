@@ -76,7 +76,11 @@ export const useCreateEvent = ({locations} : any) => {
   const handleAddDate = (e : any) => {
     e.preventDefault();
     if (locsAux[currentLocId]) {
-      setLocsAux((prevState: any) => ({...prevState, [currentLocId]:{...prevState[currentLocId],dates:[...prevState[currentLocId].dates,{...currentDate}]}}))
+      setLocsAux((prevState: any) =>{
+        const dates = [...prevState[currentLocId].dates];
+        dates.push(currentDate)
+        return {...prevState, [currentLocId]:{dates}}
+      })
       console.log('guardado')
       setCurrentDate({});
     }
@@ -133,7 +137,6 @@ export const useCreateEvent = ({locations} : any) => {
     handleConfirm,
     locsForSubmit,
     handleRemoveLoc,
-    setInput,
     handleUpdadteFetch
 	];
 };

@@ -204,7 +204,7 @@ const CreateEvent = () => {
                   placeholder="Indique el precio..."
                   onChange={handleInputDateChange}
                 />
-                <input type="date" name="date" onChange={handleInputDateChange} />
+                <input type="date" name="date" value={currentDate?.date || ''}onChange={handleInputDateChange} />
                 <button type="button" onClick={handleAddDate}>
                   +
                 </button>

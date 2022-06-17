@@ -14,17 +14,13 @@ import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/event
 import { useNavigate, useParams } from "react-router-dom";
 import styleUpdateEvent from './update-event.module.css'
 
-interface CreateEventState {
-  event: Array<{}>;
-}
-
 const UpdateEvent = () => {
   const locSelect = useRef<any>()
   const [isOpen, openModal, closeModal] = useDatesModal(false);
   const [updateEvent] = useUpdateEventMutation();
   const dispatch: AppDispatch = useDispatch();
   const { eventId } = useParams();
-  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' })
+  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' },{refetchOnMountOrArgChange: true})
 
   const navigate = useNavigate()
 
@@ -34,19 +30,6 @@ const UpdateEvent = () => {
   const categories: Array<Category> = useSelector(
     (state: State) => state.global.categories,
   );
-
-
-  useEffect(() => {
-    dispatch(getLocations());
-    dispatch(getCategories());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if(eventInfo){
-      if (!(Object.keys(eventInfo).length > 1)) navigate ('/')
-      else handleUpdateFetch(eventInfo)
-    }
-  }, [eventInfo])
 
   const [
     input,
@@ -64,7 +47,22 @@ const UpdateEvent = () => {
     locsForSubmit,
     handleRemoveLoc,
     handleUpdateFetch
-  ] = useCreateEvent({locations});
+  ] = useCreateEvent({ locations });
+
+  useEffect(() => {
+    dispatch(getLocations());
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if(eventInfo){
+      console.log(eventInfo)
+      if (!(Object.keys(eventInfo).length > 1)) navigate ('/')
+      else {
+        console.log('chau')
+        handleUpdateFetch(eventInfo)}
+    }
+  }, [eventInfo])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
