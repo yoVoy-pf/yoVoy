@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole} from "../utils/user"
+import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite} from "../utils/user"
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -22,6 +22,19 @@ export const postFavorite = async (req: Request,res: Response,next:NextFunction)
         const favorite = await createFavorite(user.id, eventId)
         
          res.status(201).json(favorite)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const deleteFavorite = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user} = req.body
+        const {eventId} = req.params
+
+        const favorite = await destroyFavorite(user.id, eventId)
+        
+         res.status(200).json(favorite)
     }catch(error){
         next(error)
     }
