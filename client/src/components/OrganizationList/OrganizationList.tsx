@@ -1,6 +1,7 @@
 import { useGetOrganizationsQuery, useDeleteOrganizationMutation } from "../../slices/app/organizationApiSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styleListOrganization from './organization-list.module.css'
+import SideBar from "../SideBar/SideBar";
 
 const OrganizationList = () => {
   const [deleteOrganization] = useDeleteOrganizationMutation();
@@ -29,10 +30,8 @@ const OrganizationList = () => {
     content = <p>Cargando...</p>
   } else if (isSuccess){
     content = (
-      <div style={{ marginTop: "50px" }}>
-          <span className={styleListOrganization.table_link}>
-            <Link className={styleListOrganization.table_link_style} to='/admin-panel' >Volver</Link>
-          </span>
+      <div>
+          <SideBar/>
           <div className={styleListOrganization.table_title}>
           <h1 className={styleListOrganization.table_title_style} >Lista de Organizaciones</h1>
         </div>
