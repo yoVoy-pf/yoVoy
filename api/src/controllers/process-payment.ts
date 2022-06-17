@@ -36,10 +36,12 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
 
 export const updatePayment = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const {preferenceId, paymentId} = req.body
-        const ticket = await updatePaymentById(preferenceId, paymentId)
+        const preference_id = req.query.preference_id as string
+        const payment_id = req.query.payment_id as string
+        
+        await updatePaymentById(preference_id, payment_id)
 
-        res.status(200).json(ticket)
+        res.redirect("http://localhost:3000")
     }catch(error){
         next(error)
     }

@@ -5,4 +5,4 @@ import { authenticateToken } from "../middlewares/authenticateToken"
 export const router = Router()
 
 router.post('/', authenticateToken, process_payment)
-router.post("/update", updatePayment)
+router.get("/update", updatePayment)
