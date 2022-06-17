@@ -54,13 +54,16 @@ const UsersList = () => {
           {users?.map((user: any, index: any) => {
             return (
               <tr key={user.id}>
-                <th scope="row" style={{ textAlign: "center" }}>{index + 1}</th>
+                <th scope="row" style={{ textAlign: "center" }}>{user.id}</th>
                 <td className={styleUserList.th_users}>{user.name}</td>
                 <td className={styleUserList.th_users}>{user.email}</td>
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
                 <td className={styleUserList.th_users}>
                   <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
                     <button className={styleUserList.buttom_style_left}>Editar</button>
+                  </Link>
+                  <Link to={`/update-rol/${user.id}`} className={styleUserList.buttom}>
+                    <button className={styleUserList.buttom_style_left}>Editar-Rol</button>
                   </Link>
                   <button
                   className={styleUserList.buttom_style_right}

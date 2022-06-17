@@ -12,20 +12,16 @@ const UpdateRol = () => {
 	const { data, error, refetch } = useGetUserQuery(id);
 	const [user, setUser] = useState({
         id: '',
-        roleId: []
+        roles: ''
 	});
-
 	useEffect(() => {
-		if (id) {
-			if (data) {
-				setUser({ ...data });
-			}
-		} else {
-			console.log(error);
-		}
+        let mape = data?.roles.map((e:any) => e.id);
+        setUser({
+            id: data?.id || '',
+            roles: mape || ''
+        });
 	}, [id, data]);
-
-	const onChangeRol = (e: any) => {
+	const onChangeRol = (e: any) => {    
 		e.preventDefault();
 		setUser({
 			...user,
@@ -42,37 +38,37 @@ const UpdateRol = () => {
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			id && (await updateRolUser({ updateUser: user }));
+			id && (await updateRolUser({ userId: user.id, roleId: user.roles }));
 			refetch();
 			setUser({
                 id: '',
-                roleId: []
+                roles: ''
 			});
 			navigate('/userslist');
 		} catch (error) {
 			console.log(error);
 		}
 	};
-    return (
-        <div>
-            <form>
+    return (               
+        <div>                                    
+            <form onSubmit={onSubmit}>
             <div>
 					<fieldset>
-						<legend>Nombre:</legend>
+						<legend>Id usuario:</legend>
 						<input
 							type="text"
-							name="name"
+							name="id"
 							value={user.id}
 							onChange={onChangeUser}
 						/>
 					</fieldset>
 					<br />
 					<fieldset>
-						<legend>Email:</legend>
+						<legend>Rol:</legend>
 						<input
 							type="text"
-							name="email"
-							value={user.roleId}
+							name="roles"
+							value={user.roles}
 							onChange={onChangeRol}
 						/>
 					</fieldset>
@@ -88,3 +84,7 @@ const UpdateRol = () => {
 }
 
 export default UpdateRol
+
+function roles(id: any, arg1: any, roles: any, arg3: any) {
+    throw new Error('Function not implemented.');
+}

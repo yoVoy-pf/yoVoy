@@ -13,6 +13,16 @@ const DetailPayment = () => {
         refetch
       } = useGetTicketsDetailQuery({_:''}, {refetchOnMountOrArgChange: true,})
       console.log(datos)
+    if(!datos) {
+      return(
+        <div>
+        <SideBar/>
+        <div className={styleDetailPayment.text}>
+          <h1 className={styleDetailPayment.text_style}><i> ¡UPS! No hay compras Realizadas</i></h1>
+        </div>
+        </div>
+      )
+    } else {
     return(
         <div>
         <SideBar/>
@@ -47,7 +57,7 @@ const DetailPayment = () => {
             </tbody>
         </table>
         </div>
-    )
+    )}
 }
 
 export default DetailPayment

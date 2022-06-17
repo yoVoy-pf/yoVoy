@@ -24,3 +24,13 @@
     background-color: rgba(0, 0, 139, 0.262);
     color: white;
   }
+
+  .text {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .text_style {
+    color: white;
+  }
