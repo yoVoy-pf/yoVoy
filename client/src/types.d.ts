@@ -8,30 +8,40 @@ export interface Event {
 	locations: Location[];
 }
 
-export interface postCategory {
+
+export interface postCategory{
+  name: string;
+}
+
+export interface postOrganization{
 	name: string;
 }
 
-export interface postOrganization {
-	name: string;
-}
-
-export interface getOrganization {
+export interface getOrganization{
 	name: string;
 	id: number;
+}
+
+export interface getTickets{
+	id: number;
+	status: string;
+	quantity: number;
+	eventId: number;
+	userId: number;
+	transaction_amount: number;
 }
 
 export interface putEvent {
-	name: string;
-	description: string;
-	background_image: string;
-	categoriesIds: number[];
-	locations: putLocation[];
+  name: string;
+  description: string;
+  background_image: string;
+  categoriesIds: number[];
+  locations: putLocation[]
 }
 
 export interface putLocation {
-	id: number;
-	dates: any[];
+  id: number;
+  dates: any[];
 }
 
 export interface Organization {
@@ -64,9 +74,9 @@ export interface Dates {
 }
 
 export interface User {
-	name: string;
-	email: string;
-	rolesId: number[];
+  name: string;
+  email: string;
+  rolesId: number[];
 }
 
 export interface Filter {
