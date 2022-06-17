@@ -10,7 +10,7 @@ export const postComment = async (req: Request, res: Response, next: NextFunctio
 
         res.status(201).json(comment)
     } catch (error) {
-        res.status(400).send(error)
+        next(error)
     }
 
 }

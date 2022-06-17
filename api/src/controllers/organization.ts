@@ -20,11 +20,9 @@ export const deleteOrganization = async(req: Request, res: Response, next: NextF
 
         const number = await destroyOrganization(id)
 
-        if(!number){
-            next({status:404, message: "Organization not found"})
-        }else{
-            res.status(200).json("Organization was deleted")
-        }
+        if(!number) next({status:404, message: "Organization not found"})
+        else res.status(200).json("Organization was deleted")
+        
     }catch(error){
         next(error)
     }
@@ -37,7 +35,9 @@ export const getOrganization = async (req: Request, res: Response, next: NextFun
 
         const organization = await getOrganizationById(id)
 
-        res.status(200).json(organization)
+        if(!organization) next({status: 404, message: "Organization not found"})
+        else res.status(200).json(organization)
+
     }catch(error){
         next(error)
     }

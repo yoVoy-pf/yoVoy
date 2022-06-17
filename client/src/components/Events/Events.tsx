@@ -23,21 +23,32 @@ const Events = ({ allEvents }: Props) => {
 	return (
 		<div>
 			<div className={style.div1}>
-				<Link to="/events/1">
+				<Link to={`/events/${allEventsPrueba1?.id}`}>
 					<div className={style.divhover}>
 						<img src={allEventsPrueba1?.background_image} alt="" />
 						<div className={style.divdeprueba}>
-							<h1>{allEventsPrueba1?.name}</h1>
-							<a href="#">Mas Informarcíon</a>
+							<div >
+								<h1>{allEventsPrueba1?.name}</h1>
+							</div>
+							<div className={style.diva} >
+								<a href="#">Más Informarcíon</a>
+							</div>
+
 						</div>
 					</div>
 				</Link>
-				<Link to="/events/2">
+        <Link to={`/events/${allEventsPrueba2?.id}`}>
 					<div className={style.divhover}>
 						<img src={allEventsPrueba2?.background_image} alt="" />
 						<div className={style.divdeprueba}>
-							<h1>{allEventsPrueba2?.name}</h1>
-							<a href="#">Más Informarcíon</a>
+							<div>
+								<h1>{allEventsPrueba2?.name}</h1>
+
+							</div>
+							<div >
+								<a href="#">Más Informarcíon</a>
+
+							</div>
 						</div>
 					</div>
 				</Link>

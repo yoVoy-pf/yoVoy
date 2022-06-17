@@ -5,9 +5,12 @@ export const getCities = async (req: Request, res: Response, next: NextFunction)
 
     try {
         const cities = await getCitiesFromDb();
-        res.status(200).send(cities)
+
+        if(!cities.length) next({status:404, message: "Cities not found"})
+        else res.status(200).send(cities)
+        
     } catch (error) {
-        res.status(400).send(error)
+       next(error)
     }
 
 }

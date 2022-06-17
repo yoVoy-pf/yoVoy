@@ -10,7 +10,9 @@ export const getUser = async (req: Request,res: Response,next:NextFunction) => {
     const {id} = req.params
     const user = await getUserById(id)
 
-    res.status(200).json(user)
+    if(!user) next({status: 404, message: "User not found"})
+    else res.status(200).json(user)
+
   }catch(error){
     next(error)
   }
@@ -22,8 +24,10 @@ export const deleteUser = async (req: Request,res: Response,next:NextFunction) =
   try{
     const {id} = req.params
     const user = await destroyUser(id)
-
-    res.status(200).json(user)
+    
+    if(!user) next({status: 404, message: "User not found"})
+    else res.status(200).json(user)
+    
   }catch(error){
     next(error)
   }
