@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { SyntheticEvent, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
@@ -12,7 +12,7 @@ import { useCreateEvent } from './useCreateEvent';
 import { useDatesModal } from './CreateEventModal/useDatesModal';
 import { useCreateEventMutation } from '../../slices/app/eventsApiSlice';
 import styleCreateEvent from './create-event.module.css';
-
+import {FiEdit} from 'react-icons/fi';
 
 const CreateEvent = () => {
   const locSelect = useRef<any>()
@@ -47,6 +47,9 @@ const CreateEvent = () => {
     handleConfirm,
     locsForSubmit,
     handleRemoveLoc,
+    handleUpdateFetch,
+    removeDateFromLocsAux,
+    setCurrentLocId
 	] = useCreateEvent({locations});
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -144,7 +147,17 @@ const CreateEvent = () => {
                     <div>
                       <span>{` ${locData.name} `}</span>
                       <span>{` ${locData.address} `}</span>
-                      <button onClick={(e) => handleRemoveLoc(e,loc.id)}>X</button>
+                      {/* <button onClick={(e) => handleRemoveLoc(e,loc.id)}>X</button> */}
+                        <button
+                          onClick={() => {
+                            setCurrentLocId(loc.id)
+                            openModal()
+                          }}
+                          type="button"
+                          className={styleCreateEvent.text_from}
+                        >
+                          <FiEdit />
+                        </button>
                       <ul>
                         {loc.dates.map((date : any) => (
                           <li key={date.date}>{`$${date.price} || ${date.date}`}</li>
@@ -188,8 +201,9 @@ const CreateEvent = () => {
                     <option
                       key={location.id}
                       value={location.id}
-                      className={styleCreateEvent.form_citie}
-                      disabled={isAlreadyAdded(location.id)}
+                      className={`${styleCreateEvent.form_citie} ${isAlreadyAdded(location.id) ? styleCreateEvent.form_citie_loaded : null}`}
+                      selected={location.id === parseInt(currentLocId)}
+                      // disabled={isAlreadyAdded(location.id)}
                     >
                       {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
                     </option>
@@ -211,7 +225,7 @@ const CreateEvent = () => {
               </div>
 
               <div>
-								{locsAux[currentLocId]?.dates?.map((date: any) => {
+								{locsAux[currentLocId]?.dates?.map((date: any, id: any) => {
                   console.log(date)
 									return (
 										<fieldset className={styleCreateEvent.legend_form}>
@@ -224,7 +238,7 @@ const CreateEvent = () => {
 												</li>
 											</ul>
 											<React.Fragment>
-												<button type="button" key={date.id}>X</button>
+                        <button type="button" key={id} onClick={(e: SyntheticEvent) => removeDateFromLocsAux(id)}>X</button>
 											</React.Fragment>
 										</fieldset>
 									);
