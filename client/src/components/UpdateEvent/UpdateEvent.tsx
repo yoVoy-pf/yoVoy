@@ -63,7 +63,6 @@ const UpdateEvent = () => {
     handleConfirm,
     locsForSubmit,
     handleRemoveLoc,
-    setInput,
     handleUpdateFetch
   ] = useCreateEvent({locations});
 
