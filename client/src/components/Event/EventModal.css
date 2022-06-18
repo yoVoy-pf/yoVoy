@@ -31,7 +31,7 @@
 	max-height: 600px;
 
 	overflow-y: auto;
-	background-color: rgb(35, 71, 189);
+	background-color: rgba(212, 90, 33, 0.548);
 	pointer-events: visible;
 	transition: all 1s;
 }
