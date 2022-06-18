@@ -5,6 +5,7 @@ import {
 	useUpdateRolUserMutation,
 } from '../../slices/app/usersApiSlice';
 import ROLES_LIST from '../../slices/authentication/rolesList';
+import SideBar from '../SideBar/SideBar';
 import styleRol from "./update-rol.module.css"
 
 const UpdateRol = () => {
@@ -60,19 +61,20 @@ const UpdateRol = () => {
     return (               
         <div>                                    
             <form onSubmit={onSubmit}>
+				<SideBar/>
             	<div className={styleRol.form_create_rol}>
 					<fieldset className={styleRol.fieldset_form}>
-						<legend className={styleRol.legend_create_category}>Nobre de Usuario:</legend>
+						<legend className={styleRol.legend_rol}>Nobre de Usuario:</legend>
 						<input
 							type="text"
-							className={styleRol.input_create_categoty}
+							className={styleRol.input_rol}
 							value={user.name}
 							onChange={onChangeUser}
 						/>
 					</fieldset>
 					<br />
 					<fieldset className={styleRol.fieldset_form}>
-						<legend className={styleRol.legend_create_category}>Rol de usuario:</legend>
+						<legend className={styleRol.legend_rol}>Rol de usuario:</legend>
 					<select onChange={(e)=> onChangeRol(e)} className={styleRol.form_roles}>
 						<option 
 						value={ROLES_LIST.Admin} 
@@ -99,7 +101,7 @@ const UpdateRol = () => {
 					</fieldset>
 					<button
 						type="submit"
-						className={styleRol.buttom_create_category}
+						className={styleRol.buttom_rol}
 					>
 						Actualizar Rol de Usuario
 					</button>
