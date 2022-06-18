@@ -42,8 +42,8 @@ const SideBar = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
-                <NavLink className='home-side-bar' to='/'>
+              <MenuItem icon={<FiHome />}>
+                <NavLink style={{ color: 'white' }} to='/'>
                   Home
                 </NavLink>
               </MenuItem>
