@@ -5,6 +5,7 @@ import {
 	useUpdateRolUserMutation,
 } from '../../slices/app/usersApiSlice';
 import ROLES_LIST from '../../slices/authentication/rolesList';
+import styleRol from "./update-rol.module.css"
 
 const UpdateRol = () => {
     const [updateRolUser] = useUpdateRolUserMutation();
@@ -15,10 +16,11 @@ const UpdateRol = () => {
         name: '',
         roles: ''
 	});
+
 	let mappeRoles = data?.roles.map((e:any) => e.id );
 	let order = mappeRoles?.sort((a:any, b:any)=>  a - b );
 	let admin = order?.pop()
-		console.log('fasdfsafsad',admin)
+
 	useEffect(() => {
         
 		setUser({
@@ -58,24 +60,46 @@ const UpdateRol = () => {
     return (               
         <div>                                    
             <form onSubmit={onSubmit}>
-            <div>
-					<fieldset>
-						<legend>Id usuario:</legend>
+            	<div className={styleRol.form_create_rol}>
+					<fieldset className={styleRol.fieldset_form}>
+						<legend className={styleRol.legend_create_category}>Nobre de Usuario:</legend>
 						<input
 							type="text"
-							name="id"
+							className={styleRol.input_create_categoty}
 							value={user.name}
 							onChange={onChangeUser}
 						/>
 					</fieldset>
 					<br />
-					<select onChange={(e)=> onChangeRol(e)}>
-						<option value={ROLES_LIST.Admin} selected={ROLES_LIST.Admin === admin}>Administrador</option>
-						<option value={ROLES_LIST.Organization} selected={ROLES_LIST.Organization === admin}>Organizacion</option>
-						<option value={ROLES_LIST.User} selected={ROLES_LIST.User === admin}>Usuario</option>
+					<fieldset className={styleRol.fieldset_form}>
+						<legend className={styleRol.legend_create_category}>Rol de usuario:</legend>
+					<select onChange={(e)=> onChangeRol(e)} className={styleRol.form_roles}>
+						<option 
+						value={ROLES_LIST.Admin} 
+						selected={ROLES_LIST.Admin === admin}
+						className={styleRol.form_rol }
+						>
+							Administrador
+						</option>
+						<option 
+						value={ROLES_LIST.Organization} 
+						selected={ROLES_LIST.Organization === admin}
+						className={styleRol.form_rol }
+						>
+							Organizacion
+						</option>
+						<option 
+						value={ROLES_LIST.User} 
+						selected={ROLES_LIST.User === admin}
+						className={styleRol.form_rol}
+						>
+							Usuario
+							</option>
 					</select> <br /><br />
+					</fieldset>
 					<button
 						type="submit"
+						className={styleRol.buttom_create_category}
 					>
 						Actualizar Rol de Usuario
 					</button>
