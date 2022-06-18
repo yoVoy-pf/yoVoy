@@ -1,6 +1,7 @@
 import { sequelize } from '../db'
 import { Op } from "sequelize";
 const { Event, Organization, Date, Category, Location } = sequelize.models
+import utils from './event'
 
 const attributes = ["id","name","background_image", "description"]
 
@@ -25,8 +26,28 @@ export async function getEventsFromDbBySearch(search: string) {
     return eventsSearched
 }
 
+export async function getEventsFromDbByDate(events: any, date: string) {
+    console.log(events)
+    let eventsByDate: any = [], i = 1;
+    while (i <= events) {
+        let event: any = await utils.getEventById(i.toString())
+        event.locations.forEach((location: any) => {
+            location.dates.forEach((d: any) => {
+                console.log([d.date, date])
+                if (d.date === date) {
+                    eventsByDate.push(event)
+                }
+            })
+        })
+        i++
+    }
+    return eventsByDate
+
+
+}
+
 //trae los eventos filtrados por categoria y locacion.
-export async function getEventsFromDbByFilter(category?: string, location?: string, organization?: string, city?: string){
+export async function getEventsFromDbByFilter(category?: string, location?: string, organization?: string, city?: string, date?: string){
     let options: any = {include: []}
 
     if(organization){
@@ -60,6 +81,10 @@ export async function getEventsFromDbByFilter(category?: string, location?: stri
 
     options.attributes = attributes
     const events = await Event.findAll(options)
+
+    if(date){
+        return getEventsFromDbByDate(events.length, date)
+    }
    
     return events
 }
