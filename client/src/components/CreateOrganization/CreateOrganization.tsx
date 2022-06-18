@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCreateOrganizationMutation } from "../../slices/app/organizationApiSlice";
 import { selectCurrentUser } from "../../slices/authentication/authSlice";
+import SideBar from "../SideBar/SideBar";
 import styleCreateOrganization from './create-organization.module.css'
 
 const CreateOrganization = () => {
@@ -35,6 +36,7 @@ const CreateOrganization = () => {
             {   
                 currentUser && 
                 <form onSubmit={onSubmit}>
+                <SideBar/>
                 <div className={styleCreateOrganization.form_create_organization}>
                 <fieldset>
                     <legend className={styleCreateOrganization.legend_create_organization}>Nombre de la Organizacion:</legend>
