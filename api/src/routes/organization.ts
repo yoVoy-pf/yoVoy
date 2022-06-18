@@ -6,9 +6,9 @@ import { verifyRoles } from "../middlewares/verifyRoles";
 
 export const router = Router();
 
+router.get("/events", authenticateToken, verifyRoles(ROLES_LIST.Organization), getEvents)
 router.post("/",authenticateToken, postOrganization)
 router.delete("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), deleteOrganization)
 router.get("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), getOrganization)
 router.put("/:id", authenticateToken, verifyRoles(ROLES_LIST.Admin), putOrganization)
-router.get("/events", authenticateToken, verifyRoles(ROLES_LIST.Organization), getEvents)
 
