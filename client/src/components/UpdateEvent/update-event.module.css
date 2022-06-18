@@ -37,6 +37,9 @@
 .form_citie:focus{ 
     outline: none;
 }
+.form_citie_loaded{
+  background-color: red;
+} 
 
 .form_cities {
     margin:10px auto 10px auto;	
@@ -58,7 +61,7 @@
      top:0;
      right:0px;	
      pointer-events: none;
-} 
+}
 
 .bottom_form {
     width: 100%;

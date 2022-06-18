@@ -37,6 +37,9 @@
 .form_citie:focus{ 
     outline: none;
 }
+.form_citie_loaded{
+  background-color: red;
+} 
 
 .form_cities {
     margin:10px auto 10px auto;	

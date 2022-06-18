@@ -24,6 +24,17 @@ export const createFavorite = async(id:string | number, eventId:string) => {
     return favorite
 }
 
+export const destroyFavorite = async(id:string | number, eventId:string) => {
+    const favorite = await Favorites.destroy({
+        where:{
+            userId: id,
+            eventId
+        }
+    })
+
+    return favorite
+}
+
 export const getAllTickets = async(id: string | number) => {
     const tickets = await Ticket.findAll({
         attributes: ["paymentId","status","status_detail","paymentType","transaction_amount","quantity"],
