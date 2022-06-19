@@ -15,6 +15,7 @@ import { useDeleteEventMutation, useAddEventToFavoriteMutation } from '../../sli
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
+	const [isOpenAddFavMsg, openAddFavMsg, closeAddFavMsg] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
@@ -46,6 +47,8 @@ const Event = () => {
 		const addF = addEventToFavorite(id).then((result:any)=>{
 			if(result.error){
 				setIsVisible("visible")
+			}else{
+				openAddFavMsg()
 			}
 		})
 		console.log("------------1")
@@ -128,9 +131,11 @@ const Event = () => {
 					</EventModal>
 					
 
-					<button className={event_style.button2} onClick={() => addFavorites({ eventId: id })}>Agregar a Favoritos ❤️</button>
+					<button className={event_style.button2} onClick={() =>{addFavorites({ eventId: id })}}>Agregar a Favoritos ❤️</button>
 					<label className={isVisible==="visible"?event_style.visible:event_style.hide}>Ya está en Favoritos</label>
-			
+					<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
+						<h1>Agregado a favoritos</h1>
+					</EventModal>
 					<hr />
 					<button className={event_style.button2}>COMPRAR</button>
 				</div>
