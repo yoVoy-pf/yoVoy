@@ -36,7 +36,7 @@ function App(): JSX.Element {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route path="event/:id" element={<Event />} />
+				<Route path="events/:id/:location" element={<Event />} />
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />

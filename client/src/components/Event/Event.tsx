@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
+import {
+	clearEventId,
+	getEventId,
+	getLocations,
+} from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Dates, Location } from '../../types';
 import NavBar from '../NavBar/NavBar';
@@ -26,15 +30,22 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
+	const { location }: any = useParams<{ location: string }>();
 
 	useEffect(() => {
 		dispatch(getEventId(id));
+
 		return () => {
 			dispatch(clearEventId());
 		};
 	}, [dispatch, id]);
 
-	console.log('detalle del evento', eventDetail);
+	console.log('detalle del evento asdasd', location);
+
+	const mapLocation = eventDetail.locations?.map((loc: any) => loc);
+	const locationResult = mapLocation?.filter(
+		(loc: Location) => loc.id == location,
+	);
 
 	return (
 		<React.Fragment>
@@ -79,22 +90,19 @@ const Event = () => {
 					)}
 
 					{eventDetail &&
-						eventDetail.locations?.map((location: Location) => {
+						locationResult?.map((loc: Location) => {
 							return (
-								<React.Fragment key={location.id}>
-									{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
-									<h4> 🏰 {location.name}</h4>
-									<small className={event_style.small1}>
-										📍{location.address},
-									</small>
+								<React.Fragment key={loc.id}>
+									<h4> 🏰 {loc.name}</h4>
+									<small className={event_style.small1}>📍{loc.address},</small>
 									<small className={event_style.small1}>
 										{' '}
-										{location.city.name}.
+										{loc.city.name}.
 									</small>
-									<h4>{/* <small>{location.address}.</small> */}</h4>
 								</React.Fragment>
 							);
 						})}
+
 					<button className={event_style.button1} onClick={openModal}>
 						Ver todas las fechas y precios
 					</button>

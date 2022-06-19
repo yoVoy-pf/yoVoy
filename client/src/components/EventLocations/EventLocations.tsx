@@ -12,8 +12,9 @@ import event_style from './EventLocations.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import FilterEvent from '../FilterEvents/FilterEvents';
 import home from '../Home/home.module.css';
+import Event from '../Event/Event';
 
-const EventLocations = () => {
+const EventLocations: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const eventDetail: any = useSelector(
 		(state: State) => state.global.eventDetail,
@@ -27,7 +28,7 @@ const EventLocations = () => {
 		};
 	}, [dispatch, id]);
 
-	console.log('detalle del evento', eventDetail);
+	console.log('detalle del evento', eventDetail.locations?.legth);
 
 	return (
 		<div>
@@ -40,10 +41,12 @@ const EventLocations = () => {
 
 			<div className={event_style.container}>
 				<h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
-				{eventDetail &&
+				{eventDetail && eventDetail.locations?.legth === 0 ? (
+					<Event />
+				) : (
 					eventDetail.locations?.map((location: Location) => {
 						return (
-							<Link to={`/event/${location.id}`}>
+							<Link to={`/events/${eventDetail.id}/${location.id}`}>
 								<React.Fragment key={location.id}>
 									<fieldset>
 										<img
@@ -73,7 +76,8 @@ const EventLocations = () => {
 								</React.Fragment>
 							</Link>
 						);
-					})}
+					})
+				)}
 			</div>
 		</div>
 	);
