@@ -18,12 +18,16 @@ export const Welcome = () => {
         </div>
       </div>
         {/* <p>Token: {token}</p> */}
-        <div className={styleWelcome.links_welcome}>
+        {
+          user.rolesId[2] &&
+          <div className={styleWelcome.links_welcome}>
           <div className={styleWelcome.order_welcome}>
             <p><Link className={styleWelcome.links_style} to='/userslist'>Ir al panel de admin</Link></p>
             {/* <p><Link className={styleWelcome.links_style} to='/create-category'>Crear Categoría</Link></p> */}
           </div>
         </div>
+        }
+        
     </section>
   )
   return content
