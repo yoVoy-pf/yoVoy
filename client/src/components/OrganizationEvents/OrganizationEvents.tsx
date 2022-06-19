@@ -1,39 +1,57 @@
-import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useGetOrganizationEventsQuery } from '../../slices/app/organizationApiSlice';
-import EventOrganization from '../EventOrganization/EventOrganization';
+import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
+import './organization-event.css'
 
 const OrganizationEvents = () => {
-	const [events, setEvents] = useState<any>([]);
-	let { data, isError, isFetching } = useGetOrganizationEventsQuery(
+	const [deleteEvent] = useDeleteEventMutation();
+	let { data: events, refetch, isFetching } = useGetOrganizationEventsQuery(
 		{ _: '' },
 		{ refetchOnMountOrArgChange: true },
 	);
-	useEffect(() => {
-		console.log('dataaaa', data);
-		if (!isFetching) {
-			isError
-				? setEvents(['La Organización no poseé ningun evento'])
-				: setEvents(data);
+	const handleDelete = async (id: any) => {
+		if (
+		  window.confirm('Seguro que quieres eliminar este Evento ?')
+		){
+		  await deleteEvent(id)
+		  refetch()
+		  alert('Evento eliminado correactamente')
 		}
-	}, [isFetching]);
-
+	  }
 	const content = isFetching ? (
 		<h1>Cargando...</h1>
 	) : (
 		<div>
-			<h1>
-				{events &&
-					events?.length > 0 &&
-					events?.map((event: any) => {
-						if (event == 'La Organización no poseé ningun evento') {
-							return (
-								<div key="La Organización no poseé ningun evento">
-									<h1>La Organización no poseé ningun evento</h1>
-								</div>
-							);
-						} else return <EventOrganization event={event} key={event.id} />;
-					})}
-			</h1>
+			<span>
+				<Link to='/create-event'><button className='btn-event-organization'>Crear Evento</button></Link>
+			</span>
+			<div>
+         		 <h1 style={{color: 'white', textAlign:'center'}}>Lista de Eventos</h1>
+        	</div>
+			<div className='cards-event-organization'>
+				{
+					events?.map((event:any) => {
+					return(
+						<div className='card-organization-event'>
+						<fieldset className='fieldset-event-organization '>
+						<legend className='legend-event-organization'>Evento:</legend>
+						<h2 style={{color: 'white'}}>{event.name}</h2>
+						<img src={event.background_image} alt={event.name} style={{width:'250px', height: '250px'}}/>
+						<div style={{textAlign: 'center'}}></div>
+						<Link to={`/update-event/${event.id}`}>
+						<button className='button-event-organization'>Editar</button>
+						</Link>
+						<button
+						className='button-event-organization'
+						onClick={()=> handleDelete(event.id)}
+						>
+						Eliminar
+						</button>
+						</fieldset>
+						</div>
+					)})
+				}
+			</div>
 		</div>
 	);
 	return <div>{content}</div>;
