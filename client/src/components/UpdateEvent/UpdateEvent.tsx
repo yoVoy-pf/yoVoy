@@ -281,7 +281,7 @@ const UpdateEvent = () => {
           </fieldset>{' '}
           {/* EN MODAL */}
           <button type="submit" className={styleUpdateEvent.bottom_form}>
-            Create
+            Actulizar
           </button>
         </div>
       </form>
