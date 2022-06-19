@@ -27,13 +27,11 @@ export async function getEventsFromDbBySearch(search: string) {
 }
 
 export async function getEventsFromDbByDate(events: any, date: string) {
-    console.log(events)
     let eventsByDate: any = [], i = 1;
     while (i <= events) {
         let event: any = await utils.getEventById(i.toString())
         event.locations.forEach((location: any) => {
             location.dates.forEach((d: any) => {
-                console.log([d.date, date])
                 if (d.date === date) {
                     eventsByDate.push(event)
                 }
