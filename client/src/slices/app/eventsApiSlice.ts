@@ -13,6 +13,9 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         }
       }
     }),
+    getEvents: builder.query<Event[], { _: string }>({
+			query: ({ _ }) => '/api/events',
+		}),
     addEventToFavorite: builder.mutation<Event,{eventId: string}>({
       query: ({eventId}) => {
         // do something
@@ -55,6 +58,7 @@ export const{
   useUpdateEventMutation,
   useCreateEventMutation,
   useGetEventQuery,
+  useGetEventsQuery,
   useDeleteEventMutation,
   useAddEventToFavoriteMutation,
 } = eventsApiSlice
