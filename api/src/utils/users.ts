@@ -1,7 +1,8 @@
-import { sequelize } from '../db'
+import { sequelize} from '../db'
 import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 import {Model} from 'sequelize-typescript'
+import { Op } from 'sequelize';
 const { User, Role, UserRole } = sequelize.models
 
 
@@ -27,8 +28,8 @@ export async function getUsersFromDb(email: string, name: string) {
       }
     }
 
-    if(email) options.where.email = email
-    if(name) options.where.name = name
+    if(email) options.where.email = { [Op.iLike]: `%${email}%` }
+    if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
     const users = await User.findAll(options)
     return users;
