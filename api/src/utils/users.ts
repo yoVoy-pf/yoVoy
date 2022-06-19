@@ -16,8 +16,8 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb() {
-    const users = await User.findAll({
+export async function getUsersFromDb(email: string, name: string) {
+    let options: any= {
       include: {
         model: Role,
         attributes:['name'],
@@ -25,7 +25,12 @@ export async function getUsersFromDb() {
           attributes:[]
         }
       }
-    })
+    }
+
+    if(email) options.where.email = email
+    if(name) options.where.name = name
+
+    const users = await User.findAll(options)
     return users;
 }
 
