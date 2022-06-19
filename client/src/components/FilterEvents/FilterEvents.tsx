@@ -79,6 +79,23 @@ const FilterEvent = () => {
 
 		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
+ 
+	const handleDateChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+		let dateArr = (e.target.value).split("-").reverse()
+		let date = dateArr.map((d:any)=>{
+			if(d[0]==="0"){
+				return d.substring(1)
+			} else {
+				return d
+			}
+		})
+		const DateFilt: Filter = {
+			filter: "date",
+			id: date.join("/")
+		}
+		setFilters([DateFilt])
+	}
+
 	return (
 		<div className={filterStyle.bg_div}>
 			<div className={filterStyle.bg_div1}>
@@ -109,6 +126,8 @@ const FilterEvent = () => {
 					</option>
 				))}
 			</select>
+
+			<input type={"date"} onChange={(e)=>{handleDateChange(e)}}/>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
