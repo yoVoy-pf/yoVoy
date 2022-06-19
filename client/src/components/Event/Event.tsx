@@ -39,20 +39,19 @@ const Event = () => {
 		setTimeout(()=>{setIsVisible("hide")},3000)
 	},[isVisible])
 
-	console.log("------------22")
-    console.log(addEventToFavorite)
-	console.log("------------22")
 
 	const addFavorites = (id:any)=>{
 		const addF = addEventToFavorite(id).then((result:any)=>{
 			if(result.error){
-				setIsVisible("visible")
+				if(result.error.data.includes("llave duplicada")){
+					setIsVisible("visible")
+				}else if(result.error.data.includes("You need a valid token")){
+                    alert("Debe iniciar sesión")
+				}
 			}else{
 				openAddFavMsg()
 			}
 		})
-		console.log("------------1")
-		console.log("------------1")
 	}
 
 	return (
