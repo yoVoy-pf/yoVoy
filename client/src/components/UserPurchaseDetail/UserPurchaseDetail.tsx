@@ -25,7 +25,7 @@ const UserPurchaseDetail = () => {
 						if (ticket == 'No hay Tickets') {
 							return (
 								<div key="No hay Tickets">
-									<h1>No hay Tickets</h1>
+									<h1 style={{ color: 'white', textAlign: "center" }}>No hay Tickets</h1>
 								</div>
 							);
 						} else return <Tickets ticket={ticket} />;
