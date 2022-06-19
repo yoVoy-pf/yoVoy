@@ -4,6 +4,9 @@ import {
 	useGetUserQuery,
 	useUpdateRolUserMutation,
 } from '../../slices/app/usersApiSlice';
+import ROLES_LIST from '../../slices/authentication/rolesList';
+import SideBar from '../SideBar/SideBar';
+import styleRol from "./update-rol.module.css"
 
 const UpdateRol = () => {
     const [updateRolUser] = useUpdateRolUserMutation();
@@ -11,13 +14,18 @@ const UpdateRol = () => {
 	const navigate = useNavigate();
 	const { data, error, refetch } = useGetUserQuery(id);
 	const [user, setUser] = useState({
-        id: '',
+        name: '',
         roles: ''
 	});
+
+	let mappeRoles = data?.roles.map((e:any) => e.id );
+	let order = mappeRoles?.sort((a:any, b:any)=>  a - b );
+	let admin = order?.pop()
+
 	useEffect(() => {
-        let mappeRoles = data?.roles.map((e:any) => e.id);
-        setUser({
-            id: data?.id || '',
+        
+		setUser({
+            name: data?.name || '',
             roles: mappeRoles || ''
         });
 	}, [id, data]);
@@ -25,7 +33,7 @@ const UpdateRol = () => {
 		e.preventDefault();
 		setUser({
 			...user,
-			[e.target.name]: e.target.value,
+			roles: e.target.value,
 		});
 	};
 	const onChangeUser = (e: any) => {
@@ -38,10 +46,10 @@ const UpdateRol = () => {
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			id && (await updateRolUser({ userId: user.id, roleId: user.roles }));
+			id && (await updateRolUser({ userId: user.name = data?.id , roleId: user.roles}))
 			refetch();
 			setUser({
-                id: '',
+                name: '',
                 roles: ''
 			});
 			navigate('/userslist');
@@ -49,31 +57,51 @@ const UpdateRol = () => {
 			console.log(error);
 		}
 	};
+	
     return (               
         <div>                                    
             <form onSubmit={onSubmit}>
-            <div>
-					<fieldset>
-						<legend>Id usuario:</legend>
+				<SideBar/>
+            	<div className={styleRol.form_create_rol}>
+					<fieldset className={styleRol.fieldset_form}>
+						<legend className={styleRol.legend_rol}>Nobre de Usuario:</legend>
 						<input
 							type="text"
-							name="id"
-							value={user.id}
+							className={styleRol.input_rol}
+							value={user.name}
 							onChange={onChangeUser}
 						/>
 					</fieldset>
 					<br />
-					<fieldset>
-						<legend>Rol:</legend>
-						<input
-							type="text"
-							name="roles"
-							value={user.roles}
-							onChange={onChangeRol}
-						/>
+					<fieldset className={styleRol.fieldset_form}>
+						<legend className={styleRol.legend_rol}>Rol de usuario:</legend>
+					<select onChange={(e)=> onChangeRol(e)} className={styleRol.form_roles}>
+						<option 
+						value={ROLES_LIST.Admin} 
+						selected={ROLES_LIST.Admin === admin}
+						className={styleRol.form_rol }
+						>
+							Administrador
+						</option>
+						<option 
+						value={ROLES_LIST.Organization} 
+						selected={ROLES_LIST.Organization === admin}
+						className={styleRol.form_rol }
+						>
+							Organizacion
+						</option>
+						<option 
+						value={ROLES_LIST.User} 
+						selected={ROLES_LIST.User === admin}
+						className={styleRol.form_rol}
+						>
+							Usuario
+							</option>
+					</select> <br /><br />
 					</fieldset>
 					<button
 						type="submit"
+						className={styleRol.buttom_rol}
 					>
 						Actualizar Rol de Usuario
 					</button>

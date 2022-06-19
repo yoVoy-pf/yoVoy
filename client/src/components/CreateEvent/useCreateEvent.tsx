@@ -122,6 +122,15 @@ export const useCreateEvent = ({locations} : any) => {
     setLocsForSubmit(mappedLocations)
   }
 
+  const removeDateFromLocsAux = (id : any) => {
+    console.log(id)
+    setLocsAux((prevState: any) => {
+      const dates = [...prevState[currentLocId].dates];
+      dates.splice(id, 1)
+      return { ...prevState, [currentLocId]: { dates } }
+    })
+  }
+
 	return [
 		input,
     resetState,
@@ -137,6 +146,8 @@ export const useCreateEvent = ({locations} : any) => {
     handleConfirm,
     locsForSubmit,
     handleRemoveLoc,
-    handleUpdadteFetch
+    handleUpdadteFetch,
+    removeDateFromLocsAux,
+    setCurrentLocId
 	];
 };
