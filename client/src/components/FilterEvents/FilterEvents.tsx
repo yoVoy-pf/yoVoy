@@ -89,7 +89,6 @@ const FilterEvent = () => {
 				return d
 			}
 		})
-		console.log(date.join("/"))
 		const DateFilt: Filter = {
 			filter: "date",
 			id: date.join("/")
