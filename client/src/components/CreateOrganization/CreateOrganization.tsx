@@ -8,7 +8,7 @@ import styleCreateOrganization from './create-organization.module.css'
 
 const CreateOrganization = () => {
     const navigate = useNavigate()
-    const currentUser = useSelector(selectCurrentUser)
+    const currentUser: any = useSelector(selectCurrentUser)
     const [createOrganization] = useCreateOrganizationMutation();
     const [organization, setOrganization] = useState({
         name: ''
@@ -33,10 +33,13 @@ const CreateOrganization = () => {
     }
     return(
         <div>
+            {
+                currentUser.rolesId[2] &&
+                <SideBar/>
+            }
             {   
                 currentUser && 
                 <form onSubmit={onSubmit}>
-                <SideBar/>
                 <div className={styleCreateOrganization.form_create_organization}>
                 <fieldset>
                     <legend className={styleCreateOrganization.legend_create_organization}>Nombre de la Organizacion:</legend>
