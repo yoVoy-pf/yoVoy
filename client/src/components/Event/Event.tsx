@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -24,6 +24,8 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
+	const state:any = useSelector((state: State)=>state)
+	const [isVisible, setIsVisible] = useState("hide")
 
 	useEffect(() => {
 		dispatch(getEventId(id));
@@ -31,6 +33,24 @@ const Event = () => {
 			dispatch(clearEventId());
 		};
 	}, [dispatch, id]);
+
+	useEffect(()=>{
+		setTimeout(()=>{setIsVisible("hide")},3000)
+	},[isVisible])
+
+	console.log("------------22")
+    console.log(addEventToFavorite)
+	console.log("------------22")
+
+	const addFavorites = (id:any)=>{
+		const addF = addEventToFavorite(id).then((result:any)=>{
+			if(result.error){
+				setIsVisible("visible")
+			}
+		})
+		console.log("------------1")
+		console.log("------------1")
+	}
 
 	return (
 		<React.Fragment>
@@ -108,7 +128,8 @@ const Event = () => {
 					</EventModal>
 					
 
-					<button className={event_style.button2} onClick={() => addEventToFavorite({ eventId: id })}>Agregar a Favoritos ❤️</button>
+					<button className={event_style.button2} onClick={() => addFavorites({ eventId: id })}>Agregar a Favoritos ❤️</button>
+					<label className={isVisible==="visible"?event_style.visible:event_style.hide}>Ya está en Favoritos</label>
 			
 					<hr />
 					<button className={event_style.button2}>COMPRAR</button>
