@@ -127,7 +127,11 @@ const FilterEvent = () => {
 				))}
 			</select>
 
-			<input type={"date"} onChange={(e)=>{handleDateChange(e)}}/>
+			<input 
+			type={"date"} 
+			onChange={(e)=>{handleDateChange(e)}}
+			className={filterStyle.input_filter}
+			/>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
