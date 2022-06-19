@@ -8,10 +8,12 @@ import { Dates, Location } from '../../types';
 import NavBar from '../NavBar/NavBar';
 import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
-import event_style from "./Event.module.css"
+import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
-import { useDeleteEventMutation, useAddEventToFavoriteMutation } from '../../slices/app/eventsApiSlice';
-
+import {
+	useDeleteEventMutation,
+	useAddEventToFavoriteMutation,
+} from '../../slices/app/eventsApiSlice';
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
@@ -32,6 +34,8 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
+	console.log('detalle del evento', eventDetail);
+
 	return (
 		<React.Fragment>
 			{/* <nav>
@@ -43,18 +47,21 @@ const Event = () => {
 					<div className={event_style.h1}>
 						<h1>Evento: {eventDetail.name}</h1>
 					</div>
-					<img className={event_style.img_event} src={eventDetail.background_image} alt={eventDetail.name} />
+					<img
+						className={event_style.img_event}
+						src={eventDetail.background_image}
+						alt={eventDetail.name}
+					/>
 					<div className={event_style.divpandsmall}>
 						<p className={event_style.p}>Descripción del evento:</p>
-						<small className={event_style.small}>{eventDetail.description}</small>
-
+						<small className={event_style.small}>
+							{eventDetail.description}
+						</small>
 					</div>
 				</div>
 
 				<div className={event_style.div2}>
-
-
-					{currentUser &&
+					{currentUser && (
 						<div className={event_style.button_delete}>
 							<button
 								className={event_style.button_delete_style}
@@ -69,27 +76,32 @@ const Event = () => {
 								Actualizar Evento
 							</button>
 						</div>
-					}
+					)}
 
 					{eventDetail &&
 						eventDetail.locations?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
 									{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
-									<h4>   🏰  {location.name}</h4>
-									<small className={event_style.small1}>📍{location.address},</small>
-									<small className={event_style.small1}> {location.city.name}.</small>
-									<h4>
-									{/* <small>{location.address}.</small> */}
-									</h4>
+									<h4> 🏰 {location.name}</h4>
+									<small className={event_style.small1}>
+										📍{location.address},
+									</small>
+									<small className={event_style.small1}>
+										{' '}
+										{location.city.name}.
+									</small>
+									<h4>{/* <small>{location.address}.</small> */}</h4>
 								</React.Fragment>
 							);
 						})}
-					<button className={event_style.button1} onClick={openModal}>Ver todas las fechas y precios</button>
+					<button className={event_style.button1} onClick={openModal}>
+						Ver todas las fechas y precios
+					</button>
 					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
 						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
 						<p>{eventDetail.name}</p>
-            {console.log(eventDetail.locations)}
+						{console.log(eventDetail.locations)}
 						{eventDetail.locations?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
@@ -97,25 +109,27 @@ const Event = () => {
 										return (
 											<React.Fragment key={date.id}>
 												<h5>Precio: ${date.price}</h5>
-												<h5>Fecha: {(date.date) as any}</h5>
+												<h5>Fecha: {date.date as any}</h5>
 											</React.Fragment>
 										);
 									})}
-
 								</React.Fragment>
 							);
 						})}
 					</EventModal>
-					
 
-					<button className={event_style.button2} onClick={() => addEventToFavorite({ eventId: id })}>Agregar a Favoritos ❤️</button>
-			
+					<button
+						className={event_style.button2}
+						onClick={() => addEventToFavorite({ eventId: id })}
+					>
+						Agregar a Favoritos ❤️
+					</button>
+
 					<hr />
 					<button className={event_style.button2}>COMPRAR</button>
 				</div>
-
 			</div>
-		</React.Fragment >
+		</React.Fragment>
 	);
 };
 export default Event;

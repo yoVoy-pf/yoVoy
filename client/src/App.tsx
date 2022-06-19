@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Event from './components/Event/Event';
+import Event from './components/Event/Event'; // ->Usarlo dentro de EventsLocation
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
@@ -24,6 +24,7 @@ import UserPurchaseDetail from './components/UserPurchaseDetail/UserPurchaseDeta
 import DetailPayment from './components/DetailPayment/DetailPayment';
 import UpdateRol from './components/UpdateRol/UpdateRol';
 import OrganizationEvents from './components/OrganizationEvents/OrganizationEvents';
+import EventLocations from './components/EventLocations/EventLocations';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -35,7 +36,8 @@ function App(): JSX.Element {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route path="events/:id" element={<Event />} />
+				<Route path="event/:id" element={<Event />} />
+				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
 				{/* protected routes */}
