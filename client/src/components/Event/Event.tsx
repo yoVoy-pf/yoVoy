@@ -95,7 +95,7 @@ const Event = () => {
 				</div>
 
 				<div className={event_style.div2}>
-					{currentUser && (
+					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
 							<button
 								className={event_style.button_delete_style}

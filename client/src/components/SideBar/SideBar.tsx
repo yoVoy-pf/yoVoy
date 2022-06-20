@@ -15,9 +15,14 @@ import { FiHome, FiLogOut, FiEdit, FiArrowLeftCircle, FiArrowRightCircle } from 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./side-bar.css";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../slices/authentication/authSlice";
+
 
 
 const SideBar = () => {
+    const currentUser : any = useSelector(selectCurrentUser)
+    const currentRole = currentUser ? currentUser.rolesId.slice(-1) : null
     const [menuCollapse, setMenuCollapse] = useState(false)
 
   const menuIconClick = () => {
@@ -52,7 +57,6 @@ const SideBar = () => {
               <MenuItem icon={<FaList />}><NavLink to='/detail-payment' className='link'>Detalles de compras</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/events-config' className='link'>Config. de Eventos</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/create-category' className='link'>Crear Categoria</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/create-organization' className='link'>Crear Organization</NavLink></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>

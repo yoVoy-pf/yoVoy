@@ -5,6 +5,9 @@ import styleWelcome from './welcome.module.css'
 
 export const Welcome = () => {
   const user : any = useSelector(selectCurrentUser)
+  const currentRole = user ? user.rolesId.slice(-1) : null
+  console.log("🚀 ~ file: Welcome.tsx ~ line 9 ~ Welcome ~ currentRole", currentRole)
+  
   const token = useSelector(selectCurrentToken)
   console.log({user})
 
@@ -19,13 +22,28 @@ export const Welcome = () => {
       </div>
         {/* <p>Token: {token}</p> */}
         {
-          user.rolesId[2] &&
-          <div className={styleWelcome.links_welcome}>
-          <div className={styleWelcome.order_welcome}>
-            <p><Link className={styleWelcome.links_style} to='/userslist'>Ir al panel de admin</Link></p>
-            {/* <p><Link className={styleWelcome.links_style} to='/create-category'>Crear Categoría</Link></p> */}
-          </div>
-        </div>
+          currentRole[0] === 3030 &&
+            <div className={styleWelcome.links_welcome}>
+              <div className={styleWelcome.order_welcome}>
+                <p><Link className={styleWelcome.links_style} to='/userslist'>Ir al panel de admin</Link></p>
+              </div>
+            </div>
+        }
+        {
+          currentRole[0] === 1010 && 
+            <div className={styleWelcome.links_welcome}>
+              <div className={styleWelcome.order_welcome}>
+                <p><Link className={styleWelcome.links_style} to='/create-organization'>Crear Organización</Link></p>
+              </div>
+            </div>
+        }
+        {
+          currentRole[0] === 2020 && 
+            <div className={styleWelcome.links_welcome}>
+              <div className={styleWelcome.order_welcome}>
+              <p><Link className={styleWelcome.links_style} to='/organization-events'>Eventos de la organización</Link></p>
+              </div>
+            </div>
         }
         
     </section>
