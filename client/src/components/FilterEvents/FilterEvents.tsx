@@ -89,7 +89,6 @@ const FilterEvent = () => {
 				return d
 			}
 		})
-		console.log(date.join("/"))
 		const DateFilt: Filter = {
 			filter: "date",
 			id: date.join("/")
@@ -128,7 +127,11 @@ const FilterEvent = () => {
 				))}
 			</select>
 
-			<input type={"date"} onChange={(e)=>{handleDateChange(e)}}/>
+			<input 
+			type={"date"} 
+			onChange={(e)=>{handleDateChange(e)}}
+			className={filterStyle.input_filter}
+			/>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>

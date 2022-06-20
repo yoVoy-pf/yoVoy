@@ -1,0 +1,9 @@
+.container {
+	/* display: contents; */
+	display: column;
+	grid-template-columns: 10% 10% 10% 10%;
+	justify-content: space-evenly;
+	gap: 5px;
+	margin-right: auto;
+	color: #fff;
+}

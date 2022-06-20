@@ -18,7 +18,7 @@
     transform: translate(12%);
 }
 
-.bg_div1 select,input{
+.bg_div1 select, .input_filter {
     width: 180px;
     height: 30px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

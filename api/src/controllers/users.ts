@@ -2,7 +2,10 @@ import { Request, Response, NextFunction } from "express"
 import { getUsersFromDb, getUserById, destroyUser, updateUser } from "../utils/users"
 
 export const getUsers = (req: Request,res: Response,next:NextFunction) => {
-  getUsersFromDb().then(users => res.send(users)).catch(error => next(error))
+  let name = req.query.name as string
+  let email = req.query.email as string
+
+  getUsersFromDb(email, name).then(users => res.send(users)).catch(error => next(error))
 
 }
 export const getUser = async (req: Request,res: Response,next:NextFunction) => {
