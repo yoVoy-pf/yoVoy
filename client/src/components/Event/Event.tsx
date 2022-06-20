@@ -39,6 +39,7 @@ const Event = () => {
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
+  console.log(locationResult)
 
 	return (
 		<React.Fragment>
@@ -102,8 +103,7 @@ const Event = () => {
 					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
 						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
 						<p>{eventDetail.name}</p>
-						{console.log(eventDetail.locations)}
-						{eventDetail.locations?.map((location: Location) => {
+            {locationResult?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
 									{location?.dates.map((date: Dates) => {
