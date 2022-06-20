@@ -30,7 +30,7 @@ export async function getEventsFromDbByDate(events: any, date: string) {
     let eventsByDate: any = [], i = 1;
     while (i <= events) {
         let event: any = await utils.getEventById(i.toString())
-        event.locations.forEach((location: any) => {
+        event.locations?.forEach((location: any) => {
             location.dates.forEach((d: any) => {
                 if (d.date === date) {
                     eventsByDate.push(event)
