@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { Dates, Location } from '../../types';
+import { Location } from '../../types';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ import event_style from './EventLocations.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import FilterEvent from '../FilterEvents/FilterEvents';
 import home from '../Home/home.module.css';
-import Event from '../Event/Event';
+import style from './EventLocations.module.css';
 
 const EventLocations: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -28,8 +28,6 @@ const EventLocations: React.FC = () => {
 		};
 	}, [dispatch, id]);
 
-	console.log('detalle del evento', eventDetail.locations?.legth);
-
 	return (
 		<div>
 			<div className={home.searchbar}>
@@ -39,14 +37,15 @@ const EventLocations: React.FC = () => {
 				<FilterEvent />
 			</div>
 
-			<div className={event_style.container}>
+			<div className={style.container}>
 				<h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
-				{eventDetail && eventDetail.locations?.legth === 0 ? (
-					<Event />
-				) : (
+				{eventDetail &&
 					eventDetail.locations?.map((location: Location) => {
 						return (
-							<Link to={`/events/${eventDetail.id}/${location.id}`}>
+							<Link
+								to={`/events/${eventDetail.id}/${location.id}`}
+								className={style.link}
+							>
 								<React.Fragment key={location.id}>
 									<fieldset>
 										<img
@@ -76,8 +75,7 @@ const EventLocations: React.FC = () => {
 								</React.Fragment>
 							</Link>
 						);
-					})
-				)}
+					})}
 			</div>
 		</div>
 	);

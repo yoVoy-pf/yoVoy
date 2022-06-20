@@ -7,3 +7,8 @@
 	margin-right: auto;
 	color: #fff;
 }
+
+.link {
+	text-decoration: none;
+	box-shadow: inset 0 -3px 0 0 #bdb;
+}

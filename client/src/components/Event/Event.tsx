@@ -2,14 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-	clearEventId,
-	getEventId,
-	getLocations,
-} from '../../redux/actions/actions-Create';
+import { clearEventId, getEventId } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
 import { Dates, Location } from '../../types';
-import NavBar from '../NavBar/NavBar';
 import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
