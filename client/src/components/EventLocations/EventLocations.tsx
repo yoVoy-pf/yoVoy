@@ -30,15 +30,14 @@ const EventLocations: React.FC = () => {
 
 	return (
 		<div>
-			<div className={home.searchbar}>
+			{/* <div className={home.searchbar}>
 				<SearchBar />
 			</div>
 			<div>
 				<FilterEvent />
-			</div>
+			</div> */}
 
-			<div className={style.container}>
-				
+			<section className={style.container}>	
 				<h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
 				<div className={style.cardEvent}>
 				{eventDetail &&
@@ -53,33 +52,31 @@ const EventLocations: React.FC = () => {
 										<img
 											src={eventDetail.background_image}
 											alt={eventDetail.name}
-											className={eventDetail.img_event}
-											style={{width:'450px', height: '450px'}}
+											className={style.fieldset_event_img}
 										/>
 										{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
-										<h4>
-											{' '}
-											<SiGooglemaps /> {location.name}
-										</h4>
-										<small className={event_style.small1}>
-											<BiDirections />
-											{location.address},{' '}
-										</small>
-										<small className={event_style.small1}>
-											{' '}
-											{location.city.name}.{' '}
-										</small>
-										<h4>
-											{' '}
-											<small>{location.address}.</small>{' '}
-										</h4> 
+										<div className={style.fieldset_event_content}>
+                      <h4>
+                        <SiGooglemaps /> {location.name}
+                      </h4>
+                      <small className={event_style.small1}>
+                        <BiDirections />
+                        {location.address},{' '}
+                      </small>
+                      <small className={event_style.small1}>
+                        {location.city.name}.{' '}
+                      </small>
+                      <h4>
+                        <small>{location.address}.</small>{' '}
+                      </h4> 
+                    </div>
 									</fieldset>
 								</React.Fragment>
 							</Link>
 						);
 					})}
 					</div>
-			</div>
+			</section>
 		</div>
 	);
 };
