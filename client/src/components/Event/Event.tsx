@@ -95,6 +95,23 @@ const Event = () => {
 				</div>
 
 				<div className={event_style.div2}>
+					{currentUser?.rolesId?.includes(3030) && (
+						<div className={event_style.button_delete}>
+							<button
+								className={event_style.button_delete_style}
+								onClick={() => deleteEvent(id).then(() => navigate('/'))}
+							>
+								Eliminar Evento
+							</button>
+							<button
+								className={event_style.button_delete_style}
+								onClick={() => navigate(`/update-event/${id}`)}
+							>
+								Actualizar Evento
+							</button>
+						</div>
+					)}
+
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
 							return (
