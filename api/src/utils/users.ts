@@ -1,7 +1,8 @@
-import { sequelize } from '../db'
+import { sequelize} from '../db'
 import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 import {Model} from 'sequelize-typescript'
+import { Op } from 'sequelize';
 const { User, Role, UserRole } = sequelize.models
 
 
@@ -16,8 +17,8 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb() {
-    const users = await User.findAll({
+export async function getUsersFromDb(email: string, name: string) {
+    let options: any= {
       include: {
         model: Role,
         attributes:['name'],
@@ -25,7 +26,12 @@ export async function getUsersFromDb() {
           attributes:[]
         }
       }
-    })
+    }
+
+    if(email) options.where.email = { [Op.iLike]: `%${email}%` }
+    if(name) options.where.name = { [Op.iLike]: `%${name}%` }
+
+    const users = await User.findAll(options)
     return users;
 }
 

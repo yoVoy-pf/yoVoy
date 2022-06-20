@@ -164,16 +164,14 @@ export default {
             }
             })
 
-        const eventsCategories = await EventCategory.findAll({
+        await EventCategory.destroy({
             where: {
                 eventId: id
             }
         })
 
-        categories.forEach((category:number, i:number) => {
-            if(eventsCategories.length > i) eventsCategories[i].update({categoryId: category})
-
-            else EventCategory.create({eventId: id, categoryId: category})
+        categories.forEach((category:number) => {
+            EventCategory.create({eventId: id, categoryId: category})
         })
 
         const eventsLocations = await EventLocation.findAll({
@@ -181,27 +179,27 @@ export default {
                 eventId:id
             }
         })
-        
-        locations.forEach(async (location: any, i: number) => {
-            if(eventsLocations.length > i){
-                eventsLocations[i].update({locationId: location.id})
-                const eventLocationId = eventsLocations[i].getDataValue("id")
-                const dates = await Date.findAll({where:{eventLocationId}}) 
-                
-                location.dates.forEach((date:any, j: number) => {
-                    if(dates.length > j) dates[j].update({...date})
-                    else Date.create({...date, eventLocationId})
-                })
 
-            }
-            
-            else{
-                const eventLocationCreated = await EventLocation.create({eventId:id, locationId: location.id})
+        for (let i = 0; i < eventsLocations.length; i++) {
+            await Date.destroy({
+                where:{
+                    eventLocationId: eventsLocations[i].getDataValue("id")
+                }
+            })
 
-                location.dates.forEach((date: any) => {
-                    Date.create({...date, eventLocationId: eventLocationCreated.getDataValue("id")})
-                })
-            }
+            EventLocation.destroy({
+                where:{
+                    id: eventsLocations[i].getDataValue("id")
+                }
+            })
+        }
+
+        locations.forEach(async (location: any) => {
+          let eventLocation = await EventLocation.create({eventId: id, locationId: location.id})
+
+          location.dates.forEach((date:any) => {
+                Date.create({price: date.price, date: date.date, eventLocationId: eventLocation.getDataValue("id")})
+          })
         })
 
         return event

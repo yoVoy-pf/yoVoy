@@ -38,7 +38,7 @@
     outline: none;
 }
 .form_citie_loaded{
-  background-color: red;
+  background-color: rgb(65, 113, 245);
 } 
 
 .form_cities {
@@ -87,6 +87,7 @@
 .text_from {
     border-radius: 5px;
     padding: 5px;
+    cursor: pointer;
 }
 .form_text_event {
     color: #000;
@@ -104,4 +105,79 @@
     border-color: rgb(184, 28, 11);
     border: 9px groove (internal value);
     border-radius: 7px;
+}
+
+.container_modal{
+    display: flex;
+    justify-content: center;
+}
+
+.container_modal select{
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgba(247, 206, 173, 0.526);
+}
+.container_pricedate{
+    display:flex ;
+    justify-content: center;
+    margin-bottom: 5px;
+    gap: 10px;
+    cursor: pointer;
+
+}
+
+.container_pricedate input{
+    border-radius: 5px;
+    background-color: rgba(247, 206, 173, 0.526);
+}
+.container_pricedate .date{
+    cursor: pointer;
+}
+
+.container_pricedate button{
+    font-size: 20px;
+    border-radius: 5px;
+    color:#000;
+    background-color: rgba(247, 206, 173, 0.526);
+    cursor: pointer;
+}
+
+.container_pricedate button:hover{
+    background-color: rgba(236, 118, 22, 0.526);
+    color: #fff;
+}
+
+.container_button{
+    display: flex;
+}
+
+.container_button button{
+    border-radius: 5px;
+    color:#000;
+    background-color: rgba(247, 206, 173, 0.526);
+    cursor: pointer;
+}
+
+.container_button button:hover{
+    background-color: rgba(236, 118, 22, 0.526);
+    color: #fff;
+}
+
+.container_create{
+    display: flex;
+    justify-content: center;
+}
+
+.container_create button{
+    font-size: 16px;
+    cursor: pointer;
+    background-color: rgba(247, 206, 173, 0.526);
+    width: 40%;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.container_create button:hover{
+    background-color: rgba(236, 118, 22, 0.526);
+    color: #fff;
 }

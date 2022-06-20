@@ -99,6 +99,14 @@
     box-shadow: 7px 13px 37px #000; 
 }
 
+.hide {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
 
 @media (max-width:1280px){
     .container{

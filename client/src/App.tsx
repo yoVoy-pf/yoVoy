@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Event from './components/Event/Event';
+import Event from './components/Event/Event'; // ->Usarlo dentro de EventsLocation
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
@@ -23,6 +23,8 @@ import UpdateOrganization from './components/UpdateOrganization/updateOrganizati
 import UserPurchaseDetail from './components/UserPurchaseDetail/UserPurchaseDetail';
 import DetailPayment from './components/DetailPayment/DetailPayment';
 import UpdateRol from './components/UpdateRol/UpdateRol';
+import OrganizationEvents from './components/OrganizationEvents/OrganizationEvents';
+import EventLocations from './components/EventLocations/EventLocations';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -34,7 +36,8 @@ function App(): JSX.Element {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route path="events/:id" element={<Event />} />
+				<Route path="events/:id/:location" element={<Event />} />
+				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
 				{/* protected routes */}
@@ -51,6 +54,7 @@ function App(): JSX.Element {
 				>
 					<Route path="update-event/:eventId" element={<UpdateEvent />} />
 					<Route path="create-event" element={<CreateEvent />} />
+					<Route path="organization-events" element={<OrganizationEvents />} />
 				</Route>
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
@@ -63,8 +67,8 @@ function App(): JSX.Element {
 						path="update-organization/:id"
 						element={<UpdateOrganization />}
 					/>
-					<Route path='detail-payment' element={<DetailPayment/>}/>
-					<Route path='update-rol/:id' element={<UpdateRol/>}/>
+					<Route path="detail-payment" element={<DetailPayment />} />
+					<Route path="update-rol/:id" element={<UpdateRol />} />
 				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />

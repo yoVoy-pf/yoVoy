@@ -47,6 +47,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		deleteEventToFavorite: builder.mutation<Event, {id: number}>({
+			query(id) {
+			  return {
+				url:`api/user/favorites/${id}`,
+				method:`Delete`,
+			  }
+			}
+		  })
+		  
 	}),
 });
 
@@ -58,4 +67,5 @@ export const {
 	useUpdateUserMutation,
 	useGetTicketsQuery,
 	useUpdateRolUserMutation,
+	useDeleteEventToFavoriteMutation,
 } = usersApiSlice;

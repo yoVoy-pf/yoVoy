@@ -21,7 +21,7 @@ const UpdateEvent = () => {
   const [updateEvent] = useUpdateEventMutation();
   const dispatch: AppDispatch = useDispatch();
   const { eventId } = useParams();
-  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' },{refetchOnMountOrArgChange: true})
+  const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' }, { refetchOnMountOrArgChange: true })
 
   const navigate = useNavigate()
 
@@ -58,23 +58,24 @@ const UpdateEvent = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if(eventInfo){
+    if (eventInfo) {
       console.log(eventInfo)
-      if (!(Object.keys(eventInfo).length > 1)) navigate ('/')
+      if (!(Object.keys(eventInfo).length > 1)) navigate('/')
       else {
         console.log('chau')
-        handleUpdateFetch(eventInfo)}
+        handleUpdateFetch(eventInfo)
+      }
     }
   }, [eventInfo])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const event ={
+    const event = {
       ...input,
       locations: locsForSubmit
     }
     try {
-      eventId && await updateEvent({id: eventId ,updatedEvent: event })
+      eventId && await updateEvent({ id: eventId, updatedEvent: event })
       resetState();
       navigate(`/events/${eventInfo.id}`)
     } catch (error) { console.log(error) }
@@ -163,17 +164,17 @@ const UpdateEvent = () => {
                           <span>{` ${locData.name} `}</span>
                           <span>{` ${locData.address} `}</span>
                           {/* <button onClick={(e) => handleRemoveLoc(e, loc.id)}>X</button> */}
-                          <button               
-                          onClick={() => {
+                          <button
+                            onClick={() => {
                               setCurrentLocId(loc.id)
                               openModal()
-                          }}
-                          type="button"
-                          className={styleUpdateEvent.text_from}
+                            }}
+                            type="button"
+                            className={styleUpdateEvent.text_from}
                           >
                             <FiEdit />
                           </button>
-                        
+
                           <ul>
                             {loc.dates.map((date: any) => (
                               <li key={date.date}>{`$${date.price} || ${date.date}`}</li>
@@ -204,29 +205,32 @@ const UpdateEvent = () => {
               closeModal={closeModal}
               className={styleUpdateEvent.form_dates_modal}
             >
-              <select
-                name="id"
-                ref={locSelect}
-                placeholder="Seleccione un lugar"
-                className={styleUpdateEvent.form_cities}
-                onChange={handleLocationChange}
-              >
-                <option value={"default"}>Seleccione la ciudad...</option>
-                {locations?.map((location: Location) => {
-                  return (
-                    <option
-                      key={location.id}
-                      value={location.id}
-                      className={`${styleUpdateEvent.form_citie} ${isAlreadyAdded(location.id) ? styleUpdateEvent.form_citie_loaded : null}`}
-                      selected = {location.id === parseInt(currentLocId)}
+              <div className={styleUpdateEvent.container_modal}>
+                <select
+                  name="id"
+                  ref={locSelect}
+                  placeholder="Seleccione un lugar"
+                  className={styleUpdateEvent.form_cities}
+                  onChange={handleLocationChange}
+                >
+                  <option value={"default"}>Seleccione la ciudad...</option>
+                  {locations?.map((location: Location) => {
+                    return (
+                      <option
+                        key={location.id}
+                        value={location.id}
+                        className={`${styleUpdateEvent.form_citie} ${isAlreadyAdded(location.id) ? styleUpdateEvent.form_citie_loaded : null}`}
+                        selected={location.id === parseInt(currentLocId)}
                       // disabled={isAlreadyAdded(location.id)}
-                    >
-                      {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
-                    </option>
-                  );
-                })}
-              </select>
-              <div>
+                      >
+                        {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
+                      </option>
+                    );
+                  })}
+                </select>
+
+              </div>
+              <div className={styleUpdateEvent.container_pricedate}>
                 <input
                   name="price"
                   type="number"
@@ -234,46 +238,50 @@ const UpdateEvent = () => {
                   placeholder="Indique el precio..."
                   onChange={handleInputDateChange}
                 />
-                <input type="date" value={currentDate?.date || ''} onChange={handleInputDateChange} />
+                <input className={styleUpdateEvent.date} type="date" value={currentDate?.date || ''} onChange={handleInputDateChange} />
                 <button type="button" onClick={handleAddDate}>
                   +
                 </button>
               </div>
 
               <div>
-                {locsAux[currentLocId]?.dates?.map((date: any, id : any) => {
+                {locsAux[currentLocId]?.dates?.map((date: any, id: any) => {
                   console.log(date)
                   return (
                     <fieldset className={styleUpdateEvent.legend_form}>
+                      <React.Fragment>
+                        <div className={styleUpdateEvent.container_button}>
+                          <button type="button" key={id} onClick={(e: SyntheticEvent) => removeDateFromLocsAux(id)}>X</button>
+                        </div>
+                      </React.Fragment>
                       <ul>
                         <li key={`${date.price} - ${date.date}`}>
                           <React.Fragment>
-                            <p>{`Precio: ${date.price}`} </p>
+                            <p>{`Precio: $ ${date.price}`} </p>
                             <p>{`Fecha: ${date.date}`} </p>
                           </React.Fragment>
                         </li>
                       </ul>
-                      <React.Fragment>
-                        <button type="button" key={id} onClick={(e: SyntheticEvent) => removeDateFromLocsAux(id)}>X</button>
-                      </React.Fragment>
                     </fieldset>
                   );
                 })}
               </div>
               <br />
-              <button type="button" onClick={(e) => {
-                let select = locSelect.current
-                select.value = 'default'
-                handleConfirm(e)
-                closeModal()
-              }}>
-                Confirmar
-              </button>
+              <div className={styleUpdateEvent.container_create}>
+                <button type="button" onClick={(e) => {
+                  let select = locSelect.current
+                  select.value = 'default'
+                  handleConfirm(e)
+                  closeModal()
+                }}>
+                  Confirmar
+                </button>
+              </div>
             </DatesModal>
           </fieldset>{' '}
           {/* EN MODAL */}
           <button type="submit" className={styleUpdateEvent.bottom_form}>
-            Create
+            Actulizar
           </button>
         </div>
       </form>

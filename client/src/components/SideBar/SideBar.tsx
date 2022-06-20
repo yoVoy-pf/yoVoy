@@ -14,10 +14,15 @@ import { FiHome, FiLogOut, FiEdit, FiArrowLeftCircle, FiArrowRightCircle } from 
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./side-bar.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../slices/authentication/authSlice";
+
 
 
 const SideBar = () => {
+    const currentUser : any = useSelector(selectCurrentUser)
+    const currentRole = currentUser ? currentUser.rolesId.slice(-1) : null
     const [menuCollapse, setMenuCollapse] = useState(false)
 
   const menuIconClick = () => {
@@ -42,16 +47,16 @@ const SideBar = () => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
-                <Link to='/'>
+              <MenuItem icon={<FiHome />}>
+                <NavLink style={{ color: 'white' }} to='/'>
                   Home
-                </Link>
+                </NavLink>
               </MenuItem>
-              <MenuItem icon={<FaList />}><Link to='/userslist'>Lista De Usuarios</Link></MenuItem>
-              <MenuItem icon={<FaList />}><Link to='/organization-list'>Lista De Organizaciones</Link></MenuItem>
-              <MenuItem icon={<FaList />}><Link to='/detail-payment'>Detalles de compras</Link></MenuItem>
-              <MenuItem icon={<FiEdit />}><Link to='/events-config'>Config. de Eventos</Link></MenuItem>
-              <MenuItem icon={<FiEdit />}><Link to='/create-category'>Crear Categoria</Link></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/userslist' className='link'>Lista De Usuarios</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/organization-list' className='link'>Lista De Organizaciones</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/detail-payment' className='link'>Detalles de compras</NavLink></MenuItem>
+              <MenuItem icon={<FiEdit />}><NavLink to='/events-config' className='link'>Config. de Eventos</NavLink></MenuItem>
+              <MenuItem icon={<FiEdit />}><NavLink to='/create-category' className='link'>Crear Categoria</NavLink></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>

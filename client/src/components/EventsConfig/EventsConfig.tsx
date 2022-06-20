@@ -1,27 +1,26 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { getAllEvent } from '../../redux/actions/actions-Create';
-import { AppDispatch, State } from '../../redux/store/store';
+import React from 'react';
+import { Link} from 'react-router-dom';
 import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleConfigEvent from './event-config.module.css';
+import { useGetEventsQuery } from '../../slices/app/eventsApiSlice';
 
 const EventsConfig = () => {
-	const dispatch: AppDispatch = useDispatch();
-	const navigate = useNavigate();
 	const [deleteEvent] = useDeleteEventMutation();
-
-	const allEvents = useSelector((state: State) => state.global.allEvents);
-
-	useEffect(() => {
-		dispatch(getAllEvent());
-	}, [dispatch]);
+	const{
+		data: events,
+		isLoading,
+		isSuccess,
+		isError,
+		error,
+		refetch
+	  } = useGetEventsQuery({_:''}, {refetchOnMountOrArgChange: true,})
 
 	const HandleDelete = (event: any) => {
 		if (window.confirm('Estas seguro que deseas eliminar el evento?')) {
-			deleteEvent(event.id).then(() => navigate('/events-config'));
+			deleteEvent(event.id);
+			refetch()
+			alert('Evento eliminado correactamente')
 		}
 	};
 
@@ -41,7 +40,7 @@ const EventsConfig = () => {
 						</tr>
 					</thead>
 				<tbody>
-			{allEvents.map((event: any, index: any) => {
+			{events?.map((event: any, index: any) => {
 				return (
 						<tr>
 							<th scope="row" style={{ textAlign: "center" }}>{event.id}</th>
@@ -70,4 +69,3 @@ const EventsConfig = () => {
 };
 
 export default EventsConfig;
-
