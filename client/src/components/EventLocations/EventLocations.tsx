@@ -38,7 +38,9 @@ const EventLocations: React.FC = () => {
 			</div>
 
 			<div className={style.container}>
+				
 				<h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
+				<div className={style.cardEvent}>
 				{eventDetail &&
 					eventDetail.locations?.map((location: Location) => {
 						return (
@@ -47,12 +49,12 @@ const EventLocations: React.FC = () => {
 								className={style.link}
 							>
 								<React.Fragment key={location.id}>
-									<fieldset>
+									<fieldset className={style.fieldset_event_detail}>
 										<img
 											src={eventDetail.background_image}
 											alt={eventDetail.name}
-											width="10px"
-											height="10px"
+											className={eventDetail.img_event}
+											style={{width:'450px', height: '450px'}}
 										/>
 										{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
 										<h4>
@@ -70,12 +72,13 @@ const EventLocations: React.FC = () => {
 										<h4>
 											{' '}
 											<small>{location.address}.</small>{' '}
-										</h4>
+										</h4> 
 									</fieldset>
 								</React.Fragment>
 							</Link>
 						);
 					})}
+					</div>
 			</div>
 		</div>
 	);
