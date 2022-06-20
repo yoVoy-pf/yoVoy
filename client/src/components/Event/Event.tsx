@@ -159,13 +159,6 @@ const Event = () => {
 					<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
 						<h1>Agregado a favoritos</h1>
 					</EventModal>
-
-					<button
-						className={event_style.button2}
-						onClick={() => addEventToFavorite({ eventId: id })}
-					>
-						Agregar a Favoritos ❤️
-					</button>
 					<hr />
 					<button className={event_style.button2}>COMPRAR</button>
 				</div>
