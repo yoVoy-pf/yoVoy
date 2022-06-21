@@ -35,13 +35,13 @@ const UsersList = () => {
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'Cancelar',
 			confirmButtonText: 'Eliminar',
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
 					title: 'Usuario Eliminado!',
 					icon: 'success',
 				});
-				deleteUser(id);
+				await deleteUser(id);
 				refetch();
 			}
 		});
