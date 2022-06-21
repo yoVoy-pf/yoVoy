@@ -3,12 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
 	useGetUserQuery,
 	useUpdateUserMutation,
+	usePutPasswordMutation,
 } from '../../slices/app/usersApiSlice';
+import UpdateRol from '../UpdateRol/UpdateRol';
 import styleUser from './update-user.module.css';
 import { validateEmail, validateUser } from './UpdateUserValidate';
 
 const Updateuser = () => {
 	const [updateUser] = useUpdateUserMutation();
+	const [updatePassword] = usePutPasswordMutation();
 	const { id }: any = useParams<{ id: string }>();
 	const [errorsUser, setErrorsUser]: any = useState({});
 	const [errorsEmail, setErrorsEmail]: any = useState({});
@@ -45,6 +48,15 @@ const Updateuser = () => {
 		});
 		setErrorsUser(validateUser({ ...user, [e.target.name]: e.target.value }));
 	};
+	const hanldePutPassword = async (id: any) => {
+		if (
+			window.confirm('Seguro que quieres cambiar la contraseña?')
+		  ){
+			await updatePassword({ userId: id })
+			refetch()
+			alert('Contraseña cambiada')
+		  }
+	}
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
@@ -61,6 +73,16 @@ const Updateuser = () => {
 	};
 	return (
 		<div>
+			<div>
+				<UpdateRol/>
+			</div>
+			<div style={{display: 'grid', justifyContent: 'center'}}>
+				<button
+				onClick={()=>hanldePutPassword(id)}
+				>
+					Forzar Contraseña
+				</button>
+			</div>
 			<form onSubmit={onSubmit}>
 				<div className={styleUser.form_user}>
 					<fieldset>
