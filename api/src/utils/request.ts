@@ -18,3 +18,9 @@ export const createRequest = async (userId: number, description: string, type: s
 
     request.update({url_body})
 }
+
+export const updateRequest = async (id:string | number, status: string) => {
+    let request = await Request.findByPk(id)
+
+    request?.update({status})
+}
