@@ -80,3 +80,20 @@ export const updateUserRole = async(userId: string | number, roleId: string | nu
     return roles
 }
 
+export const getTicketById = async(ticketId: string | number, userId: string | number) => {
+    const ticket = await Ticket.findOne({
+        
+        where:{
+            id: ticketId,
+            userId
+        },
+        attributes: ["id", "status", "status_detail", "paymentType", "transaction_amount", "quantity"],
+        include:{
+            model: Event,
+            attributes: ["id", "name"]
+        }
+    })
+
+    return ticket
+}
+
