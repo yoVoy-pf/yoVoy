@@ -1,9 +1,23 @@
 import { sequelize } from "../db";
+import { Op } from "sequelize"
+const { Ticket, User, Event} = sequelize.models
 
-const { Ticket } = sequelize.models
+export const getAllTickets = async (status: string, name:string) => {
+    let options: any = {
+        where:{},
+        include: [{
+        model: User,
+        attributes: ["id", "name"],
+        where: {}
+    },{
+        model: Event,
+        attributes: ["id", "name"]
+    }]} 
 
-export const getAllTickets = async () => {
-    const tickets = await Ticket.findAll()
+    if(status) options.where.status= status
+    if(name) options.include[0].where.name = {[Op.iLike]: `${name}%`}
+
+    const tickets = await Ticket.findAll(options)
 
     return tickets
 }
