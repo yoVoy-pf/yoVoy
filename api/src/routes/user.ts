@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { ROLES_LIST } from "../authorization/roles";
-import { getFavorites, postFavorite, getTickets, putUserRole, deleteFavorite, resetPassword } from "../controllers/user"
+import { getFavorites, postFavorite, getTickets, putUserRole, deleteFavorite, getTicket, resetPassword} from "../controllers/user"
 import { authenticateToken } from "../middlewares/authenticateToken";
 import { verifyRoles } from "../middlewares/verifyRoles";
 
@@ -11,5 +11,6 @@ router.get("/favorites", authenticateToken, getFavorites)
 router.post("/favorite/:eventId", authenticateToken, postFavorite)
 router.delete("/favorites/:eventId", authenticateToken, deleteFavorite)
 router.get("/tickets",authenticateToken, getTickets)
+router.get("/ticket/:ticketId", authenticateToken, getTicket)
 router.put("/role", authenticateToken, verifyRoles(ROLES_LIST.Admin), putUserRole)
 router.put("/resetPassword", authenticateToken, verifyRoles(ROLES_LIST.Admin), resetPassword)
