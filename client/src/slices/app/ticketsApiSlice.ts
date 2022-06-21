@@ -9,10 +9,18 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
           url: '/api/tickets',
         }
       }
-    })
+    }),
+    getTicketDetail: builder.query<getTickets, { id: any }>({
+			query(id) {
+				return {
+					url: `/api/ticket/${id}`,
+				};
+			},
+		}),
   })
 })
 
 export const{
-  useGetTicketsDetailQuery
+  useGetTicketsDetailQuery,
+  useGetTicketDetailQuery
 } = eventsApiSlice
