@@ -1,5 +1,6 @@
 import { sequelize } from "../db";
 import { Op } from "sequelize"
+import bcrypt from "bcrypt"
 
 const { User, Event, Favorites, Ticket, UserRole } = sequelize.models
 
@@ -95,5 +96,19 @@ export const getTicketById = async(ticketId: string | number, userId: string | n
     })
 
     return ticket
+}
+
+export const resetUserPassword = async(id: string | number) => {
+    let newPassword = ""
+
+    const length = 8
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        newPassword += charset.charAt(Math.floor(Math.random() * n));
+    }
+
+    const password = await bcrypt.hash(newPassword, 10)
+    await User.update({password}, {where:{id}})
 }
 

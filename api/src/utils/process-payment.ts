@@ -22,9 +22,9 @@ export const createPreference= (items:any, user: any) => {
         },
         items,
         back_urls:{
-            success: "http://localhost:3001/api/process-payment/update",
-            failure: "http://localhost:3001/api/process-payment/update",
-            pending: "http://localhost:3001/api/process-payment/update"
+            success: `${config.API_HOST}/api/process-payment/update`,
+            failure: `${config.API_HOST}/api/process-payment/update`,
+            pending: `${config.API_HOST}/api/process-payment/update`,
         }
     })
 
