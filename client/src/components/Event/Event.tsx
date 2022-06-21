@@ -64,6 +64,25 @@ const Event = () => {
 		});
 	};
 
+	const handleDelete = async (id: any) => {
+		Swal.fire({
+			title: 'Esta seguro de eliminar el Evento?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: 'orange',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Cancelar',
+			confirmButtonText: 'Eliminar',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: 'Evento Eliminado!',
+					icon: 'success',
+				});
+				deleteEvent(id).then(() => navigate('/'));
+			}
+		});
+	};
 	console.log('detalle del evento asdasd', location);
 
 	const mapLocation = eventDetail.locations?.map((loc: any) => loc);
@@ -101,7 +120,7 @@ const Event = () => {
 						<div className={event_style.button_delete}>
 							<button
 								className={event_style.button_delete_style}
-								onClick={() => deleteEvent(id).then(() => navigate('/'))}
+								onClick={handleDelete}
 							>
 								Eliminar Evento
 							</button>
