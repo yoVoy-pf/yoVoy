@@ -4,8 +4,8 @@
     /* background-image: linear-gradient(180deg, rgba(255, 89, 0, 0.418), rgba(0, 81, 255, 0.253)); */
     
     background: radial-gradient(#111 50% #000 100%);
-    width: 150%;
-    height: 130%;
+    width: 350px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     object-fit: contain;
@@ -79,11 +79,9 @@ img{
 
 
 
-@media (max-width:1592px){
+@media (max-width:1440px){
     .Card_bg{
-        width: 600%;
-        height: 100%;
-        margin-left: 100%;
+        margin-left: 10px;
     }
     .Card_bg img{
         width: 100%;
@@ -111,13 +109,17 @@ img{
 
 }
 
-@media (max-width:1330px){
+@media (max-width:1024px){
       .Card_bg{
-        width: 600%;
-        height: 100%;
+        width: 250px;
+        height: 180px;
         margin-left: 100%;
     }
     .bg-ul img{
         margin-left: -1%;
     }
+}
+
+@media (max-width:768px){
+    
 }
