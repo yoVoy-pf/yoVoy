@@ -27,7 +27,7 @@ const Event = () => {
 	);
 	const { id }: any = useParams<{ id: string }>();
 
-	const state:any = useSelector((state: State)=>state)
+	const state: any = useSelector((state: State) => state)
 	const [isVisible, setIsVisible] = useState("hide")
 
 	const { location }: any = useParams<{ location: string }>();
@@ -42,20 +42,20 @@ const Event = () => {
 	}, [dispatch, id]);
 
 
-	useEffect(()=>{
-		setTimeout(()=>{setIsVisible("hide")},3000)
-	},[isVisible])
+	useEffect(() => {
+		setTimeout(() => { setIsVisible("hide") }, 3000)
+	}, [isVisible])
 
 
-	const addFavorites = (id:any)=>{
-		const addF = addEventToFavorite(id).then((result:any)=>{
-			if(result.error){
-				if(result.error.data.includes("llave duplicada")){
+	const addFavorites = (id: any) => {
+		const addF = addEventToFavorite(id).then((result: any) => {
+			if (result.error) {
+				if (result.error.data.includes("llave duplicada")) {
 					setIsVisible("visible")
-				}else if(result.error.data.includes("You need a valid token")){
-                    alert("Debe iniciar sesión")
+				} else if (result.error.data.includes("You need a valid token")) {
+					alert("Debe iniciar sesión")
 				}
-			}else{
+			} else {
 				openAddFavMsg()
 			}
 		})
@@ -67,7 +67,7 @@ const Event = () => {
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
-  console.log(locationResult)
+	console.log(locationResult)
 
 
 	return (
@@ -81,11 +81,14 @@ const Event = () => {
 					<div className={event_style.h1}>
 						<h1>Evento: {eventDetail.name}</h1>
 					</div>
-					<img
-						className={event_style.img_event}
-						src={eventDetail.background_image}
-						alt={eventDetail.name}
-					/>
+					<div className={event_style.divDeImg}>
+						<img className={event_style.img}
+							// style={{width:'550px', height: '250px'}}
+							src={eventDetail.background_image}
+							alt={eventDetail.name}
+						/>
+
+					</div>
 					<div className={event_style.divpandsmall}>
 						<p className={event_style.p}>Descripción del evento:</p>
 						<small className={event_style.small}>
@@ -114,7 +117,8 @@ const Event = () => {
 
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
-							return (
+							return (<div className={event_style.location}>
+
 								<React.Fragment key={loc.id}>
 									<h4> 🏰 {loc.name}</h4>
 									<small className={event_style.small1}>📍{loc.address},</small>
@@ -123,39 +127,43 @@ const Event = () => {
 										{loc.city.name}.
 									</small>
 								</React.Fragment>
+							</div>
 							);
 						})}
 
-					<button className={event_style.button1} onClick={openModal}>
-						Ver todas las fechas y precios
-					</button>
-					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
-						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
-						<p>{eventDetail.name}</p>
-            {locationResult?.map((location: Location) => {
-							return (
-								<React.Fragment key={location.id}>
-									{location?.dates.map((date: Dates) => {
-										return (
-											<React.Fragment key={date.id}>
-												<h5>Precio: ${date.price}</h5>
-												<h5>Fecha: {date.date as any}</h5>
-											</React.Fragment>
-										);
-									})}
-								</React.Fragment>
-							);
-						})}
-					</EventModal>
+					<div className={event_style.divDeBotones}>
+
+						<button className={event_style.button1} onClick={openModal}>
+							Ver todas las fechas y precios
+						</button>
+						<EventModal isOpen={isOpenModal} closeModal={closeModal}>
+							<h3>TODAS LAS FECHAS Y PRECIOS</h3>
+							<p>{eventDetail.name}</p>
+							{locationResult?.map((location: Location) => {
+								return (
+									<React.Fragment key={location.id}>
+										{location?.dates.map((date: Dates) => {
+											return (
+												<React.Fragment key={date.id}>
+													<h5>Precio: ${date.price}</h5>
+													<h5>Fecha: {date.date as any}</h5>
+												</React.Fragment>
+											);
+										})}
+									</React.Fragment>
+								);
+							})}
+						</EventModal>
 
 
-					<button className={event_style.button2} onClick={() =>{addFavorites({ eventId: id })}}>Agregar a Favoritos ❤️</button>
-					<label className={isVisible==="visible"?event_style.visible:event_style.hide}>Ya está en Favoritos</label>
-					<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
-						<h1>Agregado a favoritos</h1>
-					</EventModal>
-					<hr />
-					<button className={event_style.button2}>COMPRAR</button>
+						<button className={event_style.button2} onClick={() => { addFavorites({ eventId: id }) }}>Agregar a Favoritos ❤️</button>
+						<label className={isVisible === "visible" ? event_style.visible : event_style.hide}>Ya está en Favoritos</label>
+						<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
+							<h1>Agregado a favoritos</h1>
+						</EventModal>
+						<hr style={{ width: "350px" }} />
+						<button className={event_style.button2}>COMPRAR</button>
+					</div>
 				</div>
 			</div>
 		</React.Fragment>
