@@ -60,11 +60,11 @@ const UsersList = () => {
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
                 <td className={styleUserList.th_users}>
                   <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
-                    <button className={styleUserList.buttom_style_left}>Editar</button>
+                    <button className={styleUserList.buttom_style_left}>Editar Usuario</button>
                   </Link>
-                  <Link to={`/update-rol/${user.id}`} className={styleUserList.buttom}>
+                  {/* <Link to={`/update-rol/${user.id}`} className={styleUserList.buttom}>
                     <button className={styleUserList.buttom_style_left}>Editar-Rol</button>
-                  </Link>
+                  </Link> */}
                   <button
                   className={styleUserList.buttom_style_right}
                   onClick={()=> handleDelete(user.id)}

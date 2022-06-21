@@ -39,6 +39,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		putPassword: builder.mutation<putRolUser, { userId: any }>({
+			query: ({ userId }) => {
+				return {
+					url: `api/user/resetPassword`,
+					method: `PUT`,
+					body: { userId: userId },
+				};
+			},
+		}),
 		deleteUser: builder.mutation<User, { id: number }>({
 			query(id) {
 				return {
@@ -67,5 +76,6 @@ export const {
 	useUpdateUserMutation,
 	useGetTicketsQuery,
 	useUpdateRolUserMutation,
+	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
 } = usersApiSlice;
