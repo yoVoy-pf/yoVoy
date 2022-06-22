@@ -50,55 +50,43 @@ const OrganizationList = () => {
 		content = <p>Cargando...</p>;
 	} else if (isSuccess) {
 		content = (
-			<div>
-				<SideBar />
-				<div className={styleListOrganization.table_title}>
-					<h1 className={styleListOrganization.table_title_style}>
-						Lista de Organizaciones
-					</h1>
-				</div>
-				<table className={styleListOrganization.table_organizations}>
-					<tbody className={styleListOrganization.thead_dark}>
-						<tr>
-							<th style={{ textAlign: 'center' }}>ID</th>
-							<th style={{ textAlign: 'center' }}>Name</th>
-							<th style={{ textAlign: 'center' }}>Action</th>
-						</tr>
-						<div></div>
+			<div className={styleListOrganization.fondo}>
+          <SideBar/>
+          <div className={styleListOrganization.table_title}>
+          <h1 className={styleListOrganization.table_title_style} >Lista de Organizaciones</h1>
+        </div>
+      <table className={styleListOrganization.table_organizations}>
+          <tbody className={styleListOrganization.thead_dark}>
+          <tr>
+          <th style={{ textAlign: "center" }}>ID</th>
+            <th style={{ textAlign: "center" }}>Name</th>
+            <th style={{ textAlign: "center" }}>Action</th>
+          </tr>
+          <div>
+          </div>
 
-						{organizations?.map((organization: any, index: any) => {
-							return (
-								<tr key={organization.id}>
-									<th scope="row" style={{ textAlign: 'center' }}>
-										{index + 1}
-									</th>
-									<td className={styleListOrganization.th_organizations}>
-										{organization.name}
-									</td>
-									<td className={styleListOrganization.th_organizations}>
-										<Link
-											to={`/update-organization/${organization.id}`}
-											className={styleListOrganization.buttom}
-										>
-											<button
-												className={styleListOrganization.buttom_style_left}
-											>
-												Editar
-											</button>
-										</Link>
-										<button
-											className={styleListOrganization.buttom_style_right}
-											onClick={() => handleDelete(organization.id)}
-										>
-											Eliminar
-										</button>
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			</div>
+          {organizations?.map((organization: any, index: any) => {
+            return (
+              <tr key={organization.id} className={styleListOrganization.componente}>
+                <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{index + 1}</th>
+                <td className={styleListOrganization.th_organizations}>{organization.name}</td>
+                <td className={styleListOrganization.th_organizations}>
+                  <Link to={`/update-organization/${organization.id}`} className={styleListOrganization.buttom}>
+                    <button className={styleListOrganization.buttom_style_left}>Editar</button>
+                  </Link>
+                  <button
+                  className={styleListOrganization.buttom_style_right}
+                  onClick={()=> handleDelete(organization.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+              );
+            })}
+            </tbody>
+        </table>
+      </div>
 		);
 	} else if (isError) {
 		content = <p>{JSON.stringify(error)}</p>;
