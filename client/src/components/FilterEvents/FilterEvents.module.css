@@ -40,10 +40,18 @@
  .bg_div1 select{
     margin-bottom: 5px;
  }
+ .input_filter{
+    width: 168px;
+    margin-left: 30px;
+ }
 }
 
 @media(max-width:375px){
     .bg_div1 select{
+        margin-left: 5px;
+     }
+     .input_filter{
+        width: 168px;
         margin-left: 5px;
      }
 }

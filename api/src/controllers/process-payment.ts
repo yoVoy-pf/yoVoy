@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { createPreference, updatePaymentById } from "../utils/process-payment"
 import utils from "../utils/event"
 import { createTickets } from "../utils/tickets"
+import config from "../../config"
 
 export const process_payment = (req: Request,res: Response,next:NextFunction) => {
     try{
@@ -41,7 +42,7 @@ export const updatePayment = async (req: Request, res: Response, next: NextFunct
         
         await updatePaymentById(preference_id, payment_id)
 
-        res.redirect("http://localhost:3000")
+        res.redirect(`${config.FRONT_HOST}/`)
     }catch(error){
         next(error)
     }

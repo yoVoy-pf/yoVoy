@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite} from "../utils/user"
+import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation} from "../utils/user"
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -60,6 +60,44 @@ export const putUserRole = async (req: Request,res: Response,next:NextFunction) 
         const user = await updateUserRole(userId, roleId)
 
         res.status(201).json(user)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const getTicket = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user} = req.body
+        const {ticketId} = req.params
+        
+        const ticket = await getTicketById(ticketId, user.id)
+
+        if(!ticket)next({status:404, message: "Ticket not found"})
+        else res.status(200).json(ticket)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const resetPassword = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {userId}= req.body
+        
+        await resetUserPassword(userId)
+
+        res.status(200).json("password has reset succesfully")
+    }catch(error){
+        next(error)
+    }
+}
+
+export const getUserProfile = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user}= req.body
+        
+        const userProfile = await getUserInformation(user.id)
+
+        res.status(200).json(userProfile)
     }catch(error){
         next(error)
     }

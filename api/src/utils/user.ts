@@ -1,7 +1,8 @@
 import { sequelize } from "../db";
 import { Op } from "sequelize"
+import bcrypt from "bcrypt"
 
-const { User, Event, Favorites, Ticket, UserRole } = sequelize.models
+const { User, Event, Favorites, Ticket, UserRole, Organization } = sequelize.models
 
 export const getAllFavorites = async(id:string | number) => {
     const favorites = await Event.findAll({
@@ -78,5 +79,48 @@ export const updateUserRole = async(userId: string | number, roleId: string | nu
     const roles = await UserRole.bulkCreate(bulk)
 
     return roles
+}
+
+export const getTicketById = async(ticketId: string | number, userId: string | number) => {
+    const ticket = await Ticket.findOne({
+        
+        where:{
+            id: ticketId,
+            userId
+        },
+        attributes: ["id", "status", "status_detail", "paymentType", "transaction_amount", "quantity"],
+        include:{
+            model: Event,
+            attributes: ["id", "name"]
+        }
+    })
+
+    return ticket
+}
+
+export const resetUserPassword = async(id: string | number) => {
+    let newPassword = ""
+
+    const length = 8
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        newPassword += charset.charAt(Math.floor(Math.random() * n));
+    }
+
+    const password = await bcrypt.hash(newPassword, 10)
+    await User.update({password}, {where:{id}})
+}
+
+export const getUserInformation = async(id: string | number) => {
+    const user = await User.findByPk(id, {
+        attributes: ["name","surname","email"],
+        include: {
+            model: Organization,
+            attributes: ["name"]
+        }
+    })
+
+    return user
 }
 
