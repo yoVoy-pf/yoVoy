@@ -88,6 +88,13 @@ const FilterEvent = () => {
 		}
 		setFilters([DateFilt])
 	}
+	const filtBynextDays = (days:string)=>{
+        const nextDaysFilt: Filter = {
+			filter: "nextDays",
+			id: days
+		}
+		setFilters([nextDaysFilt])
+	}
 
 	return (
 		<div className={filterStyle.bg_div}>
@@ -125,6 +132,9 @@ const FilterEvent = () => {
 			onChange={(e)=>{handleDateChange(e)}}
 			className={filterStyle.input_filter}
 			/>
+
+        <button onClick={()=>{filtBynextDays("15")}}>Proximos 15 dias</button>
+        <button onClick={()=>{filtBynextDays("30")}}>Proximos 30 dias</button>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
