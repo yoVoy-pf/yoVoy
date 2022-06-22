@@ -20,7 +20,7 @@ export class Request extends Model<Request> {
     url_body!: string;
 
     @Column
-    function!: string;
+    function_type!: string;
 
     @BelongsTo(() => User)
     user!: User;
