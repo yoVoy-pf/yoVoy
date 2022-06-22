@@ -9,9 +9,10 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
         const city = req.query.city as string
         const organization = req.query.organization as string
         const date = req.query.date as string
+        const nextDays = req.query.nextDays as string
         let events;
         if (search) events = await getEventsFromDbBySearch(search.trim())
-        else if(category || location || organization || city || date) events = await getEventsFromDbByFilter(category,location,organization, city, date)
+        else if(category || location || organization || city || date || nextDays) events = await getEventsFromDbByFilter(category,location,organization, city, date, nextDays)
         else events = await getEventsFromDb()
 
         if(!events.length) next({status: 404, message: `Event/s not found`})

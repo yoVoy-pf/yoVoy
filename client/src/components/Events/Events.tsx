@@ -37,7 +37,7 @@ const Events = ({ allEvents }: Props) => {
 						</div>
 					</div>
 				</Link>
-        <Link to={`/events/${allEventsPrueba2?.id}`}>
+				{allEvents && allEvents.length > 1? <Link to={`/events/${allEventsPrueba2?.id}`}>
 					<div className={style.divhover}>
 						<img src={allEventsPrueba2?.background_image} alt="" />
 						<div className={style.divdeprueba}>
@@ -51,7 +51,7 @@ const Events = ({ allEvents }: Props) => {
 							</div>
 						</div>
 					</div>
-				</Link>
+				</Link> : null}
 			</div>
 
 			<div className={style.container}>
