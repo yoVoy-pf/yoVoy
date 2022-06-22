@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.button_delete_style:hover {
+.button_delete_style:hover { 
     cursor: pointer;
     transition: 0.5s;
     color: white;
