@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword} from "../utils/user"
+import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation} from "../utils/user"
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -90,3 +90,16 @@ export const resetPassword = async (req: Request,res: Response,next:NextFunction
         next(error)
     }
 }
+
+export const getUserProfile = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user}= req.body
+        
+        const userProfile = await getUserInformation(user.id)
+
+        res.status(200).json(userProfile)
+    }catch(error){
+        next(error)
+    }
+}
+
