@@ -10,12 +10,10 @@ export const transporter = nodemailer.createTransport({
       }
 })
 
-export const buildMail = ({to, subject, text }: any) => {
+export const buildMail = (mail: any) => {
   return {
+      ...mail,
       from: 'soporteyovoypf@gmail.com',
-      to,
-      subject,
-      text
   }
 }
 
