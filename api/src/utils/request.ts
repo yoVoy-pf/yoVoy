@@ -1,7 +1,7 @@
 import { sequelize } from "../db";
 import { Model } from "sequelize";
 import fs from "fs"
-const { Request } = sequelize.models
+const { Request, User } = sequelize.models
 
 enum list{
     POST_organization = "createOrganization",
@@ -46,4 +46,15 @@ export const updateRequest = async (id:string | number, status: string) => {
         
         if(status === "accepted") executeRequest(request)
     }
+}
+
+export const findRequest = async (id: string | number) => {
+    let request = await Request.findByPk(id, {
+        include: {
+            model: User,
+            attributes: ["id","name","email"]
+        }
+    })
+
+    return request
 }
