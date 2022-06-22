@@ -5,6 +5,7 @@ import {
 	useUpdateUserMutation,
 	usePutPasswordMutation,
 } from '../../slices/app/usersApiSlice';
+import SideBar from '../SideBar/SideBar';
 import UpdateRol from '../UpdateRol/UpdateRol';
 import styleUser from './update-user.module.css';
 import { validateEmail, validateUser } from './UpdateUserValidate';
@@ -72,17 +73,37 @@ const Updateuser = () => {
 		}
 	};
 	return (
-		<div>
-			<div>
+		<React.Fragment>
+		<div className={styleUser.fondo}>
+			<SideBar/>
+			<div className={styleUser.centralize}>
+			<div className={styleUser.tab}>
+			<input id="tab-1" type="checkbox" className={styleUser.input}/>
+			<label htmlFor="tab-1" className={styleUser.label}>Actualizar Rol</label>
+			<div className={styleUser.content}>
 				<UpdateRol/>
 			</div>
+			</div>
+			
+			<div className={styleUser.tab}>
+			<input id="tab-2" type="checkbox" className={styleUser.input}/>
+			<label htmlFor="tab-2" className={styleUser.label}>Forzar Contraseña</label>
+			<div className={styleUser.content}>
 			<div style={{display: 'grid', justifyContent: 'center'}}>
 				<button
 				onClick={()=>hanldePutPassword(id)}
+				className={styleUser.button_user}
 				>
 					Forzar Contraseña
 				</button>
 			</div>
+			</div>
+			</div>
+			
+			<div className={styleUser.tab}>
+			<input id="tab-3" type="checkbox" className={styleUser.input}/>
+			<label htmlFor="tab-3" className={styleUser.label}>Actualizar usuario</label>
+			<div className={styleUser.content}>
 			<form onSubmit={onSubmit}>
 				<div className={styleUser.form_user}>
 					<fieldset>
@@ -126,7 +147,12 @@ const Updateuser = () => {
 					</button>
 				</div>
 			</form>
+			</div>
+			</div>
+			</div>
 		</div>
+
+		</React.Fragment>
 	);
 };
 

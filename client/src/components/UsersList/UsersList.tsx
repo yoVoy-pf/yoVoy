@@ -52,70 +52,55 @@ const UsersList = () => {
 		content = <p>Cargando...</p>;
 	} else if (isSuccess) {
 		content = (
-			<div>
-				<SideBar />
-				<div className={styleUserList.table_title}>
-					<h1 className={styleUserList.table_title_style}>Lista de usuarios</h1>
-				</div>
-				<table className={styleUserList.table_users}>
-					<thead className={styleUserList.thead_dark}>
-						<tr>
-							<th style={{ textAlign: 'center' }}>ID</th>
-							<th style={{ textAlign: 'center' }}>Name</th>
-							<th style={{ textAlign: 'center' }}>Email</th>
-							<th style={{ textAlign: 'center' }}>Roles</th>
-							<th style={{ textAlign: 'center' }}>Action</th>
-						</tr>
-					</thead>
+			<div className={styleUserList.fondo}>
+        <SideBar/>
+        <div className={styleUserList.table_title}>
+          <h1 className={styleUserList.table_title_style} >Lista de usuarios</h1>
+        </div>
+      <table className={styleUserList.table_users}>
+          <thead className={styleUserList.thead_dark}>
+            <tr>
+              <th style={{ textAlign: "center" }}>ID</th>
+              <th style={{ textAlign: "center" }}>Name</th>
+              <th style={{ textAlign: "center" }}>Email</th>
+              <th style={{ textAlign: "center" }}>Roles</th>
+              <th style={{ textAlign: "center" }}>Action</th>
+            </tr>
+          </thead>
 
-
-					<tbody>
-						{users?.map((user: any, index: any) => {
-							return (
-								<tr key={user.id}>
-									<th scope="row" style={{ textAlign: 'center' }}>
-										{user.id}
-									</th>
-									<td className={styleUserList.th_users}>{user.name}</td>
-									<td className={styleUserList.th_users}>{user.email}</td>
-									<td className={styleUserList.th_users}>
-										{user.roles.map((e: any) => e.name + ' ')}
-									</td>
-									<td className={styleUserList.th_users}>
-										<Link
-											to={`/update-user/${user.id}`}
-											className={styleUserList.buttom}
-										>
-											<button className={styleUserList.buttom_style_left}>
-												Editar
-											</button>
-										</Link>
-										<Link
-											to={`/update-rol/${user.id}`}
-											className={styleUserList.buttom}
-										>
-											<button className={styleUserList.buttom_style_left}>
-												Editar-Rol
-											</button>
-										</Link>
-										<button
-											className={styleUserList.buttom_style_right}
-											onClick={() => handleDelete(user.id)}
-										>
-											Eliminar
-										</button>
-										{/* <Link to={`/user-detail/${user.id}`}>
+          <tbody>
+          {users?.map((user: any, index: any) => {
+            return (
+              <tr key={user.id}>
+                <th scope="row" style={{ textAlign: "center" }}>{user.id}</th>
+                <td className={styleUserList.th_users}>{user.name}</td>
+                <td className={styleUserList.th_users}>{user.email}</td>
+                <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
+                <td className={styleUserList.th_users}>
+                  <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
+                    <button className={styleUserList.buttom_style_left}>Editar Usuario</button>
+                  </Link>
+                  {/* <Link to={`/update-rol/${user.id}`} className={styleUserList.buttom}>
+                    <button className={styleUserList.buttom_style_left}>Editar-Rol</button>
+                  </Link> */}
+                  <button
+                  className={styleUserList.buttom_style_right}
+                  onClick={()=> handleDelete(user.id)}
+                  >
+                    Eliminar
+                  </button>
+                  {/* <Link to={`/user-detail/${user.id}`}>
                     <button>
                       View
                     </button>
                   </Link> */}
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			</div>
+                </td>
+              </tr>
+              );
+            })}
+            </tbody>
+        </table>
+      </div>
 		);
 	} else if (isError) {
 		content = <p>{JSON.stringify(error)}</p>;
