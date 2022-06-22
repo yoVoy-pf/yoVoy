@@ -26,6 +26,7 @@ import UpdateRol from './components/UpdateRol/UpdateRol';
 import OrganizationEvents from './components/OrganizationEvents/OrganizationEvents';
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/DetailPayment/DetailProcessPayment';
+import UserData from './components/UserData/UserData';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -48,6 +49,7 @@ function App(): JSX.Element {
 					<Route path="favorites" element={<Favorites />} />
 					<Route path="create-Organization" element={<CreateOrganization />} />
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
+					<Route path="user/information" element={<UserData />} />
 				</Route>
 
 				<Route
@@ -61,19 +63,22 @@ function App(): JSX.Element {
 				<Route path="*" element={<Home />} />
 			</Route>
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-					<Route path="userslist" element={<UsersList />} />
-					<Route path="create-category" element={<CreateCategory />} />
-					<Route path="update-user/:id" element={<Updateuser />} />
-					<Route path="events-config" element={<EventsConfig />} />
-					<Route path="organization-list" element={<OrganizationList />} />
-					<Route
-						path="update-organization/:id"
-						element={<UpdateOrganization />}
-					/>
-					<Route path="detail-payment" element={<DetailPayment />} />
-					<Route path="update-rol/:id" element={<UpdateRol />}/>
-					<Route path="detail-process-payment/:id" element={<DetailProessPayment/>}/>
-				</Route>
+				<Route path="userslist" element={<UsersList />} />
+				<Route path="create-category" element={<CreateCategory />} />
+				<Route path="update-user/:id" element={<Updateuser />} />
+				<Route path="events-config" element={<EventsConfig />} />
+				<Route path="organization-list" element={<OrganizationList />} />
+				<Route
+					path="update-organization/:id"
+					element={<UpdateOrganization />}
+				/>
+				<Route path="detail-payment" element={<DetailPayment />} />
+				<Route path="update-rol/:id" element={<UpdateRol />} />
+				<Route
+					path="detail-process-payment/:id"
+					element={<DetailProessPayment />}
+				/>
+			</Route>
 		</Routes>
 	);
 }
