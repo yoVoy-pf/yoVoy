@@ -41,6 +41,7 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
+
 	useEffect(() => {
 		setTimeout(() => {
 			setIsVisible('hide');
@@ -155,48 +156,41 @@ const Event = () => {
 							);
 						})}
 
-					<button className={event_style.button1} onClick={openModal}>
-						Ver todas las fechas y precios
-					</button>
-					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
-						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
-						<p>{eventDetail.name}</p>
-						{locationResult?.map((location: Location) => {
-							return (
-								<React.Fragment key={location.id}>
-									{location?.dates.map((date: Dates) => {
-										return (
-											<React.Fragment key={date.id}>
-												<h5>Precio: ${date.price}</h5>
-												<h5>Fecha: {date.date as any}</h5>
-											</React.Fragment>
-										);
-									})}
-								</React.Fragment>
-							);
-						})}
-					</EventModal>
 
-					<button
-						className={event_style.button2}
-						onClick={() => {
-							addFavorites({ eventId: id });
-						}}
-					>
-						Agregar a Favoritos ❤️
-					</button>
-					<label
-						className={
-							isVisible === 'visible' ? event_style.visible : event_style.hide
-						}
-					>
-						Ya está en Favoritos
-					</label>
-					<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
-						<h1>Agregado a favoritos</h1>
-					</EventModal>
-					<hr />
-					<button className={event_style.button2}>COMPRAR</button>
+					<div className={event_style.divDeBotones}>
+
+						<button className={event_style.button1} onClick={openModal}>
+							Ver todas las fechas y precios
+						</button>
+						<EventModal isOpen={isOpenModal} closeModal={closeModal}>
+							<h3>TODAS LAS FECHAS Y PRECIOS</h3>
+							<p>{eventDetail.name}</p>
+							{locationResult?.map((location: Location) => {
+								return (
+									<React.Fragment key={location.id}>
+										{location?.dates.map((date: Dates) => {
+											return (
+												<React.Fragment key={date.id}>
+													<h5>Precio: ${date.price}</h5>
+													<h5>Fecha: {date.date as any}</h5>
+												</React.Fragment>
+											);
+										})}
+									</React.Fragment>
+								);
+							})}
+						</EventModal>
+
+
+						<button className={event_style.button2} onClick={() => { addFavorites({ eventId: id }) }}>Agregar a Favoritos ❤️</button>
+						<label className={isVisible === "visible" ? event_style.visible : event_style.hide}>Ya está en Favoritos</label>
+						<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
+							<h1>Agregado a favoritos</h1>
+						</EventModal>
+						<hr style={{ width: "350px" }} />
+						<button className={event_style.button2}>COMPRAR</button>
+					</div>
+
 				</div>
 			</div>
 		</React.Fragment>
