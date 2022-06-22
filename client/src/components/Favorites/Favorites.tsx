@@ -52,15 +52,18 @@ const Favorites = () => {
 						<h1 className={'text_alert'}>No hay favoritos aun</h1>
 					) : (
 						<div>
-							<button
-								className={'deleteFav'}
-								onClick={() => {
-									handleDelete(e.id);
-								}}
-							>
-								X
-							</button>
-							<Card key={e.id} event={e} />
+							<div className="container_button">
+
+								<button
+									className={'deleteFav'}
+									onClick={() => {
+										handleDelete(e.id);
+									}}
+								>
+									X
+								</button>
+								<Card key={e.id} event={e} />
+							</div>
 						</div>
 					),
 				)}
