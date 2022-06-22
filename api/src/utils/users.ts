@@ -25,7 +25,8 @@ export async function getUsersFromDb(email: string, name: string) {
         through:{
           attributes:[]
         }
-      }
+      },
+      where:{}
     }
 
     if(email) options.where.email = { [Op.iLike]: `%${email}%` }
