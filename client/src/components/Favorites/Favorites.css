@@ -1,3 +1,4 @@
+
 .text_alert {
     color: white;
     text-align: center;
@@ -6,12 +7,23 @@
 .deleteFav {
     background-color: rgb(197, 87, 87);
     position: relative;
-    left: 305px;
+    left: 15px;
     top: 10px;
-    width: 100%;
+    width: 25px;
     /* padding: 15px; */
     text-align: center;
     color: #fff;
-
+    cursor: pointer;
 }
+
+.deleteFav:hover{
+    background-color: rgb(172, 5, 5);
+}
+
+@media (max-width:1024px){
+    .deleteFav{
+        left:50px
+    }
+}
+
 
