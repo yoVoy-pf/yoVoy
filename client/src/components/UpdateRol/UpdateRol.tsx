@@ -5,7 +5,6 @@ import {
 	useUpdateRolUserMutation,
 } from '../../slices/app/usersApiSlice';
 import ROLES_LIST from '../../slices/authentication/rolesList';
-import SideBar from '../SideBar/SideBar';
 import styleRol from "./update-rol.module.css"
 
 const UpdateRol = () => {
@@ -60,8 +59,8 @@ const UpdateRol = () => {
 	
     return (               
         <div>                                    
+				
             <form onSubmit={onSubmit}>
-				<SideBar/>
             	<div className={styleRol.form_create_rol}>
 					<fieldset className={styleRol.fieldset_form}>
 						<legend className={styleRol.legend_rol}>Nobre de Usuario:</legend>

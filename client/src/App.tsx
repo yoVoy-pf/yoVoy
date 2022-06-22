@@ -57,8 +57,10 @@ function App(): JSX.Element {
 					<Route path="create-event" element={<CreateEvent />} />
 					<Route path="organization-events" element={<OrganizationEvents />} />
 				</Route>
-
-				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+				{/* 404 */}
+				<Route path="*" element={<Home />} />
+			</Route>
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
 					<Route path="userslist" element={<UsersList />} />
 					<Route path="create-category" element={<CreateCategory />} />
 					<Route path="update-user/:id" element={<Updateuser />} />
@@ -72,9 +74,6 @@ function App(): JSX.Element {
 					<Route path="update-rol/:id" element={<UpdateRol />}/>
 					<Route path="detail-process-payment/:id" element={<DetailProessPayment/>}/>
 				</Route>
-				{/* 404 */}
-				<Route path="*" element={<Home />} />
-			</Route>
 		</Routes>
 	);
 }

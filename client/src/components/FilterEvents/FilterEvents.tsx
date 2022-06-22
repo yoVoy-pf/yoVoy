@@ -81,19 +81,19 @@ const FilterEvent = () => {
 	};
  
 	const handleDateChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-		let dateArr = (e.target.value).split("-").reverse()
-		let date = dateArr.map((d:any)=>{
-			if(d[0]==="0"){
-				return d.substring(1)
-			} else {
-				return d
-			}
-		})
+
 		const DateFilt: Filter = {
 			filter: "date",
-			id: date.join("/")
+			id: e.target.value
 		}
 		setFilters([DateFilt])
+	}
+	const filtBynextDays = (days:string)=>{
+        const nextDaysFilt: Filter = {
+			filter: "nextDays",
+			id: days
+		}
+		setFilters([nextDaysFilt])
 	}
 
 	return (
@@ -132,6 +132,9 @@ const FilterEvent = () => {
 			onChange={(e)=>{handleDateChange(e)}}
 			className={filterStyle.input_filter}
 			/>
+
+        <button onClick={()=>{filtBynextDays("15")}}>Proximos 15 dias</button>
+        <button onClick={()=>{filtBynextDays("30")}}>Proximos 30 dias</button>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
