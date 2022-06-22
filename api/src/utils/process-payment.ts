@@ -1,4 +1,3 @@
-import e from "express"
 import mercadopago from "mercadopago"
 import config from "../../config"
 import { sequelize } from "../db"
