@@ -71,8 +71,8 @@ const UsersList = () => {
           <tbody>
           {users?.map((user: any, index: any) => {
             return (
-              <tr key={user.id}>
-                <th scope="row" style={{ textAlign: "center" }}>{user.id}</th>
+              <tr key={user.id} className={styleUserList.componente}>
+                <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
                 <td className={styleUserList.th_users}>{user.name}</td>
                 <td className={styleUserList.th_users}>{user.email}</td>
                 <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
