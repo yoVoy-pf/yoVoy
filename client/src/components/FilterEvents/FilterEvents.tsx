@@ -79,8 +79,8 @@ const FilterEvent = () => {
 
 		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
- 
-	const handleDateChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+
+	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 		const DateFilt: Filter = {
 			filter: "date",
@@ -88,8 +88,8 @@ const FilterEvent = () => {
 		}
 		setFilters([DateFilt])
 	}
-	const filtBynextDays = (days:string)=>{
-        const nextDaysFilt: Filter = {
+	const filtBynextDays = (days: string) => {
+		const nextDaysFilt: Filter = {
 			filter: "nextDays",
 			id: days
 		}
@@ -100,41 +100,43 @@ const FilterEvent = () => {
 		<div className={filterStyle.bg_div}>
 			<div className={filterStyle.bg_div1}>
 
-			<select onChange={handleCategoryFilter}>
-				<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
-				{categories.map((c) => (
-					<option className={filterStyle.option} key={c.name} value={c.id}>
-						{c.name}
-					</option>
-				))}
-			</select>
+				<select onChange={handleCategoryFilter}>
+					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
+					{categories.map((c) => (
+						<option className={filterStyle.option} key={c.name} value={c.id}>
+							{c.name}
+						</option>
+					))}
+				</select>
 
-			<select id='cityFilter' onChange={handleCitiesFilter}>
-				<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
-				{cities.map((city) => (
-					<option  id={`city${city.id}`} key={city.name} value={city.id}>
-						{city.name}
-					</option>
-				))}
-			</select>
+				<select id='cityFilter' onChange={handleCitiesFilter}>
+					<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
+					{cities.map((city) => (
+						<option id={`city${city.id}`} key={city.name} value={city.id}>
+							{city.name}
+						</option>
+					))}
+				</select>
 
-			<select onChange={handleLocationFilter}>
-				<option key={"allLocations"} value="">todas las locaciones</option>
-				{locations.map((l) => (
-					<option key={l.name} value={l.id}>
-						{l.name}
-					</option>
-				))}
-			</select>
+				<select onChange={handleLocationFilter}>
+					<option key={"allLocations"} value="">todas las locaciones</option>
+					{locations.map((l) => (
+						<option key={l.name} value={l.id}>
+							{l.name}
+						</option>
+					))}
+				</select>
 
-			<input 
-			type={"date"} 
-			onChange={(e)=>{handleDateChange(e)}}
-			className={filterStyle.input_filter}
-			/>
+				<input
+					type={"date"}
+					onChange={(e) => { handleDateChange(e) }}
+					className={filterStyle.input_filter}
+				/>
 
-        <button onClick={()=>{filtBynextDays("15")}}>Proximos 15 dias</button>
-        <button onClick={()=>{filtBynextDays("30")}}>Proximos 30 dias</button>
+			</div>
+			<div className={filterStyle.button1530}>
+				<button className={filterStyle.btn1} onClick={() => { filtBynextDays("15") }}>Proximos 15 dias</button>
+				<button className={filterStyle.btn2} onClick={() => { filtBynextDays("30") }}>Proximos 30 dias</button>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
