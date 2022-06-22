@@ -67,8 +67,8 @@ const OrganizationList = () => {
 
           {organizations?.map((organization: any, index: any) => {
             return (
-              <tr key={organization.id}>
-                <th scope="row" style={{ textAlign: "center" }}>{index + 1}</th>
+              <tr key={organization.id} className={styleListOrganization.componente}>
+                <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{index + 1}</th>
                 <td className={styleListOrganization.th_organizations}>{organization.name}</td>
                 <td className={styleListOrganization.th_organizations}>
                   <Link to={`/update-organization/${organization.id}`} className={styleListOrganization.buttom}>
