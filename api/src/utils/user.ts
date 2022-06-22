@@ -110,6 +110,7 @@ export const resetUserPassword = async(id: string | number) => {
 
     const password = await bcrypt.hash(newPassword, 10)
     await User.update({password}, {where:{id}})
+    return newPassword
 }
 
 export const getUserInformation = async(id: string | number) => {
