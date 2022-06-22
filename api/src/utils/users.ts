@@ -32,8 +32,6 @@ export async function getUsersFromDb(email: string, name: string) {
     if(email) options.where.email = { [Op.iLike]: `%${email}%` }
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
-    console.log(options)
-
     const users = await User.findAll(options)
     return users;
 }
