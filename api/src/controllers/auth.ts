@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 import { createUserInDb, getUserFromDbByField } from "../utils/users"
 import { iUser } from "../types/user"
 import { decodeGoogleToken, generateAccessToken, updateRefreshToken, verifyRefreshToken } from "../utils/auth"
-import { resetUserPassword } from "../utils/user"
+import { resetUserPassword, updateUserPassword } from "../utils/user"
 import { sendMail } from "../mailer"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -156,4 +156,17 @@ export const recoverPassword = async (req: Request, res: Response, next: NextFun
   }catch(error){
     return next(error)
   }
+}
+
+export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+  const {password, newPassword} = req.body;
+  const {id: userId} = req.body.user
+  try{
+    const user = await getUserFromDbByField('id',userId);
+    if (!user) return next({status:404 , message:'No se encontro un usuario con ese id'})
+    if(!await bcrypt.compare(password, user.password)) return next({status:403 , message:'Contraseña incorrecta'})
+    const newPasswordHash = await bcrypt.hash(newPassword, 10)
+    await updateUserPassword(userId, newPasswordHash)
+    res.send({message: 'Contraseña cambiada'})
+  }catch(error){return next(error)}
 }
