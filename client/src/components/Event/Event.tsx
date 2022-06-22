@@ -13,6 +13,7 @@ import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
+import Swal from 'sweetalert2';
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
@@ -26,12 +27,10 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
-
-	const state:any = useSelector((state: State)=>state)
-	const [isVisible, setIsVisible] = useState("hide")
+	const state: any = useSelector((state: State) => state);
+	const [isVisible, setIsVisible] = useState('hide');
 
 	const { location }: any = useParams<{ location: string }>();
-
 
 	useEffect(() => {
 		dispatch(getEventId(id));
@@ -41,34 +40,56 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
+	useEffect(() => {
+		setTimeout(() => {
+			setIsVisible('hide');
+		}, 3000);
+	}, [isVisible]);
 
-	useEffect(()=>{
-		setTimeout(()=>{setIsVisible("hide")},3000)
-	},[isVisible])
-
-
-	const addFavorites = (id:any)=>{
-		const addF = addEventToFavorite(id).then((result:any)=>{
-			if(result.error){
-				if(result.error.data.includes("llave duplicada")){
-					setIsVisible("visible")
-				}else if(result.error.data.includes("You need a valid token")){
-                    alert("Debe iniciar sesión")
+	const addFavorites = (id: any) => {
+		const addF = addEventToFavorite(id).then((result: any) => {
+			if (result.error) {
+				if (result.error.data.includes('llave duplicada')) {
+					setIsVisible('visible');
+				} else if (result.error.data.includes('You need a valid token')) {
+					alert('Debe iniciar sesión');
 				}
-			}else{
-				openAddFavMsg()
+			} else {
+				Swal.fire({
+					title: 'Evento añadido a favoritos',
+					icon: 'success',
+					confirmButtonColor: 'orange',
+				});
 			}
-		})
-	}
+		});
+	};
 
+	const handleDelete = async (id: any) => {
+		Swal.fire({
+			title: 'Esta seguro de eliminar el Evento?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: 'orange',
+			cancelButtonColor: '#d33',
+			cancelButtonText: 'Cancelar',
+			confirmButtonText: 'Eliminar',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: 'Evento Eliminado!',
+					icon: 'success',
+				});
+				deleteEvent(id).then(() => navigate('/'));
+			}
+		});
+	};
 	console.log('detalle del evento asdasd', location);
 
 	const mapLocation = eventDetail.locations?.map((loc: any) => loc);
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
-  console.log(locationResult)
-
+	console.log(locationResult);
 
 	return (
 		<React.Fragment>
@@ -99,7 +120,7 @@ const Event = () => {
 						<div className={event_style.button_delete}>
 							<button
 								className={event_style.button_delete_style}
-								onClick={() => deleteEvent(id).then(() => navigate('/'))}
+								onClick={handleDelete}
 							>
 								Eliminar Evento
 							</button>
@@ -132,7 +153,7 @@ const Event = () => {
 					<EventModal isOpen={isOpenModal} closeModal={closeModal}>
 						<h3>TODAS LAS FECHAS Y PRECIOS</h3>
 						<p>{eventDetail.name}</p>
-            {locationResult?.map((location: Location) => {
+						{locationResult?.map((location: Location) => {
 							return (
 								<React.Fragment key={location.id}>
 									{location?.dates.map((date: Dates) => {
@@ -148,9 +169,21 @@ const Event = () => {
 						})}
 					</EventModal>
 
-
-					<button className={event_style.button2} onClick={() =>{addFavorites({ eventId: id })}}>Agregar a Favoritos ❤️</button>
-					<label className={isVisible==="visible"?event_style.visible:event_style.hide}>Ya está en Favoritos</label>
+					<button
+						className={event_style.button2}
+						onClick={() => {
+							addFavorites({ eventId: id });
+						}}
+					>
+						Agregar a Favoritos ❤️
+					</button>
+					<label
+						className={
+							isVisible === 'visible' ? event_style.visible : event_style.hide
+						}
+					>
+						Ya está en Favoritos
+					</label>
 					<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
 						<h1>Agregado a favoritos</h1>
 					</EventModal>
