@@ -35,7 +35,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     if (userExists) return next({status: 400, message: `Ya existe un usuario con ese email`})
     else{
       await createUserInDb(user)
-      res.redirect(307,'./login')
+      res.redirect(307,'login')
     }
   }catch(error){
     next(error)

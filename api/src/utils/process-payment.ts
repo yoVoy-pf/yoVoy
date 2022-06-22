@@ -1,6 +1,8 @@
+import e from "express"
 import mercadopago from "mercadopago"
 import config from "../../config"
 import { sequelize } from "../db"
+const nodemailer = require('nodemailer')
 
 const { Ticket } = sequelize.models
 
@@ -43,5 +45,30 @@ export const updatePaymentById = async(preferenceId: string, paymentId: string) 
         where:{
             preferenceId
         }
+    })
+
+    let transporter = nodemailer.createTransport({
+      host:'smtp.gmail.com',
+      post: 587,
+      secure: false,
+      auth: {
+        user: 'soporteyovoypf@gmail.com',
+        pass: 'iefkyfxwlvdgitsp'
+      }
+    })
+
+    let mailOptions = {
+      from: 'soporteyovoypf@gmail.com',
+      to: 'pablo.pelardas@gmail.com',
+      subject: 'Confirmación de tu pago en YoVoy',
+      text: 'Hola, te confirmamos que tu pago en YoVoy se ha realizado correctamente. Te esperamos pronto para tu próxima visita.'
+    }
+
+    transporter.sendMail(mailOptions, (error: any, info: any) => {
+      if(error){
+        return console.log(error)
+      }else{
+        console.log('Message sent: %s', info.messageId)
+      }
     })
 }
