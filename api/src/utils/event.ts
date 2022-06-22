@@ -223,6 +223,10 @@ export default {
                         where:{
                             id: dateId
                         }
+                        },
+                        {
+                            model: Location,
+                            attributes: ["id", "name"],
                         }
                     ]
                 }
