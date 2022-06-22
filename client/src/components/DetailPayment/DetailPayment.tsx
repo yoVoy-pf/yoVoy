@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useGetTicketsDetailQuery } from "../../slices/app/ticketsApiSlice";
 import SideBar from "../SideBar/SideBar";
 import styleDetailPayment from './detail-paiment.module.css'
@@ -12,7 +13,6 @@ const DetailPayment = () => {
         error,
         refetch
       } = useGetTicketsDetailQuery({_:''}, {refetchOnMountOrArgChange: true,})
-      console.log(datos)
     if(!datos) {
       return(
         <div>
@@ -38,6 +38,7 @@ const DetailPayment = () => {
               <th style={{ textAlign: "center" }}>Monto</th>
               <th style={{ textAlign: "center" }}>Estado</th>
               <th style={{ textAlign: "center" }}>Cantidad</th>
+              <th style={{ textAlign: "center" }}>Actions</th>
             </tr>
           </thead>
 
@@ -46,11 +47,19 @@ const DetailPayment = () => {
             return (
               <tr key={index}>
                 <th scope="row" style={{ textAlign: "center" }}>{ticket.id}</th>
-                <td className={styleDetailPayment.th_payment}>{ticket.userId}</td>
-                <td className={styleDetailPayment.th_payment}>{ticket.eventId}</td>
+                <td className={styleDetailPayment.th_payment}>{ticket.user.id}</td>
+                <td className={styleDetailPayment.th_payment}>{ticket.event.id}</td>
                 <td className={styleDetailPayment.th_payment}>{ticket.transaction_amount}</td>
                 <td className={styleDetailPayment.th_payment}>{ticket.status}</td>
                 <td className={styleDetailPayment.th_payment}>{ticket.quantity}</td>
+                <td className={styleDetailPayment.th_payment}>
+                  <Link to={`/detail-process-payment/${ticket.id}`}>
+                  <button
+                  >
+                    Detalle
+                  </button>
+                  </Link>
+                  </td>
               </tr>
               );
             })}

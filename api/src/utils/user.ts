@@ -2,7 +2,7 @@ import { sequelize } from "../db";
 import { Op } from "sequelize"
 import bcrypt from "bcrypt"
 
-const { User, Event, Favorites, Ticket, UserRole } = sequelize.models
+const { User, Event, Favorites, Ticket, UserRole, Organization } = sequelize.models
 
 export const getAllFavorites = async(id:string | number) => {
     const favorites = await Event.findAll({
@@ -110,5 +110,17 @@ export const resetUserPassword = async(id: string | number) => {
 
     const password = await bcrypt.hash(newPassword, 10)
     await User.update({password}, {where:{id}})
+}
+
+export const getUserInformation = async(id: string | number) => {
+    const user = await User.findByPk(id, {
+        attributes: ["name","surname","email"],
+        include: {
+            model: Organization,
+            attributes: ["name"]
+        }
+    })
+
+    return user
 }
 
