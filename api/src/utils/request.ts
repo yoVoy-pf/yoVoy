@@ -4,7 +4,10 @@ import fs from "fs"
 const { Request } = sequelize.models
 
 enum list{
-    POST_organization = "createOrganization"
+    POST_organization = "createOrganization",
+    POST_location = "createLocation",
+    DELETE_event = "destroyEvent",
+    PUT_event = "updateEvent"
 }
 
 export const createRequest = async (userId: number, description: string, type: string, method: string, information: any) => {
