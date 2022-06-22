@@ -25,10 +25,21 @@ export interface getOrganization{
 export interface getTickets{
 	id: number;
 	status: string;
+	status_detail: string;
 	quantity: number;
-	eventId: number;
-	userId: number;
+	event: event;
+	user: user;
 	transaction_amount: number;
+}
+
+export interface user {
+	id: number;
+	name: string;
+}
+
+export interface event {
+	id: number;
+	name: string; 
 }
 
 export interface putEvent {
