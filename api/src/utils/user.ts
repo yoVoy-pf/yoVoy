@@ -115,7 +115,7 @@ export const resetUserPassword = async(id: string | number) => {
 
 export const getUserInformation = async(id: string | number) => {
     const user = await User.findByPk(id, {
-        attributes: ["name","surname","email"],
+        attributes: ["name","email"],
         include: {
             model: Organization,
             attributes: ["name"]
