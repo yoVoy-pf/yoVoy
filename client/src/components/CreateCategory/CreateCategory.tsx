@@ -31,7 +31,7 @@ const CreateCategory = () => {
         navigate('/')
     }
     return(
-        <div>
+        <div className={styleCreateCategory.fondo}>
             <SideBar/>
             <form onSubmit={onSubmit}>
                 <div className={styleCreateCategory.form_create_category}>
