@@ -13,9 +13,10 @@ const DetailPayment = () => {
         error,
         refetch
       } = useGetTicketsDetailQuery({_:''}, {refetchOnMountOrArgChange: true,})
+      console.log(datos)
     if(!datos) {
       return(
-        <div>
+        <div className={styleDetailPayment.fondo}>
         <SideBar/>
         <div className={styleDetailPayment.text}>
           <h1 className={styleDetailPayment.text_style}><i> ¡UPS! No hay compras Realizadas</i></h1>
@@ -24,10 +25,10 @@ const DetailPayment = () => {
       )
     } else {
     return(
-        <div>
+        <div className={styleDetailPayment.fondo}>
         <SideBar/>
         <div>
-          <h1>Detalles de compra</h1>
+          <h1 style={{ textAlign: "center", color: 'white' }}>Detalles de compra</h1>
         </div>
       <table className={styleDetailPayment.table_payment}>
           <thead>
@@ -55,6 +56,7 @@ const DetailPayment = () => {
                 <td className={styleDetailPayment.th_payment}>
                   <Link to={`/detail-process-payment/${ticket.id}`}>
                   <button
+                  className={styleDetailPayment.buttom_style_left}
                   >
                     Detalle
                   </button>
