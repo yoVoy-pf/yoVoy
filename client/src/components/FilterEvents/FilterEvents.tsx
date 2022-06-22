@@ -81,17 +81,10 @@ const FilterEvent = () => {
 	};
  
 	const handleDateChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
-		let dateArr = (e.target.value).split("-").reverse()
-		let date = dateArr.map((d:any)=>{
-			if(d[0]==="0"){
-				return d.substring(1)
-			} else {
-				return d
-			}
-		})
+
 		const DateFilt: Filter = {
 			filter: "date",
-			id: date.join("/")
+			id: e.target.value
 		}
 		setFilters([DateFilt])
 	}
