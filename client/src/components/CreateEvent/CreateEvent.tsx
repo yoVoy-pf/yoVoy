@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useRef } from 'react';
+import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import {
@@ -16,6 +16,8 @@ import { FiEdit } from 'react-icons/fi';
 import styleUpdate from "../UpdateEvent/update-event.module.css"
 
 const CreateEvent = () => {
+
+	type Input = React.ChangeEvent<HTMLInputElement>
 	const locSelect = useRef<any>()
 	const [isOpen, openModal, closeModal] = useDatesModal(false);
 	const [createEvent] = useCreateEventMutation();
@@ -67,6 +69,49 @@ const CreateEvent = () => {
 		}
 	};
 
+	const [err, setErr] = useState({
+		nameErr: "",
+		descriptionErr: "",
+		categoriesErr: "Debe tener al menos 1 categoria",
+		locationsErr: "Debe tener al menos 1 locación"
+	})
+
+	useEffect(() => {
+		if (input.name.length < 4) {
+			setErr({ ...err ,nameErr: "Debe tener entre 4 a 50 caracteres" })
+		}
+		if (input.name.length > 3) {
+			setErr({ ...err ,nameErr: "" })
+		}
+	}, [input.name])
+
+	useEffect(() => {
+		if (input.description.length < 50) {
+			setErr({ ...err ,descriptionErr: "Debe tener entre 50 a 250 caracteres" })
+		}
+		if (input.description.length > 49) {
+			setErr({ ...err ,descriptionErr: "" })
+		}
+	}, [input.description])
+
+	useEffect(() => {
+		if (input.categories.length === 0) {
+			setErr({ ...err ,categoriesErr: "Debe tener al menos 1 categoria" })
+		}
+		if (input.categories.length > 0) {
+			setErr({ ...err ,categoriesErr: "" })
+		}
+	}, [input.categories])
+
+	useEffect(() => {
+		if (input.locations.length === 0) {
+			setErr({ ...err ,locationsErr: "Debe tener al menos 1 locación" })
+		}
+		if (input.locations.length > 0) {
+			setErr({ ...err ,locationsErr: "" })
+		}
+	}, [input.locations])
+
 	return (
 		<React.Fragment>
 			<form onSubmit={handleSubmit}>
@@ -85,6 +130,7 @@ const CreateEvent = () => {
 							onChange={handleInputChange}
 							value={input.name}
 						/>
+						<label>{err.nameErr}</label>
 					</fieldset>{' '}
 					<br />
 					<fieldset className={styleCreateEvent.fieldset_form}>
@@ -100,6 +146,7 @@ const CreateEvent = () => {
 							onChange={handleInputChange}
 							value={input.description}
 						/>
+						<label>{err.descriptionErr}</label>
 					</fieldset>{' '}
 					<br />
 					<fieldset className={styleCreateEvent.fieldset_form}>
@@ -133,6 +180,8 @@ const CreateEvent = () => {
 								</React.Fragment>
 							);
 						})}
+						<br/>
+						<label>{err.categoriesErr}</label>
 					</fieldset>{' '}
 					<fieldset className={styleCreateEvent.fieldset_form}>
 						<legend className={styleCreateEvent.legend_form}>
@@ -170,6 +219,7 @@ const CreateEvent = () => {
 									})
 								: <h1>No hay localidades cargadas para el evento</h1>
 						}
+						<label>{err.locationsErr}</label>
 					</fieldset>{' '}
 					<br />
 					{/* MODAL */}
@@ -264,6 +314,7 @@ const CreateEvent = () => {
 					<button type="submit" className={styleCreateEvent.bottom_form}>
 						Create
 					</button>
+					<button onClick={(e) => { e.preventDefault(); console.log(err) }}>VER ERRORES</button>
 				</div>
 			</form>
 		</React.Fragment>

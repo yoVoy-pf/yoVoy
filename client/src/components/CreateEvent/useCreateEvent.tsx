@@ -38,7 +38,9 @@ export const useCreateEvent = ({locations} : any) => {
     console.log(input)
     console.log(locsAux)
     console.log(locsForSubmit)
-		setInput({ ...input, [target.name]: target.value });
+		setInput({ ...input, [target.name]: target.value.length === 1 && target.value[0] === " " ? "" : target.value.length >= 1 && (target.value[0] === " " || target.value[0] !== " ")?
+    target.value.trim()[0].toUpperCase() + target.value.trim().substring(1).trim() : target.value.length === 1 && target.value[0] !== " " ?
+      target.value.toUpperCase() : target.value});
 	};
 
 	const handleLocationChange = ({
