@@ -55,6 +55,14 @@ interface getDonEventsAction {
 	type: ActionType.DONT_EVENTS;
 	payload: any;
 }
+interface getComments{
+	type: ActionType.GET_COMMENTS;
+	payload:any;
+}
+interface postCreateComments{
+	type: ActionType.POST_CREATE_COMMENTS
+	payload: any;
+}
 
 export type Action =
 	| GetAllEventAction
@@ -68,4 +76,6 @@ export type Action =
 	| postCreateCategory
 	| getLocationsAction
 	| postCreateEvent
+	| getComments
+	| postCreateComments
 	| getDonEventsAction;

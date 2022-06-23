@@ -15,8 +15,7 @@ import {
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
 import Comments from '../Comments/Comments';
-import { Button, TextField } from '@mui/material';
-import {Send} from '@mui/icons-material/';
+
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
@@ -123,30 +122,11 @@ const Event = () => {
 							{eventDetail.description}
 						</small>
 					</div>
-							<div className={event_style.comment}>
-								<Comments/>
-								<Comments/>
-								<Comments/>
-							</div>
-							<form >
-								<TextField 
-								label="agregar comentario"
-								size='small'
-								variant='outlined'
-								placeholder='agregar comentario'
-								style={{ marginTop:"30px",background:"#fff"}}
-								/>
-								<Button
-								variant='contained'
-								size='small'
-								style={{marginTop:"35px"}}
-								// endIcon={Send}
-								>
-									Comentar
-								</Button>
-							</form>
+							
+					<div>
+						<Comments/>
+					</div>
 				</div>
-
 				<div className={event_style.div2}>
 					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
@@ -218,8 +198,6 @@ const Event = () => {
 
 
 				</div>
-
-				{/*Comments*/}
 
 			</div>
 		</React.Fragment>

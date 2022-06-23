@@ -8,6 +8,7 @@ const initialState = {
 	categories: [],
 	cities: [],
 	locations: [],
+	allComments:[]
 	// 	eventsFiltered: [],
 };
 
@@ -71,6 +72,17 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				allEvents: action.payload
 			}
+		
+		case ActionType.GET_COMMENTS:
+			
+		return{
+				...state,
+				allComments: action.payload
+			}
+		case ActionType.POST_CREATE_COMMENTS:
+		return{
+			...state,
+		}
 		default:
 			return state;
 	}

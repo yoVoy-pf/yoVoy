@@ -1,55 +1,97 @@
-import React from "react";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { makeStyles } from "@mui/material";
-import { maxWidth } from "@mui/system";
-
-// const useStyles: any = makeStyles((theme: any) => ({
-//     root: {
-//         with: "100%",
-//         maxWidth: "36ch",
-//         backgroundColor: theme.palette.background.paper,
-//     },
-//     inline: {
-//         display: "inline"
-//     }
-// }));
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { clearComment, getComments, postCreateComments } from "../../redux/actions/actions-Create";
+import { AppDispatch, State } from "../../redux/store/store";
+import { useCreateCommentMutation } from "../../slices/app/postComment";
+import { useDatesModal } from "../CreateEvent/CreateEventModal/useDatesModal";
+import DatesModal from "../CreateEvent/CreateEventModal/DatesModal"
+import { selectCurrentUser } from "../../slices/authentication/authSlice";
 
 const Comments = () => {
+    const allComments = useSelector((state: State) => state.global.allComments);
+    const { id }: any = useParams<{ id: string }>();
+    const dispatch: AppDispatch = useDispatch()
+    const [backendComments, setBackendComment] = useState<any>({
+        text: ""
+    })
 
-    
+    const currentUser:any=useSelector(selectCurrentUser)
 
+    const [isOpen, openModal, closeModal] = useDatesModal(false);
+
+    const [createComment] = useCreateCommentMutation();
+
+    const [text, setText] = useState("")
+
+    useEffect(() => {
+
+        dispatch(getComments(id));
+        return () => {
+            dispatch(clearComment())
+        }
+    }, [dispatch, id])
+
+    // const onInputChange = (e:any)=>{
+    //     e.preventDefault();
+    //     setBackendComment({
+    //         ...backendComments,
+    //         [e.target.name]:e.target.value,
+    //     });
+    // }
+    const addComment = (text: any) => {
+        dispatch(postCreateComments(text))
+    }
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        if (text) await createComment({ text: text, id: id })
+        console.log("nuevio", text)
+        setText("")
+        dispatch(getComments(id))
+    }
+
+    const isTextAreaDisable = text.length === 0;
 
     return (
-        <List sx={{ width: '97%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Brunch this weekend?"
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                sx={{ display: 'inline' }}
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                            >
-                                Ali Connors
-                            </Typography>
-                            {" — Recomendado buen show"}
-                        </React.Fragment>
-                    }
-                />
-            </ListItem>
-            <Divider variant="inset" component="li"/>
-        </List>
+        <div>
+            <h2>Comentarios</h2>
+            {allComments?.map((el: any) => {
+                return (
+                    <div>
+                        <p>{el.text}</p>
+                        <p>{el.createdAt}</p>
+                    </div>
+                )
+            })}
+            <div>
+                {currentUser &&
+                <button onClick={() => openModal()}>
+                    Comentario
+                </button>
+                }
+                <DatesModal
+                    isOpen={isOpen}
+                    closeModal={closeModal}
+                >
+                    {currentUser && 
+                     <form onSubmit={handleSubmit} >
+                        <textarea
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            style={{ resize: "none" }}
+                        />
+                        <br></br>
+                        <button disabled={isTextAreaDisable} type="submit" onClick={()=>closeModal()}>Enviar Comentario</button>
+                        <br />
+                        <button  onClick={()=>closeModal()}>Salir</button>
+                    </form>}
+                  
+                </DatesModal>
+            </div>
+        </div>
+
     );
 }
 export default Comments;
