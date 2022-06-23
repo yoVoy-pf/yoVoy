@@ -61,6 +61,11 @@ interface getSearchUserAction {
 	payload: any;
 }
 
+interface getFilterUserAction {
+	type: ActionType.GET_FILTER_USER;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -74,4 +79,5 @@ export type Action =
 	| getLocationsAction
 	| postCreateEvent
 	| getDonEventsAction
-	| getSearchUserAction;
+	| getSearchUserAction
+	| getFilterUserAction;
