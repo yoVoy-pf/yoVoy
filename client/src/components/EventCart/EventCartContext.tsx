@@ -6,7 +6,7 @@ export const EventCartContext = createContext({} as any);
 export const EventCartProvider = ({ children }: any) => {
 	const [cartItems, setCartItems] = useState(() => {
 		try {
-			const ticketsLocalStorage = window.localStorage.getItem('cartTickets');
+			const ticketsLocalStorage = localStorage.getItem('cartTickets');
 			return ticketsLocalStorage ? JSON.parse(ticketsLocalStorage) : [];
 		} catch (error) {
 			return [];
@@ -32,14 +32,20 @@ export const EventCartProvider = ({ children }: any) => {
 		});
 	};
 
+	const handleDelhow = () => {
+		Toast.fire({
+			icon: 'warning',
+			title: 'Ticket eliminado con exito',
+		});
+	};
+
 	useEffect(() => {
 		localStorage.setItem('cartTickets', JSON.stringify(cartItems));
 		console.log('cartItems', cartItems);
 	}, [cartItems]);
 
 	const addTicketToCart = (ticket: any) => {
-		handleAddShow();
-		const inCart = cartItems?.find(
+		const inCart = cartItems.find(
 			(ticketInCart: any) => ticketInCart.id === ticket.id,
 		);
 		if (inCart) {
@@ -53,6 +59,7 @@ export const EventCartProvider = ({ children }: any) => {
 		} else {
 			setCartItems([...cartItems, { ...ticket, amount: 1 }]);
 		}
+		handleAddShow();
 	};
 
 	const deleteItemToCar = (ticket: any) => {
@@ -73,7 +80,10 @@ export const EventCartProvider = ({ children }: any) => {
 				}),
 			);
 		}
+		handleDelhow();
 	};
+
+	const editItemToCart = ({ id, amount }: any) => {};
 	return (
 		<EventCartContext.Provider
 			value={{ cartItems, addTicketToCart, deleteItemToCar }}

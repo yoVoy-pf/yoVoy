@@ -56,14 +56,6 @@ const NavBar = () => {
 							Contacto
 						</NavLink>{' '}
 					</li>
-					<li className="navbar_bg_li">
-						{' '}
-						<NavLink className="navbar_bg_a" to="/cart">
-							<EventCartProvider>
-								<EventCart />
-							</EventCartProvider>
-						</NavLink>{' '}
-					</li>
 				</ul>
 			</div>
 			{!currentUser && (
@@ -81,6 +73,11 @@ const NavBar = () => {
 					<Logout />
 				</div>
 			)}
+			<div className="navbar_bg_a">
+				<EventCartProvider>
+					<EventCart />
+				</EventCartProvider>
+			</div>{' '}
 		</nav>
 	);
 };

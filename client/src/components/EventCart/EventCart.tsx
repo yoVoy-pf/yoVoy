@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { EventCartContext } from './EventCartContext';
+import styles from './EventCart.module.css';
+import { TicketCart } from './TicketCart';
 
 const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
@@ -8,7 +10,6 @@ const EventCart = () => {
 	const { cartItems } = useContext<any>(EventCartContext);
 
 	useEffect(() => {
-		console.log('cartItems1111111', cartItems);
 		setTicketsLength(
 			cartItems?.reduce(
 				(previous: any, current: any) => previous + current.amount,
@@ -22,14 +23,17 @@ const EventCart = () => {
 		0,
 	);
 	console.log('cartItems', cartItems);
-	console.log('ticketsLength', ticketsLength);
+	console.log('total', total);
 	return (
-		<div>
-			<div>
-				<div>
+		<div className={styles.cartContainer}>
+			<div
+				onClick={() => setCartOpen(!cartOpen)}
+				className={styles.buttonCartContainer}
+			>
+				<div className={styles.buttonCart}>
 					{!cartOpen ? (
 						<svg
-							className="ponerleclassname"
+							className={styles.open}
 							width={'35px'}
 							viewBox="0 0 30 27"
 							fill="none"
@@ -63,8 +67,28 @@ const EventCart = () => {
 						</svg>
 					)}
 				</div>
-				{!cartOpen && <div>{ticketsLength}</div>}
+				{!cartOpen && (
+					<div className={styles.productsNumber}>{ticketsLength}</div>
+				)}
 			</div>
+
+			{cartItems && cartOpen && (
+				<div className={styles.cart}>
+					<h2>Tu carrito</h2>
+
+					{cartItems.length === 0 ? (
+						<p className={styles.cartVacio}>Tu carrito esta vacio</p>
+					) : (
+						<div className={styles.productsContainer}>
+							{cartItems?.map((item: any) => (
+								<TicketCart key={item.id} item={item} />
+							))}
+						</div>
+					)}
+
+					<h2 className={styles.total}>Total: ${total}</h2>
+				</div>
+			)}
 		</div>
 	);
 };
