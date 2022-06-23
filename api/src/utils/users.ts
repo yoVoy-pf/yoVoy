@@ -3,7 +3,8 @@ import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 import {Model} from 'sequelize-typescript'
 import { Op } from 'sequelize';
-const { User, Role, UserRole } = sequelize.models
+import { banOrganization } from './organization';
+const { User, Role, UserRole, Organization, Event } = sequelize.models
 
 
 // create new user in the database
@@ -17,7 +18,7 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb(email: string, name: string) {
+export async function getUsersFromDb(email: string, name: string, order?: string) {
     let options: any= {
       include: {
         model: Role,
@@ -33,6 +34,20 @@ export async function getUsersFromDb(email: string, name: string) {
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
     const users = await User.findAll(options)
+    if(order){
+      users.sort((a:any, b:any) => {
+        if(a.name < b.name) {
+          return -1
+        }
+        if(a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+      if(order === 'ZA') {
+        users.reverse()
+      }
+    }
     return users;
 }
 
@@ -78,13 +93,17 @@ export async function getUserById(id: string | number) {
 }
 
 export async function destroyUser(id: string | number){
-  const user = await User.destroy({
-    where: {
-      id: id
-    }
-  })
+  const user = await User.findByPk(id)
 
-  return user
+  if(!user) return 0
+
+  user.update({status: "banned"})
+
+  const organizationId = user.getDataValue("organizationId")
+
+  if(organizationId) banOrganization(organizationId)
+
+  return 1
 }
 
 

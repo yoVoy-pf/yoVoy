@@ -13,9 +13,16 @@ export enum ActionType {
 	POST_CREATE_EVENT = 'post_create_event',
 	DONT_EVENTS = 'dont_events',
 
+
 	GET_COMMENTS = "get_comments",
 	POST_CREATE_COMMENTS = "post_create_comments"
 
 	SEARCH_USER = 'search_user'
+
+
+	SEARCH_USER = 'search_user',
+	GET_FILTER_USER = 'get_filter_user'
+	GET_COMMENTS = "get_comments",
+	POST_CREATE_COMMENTS = "post_create_comments"
 
 }

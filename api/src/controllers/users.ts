@@ -4,8 +4,9 @@ import { getUsersFromDb, getUserById, destroyUser, updateUser } from "../utils/u
 export const getUsers = (req: Request,res: Response,next:NextFunction) => {
   let name = req.query.name as string
   let email = req.query.email as string
+  const order = req.query.order as string
 
-  getUsersFromDb(email, name).then(users => res.send(users)).catch(error => next(error))
+  getUsersFromDb(email, name, order).then(users => res.send(users)).catch(error => next(error))
 
 }
 export const getUser = async (req: Request,res: Response,next:NextFunction) => {
@@ -29,7 +30,7 @@ export const deleteUser = async (req: Request,res: Response,next:NextFunction) =
     const user = await destroyUser(id)
     
     if(!user) next({status: 404, message: "User not found"})
-    else res.status(200).json(user)
+    else res.status(200).json("User banned succesfully")
     
   }catch(error){
     next(error)
