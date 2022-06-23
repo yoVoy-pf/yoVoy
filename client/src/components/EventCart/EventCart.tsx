@@ -22,8 +22,7 @@ const EventCart = () => {
 		(previous: any, current: any) => previous + current.amount * current.price,
 		0,
 	);
-	console.log('cartItems', cartItems);
-	console.log('total', total);
+
 	return (
 		<div className={styles.cartContainer}>
 			<div
