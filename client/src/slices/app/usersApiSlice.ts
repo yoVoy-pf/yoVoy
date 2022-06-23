@@ -23,6 +23,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 		getTickets: builder.query<any, { _: string }>({
 			query: ({ _ }) => '/api/user/tickets',
 		}),
+		getSearchUser: builder.mutation<any, { email: string }>({
+			query: ({ email }) => {
+				return{
+				url: `/api/users?email=${email}`
+			}
+			},
+		}),
 		updateUser: builder.mutation<User[], { id: any; updateUser: any }>({
 			query: ({ id, ...updateUser }) => {
 				return {
@@ -86,6 +93,7 @@ export const {
 	useDeleteUserMutation,
 	useUpdateUserMutation,
 	useGetTicketsQuery,
+	useGetSearchUserMutation,
 	useUpdateRolUserMutation,
 	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
