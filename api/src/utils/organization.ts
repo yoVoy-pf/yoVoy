@@ -44,6 +44,14 @@ export const destroyOrganization = async (id: string | number) => {
     return number
 }
 
+export const banOrganization = async (id: string | number) => {
+    const organization = await Organization.findByPk(id)
+
+    organization?.update({status: "banned"})
+    
+    Event.update({status: "inactive"}, {where:{organizationId: id}})
+}
+
 export const getOrganizationById = async (id: string | number) => {
     const organization = await Organization.findOne({
         where:{
