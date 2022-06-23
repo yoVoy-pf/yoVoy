@@ -6,7 +6,7 @@ export const EventCartContext = createContext({} as any);
 export const EventCartProvider = ({ children }: any) => {
 	const [cartItems, setCartItems] = useState(() => {
 		try {
-			const ticketsLocalStorage = window.localStorage.getItem('cartItems');
+			const ticketsLocalStorage = window.localStorage.getItem('cartTickets');
 			return ticketsLocalStorage ? JSON.parse(ticketsLocalStorage) : [];
 		} catch (error) {
 			return [];

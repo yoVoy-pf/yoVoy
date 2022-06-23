@@ -6,9 +6,9 @@ const EventCart = () => {
 	const [ticketsLength, setTicketsLength] = useState(0);
 
 	const { cartItems } = useContext(EventCartContext);
-	console.log('cartItems fuera delUseEffect', cartItems);
+
 	useEffect(() => {
-		console.log('cartItemsdentro delUseEffect', cartItems);
+		console.log('cartItems1111111', cartItems);
 		setTicketsLength(
 			cartItems?.reduce(
 				(previous: any, current: any) => previous + current.amount,
