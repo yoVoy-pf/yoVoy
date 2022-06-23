@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,15 +9,21 @@ import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
+import { BsCartPlus } from 'react-icons/bs';
+import { EventCartContext } from '../EventCart/EventCartContext';
+import { Link } from 'react-router-dom';
 import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
+import {
+	useDeleteEventToFavoriteMutation,
+	useGetFavoriteQuery,
+} from '../../slices/app/usersApiSlice';
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
-	const [isOpenAddFavMsg, openAddFavMsg, closeAddFavMsg] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
@@ -27,34 +33,14 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
-
-	const state: any = useSelector((state: State) => state);
-	const [isVisible, setIsVisible] = useState('hide');
-
-	const { location }: any = useParams<{ location: string }>();
-
-	useEffect(() => {
-		dispatch(getEventId(id));
-
-		return () => {
-			dispatch(clearEventId());
-		};
-	}, [dispatch, id]);
-
-	useEffect(() => {
-		setTimeout(() => {
-			setIsVisible('hide');
-		}, 3000);
-	}, [isVisible]);
-
-	useEffect(() => {
-		setTimeout(() => {
-			setIsVisible('hide');
-		}, 3000);
-	}, [isVisible]);
-
+	const { addTicketToCart } = useContext(EventCartContext);
+	const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
+		id,
+		{ refetchOnMountOrArgChange: true },
+	);
+	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
 	const addFavorites = (id: any) => {
-		const Toast = Swal.mixin({
+    const Toast = Swal.mixin({
 			toast: true,
 			position: 'top-end',
 			showConfirmButton: false,
@@ -65,24 +51,29 @@ const Event = () => {
 				toast.addEventListener('mouseleave', Swal.resumeTimer);
 			},
 		});
-		const addF = addEventToFavorite(id).then((result: any) => {
-			if (result.error) {
-				if (result.error.data.includes('llave duplicada')) {
-					setIsVisible('visible');
-				} else if (result.error.data.includes('You need a valid token')) {
-					Swal.fire({
+		if (isFavorites.length === 0) {
+			const addF = addEventToFavorite(id).then((result: any) => {
+				if (result.error) {
+					if (result.error.data.includes('llave duplicada')) {
+					} else if (result.error.data.includes('You need a valid token')) {
+            Swal.fire({
 						title: 'Debe iniciar sesion para poder agregar a favoritos',
 						icon: 'error',
 						confirmButtonColor: 'orange',
 					});
+						navigate('/login');
+					}
 				}
-			} else {
-				Toast.fire({
-					icon: 'success',
-					title: 'Agregado a favoritos',
+			});
+		} else {
+     Toast.fire({
+       title: 'Eliminado de Favoritos',
+			  icon: 'success',
 				});
-			}
-		});
+			deleteEventToFavorite(id.eventId);
+		}
+		refetch();
+
 	};
 
 	const handleDelete = async (id: any) => {
@@ -104,14 +95,11 @@ const Event = () => {
 			}
 		});
 	};
-	console.log('detalle del evento asdasd', location);
 
 	const mapLocation = eventDetail.locations?.map((loc: any) => loc);
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
-	console.log(locationResult);
-
 	return (
 		<React.Fragment>
 			{/* <nav>
@@ -160,8 +148,8 @@ const Event = () => {
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
 							return (
-								<div className={event_style.location}>
-									<React.Fragment key={loc.id}>
+								<div className={event_style.location} key={loc.id}>
+									<React.Fragment>
 										<h4> 🏰 {loc.name}</h4>
 										<small className={event_style.small1}>
 											📍{loc.address},
@@ -204,20 +192,34 @@ const Event = () => {
 								addFavorites({ eventId: id });
 							}}
 						>
-							Agregar a Favoritos ❤️
+							{isFavorites.length === 0
+								? 'Agregar a favoritos '
+								: 'Favorito ❤️'}
 						</button>
-						<label
-							className={
-								isVisible === 'visible' ? event_style.visible : event_style.hide
-							}
-						>
-							Ya está en Favoritos
-						</label>
-						<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
-							<h1>Agregado a favoritos</h1>
-						</EventModal>
 						<hr style={{ width: '350px' }} />
-						<button className={event_style.button2}>COMPRAR</button>
+						<div>
+							{locationResult?.map((location: Location) => {
+								return (
+									<React.Fragment key={location.id}>
+										{location?.dates.map((date: Dates) => {
+											return (
+												<div key={date.id}>
+													<p>
+														{`Dia: ${date.date} // Precio: $${date.price},00`}
+													</p>
+													<button title="Agregar al carrito.">
+														<BsCartPlus onClick={() => addTicketToCart(date)} />
+													</button>
+												</div>
+											);
+										})}
+									</React.Fragment>
+								);
+							})}
+						</div>
+						<Link to="/cart">
+							<button className={event_style.button2}>Ir al carrito.</button>
+						</Link>
 					</div>
 				</div>
 			</div>
