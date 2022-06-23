@@ -15,12 +15,16 @@ import {
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
+
 import { EventCartContext } from '../EventCart/EventCartContext';
 import { Link } from 'react-router-dom';
 
+import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
+
+
+
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
-	const [isOpenAddFavMsg, openAddFavMsg, closeAddFavMsg] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const { addTicketToCart } = useContext(EventCartContext);
@@ -32,10 +36,26 @@ const Event = () => {
 	);
 	const { id }: any = useParams<{ id: string }>();
 
-	const state: any = useSelector((state: State) => state);
-	const [isVisible, setIsVisible] = useState('hide');
+	const { data, isError, error , isFetching, refetch } = useGetFavoriteQuery(id, { refetchOnMountOrArgChange: true })
+    const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
+	const state: any = useSelector((state: State) => state)
+	const [isVisible, setIsVisible] = useState("hide")
+
 
 	const { location }: any = useParams<{ location: string }>();
+    const [isFavorites, setIsFavorites] = useState<any>([]);
+	
+	useEffect(() => {
+		if(currentUser){
+		   refetch()
+		}
+	}, [currentUser]);
+
+	useEffect(() => {
+		if (!isFetching) {
+			isError ? setIsFavorites([]) : setIsFavorites(data);
+		}
+	}, [isFetching]);
 
 	useEffect(() => {
 		dispatch(getEventId(id));
@@ -51,24 +71,23 @@ const Event = () => {
 		}, 3000);
 	}, [isVisible]);
 
-	useEffect(() => {
-		setTimeout(() => {
-			setIsVisible('hide');
-		}, 3000);
-	}, [isVisible]);
+
+
 
 	const addFavorites = (id: any) => {
-		const addF = addEventToFavorite(id).then((result: any) => {
-			if (result.error) {
-				if (result.error.data.includes('llave duplicada')) {
-					setIsVisible('visible');
-				} else if (result.error.data.includes('You need a valid token')) {
-					alert('Debe iniciar sesión');
-				}
-			} else {
-				openAddFavMsg();
-			}
-		});
+		if(isFavorites.length===0){
+			const addF = addEventToFavorite(id).then((result: any) => {
+				if (result.error) {
+					if (result.error.data.includes("llave duplicada")) {
+					} else if (result.error.data.includes("You need a valid token")) {
+						navigate("/login")
+					}
+				} 
+			});
+		}else{
+			deleteEventToFavorite(id.eventId)
+		}
+		refetch()
 	};
 
 	const handleDelete = async (id: any) => {
@@ -96,6 +115,7 @@ const Event = () => {
 		(loc: Location) => loc.id == location,
 	);
 
+	
 	return (
 		<React.Fragment>
 			{/* <nav>
@@ -182,6 +202,7 @@ const Event = () => {
 							})}
 						</EventModal>
 
+
 						<button
 							className={event_style.button2}
 							onClick={() => {
@@ -224,6 +245,7 @@ const Event = () => {
 						<Link to="/cart">
 							<button className={event_style.button2}>Ir al carrito.</button>
 						</Link>
+
 					</div>
 				</div>
 			</div>
