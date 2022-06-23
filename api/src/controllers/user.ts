@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express"
+import { sendMail } from "../mailer"
 import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation, getFavoriteById} from "../utils/user"
+import { getUserById } from "../utils/users"
+
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -82,10 +85,17 @@ export const getTicket = async (req: Request,res: Response,next:NextFunction) =>
 export const resetPassword = async (req: Request,res: Response,next:NextFunction) =>{
     try{
         const {userId}= req.body
-        
-        await resetUserPassword(userId)
+        const user : any = await getUserById(userId)
+        if (!user) next({status: 404, message: "User not found"})
+        const newPassword = await resetUserPassword(userId)
+        const mailOptions = {
+            to: user.email,
+            subject: 'Reseteo de contraseña',
+            text: `Su contraseña ha sido reseteada a ${newPassword}\nPor favor, cambie su contraseña cuando inicie sesion`
+          }
 
-        res.status(200).json("password has reset succesfully")
+        await sendMail(mailOptions)
+        res.send({message: 'Se ha enviado un email con la nueva contraseña'})
     }catch(error){
         next(error)
     }
