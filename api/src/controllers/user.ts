@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { sendMail } from "../mailer"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation, getFavoriteById} from "../utils/user"
+import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation,getFavoriteById} from "../utils/user"
 import { getUserById } from "../utils/users"
 
 
