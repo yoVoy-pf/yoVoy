@@ -84,7 +84,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 export const handleRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
   const cookies = req.cookies;
   if (!cookies) return res.sendStatus(401)
-  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(401) // unauthorized
+  if (!Object.keys(cookies).length || !Object.keys(cookies?.jwt).length) return res.sendStatus(401) // unauthorized
   const refreshToken = cookies.jwt;
   try{
     const user = await getUserFromDbByField('refreshToken',refreshToken);
