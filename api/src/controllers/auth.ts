@@ -121,7 +121,7 @@ export const getUserAuth = async (req: Request, res: Response, next: NextFunctio
 
 export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
   const cookies = req.cookies;
-  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt).length) return res.sendStatus(204) // no content
+  if (!Object.keys(cookies).length || !Object.keys(cookies.jwt ? cookies.jwt : {}).length) return res.sendStatus(204) // no content
   const refreshToken = cookies.jwt;
   try{
     // Is refreshToken in db?
