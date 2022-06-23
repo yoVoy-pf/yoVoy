@@ -9,6 +9,7 @@ import {
 import register_style from './Signup.module.css';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../slices/authentication/authSlice';
+import Swal from 'sweetalert2';
 declare var google: any;
 
 const Signup = () => {
@@ -28,6 +29,17 @@ const Signup = () => {
 	const [register] = useRegisterMutation();
 
 	const handleRegister = async (credentials: any) => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			},
+		});
 		try {
 			const userData: any = await register(credentials).unwrap();
 			if (userData.data) {
@@ -38,6 +50,10 @@ const Signup = () => {
 					}),
 				);
 				navigate('/welcome');
+				Toast.fire({
+					icon: 'success',
+					title: 'Registrado con exito',
+				});
 			}
 			if (userData.error) throw userData.error;
 			setUser('');
@@ -48,7 +64,10 @@ const Signup = () => {
 	};
 
 	const handleCallbackResponse = async (response: any) => {
-		handleRegister({ googleToken: response.credential, clientId: response.clientId });
+		handleRegister({
+			googleToken: response.credential,
+			clientId: response.clientId,
+		});
 	};
 
 	useEffect(() => {
