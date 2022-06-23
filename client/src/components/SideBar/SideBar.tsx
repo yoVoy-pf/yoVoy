@@ -14,16 +14,24 @@ import { FiHome, FiLogOut, FiEdit, FiArrowLeftCircle, FiArrowRightCircle } from 
 
 import "react-pro-sidebar/dist/css/styles.css";
 import "./side-bar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../slices/authentication/authSlice";
-
+import { useLogoutMutation } from "../../slices/authentication/authApiSlice";
 
 
 const SideBar = () => {
     const currentUser : any = useSelector(selectCurrentUser)
     const currentRole = currentUser ? currentUser.rolesId.slice(-1) : null
     const [menuCollapse, setMenuCollapse] = useState(false)
+
+    const [logout] = useLogoutMutation()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+      await logout()
+      navigate('/home')
+    }
 
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -61,7 +69,7 @@ const SideBar = () => {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              <MenuItem icon={<FiLogOut />} onClick={handleLogout}>Cerrar Sesión</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>

@@ -109,12 +109,13 @@ export const resetUserPassword = async (id: string | number) => {
     }
 
     const password = await bcrypt.hash(newPassword, 10)
-    await User.update({ password }, { where: { id } })
+    await User.update({password}, {where:{id}})
+    return newPassword
 }
 
 export const getUserInformation = async (id: string | number) => {
     const user = await User.findByPk(id, {
-        attributes: ["name", "surname", "email"],
+        attributes: ["name","email"],
         include: {
             model: Organization,
             attributes: ["name"]

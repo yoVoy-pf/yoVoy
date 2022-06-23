@@ -10,7 +10,7 @@ const DetailProessPayment = () => {
         data: ticket
       } = useGetTicketDetailQuery(id)
     return (
-        <div>
+        <div className={styleProcess.fondo}>
             <div>
                 <SideBar/>
             </div>

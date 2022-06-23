@@ -7,6 +7,7 @@ import { Role } from './Role';
 import { UserRole } from './UserRole';
 import { iUser } from '../types/user';
 import { Organization } from './Organization';
+import { Request } from "./Request"
 
 @Table
 export class User extends Model<iUser>{
@@ -40,5 +41,8 @@ export class User extends Model<iUser>{
 
   @BelongsToMany(() => Role, () => UserRole)
   roles!: Role[];
+
+  @HasMany(() => Request)
+  requests!: Request[];
 }
 

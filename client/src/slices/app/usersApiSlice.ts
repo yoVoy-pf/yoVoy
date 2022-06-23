@@ -17,6 +17,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		getUserData: builder.query<any, { _: string }>({
+			query: ({ _ }) => '/api/user/information',
+		}),
 		getTickets: builder.query<any, { _: string }>({
 			query: ({ _ }) => '/api/user/tickets',
 		}),
@@ -29,9 +32,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-		updateRolUser: builder.mutation<putRolUser, { userId: any, roleId: any }>({
-			query: ({ userId,  roleId }) => {
-				console.log('asdgagasdg:',userId, 'gfsadgagagd:',roleId )
+		updateRolUser: builder.mutation<putRolUser, { userId: any; roleId: any }>({
+			query: ({ userId, roleId }) => {
+				console.log('asdgagasdg:', userId, 'gfsadgagagd:', roleId);
 				return {
 					url: `api/user/role`,
 					method: `PUT`,
@@ -56,7 +59,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-		deleteEventToFavorite: builder.mutation<Event, {id: number}>({
+		deleteEventToFavorite: builder.mutation<Event, { id: number }>({
 			query(id) {
 			  return {
 				url:`api/user/favorites/${id}`,
@@ -79,6 +82,7 @@ export const {
 	useGetUsersQuery,
 	useGetFavoritesQuery,
 	useGetUserQuery,
+	useGetUserDataQuery,
 	useDeleteUserMutation,
 	useUpdateUserMutation,
 	useGetTicketsQuery,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOrganizationQuery, useUpdateOrganizationMutation } from "../../slices/app/organizationApiSlice";
+import SideBar from "../SideBar/SideBar";
 import styleUpdateOrganization from './update-organization.module.css'
 
 const UpdateOrganization = () =>{
@@ -41,7 +42,8 @@ const UpdateOrganization = () =>{
         }
     }
     return(
-        <div>
+        <div className={styleUpdateOrganization.fondo}>
+            <SideBar/>
             <form onSubmit={onSubmit}>
                 <div className={styleUpdateOrganization.form_organization}>
                 <fieldset>
