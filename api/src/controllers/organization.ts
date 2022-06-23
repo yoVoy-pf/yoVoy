@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization, getAllEvents} from "../utils/organization"
+import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization, getAllEvents, banOrganization} from "../utils/organization"
 
 
 export const postOrganization = async (req: Request, res: Response, next: NextFunction) => {
@@ -18,7 +18,7 @@ export const deleteOrganization = async(req: Request, res: Response, next: NextF
     try{
         const {id} = req.params
 
-        const number = await destroyOrganization(id)
+        const number = await banOrganization(id)
 
         if(!number) next({status:404, message: "Organization not found"})
         else res.status(200).json("Organization was deleted")
