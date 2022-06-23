@@ -94,6 +94,11 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				userSearch: action.payload,
 			};
+		case ActionType.GET_FILTER_USER:
+			return {
+				...state,
+				userSearch: action.payload,
+		};
 
 		default:
 			return state;
