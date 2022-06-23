@@ -8,7 +8,8 @@ import { useCreateCommentMutation } from "../../slices/app/postComment";
 import { useDatesModal } from "../CreateEvent/CreateEventModal/useDatesModal";
 import DatesModal from "../CreateEvent/CreateEventModal/DatesModal"
 import { selectCurrentUser } from "../../slices/authentication/authSlice";
-
+import styleComments from "./Comments.module.css"
+import { MdAccountCircle } from "react-icons/md"
 const Comments = () => {
     const allComments = useSelector((state: State) => state.global.allComments);
     const { id }: any = useParams<{ id: string }>();
@@ -52,23 +53,24 @@ const Comments = () => {
         dispatch(getComments(id))
     }
 
-    const isTextAreaDisable = text.length === 0;
+    const isTextAreaDisable = text.length === 0 || text.length>100;
 
     return (
-        <div>
+        <div className={styleComments.container}>
+            <br />
             <h2>Comentarios</h2>
             {allComments?.map((el: any) => {
                 return (
                     <div>
-                        <p>{el.text}</p>
+                        <p className={styleComments.p}><MdAccountCircle className={styleComments.icon}/>{el.text}</p>
                         <p>{el.createdAt}</p>
                     </div>
                 )
             })}
             <div>
                 {currentUser &&
-                <button onClick={() => openModal()}>
-                    Comentario
+                <button className={styleComments.btn_1} onClick={() => openModal()}>
+                    Deja tu Comentario
                 </button>
                 }
                 <DatesModal
@@ -81,12 +83,13 @@ const Comments = () => {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             style={{ resize: "none" }}
+                            className={styleComments.textarea}
                         />
                         <br></br>
-                        <button disabled={isTextAreaDisable} type="submit" onClick={()=>closeModal()}>Enviar Comentario</button>
+                        <button className={styleComments.btn_2} disabled={isTextAreaDisable} type="submit" onClick={()=>closeModal()}>Enviar Comentario</button>
                         <br />
-                        <button  onClick={()=>closeModal()}>Salir</button>
                     </form>}
+                        <button className={styleComments.btn_2} onClick={()=>closeModal()}>Salir</button>
                   
                 </DatesModal>
             </div>
