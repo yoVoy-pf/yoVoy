@@ -8,7 +8,11 @@ const initialState = {
 	categories: [],
 	cities: [],
 	locations: [],
+
 	allComments:[]
+
+	userSearch: []
+
 	// 	eventsFiltered: [],
 };
 
@@ -72,6 +76,7 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				allEvents: action.payload
 			}
+
 		
 		case ActionType.GET_COMMENTS:
 			
@@ -83,6 +88,13 @@ const rootReducer = (state = initialState, action: Action) => {
 		return{
 			...state,
 		}
+
+		case ActionType.SEARCH_USER:
+			return {
+				...state,
+				userSearch: action.payload,
+			};
+
 		default:
 			return state;
 	}

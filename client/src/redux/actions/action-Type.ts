@@ -64,6 +64,11 @@ interface postCreateComments{
 	payload: any;
 }
 
+interface getSearchUserAction {
+	type: ActionType.SEARCH_USER;
+	payload: any;
+}
+
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -76,6 +81,11 @@ export type Action =
 	| postCreateCategory
 	| getLocationsAction
 	| postCreateEvent
+
 	| getComments
 	| postCreateComments
 	| getDonEventsAction;
+
+	| getDonEventsAction
+	| getSearchUserAction;
+
