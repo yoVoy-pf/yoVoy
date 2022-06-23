@@ -7,7 +7,7 @@ const {Event, Category, Date, Location, Organization, EventLocation, City, Event
 
 export default {
 
-    getEventById: async (id: string): Promise<iEvent> => {
+    getEventById: async (id: string): Promise<iEvent | null> => {
         const event = await Event.findOne({
             where:{
                 status: "active",
@@ -17,7 +17,10 @@ export default {
             include: [
                 {     
                     model: Organization,
-                    attributes: ["id", "name"]
+                    attributes: ["id", "name"],
+                    where:{
+                        status: "active"
+                    }
                 },
                 {
                     model: Location,
@@ -54,6 +57,7 @@ export default {
                 }
             ]
         })
+        if(!event) return null
         return {
             id: event?.getDataValue("id"),
             name: event?.getDataValue("name"),
