@@ -90,7 +90,6 @@ const Login = () => {
 		e.preventDefault();
 		try {
       if (recoverPassword) { 
-        console.log('hola')
         await recoverPasswordQuery({email});
         const Toast = Swal.mixin({
           toast: true,
@@ -107,7 +106,10 @@ const Login = () => {
           icon: 'success',
           title: `La nueva contraseña fue enviada a su email`,
         });
-
+        setRecoverPassword(false);
+        setEmail('');
+        setPassword('');
+        navigate('/home');
       }
       else { await handleLogin({ email, password }); }
 		} catch (err: any) {
