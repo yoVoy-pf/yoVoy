@@ -88,18 +88,18 @@ const Event = () => {
 				if (result.error) {
 					if (result.error.data.includes('llave duplicada')) {
 					} else if (result.error.data.includes('You need a valid token')) {
-						Swal.fire({
+						Toast.fire({
 							title: 'Debe iniciar sesion para poder agregar a favoritos',
 							icon: 'error',
-							confirmButtonColor: 'orange',
 						});
 						navigate('/login');
 					}
+				} else {
+					Toast.fire({
+						title: 'Agregado a Favoritos',
+						icon: 'success',
+					});
 				}
-				Toast.fire({
-					title: 'Agregado a Favoritos',
-					icon: 'success',
-				});
 			});
 		} else {
 			Toast.fire({
