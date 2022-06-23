@@ -28,6 +28,17 @@ const Login = () => {
 	const dispatch = useDispatch();
 
 	const handleLogin = async (credentials: any) => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			},
+		});
 		const userData = await login(credentials).unwrap();
 		console.log(userData);
 		dispatch(
@@ -39,6 +50,10 @@ const Login = () => {
 		setEmail('');
 		setPassword('');
 		navigate('/welcome');
+		Toast.fire({
+			icon: 'success',
+			title: `Bienvenido ${userData.data.name}!`,
+		});
 	};
 
 	const handleCallbackResponse = async (response: any) => {
@@ -77,18 +92,21 @@ const Login = () => {
       if (recoverPassword) { 
         console.log('hola')
         await recoverPasswordQuery({email});
-        Swal.fire({
-          title: 'La nueva contraseña se ha enviado a tu mail',
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+        });
+        Toast.fire({
           icon: 'success',
-          confirmButtonColor: 'green',
-          confirmButtonText: 'Volver',
-        }).then(() => {
-            setRecoverPassword(false);
-            setEmail('');
-            setPassword('');
-            navigate('/home');
-          
-        }); 
+          title: `La nueva contraseña fue enviada a su email`,
+        });
 
       }
       else { await handleLogin({ email, password }); }
