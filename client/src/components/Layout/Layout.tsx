@@ -9,7 +9,9 @@ const Layout = () => {
 		<div className={home.container}>
 			<div className={home.container}>
 				<NavBar />
-
+				<EventCartProvider>
+					<EventCart />
+				</EventCartProvider>
 				<Outlet />
 			</div>
 		</div>

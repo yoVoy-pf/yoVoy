@@ -41,7 +41,6 @@ export const EventCartProvider = ({ children }: any) => {
 
 	useEffect(() => {
 		localStorage.setItem('cartTickets', JSON.stringify(cartItems));
-		console.log('cartItems', cartItems);
 	}, [cartItems]);
 
 	const addTicketToCart = (ticket: any) => {
@@ -83,7 +82,6 @@ export const EventCartProvider = ({ children }: any) => {
 		handleDelhow();
 	};
 
-	const editItemToCart = ({ id, amount }: any) => {};
 	return (
 		<EventCartContext.Provider
 			value={{ cartItems, addTicketToCart, deleteItemToCar }}

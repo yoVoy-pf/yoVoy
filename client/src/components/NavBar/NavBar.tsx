@@ -73,11 +73,6 @@ const NavBar = () => {
 					<Logout />
 				</div>
 			)}
-			<div className="navbar_bg_a">
-				<EventCartProvider>
-					<EventCart />
-				</EventCartProvider>
-			</div>{' '}
 		</nav>
 	);
 };
