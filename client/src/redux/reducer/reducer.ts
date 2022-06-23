@@ -8,6 +8,7 @@ const initialState = {
 	categories: [],
 	cities: [],
 	locations: [],
+	userSearch: []
 	// 	eventsFiltered: [],
 };
 
@@ -71,6 +72,11 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				allEvents: action.payload
 			}
+		case ActionType.SEARCH_USER:
+			return {
+				...state,
+				userSearch: action.payload,
+			};
 		default:
 			return state;
 	}

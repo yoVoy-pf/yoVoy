@@ -8,7 +8,7 @@ const attributes = ["id", "name", "background_image", "description"]
 
 //trae todos los eventos de la base de datos
 export async function getEventsFromDb() {
-    const events = await Event.findAll({ attributes: attributes })
+    const events = await Event.findAll({ attributes: attributes, where:{status: "active"} })
     return events
 }
 
@@ -18,6 +18,7 @@ export async function getEventsFromDbBySearch(search: string) {
         {
             attributes: attributes,
             where: {
+                status: "active",
                 name: {
                     [Op.iLike]: `%${search}%`
                 }
@@ -66,7 +67,7 @@ export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any)
 
 //trae los eventos filtrados por categoria y locacion.
 export async function getEventsFromDbByFilter(category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string) {
-    let options: any = { include: [] }
+    let options: any = { include: [], where:{status: "active"} }
 
     if (organization) {
         options.include.push({
