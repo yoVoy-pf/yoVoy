@@ -92,5 +92,10 @@ export type Action =
 	| getDonEventsAction;
 
 	| getDonEventsAction
+
+	| getSearchUserAction;
+
+
 	| getSearchUserAction
 	| getFilterUserAction;
+

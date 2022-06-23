@@ -18,10 +18,19 @@ import {
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
 
+
+
+
+import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
+
+
+
 import {
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
 } from '../../slices/app/usersApiSlice';
+
+
 
 
 const Event = () => {
@@ -262,6 +271,9 @@ const Event = () => {
 							<button className={event_style.button2}>Ir al carrito.</button>
 						</Link>
 					</div>
+
+
+
 
 
 

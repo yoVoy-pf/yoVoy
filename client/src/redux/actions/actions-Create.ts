@@ -219,8 +219,11 @@ export const postCreateComments = (payload: any) => {
 export const getSearchUser = (user:any) => {
 	return {type: ActionType.SEARCH_USER, payload: user.data}
 
+
+
 };
 
 export const getFilterUsers = (user:any) => {
 	return {type: ActionType.GET_FILTER_USER, payload: user.data}
+
 };
