@@ -1,9 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../slices/authentication/authSlice';
-import { useLoginMutation } from '../../slices/authentication/authApiSlice';
+import { useLoginMutation, useRecoverPasswordMutation } from '../../slices/authentication/authApiSlice';
 import { validatePassword } from './LoginValidate';
 import { validateEmail } from './LoginValidate';
 import login_style from './Login.module.css';
@@ -18,9 +19,11 @@ const Login = () => {
 	const [errMsg, setErrMsg] = useState('');
 	const [errorsEmail, setErrorsEmail]: any = useState({});
 	const [errorsPassword, setErrorsPassword]: any = useState({});
+  const [recoverPassword, setRecoverPassword]: any = useState(false)
 	const navigate = useNavigate();
-
-	const [login, { isLoading }] = useLoginMutation();
+  const [localLoading, setLocalLoading] = useState(false);
+	const [login] = useLoginMutation();
+	const [recoverPasswordQuery] = useRecoverPasswordMutation();
 	const dispatch = useDispatch();
 
 	const handleLogin = async (credentials: any) => {
@@ -43,22 +46,25 @@ const Login = () => {
 	};
 
 	useEffect(() => {
-		if (google) {
-			google?.accounts?.id?.initialize({
-				client_id:
-					'210425083362-pkn3890s07pe9r7f0l2s1ev492j4hh13.apps.googleusercontent.com',
-				callback: handleCallbackResponse,
-			});
-
-			google?.accounts?.id?.renderButton(document.getElementById('signInDiv'), {
-				theme: 'outline',
-				size: 'large',
-			});
-		}
+		try{
+        setLocalLoading(false);
+        google?.accounts?.id?.initialize({
+          client_id:
+            '210425083362-pkn3890s07pe9r7f0l2s1ev492j4hh13.apps.googleusercontent.com',
+          callback: handleCallbackResponse,
+        });
+  
+        google?.accounts?.id?.renderButton(document.getElementById('signInDiv'), {
+          theme: 'outline',
+          size: 'large',
+        });    
+    }catch(err){
+      setLocalLoading(true)
+      console.log(err)}
 
 		const input = emailRef.current;
 		input?.focus();
-	}, []);
+	}, [localLoading]);
 
 	useEffect(() => {
 		setErrMsg('');
@@ -67,7 +73,15 @@ const Login = () => {
 	const handleSubmit = async (e: SyntheticEvent) => {
 		e.preventDefault();
 		try {
-			await handleLogin({ email: email, password });
+      if (recoverPassword) { 
+        console.log('hola')
+        await recoverPasswordQuery({email}); 
+        setRecoverPassword(false);
+        setEmail('');
+        setPassword('');
+        navigate('/home');
+      }
+      else { await handleLogin({ email, password }); }
 		} catch (err: any) {
 			if (!err?.data) {
 				setErrMsg('El Server no responde.');
@@ -96,7 +110,7 @@ const Login = () => {
 		);
 	};
 	const spanStyle = { color: 'red', fontSize: '25px' };
-	const content = isLoading ? (
+	const content = localLoading ? (
 		<h1>Loading...</h1>
 	) : (
 		<React.Fragment>
@@ -125,8 +139,7 @@ const Login = () => {
 						/>
 						{errorsEmail.email && <p>{errorsEmail.email}</p>}
 					</fieldset>{' '}
-					<br /> <br />
-					<fieldset className={login_style.fieldset_login}>
+          <fieldset hidden={recoverPassword} className={login_style.fieldset_login}>
 						{/* <label>Contraseña</label> <br /> */}
 						<legend className={login_style.legend}>Contraseña:</legend>
 						<input
@@ -134,26 +147,35 @@ const Login = () => {
 							placeholder="Contraseña"
 							name="password"
 							autoComplete="off"
-							required={true}
 							onChange={(e) => handlePasswordInput(e)}
 						/>
 						{errorsPassword.password && <p>{errorsPassword.password}</p>}
 					</fieldset>{' '}
-					<br /> <br />
+           <div hidden={recoverPassword} className={login_style.googleButton} id="signInDiv"></div>
 					<button
+            type= "submit"
 						className={login_style.bottom}
 						disabled={
-							Object.keys(errorsEmail).length > 0 ||
-							Object.keys(errorsPassword).length > 0 ||
-							errorsEmail.mail ||
-							errorsPassword.password
-								? true
-								: false
+              !recoverPassword &&
+              (
+                Object.keys(errorsEmail).length > 0 ||
+                Object.keys(errorsPassword).length > 0 ||
+                errorsEmail.mail ||
+                errorsPassword.password
+                  ? true
+                  : false
+              )
 						}
 					>
-						Iniciar sesion
+              {recoverPassword ? 'Recuperar contraseña' : 'Ingresar'}
 					</button>
-					<div id="signInDiv"></div>
+					<button
+						className={login_style.bottom}
+            type= 'button'
+            onClick={() => setRecoverPassword((pevState: any) => !pevState)}
+					>
+						{recoverPassword ? 'Volver' : 'Recuperar contraseña'}
+					</button>
 				</div>
 				<br />
 			</form>
