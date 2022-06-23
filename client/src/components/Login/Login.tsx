@@ -106,6 +106,7 @@ const Login = () => {
           icon: 'success',
           title: `La nueva contraseña fue enviada a su email`,
         });
+
         setRecoverPassword(false);
         setEmail('');
         setPassword('');
