@@ -31,7 +31,9 @@ export const createTickets = async(preferenceId: string, items: any, user: any) 
             transaction_amount: item.unit_price * item.quantity,
             quantity: item.quantity,
             userId: user.id,
-            eventId: item.id
+            eventId: item.id,
+            date: item.date,
+            location: item.location
         })
     })
 }
