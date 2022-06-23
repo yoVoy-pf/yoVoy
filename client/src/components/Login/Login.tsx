@@ -8,6 +8,7 @@ import { useLoginMutation, useRecoverPasswordMutation } from '../../slices/authe
 import { validatePassword } from './LoginValidate';
 import { validateEmail } from './LoginValidate';
 import login_style from './Login.module.css';
+import Swal from 'sweetalert2';
 declare var google: any;
 
 const Login = () => {
@@ -27,6 +28,17 @@ const Login = () => {
 	const dispatch = useDispatch();
 
 	const handleLogin = async (credentials: any) => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			},
+		});
 		const userData = await login(credentials).unwrap();
 		console.log(userData);
 		dispatch(
@@ -38,6 +50,10 @@ const Login = () => {
 		setEmail('');
 		setPassword('');
 		navigate('/welcome');
+		Toast.fire({
+			icon: 'success',
+			title: `Bienvenido ${userData.data.name}!`,
+		});
 	};
 
 	const handleCallbackResponse = async (response: any) => {
