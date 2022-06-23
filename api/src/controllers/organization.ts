@@ -21,7 +21,7 @@ export const deleteOrganization = async(req: Request, res: Response, next: NextF
         const number = await banOrganization(id)
 
         if(!number) next({status:404, message: "Organization not found"})
-        else res.status(200).json("Organization was deleted")
+        else res.status(200).json("Organization banned succesfully")
         
     }catch(error){
         next(error)
