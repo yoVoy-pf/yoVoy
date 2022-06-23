@@ -25,6 +25,12 @@ export class Ticket extends Model<Ticket> {
 
     @Column
     quantity!: number;
+
+    @Column
+    location!: string;
+
+    @Column
+    date!: string
     
     @ForeignKey(() => Event)
     @Column
