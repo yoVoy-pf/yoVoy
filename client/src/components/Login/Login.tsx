@@ -8,6 +8,7 @@ import { useLoginMutation, useRecoverPasswordMutation } from '../../slices/authe
 import { validatePassword } from './LoginValidate';
 import { validateEmail } from './LoginValidate';
 import login_style from './Login.module.css';
+import Swal from 'sweetalert2'
 declare var google: any;
 
 const Login = () => {
@@ -75,11 +76,20 @@ const Login = () => {
 		try {
       if (recoverPassword) { 
         console.log('hola')
-        await recoverPasswordQuery({email}); 
-        setRecoverPassword(false);
-        setEmail('');
-        setPassword('');
-        navigate('/home');
+        await recoverPasswordQuery({email});
+        Swal.fire({
+          title: 'La nueva contraseña se ha enviado a tu mail',
+          icon: 'success',
+          confirmButtonColor: 'green',
+          confirmButtonText: 'Volver',
+        }).then(() => {
+            setRecoverPassword(false);
+            setEmail('');
+            setPassword('');
+            navigate('/home');
+          
+        }); 
+
       }
       else { await handleLogin({ email, password }); }
 		} catch (err: any) {
