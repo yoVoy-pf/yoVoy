@@ -1,4 +1,4 @@
-import {Model, Column, Table, BelongsTo, ForeignKey} from 'sequelize-typescript';
+import {Model, Column, Table, BelongsTo, ForeignKey, DataType, Default} from 'sequelize-typescript';
 import { EventLocation } from './EventLocation';
 
 
@@ -10,6 +10,10 @@ export class Date extends Model<Date> {
 
     @Column
     price!: number;
+
+    @Default("active")
+    @Column(DataType.ENUM("active","inactive", "canceled"))
+    status!: string
 
     @ForeignKey(() => EventLocation)
     @Column

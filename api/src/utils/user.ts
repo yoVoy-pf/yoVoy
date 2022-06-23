@@ -113,7 +113,11 @@ export const resetUserPassword = async (id: string | number) => {
     return newPassword
 }
 
-export const getUserInformation = async (id: string | number) => {
+export const updateUserPassword = async(id: string | number, password: string) => {
+  await User.update({password}, {where:{id}})
+}
+
+export const getUserInformation = async(id: string | number) => {
     const user = await User.findByPk(id, {
         attributes: ["name","email"],
         include: {
