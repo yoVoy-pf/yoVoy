@@ -17,12 +17,25 @@ import {
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
+
 import {
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
 } from '../../slices/app/usersApiSlice';
 
+
 const Event = () => {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer);
+			toast.addEventListener('mouseleave', Swal.resumeTimer);
+		},
+	});
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
@@ -39,41 +52,65 @@ const Event = () => {
 		{ refetchOnMountOrArgChange: true },
 	);
 	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
+	const state: any = useSelector((state: State) => state);
+	const [isVisible, setIsVisible] = useState('hide');
+
+	const { location }: any = useParams<{ location: string }>();
+	const [isFavorites, setIsFavorites] = useState<any>([]);
+
+	useEffect(() => {
+		if (currentUser) {
+			refetch();
+		}
+	}, [currentUser]);
+
+	useEffect(() => {
+		if (!isFetching) {
+			isError ? setIsFavorites([]) : setIsFavorites(data);
+		}
+	}, [isFetching]);
+
+	useEffect(() => {
+		dispatch(getEventId(id));
+
+		return () => {
+			dispatch(clearEventId());
+		};
+	}, [dispatch, id]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsVisible('hide');
+		}, 3000);
+	}, [isVisible]);
+
 	const addFavorites = (id: any) => {
-    const Toast = Swal.mixin({
-			toast: true,
-			position: 'top-end',
-			showConfirmButton: false,
-			timer: 3000,
-			timerProgressBar: true,
-			didOpen: (toast) => {
-				toast.addEventListener('mouseenter', Swal.stopTimer);
-				toast.addEventListener('mouseleave', Swal.resumeTimer);
-			},
-		});
 		if (isFavorites.length === 0) {
 			const addF = addEventToFavorite(id).then((result: any) => {
 				if (result.error) {
 					if (result.error.data.includes('llave duplicada')) {
 					} else if (result.error.data.includes('You need a valid token')) {
-            Swal.fire({
-						title: 'Debe iniciar sesion para poder agregar a favoritos',
-						icon: 'error',
-						confirmButtonColor: 'orange',
-					});
+						Toast.fire({
+							title: 'Debe iniciar sesion para poder agregar a favoritos',
+							icon: 'error',
+						});
 						navigate('/login');
 					}
+				} else {
+					Toast.fire({
+						title: 'Agregado a Favoritos',
+						icon: 'success',
+					});
 				}
 			});
 		} else {
-     Toast.fire({
-       title: 'Eliminado de Favoritos',
-			  icon: 'success',
-				});
+			Toast.fire({
+				title: 'Eliminado de Favoritos',
+				icon: 'warning',
+			});
 			deleteEventToFavorite(id.eventId);
 		}
 		refetch();
-
 	};
 
 	const handleDelete = async (id: any) => {
@@ -100,6 +137,7 @@ const Event = () => {
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
+
 	return (
 		<React.Fragment>
 			{/* <nav>
@@ -125,8 +163,11 @@ const Event = () => {
 							{eventDetail.description}
 						</small>
 					</div>
+							
+					<div>
+						<Comments/>
+					</div>
 				</div>
-
 				<div className={event_style.div2}>
 					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
@@ -221,7 +262,13 @@ const Event = () => {
 							<button className={event_style.button2}>Ir al carrito.</button>
 						</Link>
 					</div>
+
+
+
+
+
 				</div>
+
 			</div>
 		</React.Fragment>
 	);

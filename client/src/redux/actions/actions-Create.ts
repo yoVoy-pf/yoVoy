@@ -176,8 +176,49 @@ export const postCreateEvent = (payload: any) => {
 	};
 };
 
+
+
+/* action for the component comments */
+
+export const clearComment = () => {
+    return {
+        type: ActionType.GET_COMMENTS,
+        payload: undefined
+    }
+}
+
+
+export const getComments = (id: string | number) => {
+	return async function (dispatch: Dispatch) {
+		try {
+			const eventId = await axios.get(`/api/comments/${id}`);
+			dispatch({
+				type: ActionType.GET_COMMENTS,
+				payload: eventId.data,
+			});
+		} catch (error) {
+			console.error('Error la acciones de CommentsId');
+		}
+	};
+};
+
+
+export const postCreateComments = (payload: any) => {
+	return async function () {
+		try {
+			const response = await axios.post(
+				'/api/comment',
+				payload,
+			);
+			return response;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 export const getSearchUser = (user:any) => {
 	return {type: ActionType.SEARCH_USER, payload: user.data}
+
 };
 
 export const getFilterUsers = (user:any) => {

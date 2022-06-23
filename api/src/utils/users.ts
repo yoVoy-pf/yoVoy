@@ -3,7 +3,8 @@ import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 import {Model} from 'sequelize-typescript'
 import { Op } from 'sequelize';
-const { User, Role, UserRole } = sequelize.models
+import { banOrganization } from './organization';
+const { User, Role, UserRole, Organization, Event } = sequelize.models
 
 
 // create new user in the database
@@ -92,13 +93,17 @@ export async function getUserById(id: string | number) {
 }
 
 export async function destroyUser(id: string | number){
-  const user = await User.destroy({
-    where: {
-      id: id
-    }
-  })
+  const user = await User.findByPk(id)
 
-  return user
+  if(!user) return 0
+
+  user.update({status: "banned"})
+
+  const organizationId = user.getDataValue("organizationId")
+
+  if(organizationId) banOrganization(organizationId)
+
+  return 1
 }
 
 

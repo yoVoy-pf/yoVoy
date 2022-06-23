@@ -30,7 +30,7 @@ export const deleteUser = async (req: Request,res: Response,next:NextFunction) =
     const user = await destroyUser(id)
     
     if(!user) next({status: 404, message: "User not found"})
-    else res.status(200).json(user)
+    else res.status(200).json("User banned succesfully")
     
   }catch(error){
     next(error)
