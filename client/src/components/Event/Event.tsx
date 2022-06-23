@@ -28,8 +28,8 @@ const Event = () => {
 	);
 	const { id }: any = useParams<{ id: string }>();
 
-	const state: any = useSelector((state: State) => state)
-	const [isVisible, setIsVisible] = useState("hide")
+	const state: any = useSelector((state: State) => state);
+	const [isVisible, setIsVisible] = useState('hide');
 
 	const { location }: any = useParams<{ location: string }>();
 
@@ -41,7 +41,6 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
-
 	useEffect(() => {
 		setTimeout(() => {
 			setIsVisible('hide');
@@ -49,20 +48,39 @@ const Event = () => {
 	}, [isVisible]);
 
 	useEffect(() => {
-		setTimeout(() => { setIsVisible("hide") }, 3000)
-	}, [isVisible])
-
+		setTimeout(() => {
+			setIsVisible('hide');
+		}, 3000);
+	}, [isVisible]);
 
 	const addFavorites = (id: any) => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			didOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer);
+				toast.addEventListener('mouseleave', Swal.resumeTimer);
+			},
+		});
 		const addF = addEventToFavorite(id).then((result: any) => {
 			if (result.error) {
-				if (result.error.data.includes("llave duplicada")) {
-					setIsVisible("visible")
-				} else if (result.error.data.includes("You need a valid token")) {
-					alert("Debe iniciar sesión")
+				if (result.error.data.includes('llave duplicada')) {
+					setIsVisible('visible');
+				} else if (result.error.data.includes('You need a valid token')) {
+					Swal.fire({
+						title: 'Debe iniciar sesion para poder agregar a favoritos',
+						icon: 'error',
+						confirmButtonColor: 'orange',
+					});
 				}
 			} else {
-				openAddFavMsg()
+				Toast.fire({
+					icon: 'success',
+					title: 'Agregado a favoritos',
+				});
 			}
 		});
 	};
@@ -92,8 +110,7 @@ const Event = () => {
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
-	console.log(locationResult)
-
+	console.log(locationResult);
 
 	return (
 		<React.Fragment>
@@ -107,12 +124,12 @@ const Event = () => {
 						<h1>Evento: {eventDetail.name}</h1>
 					</div>
 					<div className={event_style.divDeImg}>
-						<img className={event_style.img}
+						<img
+							className={event_style.img}
 							// style={{width:'550px', height: '250px'}}
 							src={eventDetail.background_image}
 							alt={eventDetail.name}
 						/>
-
 					</div>
 					<div className={event_style.divpandsmall}>
 						<p className={event_style.p}>Descripción del evento:</p>
@@ -142,23 +159,23 @@ const Event = () => {
 
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
-							return (<div className={event_style.location}>
-
-								<React.Fragment key={loc.id}>
-									<h4> 🏰 {loc.name}</h4>
-									<small className={event_style.small1}>📍{loc.address},</small>
-									<small className={event_style.small1}>
-										{' '}
-										{loc.city.name}.
-									</small>
-								</React.Fragment>
-							</div>
+							return (
+								<div className={event_style.location}>
+									<React.Fragment key={loc.id}>
+										<h4> 🏰 {loc.name}</h4>
+										<small className={event_style.small1}>
+											📍{loc.address},
+										</small>
+										<small className={event_style.small1}>
+											{' '}
+											{loc.city.name}.
+										</small>
+									</React.Fragment>
+								</div>
 							);
 						})}
 
-
 					<div className={event_style.divDeBotones}>
-
 						<button className={event_style.button1} onClick={openModal}>
 							Ver todas las fechas y precios
 						</button>
@@ -181,16 +198,27 @@ const Event = () => {
 							})}
 						</EventModal>
 
-
-						<button className={event_style.button2} onClick={() => { addFavorites({ eventId: id }) }}>Agregar a Favoritos ❤️</button>
-						<label className={isVisible === "visible" ? event_style.visible : event_style.hide}>Ya está en Favoritos</label>
+						<button
+							className={event_style.button2}
+							onClick={() => {
+								addFavorites({ eventId: id });
+							}}
+						>
+							Agregar a Favoritos ❤️
+						</button>
+						<label
+							className={
+								isVisible === 'visible' ? event_style.visible : event_style.hide
+							}
+						>
+							Ya está en Favoritos
+						</label>
 						<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
 							<h1>Agregado a favoritos</h1>
 						</EventModal>
-						<hr style={{ width: "350px" }} />
+						<hr style={{ width: '350px' }} />
 						<button className={event_style.button2}>COMPRAR</button>
 					</div>
-
 				</div>
 			</div>
 		</React.Fragment>
