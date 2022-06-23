@@ -1,4 +1,4 @@
-import {Model, Column, Table, HasMany, DataType, BelongsToMany, HasOne, ForeignKey} from 'sequelize-typescript';
+import {Model, Column, Table, HasMany, DataType, BelongsToMany, HasOne, ForeignKey, Default} from 'sequelize-typescript';
 import {Ticket} from './Ticket';
 import { Comment } from './Comment';
 import { Event } from './Event';
@@ -22,6 +22,10 @@ export class User extends Model<iUser>{
 
   @Column(DataType.STRING(500))
   refreshToken!: string;
+
+  @Default("active")
+  @Column(DataType.ENUM("active","banned"))
+  status!: string
 
   @ForeignKey(() => Organization)
   @Column

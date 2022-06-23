@@ -19,6 +19,8 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                         description: item.getDataValue("description"),
                         category_id: "art",
                         quantity: list[i].quantity,
+                        date: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("date"),
+                        location: item.getDataValue("locations_m")[0].getDataValue("location").getDataValue("name"),
                         unit_price: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("price") 
                 }
             })
