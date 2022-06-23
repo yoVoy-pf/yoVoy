@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,17 +9,23 @@ import EventModal from './EventModal';
 import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
+import { BsCartPlus } from 'react-icons/bs';
+import { EventCartContext } from '../EventCart/EventCartContext';
+import { Link } from 'react-router-dom';
 import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
-import Comments from '../Comments/Comments';
+
+import {
+	useDeleteEventToFavoriteMutation,
+	useGetFavoriteQuery,
+} from '../../slices/app/usersApiSlice';
 
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
-	const [isOpenAddFavMsg, openAddFavMsg, closeAddFavMsg] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
@@ -29,11 +35,29 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
-
-	const state: any = useSelector((state: State) => state)
-	const [isVisible, setIsVisible] = useState("hide")
+	const { addTicketToCart } = useContext(EventCartContext);
+	const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
+		id,
+		{ refetchOnMountOrArgChange: true },
+	);
+	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
+	const state: any = useSelector((state: State) => state);
+	const [isVisible, setIsVisible] = useState('hide');
 
 	const { location }: any = useParams<{ location: string }>();
+	const [isFavorites, setIsFavorites] = useState<any>([]);
+
+	useEffect(() => {
+		if (currentUser) {
+			refetch();
+		}
+	}, [currentUser]);
+
+	useEffect(() => {
+		if (!isFetching) {
+			isError ? setIsFavorites([]) : setIsFavorites(data);
+		}
+	}, [isFetching]);
 
 	useEffect(() => {
 		dispatch(getEventId(id));
@@ -43,30 +67,26 @@ const Event = () => {
 		};
 	}, [dispatch, id]);
 
-
 	useEffect(() => {
 		setTimeout(() => {
 			setIsVisible('hide');
 		}, 3000);
 	}, [isVisible]);
 
-	useEffect(() => {
-		setTimeout(() => { setIsVisible("hide") }, 3000)
-	}, [isVisible])
-
-
 	const addFavorites = (id: any) => {
-		const addF = addEventToFavorite(id).then((result: any) => {
-			if (result.error) {
-				if (result.error.data.includes("llave duplicada")) {
-					setIsVisible("visible")
-				} else if (result.error.data.includes("You need a valid token")) {
-					alert("Debe iniciar sesión")
+		if (isFavorites.length === 0) {
+			const addF = addEventToFavorite(id).then((result: any) => {
+				if (result.error) {
+					if (result.error.data.includes('llave duplicada')) {
+					} else if (result.error.data.includes('You need a valid token')) {
+						navigate('/login');
+					}
 				}
-			} else {
-				openAddFavMsg()
-			}
-		});
+			});
+		} else {
+			deleteEventToFavorite(id.eventId);
+		}
+		refetch();
 	};
 
 	const handleDelete = async (id: any) => {
@@ -88,14 +108,11 @@ const Event = () => {
 			}
 		});
 	};
-	console.log('detalle del evento asdasd', location);
 
 	const mapLocation = eventDetail.locations?.map((loc: any) => loc);
 	const locationResult = mapLocation?.filter(
 		(loc: Location) => loc.id == location,
 	);
-	console.log(locationResult)
-
 
 	return (
 		<React.Fragment>
@@ -109,12 +126,12 @@ const Event = () => {
 						<h1>Evento: {eventDetail.name}</h1>
 					</div>
 					<div className={event_style.divDeImg}>
-						<img className={event_style.img}
+						<img
+							className={event_style.img}
 							// style={{width:'550px', height: '250px'}}
 							src={eventDetail.background_image}
 							alt={eventDetail.name}
 						/>
-
 					</div>
 					<div className={event_style.divpandsmall}>
 						<p className={event_style.p}>Descripción del evento:</p>
@@ -147,23 +164,23 @@ const Event = () => {
 
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
-							return (<div className={event_style.location}>
-
-								<React.Fragment key={loc.id}>
-									<h4> 🏰 {loc.name}</h4>
-									<small className={event_style.small1}>📍{loc.address},</small>
-									<small className={event_style.small1}>
-										{' '}
-										{loc.city.name}.
-									</small>
-								</React.Fragment>
-							</div>
+							return (
+								<div className={event_style.location} key={loc.id}>
+									<React.Fragment>
+										<h4> 🏰 {loc.name}</h4>
+										<small className={event_style.small1}>
+											📍{loc.address},
+										</small>
+										<small className={event_style.small1}>
+											{' '}
+											{loc.city.name}.
+										</small>
+									</React.Fragment>
+								</div>
 							);
 						})}
 
-
 					<div className={event_style.divDeBotones}>
-
 						<button className={event_style.button1} onClick={openModal}>
 							Ver todas las fechas y precios
 						</button>
@@ -186,15 +203,44 @@ const Event = () => {
 							})}
 						</EventModal>
 
-
-						<button className={event_style.button2} onClick={() => { addFavorites({ eventId: id }) }}>Agregar a Favoritos ❤️</button>
-						<label className={isVisible === "visible" ? event_style.visible : event_style.hide}>Ya está en Favoritos</label>
-						<EventModal isOpen={isOpenAddFavMsg} closeModal={closeAddFavMsg}>
-							<h1>Agregado a favoritos</h1>
-						</EventModal>
-						<hr style={{ width: "350px" }} />
-						<button className={event_style.button2}>COMPRAR</button>
+						<button
+							className={event_style.button2}
+							onClick={() => {
+								addFavorites({ eventId: id });
+							}}
+						>
+							{isFavorites.length === 0
+								? 'Agregar a favoritos '
+								: 'Favorito ❤️'}
+						</button>
+						<hr style={{ width: '350px' }} />
+						<div>
+							{locationResult?.map((location: Location) => {
+								return (
+									<React.Fragment key={location.id}>
+										{location?.dates.map((date: Dates) => {
+											return (
+												<div key={date.id}>
+													<p>
+														{`Dia: ${date.date} // Precio: $${date.price},00`}
+													</p>
+													<button title="Agregar al carrito.">
+														<BsCartPlus onClick={() => addTicketToCart(date)} />
+													</button>
+												</div>
+											);
+										})}
+									</React.Fragment>
+								);
+							})}
+						</div>
+						<Link to="/cart">
+							<button className={event_style.button2}>Ir al carrito.</button>
+						</Link>
 					</div>
+
+
+
 
 
 				</div>
