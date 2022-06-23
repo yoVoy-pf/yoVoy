@@ -8,8 +8,11 @@ const {Event, Category, Date, Location, Organization, EventLocation, City, Event
 export default {
 
     getEventById: async (id: string): Promise<iEvent> => {
-        const event = await Event.findByPk(id,
-            { 
+        const event = await Event.findOne({
+            where:{
+                status: "active",
+                id
+            },
             attributes: ["id", "name", "description", "background_image"],
             include: [
                 {     
