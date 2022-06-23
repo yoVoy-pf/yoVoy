@@ -27,6 +27,7 @@ import OrganizationEvents from './components/OrganizationEvents/OrganizationEven
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
+import { EventCartProvider } from './components/EventCart/EventCartContext';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -38,7 +39,14 @@ function App(): JSX.Element {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route path="events/:id/:location" element={<Event />} />
+				<Route
+					path="events/:id/:location"
+					element={
+						<EventCartProvider>
+							<Event />
+						</EventCartProvider>
+					}
+				/>
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
