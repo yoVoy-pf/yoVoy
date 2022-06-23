@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, State } from '../../redux/store/store';
 import { useDispatch } from 'react-redux';
 import { getSearchUser } from '../../redux/actions/actions-Create'
+import FilterUser from './FilterUser';
 
 const UsersList = () => {
 	const [deleteUser] = useDeleteUserMutation();
@@ -71,6 +72,9 @@ const UsersList = () => {
 		</div>
 		<span style={{ textAlign: "center" }}>
 			<SearchUser/>
+			<div className={styleUserList.filters}>
+				<FilterUser/>
+			</div>
 		</span>
 		</div>
       <table className={styleUserList.table_users}>

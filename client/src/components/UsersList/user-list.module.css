@@ -92,6 +92,11 @@
     transition: 0.5s;
   }
   
+  .filters{
+    margin-left: 280px;
+    float: left;
+    margin-bottom: 20px;
+  }
   
   .table_users th {
     padding-top: 12px;
