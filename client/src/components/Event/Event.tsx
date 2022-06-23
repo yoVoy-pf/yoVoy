@@ -14,6 +14,8 @@ import {
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
+import Comments from '../Comments/Comments';
+
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
@@ -120,8 +122,11 @@ const Event = () => {
 							{eventDetail.description}
 						</small>
 					</div>
+							
+					<div>
+						<Comments/>
+					</div>
 				</div>
-
 				<div className={event_style.div2}>
 					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
@@ -191,7 +196,9 @@ const Event = () => {
 						<button className={event_style.button2}>COMPRAR</button>
 					</div>
 
+
 				</div>
+
 			</div>
 		</React.Fragment>
 	);
