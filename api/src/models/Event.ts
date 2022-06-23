@@ -1,4 +1,4 @@
-import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany, DataType} from 'sequelize-typescript';
+import {Model, Column, Table, ForeignKey, HasMany, BelongsTo, BelongsToMany, DataType, Default} from 'sequelize-typescript';
 import { Organization } from './Organization';
 import { Category } from './Category';
 import { EventCategory } from './EventCategory';
@@ -23,6 +23,10 @@ export class Event extends Model<Event> {
     @ForeignKey(() => Organization)
     @Column
     organizationId!: number;
+
+    @Default("active")
+    @Column(DataType.ENUM("active","inactive", "canceled"))
+    status!: string
 
     @BelongsTo(() => Organization)
     organization!: Organization

@@ -4,7 +4,8 @@ import bcrypt from 'bcrypt'
 import { createUserInDb, getUserFromDbByField } from "../utils/users"
 import { iUser } from "../types/user"
 import { decodeGoogleToken, generateAccessToken, updateRefreshToken, verifyRefreshToken } from "../utils/auth"
-import config from "../../config"
+import { resetUserPassword, updateUserPassword } from "../utils/user"
+import { sendMail } from "../mailer"
 
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   let user : iUser;
@@ -35,7 +36,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     if (userExists) return next({status: 400, message: `Ya existe un usuario con ese email`})
     else{
       await createUserInDb(user)
-      res.redirect(307,'./login')
+      res.redirect(307,'login')
     }
   }catch(error){
     next(error)
@@ -136,5 +137,36 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
     res.clearCookie('jwt', {httpOnly: true, secure: true, sameSite: 'none', maxAge: 24 * 60 * 60 * 1000})
     res.sendStatus(204)
     // if (!user)    
+  }catch(error){return next(error)}
+}
+
+export const recoverPassword = async (req: Request, res: Response, next: NextFunction) => {
+  const email = req.body.email;
+  try{
+    const user = await getUserFromDbByField('email',email);
+    if (!user) return next({status:404 , message:'No se encontro un usuario con ese email'})
+    const newPassword = await resetUserPassword(user.id)
+    const mailOptions = {
+      to: email,
+      subject: 'Recuperacion de contraseña',
+      text: `Su contraseña ha sido reseteada a ${newPassword}\nPor favor, cambie su contraseña cuando inicie sesion`
+    }
+    await sendMail(mailOptions)
+    res.send({message: 'Se ha enviado un email con la nueva contraseña'})
+  }catch(error){
+    return next(error)
+  }
+}
+
+export const changePassword = async (req: Request, res: Response, next: NextFunction) => {
+  const {password, newPassword} = req.body;
+  const {id: userId} = req.body.user
+  try{
+    const user = await getUserFromDbByField('id',userId);
+    if (!user) return next({status:404 , message:'No se encontro un usuario con ese id'})
+    if(!await bcrypt.compare(password, user.password)) return next({status:403 , message:'Contraseña incorrecta'})
+    const newPasswordHash = await bcrypt.hash(newPassword, 10)
+    await updateUserPassword(userId, newPasswordHash)
+    res.send({message: 'Contraseña cambiada'})
   }catch(error){return next(error)}
 }
