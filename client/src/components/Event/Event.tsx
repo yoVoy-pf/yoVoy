@@ -144,8 +144,8 @@ const Event = () => {
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
 							return (
-								<div className={event_style.location}>
-									<React.Fragment key={loc.id}>
+								<div className={event_style.location} key={loc.id}>
+									<React.Fragment>
 										<h4> 🏰 {loc.name}</h4>
 										<small className={event_style.small1}>
 											📍{loc.address},

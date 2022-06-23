@@ -5,7 +5,7 @@ const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
 	const [ticketsLength, setTicketsLength] = useState(0);
 
-	const { cartItems } = useContext(EventCartContext);
+	const { cartItems } = useContext<any>(EventCartContext);
 
 	useEffect(() => {
 		console.log('cartItems1111111', cartItems);
