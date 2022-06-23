@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express"
 import { sendMail } from "../mailer"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation} from "../utils/user"
+import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation, getFavoriteById} from "../utils/user"
 import { getUserById } from "../utils/users"
+
 
 export const getFavorites = async (req: Request,res: Response,next:NextFunction) =>{
     try{
@@ -112,3 +113,18 @@ export const getUserProfile = async (req: Request,res: Response,next:NextFunctio
     }
 }
 
+export const getFavorite = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+
+        const {user} = req.body
+        const {eventId} = req.params
+
+        console.log(user, eventId)
+
+        const userFavorite = await getFavoriteById(user.id, eventId)
+
+        res.status(200).json(userFavorite)
+    }catch(error){
+        next(error)
+    }
+}
