@@ -19,7 +19,6 @@ export const buildMail = (mail: any) => {
 
 export const sendMail = async (mail: any) => {
   mail  = buildMail(mail)
-  console.log(mail)
   try{
     await transporter.sendMail(mail, (err: any, info: any) => {
       if (err) {
