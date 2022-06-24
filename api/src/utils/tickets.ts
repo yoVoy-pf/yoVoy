@@ -2,7 +2,7 @@ import { sequelize } from "../db";
 import { Op } from "sequelize"
 const { Ticket, User, Event} = sequelize.models
 
-export const getAllTickets = async (status: string, name:string) => {
+export const getAllTickets = async (status: string, name:string, paginate:any) => {
     let options: any = {
         where:{},
         include: [{
@@ -12,8 +12,13 @@ export const getAllTickets = async (status: string, name:string) => {
     },{
         model: Event,
         attributes: ["id", "name"]
-    }]} 
+    }]
+} 
 
+    if(paginate){
+        options.limit = paginate.limit
+        options.offset = paginate.offset
+    }
     if(status) options.where.status= status
     if(name) options.include[0].where.name = {[Op.iLike]: `${name}%`}
 
