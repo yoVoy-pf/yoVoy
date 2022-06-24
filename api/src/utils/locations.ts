@@ -15,14 +15,14 @@ export const getAllLocations = async (paginate:any) => {
         options.limit = paginate.limit
         options.offset = paginate.offset
     }
-    const locations = await Location.findAll(options)
+    const locations = await Location.findAndCountAll(options)
 
     return locations
 }
 
 
 export const getAllLocationsByCity = async (id: number) => {
-    const locations = await Location.findAll({
+    const locations = await Location.findAndCountAll({
         where:{
             cityId: id
         },
