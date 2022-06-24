@@ -46,7 +46,7 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_EVENT_BY_CATEGORY:
 			return {
 				...state,
-				allEvents: action.payload,
+				allEvents: {count: action.payload.count, events: action.payload.rows},
 			};
 		case ActionType.GET_CITIES:
 			return {

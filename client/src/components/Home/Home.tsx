@@ -12,7 +12,7 @@ import home from './home.module.css';
 
 const Home = () => {
   const { events }: any = useSelector((state: State) => state.global.allEvents);
-  const pagination = usePagination(50, 'events');
+  const pagination = usePagination(30, 'events');
 
 	return (
 		<div >
@@ -21,7 +21,7 @@ const Home = () => {
 				<SearchBar/>
 			</div>
 			<div>
-				<FilterEvent />
+				<FilterEvent filters={pagination.filters} setFilters={pagination.setFilters}/>
 			</div>
 			<div className={home.home}>
 				{events?.length > 0 ? events[0] !== "no hay eventos"? (

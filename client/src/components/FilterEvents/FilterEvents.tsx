@@ -12,7 +12,7 @@ import { Category, City, Location, Filter } from '../../types';
 
 import filterStyle from "./FilterEvents.module.css"
 
-const FilterEvent = () => {
+const FilterEvent = ({filters, setFilters}: any) => {
 	const dispatch: AppDispatch = useDispatch();
 	const categories: Array<Category> = useSelector(
 		(state: State) => state.global.categories,
@@ -24,7 +24,6 @@ const FilterEvent = () => {
 		(state: State) => state.global.locations,
 	);
 
-	const [filters, setFilters] = useState<Array<Filter>>([])
 	const [citySelected, setCitySelected] = useState<string>("")
 
 	useEffect(() => {
@@ -33,15 +32,8 @@ const FilterEvent = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		// const firstCity = document.getElementById("city1")
-		// const idfirstCity = firstCity?.getAttribute("value")
-		// if (idfirstCity) dispatch(getLocations(idfirstCity));
 		dispatch(getLocations())
 	}, [cities])
-
-	useEffect(() => {
-		dispatch(getEventByCategory(filters));
-	}, [filters])
 
 	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const categoryFilt: Filter = {
@@ -59,7 +51,6 @@ const FilterEvent = () => {
 		}
 		setCitySelected(e.target.value)
 		setFilters([filters[0], CityFilt])
-		// dispatch(getEventByCategory(e.target.value, "city"));
 	}
 
 	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -77,7 +68,6 @@ const FilterEvent = () => {
 			setFilters([filters[0], CityFilt])
 		}
 
-		// dispatch(getEventByCategory(e.target.value, "location"));
 	};
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
