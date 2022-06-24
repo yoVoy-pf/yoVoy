@@ -29,6 +29,7 @@ import DetailProessPayment from './components/DetailPayment/DetailProcessPayment
 import UserData from './components/UserData/UserData';
 import { EventCartProvider } from './components/EventCart/EventCartContext';
 import EventCart from './components/EventCart/EventCart';
+import UnbanUser from './components/UnbanUser/UnbanUser';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -89,6 +90,7 @@ function App(): JSX.Element {
 					element={<DetailProessPayment />}
 				/>
 			</Route>
+      <Route path="unban-user" element={<UnbanUser />}/>
 		</Routes>
 	);
 }
