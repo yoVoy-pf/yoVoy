@@ -62,8 +62,8 @@ const Comments = () => {
             {allComments?.map((el: any) => {
                 return (
                     <div>
-                        <p className={styleComments.p}><MdAccountCircle className={styleComments.icon}/>{el.text}</p>
-                        <p>{el.createdAt}</p>
+                        <p className={styleComments.p}><MdAccountCircle className={styleComments.icon}/>{el.user.name}</p>
+                        <p >{el.text}</p>
                     </div>
                 )
             })}
