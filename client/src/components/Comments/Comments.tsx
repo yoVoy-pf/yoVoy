@@ -58,16 +58,17 @@ const Comments = () => {
     return (
         <div className={styleComments.container}>
             <br />
-            <h2>Comentarios</h2>
-            {allComments?.map((el: any) => {
+            {allComments && <h2>Comentarios</h2>}
+            {allComments? allComments?.map((el: any) => {
                 return (
                     <div>
+                        
                         <p className={styleComments.p}><MdAccountCircle className={styleComments.icon}/>{el.user.name}</p>
                         <p >{el.text}</p>
                     </div>
                 )
-            })}
-            <div>
+            }):<h2>No hay comentarios todavía</h2>}
+            <div className={styleComments.container_btn1}>
                 {currentUser &&
                 <button className={styleComments.btn_1} onClick={() => openModal()}>
                     Deja tu Comentario
