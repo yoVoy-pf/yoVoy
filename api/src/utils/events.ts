@@ -13,7 +13,7 @@ export async function getEventsFromDb(paginate: any) {
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
-    const events = await Event.findAll(options)
+    const events = await Event.findAndCountAll(options)
     return events
 }
 
@@ -33,7 +33,7 @@ export async function getEventsFromDbBySearch(search: string, paginate: any) {
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
-    const eventsSearched = await Event.findAll(options)
+    const eventsSearched = await Event.findAndCountAll(options)
 
     return eventsSearched
 }
@@ -112,15 +112,15 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
     }
 
     options.attributes = attributes
-    const events = await Event.findAll(options)
+    const events = await Event.findAndCountAll(options)
 
     if (date) {
         const EventsIds: any = []
-        events.forEach((e: any) => { EventsIds.push(e.id) })
+        events.rows.forEach((e: any) => { EventsIds.push(e.id) })
         return getEventsFromDbByDate(date, EventsIds)
     }else if (nextDays) {
         const EventsIds: any = []
-        events.forEach((e: any) => { EventsIds.push(e.id) })
+        events.rows.forEach((e: any) => { EventsIds.push(e.id) })
         return getEventsFromDbByNextDate(Number(nextDays), EventsIds)
     }
 
