@@ -27,7 +27,7 @@ export async function getUsersFromDb(email: string, name: string, paginate:any, 
           attributes:[]
         }
       },
-      where:{}
+      where:{status:"active"}
     }
     if(paginate) {
       options.limit =paginate.limit
