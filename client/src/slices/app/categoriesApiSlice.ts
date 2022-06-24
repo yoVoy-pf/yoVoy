@@ -1,5 +1,5 @@
 import { apiSlice } from "../authentication/apiSlice";
-import { postCategory } from "../../types";
+import { postCategory, Category } from "../../types";
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -11,10 +11,14 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
           body: {name: category}
         }
       }
+    }),
+    getCategories: builder.query<Category[],({ _: string })>({
+      query: ({ _ }) =>  '/api/categories'
     })
   })
 })
 
 export const{
-  useCreateCategoryMutation
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
 } = eventsApiSlice
