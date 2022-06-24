@@ -8,8 +8,8 @@ router.post('/user/login', loginUser)
 router.get('/user/refresh-token', handleRefreshToken)
 router.get('/user/logout', authenticateToken, logoutUser)
 router.get('/user/get-auth', getUserAuth)
-router.get('/user/recover-password', recoverPassword)
-router.get('/user/change-password',authenticateToken, changePassword)
+router.put('/user/recover-password', recoverPassword)
+router.put('/user/change-password',authenticateToken, changePassword)
 
 
 router.post('/organization/register', () => {})

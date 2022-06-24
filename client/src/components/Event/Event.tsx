@@ -17,12 +17,35 @@ import {
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
-import {
-	useDeleteEventToFavoriteMutation,
-	useGetFavoriteQuery,
-} from '../../slices/app/usersApiSlice';
+
+
+
+
+import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
+import Comments from '../Comments/Comments';
+
+
+
+// import {
+// 	useDeleteEventToFavoriteMutation,
+// 	useGetFavoriteQuery,
+// } from '../../slices/app/usersApiSlice';
+
+
+
 
 const Event = () => {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer);
+			toast.addEventListener('mouseleave', Swal.resumeTimer);
+		},
+	});
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
@@ -77,11 +100,24 @@ const Event = () => {
 				if (result.error) {
 					if (result.error.data.includes('llave duplicada')) {
 					} else if (result.error.data.includes('You need a valid token')) {
+						Toast.fire({
+							title: 'Debe iniciar sesion para poder agregar a favoritos',
+							icon: 'error',
+						});
 						navigate('/login');
 					}
+				} else {
+					Toast.fire({
+						title: 'Agregado a Favoritos',
+						icon: 'success',
+					});
 				}
 			});
 		} else {
+			Toast.fire({
+				title: 'Eliminado de Favoritos',
+				icon: 'warning',
+			});
 			deleteEventToFavorite(id.eventId);
 		}
 		refetch();
@@ -137,8 +173,11 @@ const Event = () => {
 							{eventDetail.description}
 						</small>
 					</div>
+							
+					<div>
+						<Comments/>
+					</div>
 				</div>
-
 				<div className={event_style.div2}>
 					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
@@ -233,7 +272,16 @@ const Event = () => {
 							<button className={event_style.button2}>Ir al carrito.</button>
 						</Link>
 					</div>
+
+
+
+
+
+
+
+
 				</div>
+
 			</div>
 		</React.Fragment>
 	);

@@ -20,7 +20,8 @@
 }
 
 .navbar_bg_mid {
-    margin-left: -10%;
+    margin-left: 80px;
+
 }
 
 .navbar-log {
@@ -77,7 +78,7 @@
     display: flex;
 }
 
-.navBar-btn-login {
+/* .navBar-btn-login {
     margin-top: 15px;
 }
 
@@ -93,9 +94,9 @@
 ::before,
 ::after {
     box-sizing: border-box;
-}
+} */
 
-.navbar .prueba_btn .navBar-btn-login {
+/* .navbar .prueba_btn .navBar-btn-login { */
     /* font-family: 'Fruktur', cursive;
     font-family: 'Montserrat Alternates';
     font-size: 1em;
@@ -105,7 +106,7 @@
     height: 60px;
     background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
     transition: color 0.3s linear; */
-    font-size: 1.2rem;
+    /* font-size: 1.2rem;
     display: inline-block;
     cursor: pointer;
     text-decoration: none;
@@ -114,16 +115,16 @@
     padding: -1em 1em;
     background-color: rgb(253, 253, 253);
     margin-bottom: 20px;
-    border-radius: 0.80em;
+    border-radius: 0.80em; */
 
 
     /* text-shadow: 0 0 0.125em rgba(245, 245, 245, 0.514), 0 0 0.45em currentColor; */
     /* box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon); */
 
-    position: relative;
-}
+    /* position: relative; */
+/* } */
 
-.navbar .prueba_btn .navBar-btn-login::before {
+/* .navbar .prueba_btn .navBar-btn-login::before {
     pointer-events: none;
     content: "";
     position: absolute;
@@ -149,7 +150,7 @@
     opacity: 0;
     transition: opacity 100ms linear;
     border-radius: 0.80em;
-}
+} */
 
 /* 
 .navbar .prueba_btn .navBar-btn-login:hover,
@@ -167,7 +168,7 @@
 
 
 
-.navbar .prueba_btn .navBar-btn-register {
+/* .navbar .prueba_btn .navBar-btn-register { */
     /* font-family: 'Fruktur', cursive;
     font-family: 'Montserrat Alternates';
     font-size: 1em;
@@ -179,7 +180,7 @@
     margin-right: -4em;
     background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
     transition: color 0.3s linear; */
-    font-size: 1.2rem;
+    /* font-size: 1.2rem;
     margin-right: -2em;
     margin-left: 2em;
     display: inline-block;
@@ -191,10 +192,10 @@
     background-color: rgb(250, 250, 250);
     margin-bottom: 20px;
     border-radius: 0.80em;
-    position: relative;
-}
+    position: relative; */
+/* } */
 
-.navBar-btn-register::before {
+/* .navBar-btn-register::before {
     pointer-events: none;
     content: "";
     position: absolute;
@@ -207,9 +208,9 @@
 
     transform: perspective(0.9em)rotateX(30deg) scale(1, 0.35);
     filter: blur(0.4em);
-}
+} */
 
-.navBar-btn-register::after {
+/* .navBar-btn-register::after {
     content: "";
     position: absolute;
     top: 0;
@@ -237,24 +238,73 @@
     background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
     color: rgb(255, 253, 253);
     z-index: 1;
+} */
+.container_buttons{
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.icon{
+    width: 50px;
+    margin-left: -5px;
+}
+
+.navBar-btn-login{
+    display: flex;
+    align-items: center;
+    width: 120px;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+    transition:all 0.1s ease-out ;  
+}
+
+.navBar-btn-register{
+    display: flex;
+    align-items: center;
+    width: 130px;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+    transition:all 0.1s ease-out ;  
+}
+
+.navBar-btn-login:hover{
+    background: #171ad8bd;
+}
+
+.navBar-btn-register:hover{
+    background: #171ad8bd;
 }
 
 
-@media (max-width:1592px) {
-    .navbar {
+@media (max-width:1440px) {
+    /* .navbar {
         display: grid;
         grid-template-columns: 20% 50% 30%;
 
-    }
+    } */
 
     .navbar_bg_mid {
         display: flex;
-        width: max-content;
-        margin-left: 100px;
+        /* width: max-content; */
+        margin-left: 25px;
     }
 
     .prueba_btn {
-        margin-left: 20%;
+        margin-left: 15px;
     }
 
     .navbar-log {
@@ -268,26 +318,24 @@
 
 }
 
-@media (max-width:1340px) {
+@media (max-width:1024px) {
     .navbar {
         display: contents;
     }
 
     .navbar_bg_mid {
         display: contents;
-        margin-left: 100px;
-        margin-right: 0%;
-        padding-left: 0%;
+        margin-left: 150px;
     }
 
     .navbar_bg_ul {
         width: auto;
         padding-left: 0%;
-        margin-left: 25%;
+        margin-left: 350px;
     }
 
     .prueba_btn {
-        margin-left: 40%;
+        margin-left: 380px;
     }
 
     .navbar-log img {
@@ -297,7 +345,7 @@
     }
 }
 
-@media (max-width:1085px) {
+@media (max-width:768px) {
     .navbar {
         display: contents;
 
@@ -307,11 +355,11 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 45%;
+        margin-left: 330px;
     }
 
     .prueba_btn {
-        margin-left: 35%;
+        margin-left: 260px;
     }
 
     .navbar-log img {
@@ -332,15 +380,15 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 35%;
+        margin-left: 160px;
     }
 
     .prueba_btn {
-        margin-left: 20%;
+        margin-left: 100px;
     }
 
     .navbar-log img {
-        margin-left: 45%;
+        margin-left: 170px;
         height: 5em;
         width: 5em;
     }

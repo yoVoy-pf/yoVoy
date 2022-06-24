@@ -30,6 +30,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			}
 			},
 		}),
+		getOrderUser: builder.mutation<any, { order: string }>({
+			query: ({ order }) => {
+				return{
+				url: `/api/users?order=${order}`
+			}
+			},
+		}),
 		updateUser: builder.mutation<User[], { id: any; updateUser: any }>({
 			query: ({ id, ...updateUser }) => {
 				return {
@@ -66,6 +73,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		unbanUser: builder.mutation<User, { email: string }>({
+			query({email}) {
+				return {
+					url: `api/users/_?unban=true`,
+					method: `Delete`,
+          body: {email},
+				};
+			},
+		}),
 		deleteEventToFavorite: builder.mutation<Event, { id: number }>({
 			query(id) {
 			  return {
@@ -80,6 +96,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					url: `/api/user/favorites/${id}`,
 				};
 			},
+		}),
+    changePassword: builder.mutation<any, { password: string, newPassword: string }>({
+			query({ password, newPassword }) {
+			  return {
+				url:`/api/auth/user/change-password`,
+				method:`PUT`,
+        body:{password, newPassword}
+			  }
+			}
 		}),
 		  
 	}),
@@ -98,4 +123,7 @@ export const {
 	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
+	useGetOrderUserMutation,
+  useUnbanUserMutation,
+  useChangePasswordMutation
 } = usersApiSlice;

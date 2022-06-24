@@ -1,6 +1,7 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import { State } from '../../redux/store/store'
 import {setCredentials, logOut} from './authSlice'
+import {Toast} from '../../utils/alerts'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API || "http://localhost:3001",
@@ -18,6 +19,13 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result : any = await baseQuery(args, api, extraOptions)
   console.log(result)
   if (result?.error?.originalStatus === 403){
+    if (result?.error?.data.includes('banned')){
+      api.dispatch(logOut())
+      Toast.fire({
+        icon: 'error',
+        title: 'Fuiste baneado, por favor contacta al administrador'
+      })
+    } 
     console.log('sending refresh token')
     //send refresh token to get new access token
     const refreshResult = await baseQuery('/api/auth/user/refresh-token',api,extraOptions)
