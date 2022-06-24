@@ -97,6 +97,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+    changePassword: builder.mutation<any, { password: string, newPassword: string }>({
+			query({ password, newPassword }) {
+			  return {
+				url:`/api/auth/user/change-password`,
+				method:`PUT`,
+        body:{password, newPassword}
+			  }
+			}
+		}),
 		  
 	}),
 });
@@ -115,5 +124,6 @@ export const {
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
 	useGetOrderUserMutation,
-  useUnbanUserMutation
+  useUnbanUserMutation,
+  useChangePasswordMutation
 } = usersApiSlice;
