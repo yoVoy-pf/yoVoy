@@ -2,14 +2,20 @@ import { sequelize } from "../db"
 
 const { Location, City } = sequelize.models
 
-export const getAllLocations = async () => {
-    const locations = await Location.findAll({
+export const getAllLocations = async (paginate:any) => {
+    let options : any = {
         attributes:["id","name","address","map"],
         include:{
             model: City,
             attributes:["id","name"]
         }
-    })
+    }
+
+    if(paginate){
+        options.limit = paginate.limit
+        options.offset = paginate.offset
+    }
+    const locations = await Location.findAll(options)
 
     return locations
 }
