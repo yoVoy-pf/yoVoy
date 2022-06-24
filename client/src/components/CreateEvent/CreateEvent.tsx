@@ -62,55 +62,79 @@ const CreateEvent = () => {
 			locations: locsForSubmit,
 		}
 		try {
-			await createEvent({ newEvent: event });
-			resetState();
+			if (err.nameErr === "" &&
+				err.descriptionErr === "" &&
+				err.categoriesErr === "" &&
+				err.locationsErr === "" &&
+				err.imgErr === "") {
+				await createEvent({ newEvent: event });
+				resetState();
+			} else {
+				alert("Debe completar todos los campos correctamente para poder crear un perro")
+			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+
 	const [err, setErr] = useState({
 		nameErr: "",
 		descriptionErr: "",
 		categoriesErr: "Debe tener al menos 1 categoria",
-		locationsErr: "Debe tener al menos 1 locación"
+		locationsErr: "Debe tener al menos 1 locación",
+		imgErr: "",
 	})
 
 	useEffect(() => {
 		if (input.name.length < 4) {
-			setErr({ ...err ,nameErr: "Debe tener entre 4 a 50 caracteres" })
+			setErr({ ...err, nameErr: "Debe tener entre 4 a 50 caracteres" })
 		}
 		if (input.name.length > 3) {
-			setErr({ ...err ,nameErr: "" })
+			setErr({ ...err, nameErr: "" })
 		}
 	}, [input.name])
 
 	useEffect(() => {
 		if (input.description.length < 50) {
-			setErr({ ...err ,descriptionErr: "Debe tener entre 50 a 250 caracteres" })
+			setErr({ ...err, descriptionErr: "Debe tener entre 50 a 250 caracteres" })
 		}
 		if (input.description.length > 49) {
-			setErr({ ...err ,descriptionErr: "" })
+			setErr({ ...err, descriptionErr: "" })
 		}
 	}, [input.description])
 
 	useEffect(() => {
 		if (input.categories.length === 0) {
-			setErr({ ...err ,categoriesErr: "Debe tener al menos 1 categoria" })
+			setErr({ ...err, categoriesErr: "Debe tener al menos 1 categoria" })
 		}
 		if (input.categories.length > 0) {
-			setErr({ ...err ,categoriesErr: "" })
+			setErr({ ...err, categoriesErr: "" })
 		}
 	}, [input.categories])
 
 	useEffect(() => {
-		if (input.locations.length === 0) {
-			setErr({ ...err ,locationsErr: "Debe tener al menos 1 locación" })
+		console.log(locsForSubmit.length)
+		if (locsForSubmit.length === 0) {
+			setErr({ ...err, locationsErr: "Debe tener al menos 1 locación" })
 		}
-		if (input.locations.length > 0) {
-			setErr({ ...err ,locationsErr: "" })
+		if (locsForSubmit.length > 0) {
+			setErr({ ...err, locationsErr: "" })
 		}
-	}, [input.locations])
+	}, [locsForSubmit])
+
+	useEffect(() => {
+		if (input.background_image === "") {
+			setErr({ ...err, imgErr: "Este campo debe esta completo." })
+		} else if (input.background_image !== "") {
+			if (!(/\.(jpg|png|gif)$/i).test(input.background_image)) {
+				setErr({ ...err, imgErr: "Url no contiene un archivo valido" })
+			} else {
+				setErr({ ...err, imgErr: "" })
+			}
+
+		}
+	}, [input.background_image])
 
 	return (
 		<React.Fragment>
@@ -161,6 +185,7 @@ const CreateEvent = () => {
 							onChange={handleInputChange}
 							value={input.background_image}
 						/>
+						<label>{err.imgErr}</label>
 					</fieldset>{' '}
 					<br />
 					<fieldset className={styleCreateEvent.fieldset_form}>
@@ -180,7 +205,7 @@ const CreateEvent = () => {
 								</React.Fragment>
 							);
 						})}
-						<br/>
+						<br />
 						<label>{err.categoriesErr}</label>
 					</fieldset>{' '}
 					<fieldset className={styleCreateEvent.fieldset_form}>
@@ -315,6 +340,14 @@ const CreateEvent = () => {
 						Create
 					</button>
 					<button onClick={(e) => { e.preventDefault(); console.log(err) }}>VER ERRORES</button>
+					<button onClick={(e) => {
+						const event = {
+							...input,
+							locations: locsForSubmit,
+						}
+						e.preventDefault();
+						console.log(event)
+					}}>VER EVENTO</button>
 				</div>
 			</form>
 		</React.Fragment>
