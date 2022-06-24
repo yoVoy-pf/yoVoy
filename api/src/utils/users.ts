@@ -92,16 +92,20 @@ export async function getUserById(id: string | number) {
   return user
 }
 
-export async function destroyUser(id: string | number){
+export async function banUser(id: string | number, ban : boolean = true) {
   const user = await User.findByPk(id)
 
   if(!user) return 0
-
-  user.update({status: "banned"})
-
   const organizationId = user.getDataValue("organizationId")
-
-  if(organizationId) banOrganization(organizationId)
+  
+  if(ban){
+    user.update({status: "banned"})
+  
+    if(organizationId) banOrganization(organizationId)
+  }else{
+    user.update({status: "active"})
+    if(organizationId) banOrganization(organizationId, false)
+  }
 
   return 1
 }
