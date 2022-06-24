@@ -6,46 +6,72 @@ import {  } from '../../slices/authentication/authApiSlice';
 import { validatePassword } from '../Login/LoginValidate';
 import login_style from '../Login/Login.module.css';
 import Swal from 'sweetalert2'
+import { useChangePasswordMutation } from '../../slices/app/usersApiSlice';
 
 const ChangePassword = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
   const errRef = useRef<HTMLParagraphElement | null>(null);
 
+  const [changePassword] = useChangePasswordMutation()
   const [password, setPassword] = useState({
     password: '',
     newPassword: '',
     verifyPassword: ''
   } as any);
-  const [errMsg, setErrMsg] = useState('');
   const [errorsPassword, setErrorsPassword]: any = useState({});
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [password]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
       if (password.newPassword !== password.verifyPassword) {
-        setErrMsg('Las contraseñas no coinciden');
+        Toast.fire({
+          icon: 'error',
+          title: 'Las contraseñas no coinciden',
+        });
       }
       else if (password.newPassword.length < 6 || password.verifyPassword.length < 6 || password.password.length < 6) {
-        setErrMsg('Todos los campos son requeridos');
+        Toast.fire({
+          icon: 'error',
+          title: 'Todos los campos son requeridos',
+        });
       }
       else{
+        const response : any = await changePassword({password: password.password, newPassword: password.newPassword});
+        if (response.error) throw response.error
 
+        Toast.fire({
+          icon: 'success',
+          title: `Contraseña cambiada con éxito`,
+        });
+        navigate('/home');
       } // query
 
     } catch (err: any) {
+      let text : string
       if (!err?.data) {
-        setErrMsg('El Server no responde.');
+        text ='El Server no responde.';
       } else if (err.originalStatus === 400) {
-        setErrMsg('Usuario o contraseña incorrectos.');
+        text ='Usuario o contraseña incorrectos.';
       } else if (err.originalStatus === 403) {
-        setErrMsg('Usuario o contraseña incorrectos.');
+        text ='Contraseña incorrecta, vuelve a intentarlo';
       } else {
-        setErrMsg('Fallo al ingresar');
+        text ='Fallo al ingresar';
       }
+      Toast.fire({
+        icon: 'error',
+        title: text,	
+      });
     }
     const error = errRef.current;
     error?.focus();
@@ -58,7 +84,6 @@ const ChangePassword = () => {
     );
     if (e.target.name === "verifyPassword") {
       if (e.target.value !== password.newPassword) {
-        console.log(`newPassword: ${password.newPassword}, verifyPassword: ${e.target.value}`)
         setErrorsPassword({ ...errorsPassword, verifyPassword: "Las contraseñas no coinciden" })
       } 
     }
@@ -74,14 +99,6 @@ const ChangePassword = () => {
   const spanStyle = { color: 'red', fontSize: '25px' };
   const content = 
     <React.Fragment>
-      <span
-        style={spanStyle}
-        ref={errRef}
-        className={errMsg ? 'errmsg' : 'offscreen'}
-        aria-live="assertive"
-      >
-        {errMsg}
-      </span>
       <form onSubmit={handleSubmit}>
         <div className={login_style.form}>
           <h1>Ingresar</h1>
@@ -135,7 +152,6 @@ const ChangePassword = () => {
                   ? true
                   : false
             }
-            onClick= {() => console.log('ando')}
           >
             Cambiar Contraseña
           </button>
