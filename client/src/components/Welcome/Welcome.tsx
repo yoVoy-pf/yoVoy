@@ -35,6 +35,11 @@ export const Welcome = () => {
 								Ir al panel de admin
 							</Link>
 						</p>
+            <p>
+              <Link className={styleWelcome.links_style} to="/change-password">
+                Cambiar contraseña
+              </Link>
+            </p>
 						<p>
 							<Link className={styleWelcome.links_style} to="/user/information">
 								Detalles de Cuenta
@@ -54,6 +59,11 @@ export const Welcome = () => {
 								Crear Organización
 							</Link>
 						</p>
+            <p>
+              <Link className={styleWelcome.links_style} to="/change-password">
+                Cambiar contraseña
+              </Link>
+            </p>
 						<p>
 							<Link className={styleWelcome.links_style} to="/user/information">
 								Detalles de Cuenta
@@ -71,6 +81,11 @@ export const Welcome = () => {
 								to="/organization-events"
 							>
 								Eventos de la organización
+							</Link>
+						</p>
+						<p>
+							<Link className={styleWelcome.links_style} to="/change-password">
+								Cambiar contraseña
 							</Link>
 						</p>
 						<p>
