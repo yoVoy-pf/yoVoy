@@ -7,6 +7,6 @@ export async function getCitiesFromDb(paginate: any) {
         options.limit = paginate.limit
         options.offset = paginate.offset
     }
-    const cities = await City.findAll(options)
+    const cities = await City.findAndCountAll(options)
     return cities
 }
