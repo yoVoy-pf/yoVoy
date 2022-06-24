@@ -73,6 +73,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+		unbanUser: builder.mutation<User, { email: string }>({
+			query({email}) {
+				return {
+					url: `api/users/_?unban=true`,
+					method: `Delete`,
+          body: {email},
+				};
+			},
+		}),
 		deleteEventToFavorite: builder.mutation<Event, { id: number }>({
 			query(id) {
 			  return {
@@ -115,5 +124,6 @@ export const {
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
 	useGetOrderUserMutation,
+  useUnbanUserMutation,
   useChangePasswordMutation
 } = usersApiSlice;
