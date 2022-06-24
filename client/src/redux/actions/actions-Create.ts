@@ -3,7 +3,6 @@ import { Dispatch } from 'redux';
 // import { Action } from "./action-Type";
 import axios from 'axios';
 import { Filter } from '../../types';
-import { useGetSearchUserMutation } from '../../slices/app/usersApiSlice';
 
 // Ejemplo de como se puede realizar las acciones
 
@@ -215,6 +214,7 @@ export const postCreateComments = (payload: any) => {
 			console.log(error);
 		}
 	};
+}
 
 export const getSearchUser = (user:any) => {
 	return {type: ActionType.SEARCH_USER, payload: user.data}
