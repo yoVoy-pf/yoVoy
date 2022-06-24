@@ -90,7 +90,7 @@ const UsersList = () => {
 
           <tbody>
 			{
-				searchUser.length === 0 ? (users?.filter((user: any) => user.status !== 'banned').map((user: any, index: any) => {
+				searchUser.length === 0 ? (users?.map((user: any, index: any) => {
 					return (
 					  <tr key={user.id} className={styleUserList.componente}>
 						<th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
@@ -110,7 +110,7 @@ const UsersList = () => {
 						</td>
 					  </tr>
 					  );
-        })) : searchUser?.filter((user: any) => user.status !== 'banned').map((user: any, index: any) => {
+        })) : searchUser?.map((user: any, index: any) => {
 						return (
 						  <tr key={user.id} className={styleUserList.componente}>
 							<th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
