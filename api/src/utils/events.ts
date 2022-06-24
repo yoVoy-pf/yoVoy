@@ -7,23 +7,32 @@ import makeDate, { dateParse, getNextDaysByMount, isTheNextDaysChecker } from '.
 const attributes = ["id", "name", "background_image", "description"]
 
 //trae todos los eventos de la base de datos
-export async function getEventsFromDb() {
-    const events = await Event.findAll({ attributes: attributes })
+export async function getEventsFromDb(paginate: any) {
+    let options: any = { attributes: attributes }
+    if(paginate){
+        options.limit = paginate.limit,
+        options.offset = paginate.offset
+    }
+    const events = await Event.findAll(options)
     return events
 }
 
 //trae los eventos de la base de datos que conincidan con la busqueda del searchBar.
-export async function getEventsFromDbBySearch(search: string) {
-    const eventsSearched = await Event.findAll(
-        {
-            attributes: attributes,
-            where: {
-                name: {
-                    [Op.iLike]: `%${search}%`
-                }
+export async function getEventsFromDbBySearch(search: string, paginate: any) {
+    let options: any =  {
+        attributes: attributes,
+        where: {
+            name: {
+                [Op.iLike]: `%${search}%`
             }
         }
-    )
+    }
+
+    if(paginate){
+        options.limit = paginate.limit,
+        options.offset = paginate.offset
+    }
+    const eventsSearched = await Event.findAll(options)
 
     return eventsSearched
 }
@@ -65,7 +74,7 @@ export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any)
 }
 
 //trae los eventos filtrados por categoria y locacion.
-export async function getEventsFromDbByFilter(category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string) {
+export async function getEventsFromDbByFilter(paginate: any, category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string) {
     let options: any = { include: [] }
 
     if (organization) {
@@ -95,6 +104,10 @@ export async function getEventsFromDbByFilter(category?: string, location?: stri
             where: { id: location },
             attributes: []
         })
+    }
+    if(paginate){
+        options.limit = paginate.limit,
+        options.offset = paginate.offset
     }
 
     options.attributes = attributes
