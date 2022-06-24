@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { getUsersFromDb, getUserById, destroyUser, updateUser } from "../utils/users"
+import { getUsersFromDb, getUserById, banUser, updateUser, getUserFromDbByField } from "../utils/users"
 
 export const getUsers = (req: Request,res: Response,next:NextFunction) => {
   let name = req.query.name as string
@@ -26,11 +26,20 @@ export const createUser = (req: Request,res: Response,next:NextFunction) => {
 }
 export const deleteUser = async (req: Request,res: Response,next:NextFunction) => {
   try{
-    const {id} = req.params
-    const user = await destroyUser(id)
+    let {id} = req.params
+    const {email} = req.body
+    const {unban} = req.query
+    let user : any;
+    if (unban){
+      user = await getUserFromDbByField('email',email) as any
+      if(!user) next({status: 404, message: "User not found"})
+      id = user.id
+      user = await banUser(id,false) 
+    } 
+    else user = await banUser(id)
     
     if(!user) next({status: 404, message: "User not found"})
-    else res.status(200).json("User banned succesfully")
+    else res.status(200).json(`User ${unban ? 'unbanned' : 'banned'} succesfully`)
     
   }catch(error){
     next(error)
