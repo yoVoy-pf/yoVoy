@@ -7,7 +7,7 @@ export const getTickets = async (req: Request, res: Response, next: NextFunction
         const name = req.query.name as string
         const tickets = await getAllTickets(status, name, req.body.paginate)
         
-        if(!tickets.length) next({status: 404, message: "Tickets not found"})
+        if(!tickets.rows.length) next({status: 404, message: "Tickets not found"})
         else res.status(200).json(tickets)
 
     }catch(error){
