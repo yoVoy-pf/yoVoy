@@ -18,6 +18,10 @@ const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result : any = await baseQuery(args, api, extraOptions)
   console.log(result)
   if (result?.error?.originalStatus === 403){
+    if (result?.error?.data.includes('banned')){
+      console.log('banned')
+      api.dispatch(logOut())
+    } 
     console.log('sending refresh token')
     //send refresh token to get new access token
     const refreshResult = await baseQuery('/api/auth/user/refresh-token',api,extraOptions)

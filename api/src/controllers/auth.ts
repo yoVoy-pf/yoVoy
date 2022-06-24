@@ -45,7 +45,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
 
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   // Check if is google user
-  let user;
+  let user : any;
   try{
       if(req.body.googleToken){
       // Desencrypt google token
@@ -65,6 +65,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
           if(!await bcrypt.compare(req.body.password, user.password)) return next({status:403 , message:'Contraseña incorrecta'})
       } 
       // Generate access token
+      if (user.status === 'banned') return next({status: 403, message: `User is banned`})
       const accessToken =  generateAccessToken(user)
       const refreshToken = await updateRefreshToken(user)
       res.cookie('jwt', refreshToken, {httpOnly: true, secure: true, sameSite: 'none', maxAge: 24 * 60 * 60 * 1000}) // 1 day
