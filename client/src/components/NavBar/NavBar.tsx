@@ -36,11 +36,11 @@ const NavBar = ()=>{
             {!currentUser  && 
 
             <div className="prueba_btn">
-                <Link to="/login">
-                    <button className="navBar-btn-login"><BsFillKeyFill/> </button>
+                <Link className="container_buttons" to="/login">
+                    <button className="navBar-btn-login"><BsFillKeyFill className="icon"/> Ingresar</button>
                 </Link>
-                <Link to="/signup">
-                    <button className="navBar-btn-register"><BsPersonCheckFill/> </button>
+                <Link className="container_buttons" to="/signup">
+                    <button className="navBar-btn-register"><BsPersonCheckFill className="icon"/>Registrarse</button>
                 </Link>
             </div>
             }
