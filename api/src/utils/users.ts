@@ -17,7 +17,7 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb(email: string, name: string) {
+export async function getUsersFromDb(email: string, name: string, paginate: any) {
     let options: any= {
       include: {
         model: Role,
@@ -28,7 +28,10 @@ export async function getUsersFromDb(email: string, name: string) {
       },
       where:{}
     }
-
+    if(paginate) {
+      options.limit =paginate.limit
+      options.offset = paginate.offset
+    }
     if(email) options.where.email = { [Op.iLike]: `%${email}%` }
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 

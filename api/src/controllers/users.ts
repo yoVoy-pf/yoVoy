@@ -5,7 +5,7 @@ export const getUsers = (req: Request,res: Response,next:NextFunction) => {
   let name = req.query.name as string
   let email = req.query.email as string
 
-  getUsersFromDb(email, name).then(users => res.send(users)).catch(error => next(error))
+  getUsersFromDb(email, name, req.body.paginate).then(users => res.send(users)).catch(error => next(error))
 
 }
 export const getUser = async (req: Request,res: Response,next:NextFunction) => {
