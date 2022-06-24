@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCredentials } from '../../slices/authentication/authSlice';
 import { useLoginMutation, useRecoverPasswordMutation } from '../../slices/authentication/authApiSlice';
 import { validatePassword } from './LoginValidate';
@@ -28,21 +28,30 @@ const Login = () => {
 	const dispatch = useDispatch();
 
 	const handleLogin = async (credentials: any) => {
-		const userData = await login(credentials).unwrap();
-		console.log(userData);
-		dispatch(
-			setCredentials({
-				user: userData.data,
-				accessToken: userData.accessToken,
-			}),
-		);
-		setEmail('');
-		setPassword('');
-		navigate('/welcome');
-		Toast.fire({
-			icon: 'success',
-			title: `Bienvenido ${userData.data.name}!`,
-		});
+    try{
+      const userData = await login(credentials).unwrap();
+      dispatch(
+        setCredentials({
+          user: userData.data,
+          accessToken: userData.accessToken,
+        }),
+      );
+      setEmail('');
+      setPassword('');
+      navigate('/welcome');
+      Toast.fire({
+        icon: 'success',
+        title: `Bienvenido ${userData.data.name}!`,
+      });
+    }catch(e: any){
+      console.log(e)
+      if (e.data.includes('banned')){
+        Toast.fire({
+          icon: 'error',
+          title: `Usuario baneado, contacte con un administrador.`,
+        });
+      }
+    }
 	};
 
 	const handleCallbackResponse = async (response: any) => {
@@ -92,15 +101,21 @@ const Login = () => {
       }
       else { await handleLogin({ email, password }); }
 		} catch (err: any) {
+      let text : string;
 			if (!err?.data) {
-				setErrMsg('El Server no responde.');
+        console.log(err.data)
+				text = 'El Server no responde.';
 			} else if (err.originalStatus === 400) {
-				setErrMsg('Usuario o contraseña incorrectos.');
+				text = 'Usuario o contraseña incorrectos.';
 			} else if (err.originalStatus === 403) {
-				setErrMsg('Usuario o contraseña incorrectos.');
+				text = 'Usuario o contraseña incorrectos.';
 			} else {
-				setErrMsg('Fallo al ingresar');
+				text = 'Fallo al ingresar';
 			}
+      Toast.fire({
+        icon: 'error',
+        title: text,
+      });
 		}
 		const error = errRef.current;
 		error?.focus();
