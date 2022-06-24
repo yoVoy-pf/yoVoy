@@ -40,7 +40,7 @@ const NavBar = ()=>{
                     <button className="navBar-btn-login"><BsFillKeyFill className="icon"/> Ingresar</button>
                 </Link>
                 <Link className="container_buttons" to="/signup">
-                    <button className="navBar-btn-register"><BsPersonCheckFill className="icon"/>Registrase</button>
+                    <button className="navBar-btn-register"><BsPersonCheckFill className="icon"/>Registrarse</button>
                 </Link>
             </div>
             }
