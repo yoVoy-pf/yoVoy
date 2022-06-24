@@ -86,16 +86,9 @@ export type Action =
 	| postCreateCategory
 	| getLocationsAction
 	| postCreateEvent
-
 	| getComments
 	| postCreateComments
-	| getDonEventsAction;
-
 	| getDonEventsAction
-
-	| getSearchUserAction;
-
-
 	| getSearchUserAction
 	| getFilterUserAction;
 

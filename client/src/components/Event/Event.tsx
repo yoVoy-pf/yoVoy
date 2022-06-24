@@ -22,13 +22,14 @@ import Swal from 'sweetalert2';
 
 
 import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
+import Comments from '../Comments/Comments';
 
 
 
-import {
-	useDeleteEventToFavoriteMutation,
-	useGetFavoriteQuery,
-} from '../../slices/app/usersApiSlice';
+// import {
+// 	useDeleteEventToFavoriteMutation,
+// 	useGetFavoriteQuery,
+// } from '../../slices/app/usersApiSlice';
 
 
 
