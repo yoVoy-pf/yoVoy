@@ -60,7 +60,7 @@ const UnbanUser = () => {
             </legend>
             <input
               type="text"
-              placeholder="Nombre"
+              placeholder="Email"
               name="email"
               required
               className={unbanUserStyle.input_create_categoty}
