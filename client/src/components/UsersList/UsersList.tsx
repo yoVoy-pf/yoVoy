@@ -17,7 +17,6 @@ const UsersList = () => {
 	const dispatch: AppDispatch = useDispatch();
 	const navigate = useNavigate();
 	const searchUser: any = useSelector((state: State) => state.global.userSearch)
-	let algo: string = 'hola mundo';
 	const {
 		data: users,
 		isLoading,
@@ -54,6 +53,7 @@ const UsersList = () => {
 					icon: 'success',
 				});
 				await deleteUser(id);
+        dispatch(getSearchUser({ data: [] }))
 				refetch();
 			}
 		});
@@ -90,7 +90,7 @@ const UsersList = () => {
 
           <tbody>
 			{
-				searchUser.length === 0 ? (users?.map((user: any, index: any) => {
+				searchUser.length === 0 ? (users?.filter((user: any) => user.status !== 'banned').map((user: any, index: any) => {
 					return (
 					  <tr key={user.id} className={styleUserList.componente}>
 						<th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
@@ -110,7 +110,7 @@ const UsersList = () => {
 						</td>
 					  </tr>
 					  );
-					})) : searchUser?.map((user: any, index: any) => {
+        })) : searchUser?.filter((user: any) => user.status !== 'banned').map((user: any, index: any) => {
 						return (
 						  <tr key={user.id} className={styleUserList.componente}>
 							<th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
@@ -132,27 +132,6 @@ const UsersList = () => {
 						  );
 						})
 			}
-          {/* {users?.map((user: any, index: any) => {
-            return (
-              <tr key={user.id} className={styleUserList.componente}>
-                <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{user.id}</th>
-                <td className={styleUserList.th_users}>{user.name}</td>
-                <td className={styleUserList.th_users}>{user.email}</td>
-                <td className={styleUserList.th_users}>{user.roles.map((e:any) => e.name + ' ')}</td>
-                <td className={styleUserList.th_users}>
-                  <Link to={`/update-user/${user.id}`} className={styleUserList.buttom}>
-                    <button className={styleUserList.buttom_style_left}>Editar Usuario</button>
-                  </Link>
-                  <button
-                  className={styleUserList.buttom_style_right}
-                  onClick={()=> handleDelete(user.id)}
-                  >
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-              );
-            })} */}
             </tbody>
         </table>
       </div>
