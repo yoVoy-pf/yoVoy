@@ -29,6 +29,7 @@ import DetailProessPayment from './components/DetailPayment/DetailProcessPayment
 import UserData from './components/UserData/UserData';
 import { EventCartProvider } from './components/EventCart/EventCartContext';
 import EventCart from './components/EventCart/EventCart';
+import ChangePassword from './components/ChangePassword/ChangePassword';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -60,6 +61,7 @@ function App(): JSX.Element {
 					<Route path="create-Organization" element={<CreateOrganization />} />
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
+          <Route path='change-password' element={<ChangePassword/>}/>
 				</Route>
 
 				<Route
