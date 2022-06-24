@@ -17,10 +17,22 @@ import {
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
-import {
-	useDeleteEventToFavoriteMutation,
-	useGetFavoriteQuery,
-} from '../../slices/app/usersApiSlice';
+
+
+
+
+import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
+import Comments from '../Comments/Comments';
+
+
+
+// import {
+// 	useDeleteEventToFavoriteMutation,
+// 	useGetFavoriteQuery,
+// } from '../../slices/app/usersApiSlice';
+
+
+
 
 const Event = () => {
 	const Toast = Swal.mixin({
@@ -161,8 +173,11 @@ const Event = () => {
 							{eventDetail.description}
 						</small>
 					</div>
+							
+					<div>
+						<Comments/>
+					</div>
 				</div>
-
 				<div className={event_style.div2}>
 					{currentUser?.rolesId?.includes(3030) && (
 						<div className={event_style.button_delete}>
@@ -257,7 +272,16 @@ const Event = () => {
 							<button className={event_style.button2}>Ir al carrito.</button>
 						</Link>
 					</div>
+
+
+
+
+
+
+
+
 				</div>
+
 			</div>
 		</React.Fragment>
 	);

@@ -30,6 +30,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			}
 			},
 		}),
+		getOrderUser: builder.mutation<any, { order: string }>({
+			query: ({ order }) => {
+				return{
+				url: `/api/users?order=${order}`
+			}
+			},
+		}),
 		updateUser: builder.mutation<User[], { id: any; updateUser: any }>({
 			query: ({ id, ...updateUser }) => {
 				return {
@@ -98,4 +105,5 @@ export const {
 	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
+	useGetOrderUserMutation,
 } = usersApiSlice;

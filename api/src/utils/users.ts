@@ -18,7 +18,7 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb(email: string, name: string) {
+export async function getUsersFromDb(email: string, name: string, order?: string) {
     let options: any= {
       include: {
         model: Role,
@@ -34,6 +34,20 @@ export async function getUsersFromDb(email: string, name: string) {
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
     const users = await User.findAll(options)
+    if(order){
+      users.sort((a:any, b:any) => {
+        if(a.name < b.name) {
+          return -1
+        }
+        if(a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+      if(order === 'ZA') {
+        users.reverse()
+      }
+    }
     return users;
 }
 

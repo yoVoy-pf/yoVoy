@@ -23,6 +23,19 @@
     font-size: 16px;
     cursor: pointer;
     box-shadow: 7px 13px 37px #000;
+    transition:all 0.5s ease-out ;  
+}
+.btn1:focus{
+    width: 150px;
+    background: #cc8c1498;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
     transition:all 0.5s ease-out ;
 }
 .btn2{
@@ -37,6 +50,19 @@
     cursor: pointer;
     box-shadow: 7px 13px 37px #000;
     transition:all 0.3s ease-out ;
+}
+.btn2:focus{
+    width: 150px;
+    background: #cc8c1498;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+    transition:all 0.5s ease-out ;
 }
 
 .btn1:hover{

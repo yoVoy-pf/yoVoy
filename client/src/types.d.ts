@@ -13,6 +13,13 @@ export interface postCategory{
   name: string;
 }
 
+//-------post for comment------
+
+export interface postComment{
+	text:string;
+}
+//-----------------------------
+
 export interface postOrganization{
 	name: string;
 }
