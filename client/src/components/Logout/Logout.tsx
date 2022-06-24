@@ -16,7 +16,7 @@ const Logout = ()=>{
 
     return(
         <div className={logout_style.bg}>      
-                <button  className={logout_style.btn} onClick={handleLogout}> <FiLogOut/> </button>
+                <button  className={logout_style.btn} onClick={handleLogout}> <FiLogOut/>Salir</button>
         </div>
     )
 }
