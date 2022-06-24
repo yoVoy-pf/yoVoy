@@ -20,7 +20,8 @@
 }
 
 .navbar_bg_mid {
-    margin-left: -10%;
+    margin-left: 80px;
+
 }
 
 .navbar-log {
@@ -240,17 +241,17 @@
 }
 
 
-@media (max-width:1592px) {
-    .navbar {
+@media (max-width:1440px) {
+    /* .navbar {
         display: grid;
         grid-template-columns: 20% 50% 30%;
 
-    }
+    } */
 
     .navbar_bg_mid {
         display: flex;
-        width: max-content;
-        margin-left: 100px;
+        /* width: max-content; */
+        margin-left: 25px;
     }
 
     .prueba_btn {
@@ -268,26 +269,24 @@
 
 }
 
-@media (max-width:1340px) {
+@media (max-width:1024px) {
     .navbar {
         display: contents;
     }
 
     .navbar_bg_mid {
         display: contents;
-        margin-left: 100px;
-        margin-right: 0%;
-        padding-left: 0%;
+        margin-left: 150px;
     }
 
     .navbar_bg_ul {
         width: auto;
         padding-left: 0%;
-        margin-left: 25%;
+        margin-left: 350px;
     }
 
     .prueba_btn {
-        margin-left: 40%;
+        margin-left: 450px;
     }
 
     .navbar-log img {
@@ -297,7 +296,7 @@
     }
 }
 
-@media (max-width:1085px) {
+@media (max-width:768px) {
     .navbar {
         display: contents;
 
@@ -307,11 +306,11 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 45%;
+        margin-left: 330px;
     }
 
     .prueba_btn {
-        margin-left: 35%;
+        margin-left: 330px;
     }
 
     .navbar-log img {
@@ -332,15 +331,15 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 35%;
+        margin-left: 160px;
     }
 
     .prueba_btn {
-        margin-left: 20%;
+        margin-left: 165px;
     }
 
     .navbar-log img {
-        margin-left: 45%;
+        margin-left: 170px;
         height: 5em;
         width: 5em;
     }
