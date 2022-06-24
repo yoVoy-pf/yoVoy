@@ -5,7 +5,7 @@ export const getCategories = async (req: Request, res: Response, next: NextFunct
     try {
      const categories = await getCategoriesFromDb()
 
-     if(!categories.length) next({status:404, message:"Categories not found"})
+     if(!categories.rows.length) next({status:404, message:"Categories not found"})
      else res.status(200).json(categories)
      
     } catch (error) {
