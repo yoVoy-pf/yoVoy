@@ -6,10 +6,14 @@ import { Filter } from '../../types';
 
 // Ejemplo de como se puede realizar las acciones
 
-export const getAllEvent = () => {
+export const getAllEvent = (limit: any = '' , offset: any = '') => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const event = await axios.get('/api/events');
+      let url = `/api/events`
+      if (limit?.length) url += `?limit=${limit}`
+      if (limit?.length && offset?.length) url += `&offset=${offset}`
+			const event = await axios.get(url);
+      console.log(event)
 			dispatch({
 				type: ActionType.GET_ALL_EVENT,
 				payload: event.data,
