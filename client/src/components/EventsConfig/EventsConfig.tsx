@@ -3,26 +3,17 @@ import { Link } from 'react-router-dom';
 import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleConfigEvent from './event-config.module.css';
-import { useGetEventsQuery } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
+import usePagination from '../../hooks/usePagination/usePagination';
+import { useSelector } from 'react-redux';
+import PageButtons from '../PageButtons/PageButtons';
 
 const EventsConfig = () => {
 	const [deleteEvent] = useDeleteEventMutation();
-	const {
-		data: events,
-		isLoading,
-		isSuccess,
-		isError,
-		error,
-		refetch,
-	} = useGetEventsQuery({ _: '' }, { refetchOnMountOrArgChange: true });
+  const {events} = useSelector((state: any) => state.global.allEvents);
+  const pagination = usePagination(30, 'events');
 
 	const HandleDelete = async (event: any) => {
-		// if (window.confirm('Estas seguro que deseas eliminar el evento?')) {
-		// 	await deleteEvent(event.id);
-		// 	refetch();
-		// 	alert('Evento eliminado correactamente');
-		// }
 		Swal.fire({
 			title: 'Esta seguro de eliminar el Evento?',
 			icon: 'warning',
@@ -38,7 +29,7 @@ const EventsConfig = () => {
 					icon: 'success',
 				});
 				deleteEvent(event.id);
-				refetch();
+				pagination.refresh();
 			}
 		});
 	};
@@ -55,7 +46,7 @@ const EventsConfig = () => {
 						</Link>
 					</div>
 				</div>
-				
+      <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
 			<table className={styleConfigEvent.table_config}>
 					<thead>
 						<tr>

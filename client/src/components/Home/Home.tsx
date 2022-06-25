@@ -26,7 +26,7 @@ const Home = () => {
 			<div className={home.home}>
 				{events?.length > 0 ? events[0] !== "no hay eventos"? (
         <>
-          <PageButtons limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler}/>
+          <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
 					<Events events={events} />
         </>
 				) : (events[1]==="byFilter"? <h1 className={home.text_alert}>No hay eventos con estas caracteristicas</h1>: 
