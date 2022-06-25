@@ -1,6 +1,6 @@
 import { sequelize } from "../db";
 import { Op } from "sequelize"
-const { Ticket, User, Event} = sequelize.models
+const { Ticket, User, Event, Date} = sequelize.models
 
 export const getAllTickets = async (status: string, name:string, paginate:any) => {
     let options: any = {
@@ -29,7 +29,13 @@ export const getAllTickets = async (status: string, name:string, paginate:any) =
 
 export const createTickets = async(preferenceId: string, items: any, user: any) => {
 
-    items.forEach((item: any) => {
+    items.forEach(async (item: any) => {
+        const date = await Date.findByPk(item.dateId)
+        let tickets_sold = date?.getDataValue("tickets_sold")
+
+        tickets_sold += item.quantity
+        
+        date?.update({tickets_sold})
         Ticket.create({
             preferenceId,
             status: "processing",
