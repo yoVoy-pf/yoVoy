@@ -6,10 +6,14 @@ import { Filter } from '../../types';
 
 // Ejemplo de como se puede realizar las acciones
 
-export const getAllEvent = () => {
+export const getAllEvent = (limit: any = '' , offset: any = '') => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const event = await axios.get('/api/events');
+      let url = `/api/events`
+      if (limit?.length) url += `?limit=${limit}`
+      if (limit?.length && offset?.length) url += `&offset=${offset}`
+			const event = await axios.get(url);
+      console.log(event)
 			dispatch({
 				type: ActionType.GET_ALL_EVENT,
 				payload: event.data,
@@ -55,8 +59,8 @@ export const getCategories = () => {
 	};
 };
 
-export const getEventByCategory = (filters: Filter[]) => {
-	let endPoint = '/api/events?';
+export const getEventByCategory = (filters: Filter[], limit: any = '', offset: any ='') => {
+	let endPoint = `/api/events?`;
 	let queries = [];
 	if (filters[0]) {
 		queries.push(`${filters[0].filter}=${filters[0].id}`);
@@ -65,7 +69,8 @@ export const getEventByCategory = (filters: Filter[]) => {
 		queries.push(`${filters[1].filter}=${filters[1].id}`);
 	}
 	endPoint = endPoint + queries.join('&');
-	console.log(endPoint);
+  if (limit?.length) endPoint += `&limit=${limit}`
+  if (limit?.length && offset?.length) endPoint += `&offset=${offset}`
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(endPoint);

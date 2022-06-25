@@ -6,7 +6,7 @@ export const getCities = async (req: Request, res: Response, next: NextFunction)
     try {
         const cities = await getCitiesFromDb(req.body.paginate);
 
-        if(!cities.length) next({status:404, message: "Cities not found"})
+        if(!cities.rows.length) next({status:404, message: "Cities not found"})
         else res.status(200).send(cities)
         
     } catch (error) {

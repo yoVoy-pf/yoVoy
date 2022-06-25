@@ -8,7 +8,7 @@ export const getAllOrganizations = async (paginate: any) => {
         options.limit = paginate.limit
         options.offset = paginate.offset
     }
-    const organizations = await Organization.findAll(options)
+    const organizations = await Organization.findAndCountAll(options)
 
     return organizations
 }

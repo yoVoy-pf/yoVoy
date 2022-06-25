@@ -1,9 +1,10 @@
 // import { Action } from 'history';
+import { count } from 'console';
 import { ActionType } from '../actions';
 import { Action } from '../actions/action-Type';
 
 const initialState = {
-	allEvents: [],
+	allEvents: {},
 	eventDetail: [],
 	categories: [],
 	cities: [],
@@ -19,13 +20,13 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_ALL_EVENT:
 			return {
 				...state,
-				allEvents: action.payload,
+				allEvents: {count: action.payload.count, events: action.payload.rows},
 			};
 		// case ActionType.EVENT  ejemplo de case.
 		case ActionType.SEARCH_EVENT:
 			return {
 				...state,
-				allEvents: action.payload,
+				allEvents: {count: action.payload.count, events: action.payload.rows},
 			};
 		case ActionType.GET_EVENT_ID:
 			return {
@@ -45,7 +46,7 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.GET_EVENT_BY_CATEGORY:
 			return {
 				...state,
-				allEvents: action.payload,
+				allEvents: {count: action.payload.count, events: action.payload.rows},
 			};
 		case ActionType.GET_CITIES:
 			return {

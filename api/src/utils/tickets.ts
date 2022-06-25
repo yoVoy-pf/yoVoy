@@ -22,7 +22,7 @@ export const getAllTickets = async (status: string, name:string, paginate:any) =
     if(status) options.where.status= status
     if(name) options.include[0].where.name = {[Op.iLike]: `${name}%`}
 
-    const tickets = await Ticket.findAll(options)
+    const tickets = await Ticket.findAndCountAll(options)
 
     return tickets
 }
