@@ -59,8 +59,8 @@ export async function getEventsFromDbByDate(date: string, EventsIds:any) {
 //trae los eventos si se encuentran dentro de los siguientes dias indicados, recibe los siguientes dias y un array con ids de eventos
 //para poder buscar los eventos uno por uno y chequear si pertenecen en los siguienten dias indicados.
 export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any) {
-    let eventsByDate: any = [], i = 0;
-    while (i < EventsIds.length) { 
+    let eventsByDate: any = []
+    for (let i = 0 ; i< EventsIds.length; i++) { 
         let event: any = await utils.getEventById(EventsIds[i])
         event.locations?.forEach((location: any) => {
             location.dates.forEach((d: any) => {
@@ -69,9 +69,10 @@ export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any)
                 }
             })
         })
-        i++
     }
-    return eventsByDate
+    let auxSet = new Set(eventsByDate)
+    let resultEvents = Array.from(auxSet)
+    return resultEvents
 }
 
 //trae los eventos filtrados por categoria y locacion.
@@ -126,7 +127,6 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
         const EventsIds: any = []
         events.rows.forEach((e: any) => { EventsIds.push(e.id) })
         eventsByDate = await getEventsFromDbByNextDate(Number(nextDays), EventsIds)
-
         return {count:eventsByDate.length, rows: eventsByDate.splice(paginate.offset, paginate.limit)}
     }
 
