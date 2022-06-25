@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
+import { Item } from '../../types';
 
 import { EventCartContext } from './EventCartContext';
 import styles from './TicketCart.module.css';
 
-export const TicketCart = ({ item }: any) => {
-	/* Traemos del context las funciones para agregar y sacar productos del carrito */
-	const { addTicketToCart, deleteItemToCar } = useContext(EventCartContext);
+interface props {
+	item: Item;
+}
 
-	/* Desestructuramos el item para sacar solo la id */
+export const TicketCart = ({ item }: props) => {
+	const { addTicketToCart, deleteItemToCar } = useContext(EventCartContext);
 
 	return (
 		<div className={styles.cartItem}>
@@ -21,8 +23,8 @@ export const TicketCart = ({ item }: any) => {
 					</div>
 				</div>
 				<div className={styles.right}>
-					<div>{item.amount}</div>
-					<p>Total: ${item.amount * item.price}</p>
+					<div>{item.quantity}</div>
+					<p>Total: ${item.quantity * item.price}</p>
 				</div>
 			</div>
 		</div>

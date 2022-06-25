@@ -2,6 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { EventCartContext } from './EventCartContext';
 import styles from './EventCart.module.css';
 import { TicketCart } from './TicketCart';
+import { Item } from '../../types';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/store/store';
+
+interface componentState {
+	item: Item;
+	cartItems: Array<{}>;
+}
 
 const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
@@ -9,17 +17,23 @@ const EventCart = () => {
 
 	const { cartItems } = useContext<any>(EventCartContext);
 
+	const activador: boolean = useSelector(
+		(state: State) => state.global.cartLength,
+	);
+
 	useEffect(() => {
 		setTicketsLength(
 			cartItems?.reduce(
-				(previous: any, current: any) => previous + current.amount,
+				(previous: number, current: any) => previous + current?.quantity,
 				0,
 			),
 		);
-	}, [cartItems]);
+	}, [activador, ticketsLength, cartItems]);
+	console.log(cartItems);
 
 	const total = cartItems?.reduce(
-		(previous: any, current: any) => previous + current.amount * current.price,
+		(previous: number, current: componentState['item']) =>
+			previous + current.quantity * current.price,
 		0,
 	);
 
@@ -79,7 +93,7 @@ const EventCart = () => {
 						<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 					) : (
 						<div className={styles.productsContainer}>
-							{cartItems?.map((item: any) => (
+							{cartItems?.map((item: componentState['item']) => (
 								<TicketCart key={item.id} item={item} />
 							))}
 						</div>

@@ -1,9 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
+interface props {
+	children: JSX.Element | JSX.Element[];
+}
+
 export const EventCartContext = createContext({} as any);
 
-export const EventCartProvider = ({ children }: any) => {
+export const EventCartProvider = ({ children }: props) => {
 	const [cartItems, setCartItems] = useState(() => {
 		try {
 			const ticketsLocalStorage = localStorage.getItem('cartTickets');
@@ -12,6 +16,10 @@ export const EventCartProvider = ({ children }: any) => {
 			return [];
 		}
 	});
+
+	useEffect(() => {
+		localStorage.setItem('cartTickets', JSON.stringify(cartItems));
+	}, [cartItems]);
 
 	const Toast = Swal.mixin({
 		toast: true,
@@ -32,16 +40,12 @@ export const EventCartProvider = ({ children }: any) => {
 		});
 	};
 
-	const handleDelhow = () => {
+	const handleDelShow = () => {
 		Toast.fire({
 			icon: 'warning',
 			title: 'Ticket eliminado con exito',
 		});
 	};
-
-	useEffect(() => {
-		localStorage.setItem('cartTickets', JSON.stringify(cartItems));
-	}, [cartItems]);
 
 	const addTicketToCart = (ticket: any) => {
 		const inCart = cartItems.find(
@@ -51,12 +55,12 @@ export const EventCartProvider = ({ children }: any) => {
 			setCartItems(
 				cartItems?.map((ticketInCart: any) => {
 					if (ticketInCart.id === ticket.id) {
-						return { ...inCart, amount: inCart.amount + 1 };
+						return { ...inCart, quantity: inCart.quantity + 1 };
 					} else return ticketInCart;
 				}),
 			);
 		} else {
-			setCartItems([...cartItems, { ...ticket, amount: 1 }]);
+			setCartItems([...cartItems, { ...ticket, quantity: 1 }]);
 		}
 		handleAddShow();
 	};
@@ -66,7 +70,7 @@ export const EventCartProvider = ({ children }: any) => {
 			(ticketInCart: any) => ticketInCart.id === ticket.id,
 		);
 
-		if (inCart?.amount === 1) {
+		if (inCart?.quantity === 1) {
 			setCartItems(
 				cartItems?.filter((ticketInCart: any) => ticketInCart.id !== ticket.id),
 			);
@@ -74,12 +78,12 @@ export const EventCartProvider = ({ children }: any) => {
 			setCartItems(
 				cartItems?.map((ticketInCart: any) => {
 					if (ticketInCart.id === ticket.id) {
-						return { ...inCart, amount: inCart.amount - 1 };
+						return { ...inCart, quantity: inCart.quantity - 1 };
 					} else return ticketInCart;
 				}),
 			);
 		}
-		handleDelhow();
+		handleDelShow();
 	};
 
 	return (
