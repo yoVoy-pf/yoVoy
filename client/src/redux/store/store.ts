@@ -3,6 +3,7 @@ import authSliceReducer from "../../slices/authentication/authSlice";
 import rootReducer from '../reducer/reducer'
 import uiSliceReducer from '../../slices/uiSlice'
 import { apiSlice } from "../../slices/authentication/apiSlice";
+import usersReducer from '../../slices/usersSlice'
 
 export const store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ export const store = configureStore({
       [apiSlice.reducerPath]: apiSlice.reducer,
       auth: authSliceReducer,
       ui: uiSliceReducer,
+      users: usersReducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(apiSlice.middleware),

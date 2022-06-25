@@ -1,13 +1,30 @@
 import { apiSlice } from '../authentication/apiSlice';
 import { User, Event, putRolUser } from '../../types';
+import { getAllUsers } from '../usersSlice';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getFavorites: builder.query<any, { _: string }>({
 			query: ({ _ }) => '/api/user/favorites',
 		}),
-		getUsers: builder.query<User[], { _: string }>({
-			query: ({ _ }) => '/api/users',
+		getUsers: builder.mutation<any, { limit: string, offset: string, email?: string, order?: string }>({
+			query: ({ limit, offset, email = '', order = '' }) =>{
+        let url = `/api/users?limit=${limit}&offset=${offset}`;
+        if(email.length) url += `&email=${email}`;
+        if(order.length) url += `&order=${order}`;
+        return{
+          url,
+        }
+      } ,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try{
+          const { data } = await queryFulfilled
+          dispatch(getAllUsers(data))
+        }catch(err){
+          console.log('Error fetching post!')
+          console.log(err)
+        }
+      }
 		}),
 		getUser: builder.query<User, { id: any }>({
 			query(id) {
@@ -22,20 +39,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 		}),
 		getTickets: builder.query<any, { _: string }>({
 			query: ({ _ }) => '/api/user/tickets',
-		}),
-		getSearchUser: builder.mutation<any, { email: string }>({
-			query: ({ email }) => {
-				return{
-				url: `/api/users?email=${email}`
-			}
-			},
-		}),
-		getOrderUser: builder.mutation<any, { order: string }>({
-			query: ({ order }) => {
-				return{
-				url: `/api/users?order=${order}`
-			}
-			},
 		}),
 		updateUser: builder.mutation<User[], { id: any; updateUser: any }>({
 			query: ({ id, ...updateUser }) => {
@@ -111,19 +114,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-	useGetUsersQuery,
+	useGetUsersMutation,
 	useGetFavoritesQuery,
 	useGetUserQuery,
 	useGetUserDataQuery,
 	useDeleteUserMutation,
 	useUpdateUserMutation,
 	useGetTicketsQuery,
-	useGetSearchUserMutation,
 	useUpdateRolUserMutation,
 	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
-	useGetOrderUserMutation,
   useUnbanUserMutation,
   useChangePasswordMutation
 } = usersApiSlice;

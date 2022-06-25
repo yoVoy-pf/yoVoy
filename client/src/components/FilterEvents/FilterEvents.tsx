@@ -14,13 +14,13 @@ import filterStyle from "./FilterEvents.module.css"
 
 const FilterEvent = ({filters, setFilters}: any) => {
 	const dispatch: AppDispatch = useDispatch();
-	const categories: Array<Category> = useSelector(
+	const categories: any = useSelector(
 		(state: State) => state.global.categories,
 	);
-	const cities: Array<City> = useSelector(
+	const cities: any = useSelector(
 		(state: State) => state.global.cities,
 	);
-	const locations: Array<Location> = useSelector(
+	const locations: any = useSelector(
 		(state: State) => state.global.locations,
 	);
 
@@ -92,7 +92,8 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 				<select onChange={handleCategoryFilter}>
 					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
-					{categories.map((c) => (
+          {
+          categories?.rows?.length && categories.rows.map((c: any) => (
 						<option className={filterStyle.option} key={c.name} value={c.id}>
 							{c.name}
 						</option>
@@ -101,7 +102,7 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 				<select id='cityFilter' onChange={handleCitiesFilter}>
 					<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
-					{cities.map((city) => (
+          {cities?.rows?.length && cities.rows.map((city: any) => (
 						<option id={`city${city.id}`} key={city.name} value={city.id}>
 							{city.name}
 						</option>
@@ -110,7 +111,7 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 				<select onChange={handleLocationFilter}>
 					<option key={"allLocations"} value="">todas las locaciones</option>
-					{locations.map((l) => (
+          {locations?.rows?.length && locations.rows.map((l: any) => (
 						<option key={l.name} value={l.id}>
 							{l.name}
 						</option>
