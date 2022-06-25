@@ -75,7 +75,7 @@ export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any)
 }
 
 //trae los eventos filtrados por categoria y locacion.
-export async function getEventsFromDbByFilter(paginate: any, category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string) {
+export async function getEventsFromDbByFilter(paginate: any, category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string):Promise<any> {
     let options: any = { include: [], where:{status:"active"} }
 
     if (organization) {
@@ -117,11 +117,11 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
     if (date) {
         const EventsIds: any = []
         events.rows.forEach((e: any) => { EventsIds.push(e.id) })
-        return getEventsFromDbByDate(date, EventsIds)
+        return {count:events.count, rows:getEventsFromDbByDate(date, EventsIds)}
     }else if (nextDays) {
         const EventsIds: any = []
         events.rows.forEach((e: any) => { EventsIds.push(e.id) })
-        return getEventsFromDbByNextDate(Number(nextDays), EventsIds)
+        return {count:events.count, rows:getEventsFromDbByNextDate(Number(nextDays), EventsIds)}
     }
 
     return events
