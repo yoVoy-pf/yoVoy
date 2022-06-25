@@ -124,7 +124,7 @@ export default {
         return event
     },
 
-    destroyEvent: async (id: string) => {
+    destroyEvent: async ({id}: any) => {
         let event = await Event.findOne({
             where: {id: id},
             attributes: ["id"],
