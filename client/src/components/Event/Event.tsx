@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,42 +10,19 @@ import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
 import { BsCartPlus } from 'react-icons/bs';
-import { EventCartContext } from '../EventCart/EventCartContext';
 import { Link } from 'react-router-dom';
 import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
-
-
-
+import { addToCart } from '../../redux/actions/actions-Create';
 
 import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
 import Comments from '../Comments/Comments';
-
-
-
-// import {
-// 	useDeleteEventToFavoriteMutation,
-// 	useGetFavoriteQuery,
-// } from '../../slices/app/usersApiSlice';
-
-
-
+import { Toast } from '../../utils/alerts';
 
 const Event = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
@@ -56,7 +33,6 @@ const Event = () => {
 		(state: State) => state.global.eventDetail,
 	);
 	const { id }: any = useParams<{ id: string }>();
-	const { addTicketToCart } = useContext(EventCartContext);
 	const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
 		id,
 		{ refetchOnMountOrArgChange: true },
@@ -259,7 +235,7 @@ const Event = () => {
 														{`Dia: ${date.date} // Precio: $${date.price},00`}
 													</p>
 													<button title="Agregar al carrito.">
-														<BsCartPlus onClick={() => addTicketToCart(date)} />
+														<BsCartPlus onClick={() => dispatch(addToCart(date))} />
 													</button>
 												</div>
 											);

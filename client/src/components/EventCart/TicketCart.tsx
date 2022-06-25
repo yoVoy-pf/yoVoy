@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Item } from '../../types';
-
-import { EventCartContext } from './EventCartContext';
+import { useDispatch } from 'react-redux';
+import { deleteFromCart } from '../../redux/actions/actions-Create';
 import styles from './TicketCart.module.css';
 
 interface props {
@@ -9,7 +9,12 @@ interface props {
 }
 
 export const TicketCart = ({ item }: props) => {
-	const { addTicketToCart, deleteItemToCar } = useContext(EventCartContext);
+
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    dispatch(deleteFromCart(item) as any);
+  }
 
 	return (
 		<div className={styles.cartItem}>
@@ -18,8 +23,7 @@ export const TicketCart = ({ item }: props) => {
 				<div className={styles.left}>
 					<p>{item.name}</p>
 					<div className={styles.buttons}>
-						<button onClick={() => addTicketToCart(item)}>AGREGAR</button>
-						<button onClick={() => deleteItemToCar(item)}>SACAR</button>
+						<button onClick={handleRemove}>SACAR</button>
 					</div>
 				</div>
 				<div className={styles.right}>

@@ -97,11 +97,6 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				userSearch: action.payload,
 			};
-		case ActionType.SET_CART_LENGTH:
-			return {
-				...state,
-				cartLength: !state.cartLength,
-			};
 		default:
 			return state;
 	}

@@ -27,7 +27,6 @@ import OrganizationEvents from './components/OrganizationEvents/OrganizationEven
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
-import { EventCartProvider } from './components/EventCart/EventCartContext';
 
 import UnbanUser from './components/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
@@ -45,9 +44,7 @@ function App(): JSX.Element {
 				<Route
 					path="events/:id/:location"
 					element={
-						<EventCartProvider>
 							<Event />
-						</EventCartProvider>
 					}
 				/>
 				<Route path="events/:id" element={<EventLocations />} />

@@ -1,21 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { EventCartContext } from './EventCartContext';
+import React, { useEffect, useState } from 'react';
 import styles from './EventCart.module.css';
 import { TicketCart } from './TicketCart';
 import { Item } from '../../types';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
-
-interface componentState {
-	item: Item;
-	cartItems: Array<{}>;
-}
+import { selectCartTickets } from '../../slices/cartSlice';
 
 const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
 	const [ticketsLength, setTicketsLength] = useState(0);
 
-	const { cartItems } = useContext<any>(EventCartContext);
+	const cartItems = useSelector(selectCartTickets);
 
 	const activador: boolean = useSelector(
 		(state: State) => state.global.cartLength,
@@ -32,7 +27,7 @@ const EventCart = () => {
 	console.log(cartItems);
 
 	const total = cartItems?.reduce(
-		(previous: number, current: componentState['item']) =>
+		(previous: number, current: any) =>
 			previous + current.quantity * current.price,
 		0,
 	);
@@ -93,7 +88,7 @@ const EventCart = () => {
 						<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 					) : (
 						<div className={styles.productsContainer}>
-							{cartItems?.map((item: componentState['item']) => (
+							{cartItems?.map((item: any) => (
 								<TicketCart key={item.id} item={item} />
 							))}
 						</div>

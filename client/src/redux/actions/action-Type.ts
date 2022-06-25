@@ -74,10 +74,6 @@ interface getFilterUserAction {
 	payload: any;
 }
 
-interface setCartLengthAction {
-	type: ActionType.SET_CART_LENGTH;
-}
-
 export type Action =
 	| GetAllEventAction
 	| GetSearchAction
@@ -95,4 +91,3 @@ export type Action =
 	| getDonEventsAction
 	| getSearchUserAction
 	| getFilterUserAction
-	| setCartLengthAction;
