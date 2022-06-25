@@ -17,7 +17,8 @@ export class Date extends Model<Date> {
 
     @Column
     total_tickets!: number;
-
+    
+    @Default(0)
     @Column
     tickets_sold!: number;
 
