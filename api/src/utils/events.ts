@@ -106,7 +106,7 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
             attributes: []
         })
     }
-    if(paginate){
+    if(paginate && (!date && !nextDays)){
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
