@@ -33,7 +33,16 @@
     padding: 8px;
     /* border-radius: 5px; */
   }
-
+  .buttom_style{
+    color: white;
+    background-color: rgba(23, 0, 201, 0.4);
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: 15px;
+  }
   .buttom {
     text-decoration: none;
   }
@@ -96,6 +105,7 @@
     margin-left: 280px;
     float: left;
     margin-bottom: 20px;
+    display: contents;
   }
   
   .table_users th {

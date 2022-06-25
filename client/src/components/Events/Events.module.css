@@ -177,6 +177,7 @@
 @media all and (max-width:425px){
     .container{
         width: 425px;
+        margin-left: -155px;
         display: grid;
         grid-template-columns: 50px ;
         gap: 5px 110px;
@@ -186,7 +187,7 @@
         width: 425px;
         display: flex;
         flex-direction: column;
-        margin-left: -300px;
+        margin-left: -317px;
     }
     .divhover{
         display: flex;
