@@ -55,7 +55,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   }, [filters])
 
   useEffect(() => {
-    queries.users();
+    if (type === 'users') queries.users();
   }, [userOrder])
 
   const nextHandler = () => {
@@ -63,7 +63,6 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   };
 
   const pageButtonHandler = (e: any, page: any) => {
-    console.log(e)
     setPage(page-1);
   };
 
