@@ -4,7 +4,7 @@ const { Location, City } = sequelize.models
 
 export const getAllLocations = async (paginate:any) => {
     let options : any = {
-        attributes:["id","name","address","map"],
+        attributes:["id","name","address"],
         include:{
             model: City,
             attributes:["id","name"]
@@ -26,7 +26,7 @@ export const getAllLocationsByCity = async (id: number) => {
         where:{
             cityId: id
         },
-        attributes:["id","name","address","map"],
+        attributes:["id","name","address"],
         include:{
             model: City,
             attributes:["id","name"]
