@@ -55,12 +55,12 @@ interface getDonEventsAction {
 	type: ActionType.DONT_EVENTS;
 	payload: any;
 }
-interface getComments{
+interface getComments {
 	type: ActionType.GET_COMMENTS;
-	payload:any;
+	payload: any;
 }
-interface postCreateComments{
-	type: ActionType.POST_CREATE_COMMENTS
+interface postCreateComments {
+	type: ActionType.POST_CREATE_COMMENTS;
 	payload: any;
 }
 
@@ -72,6 +72,10 @@ interface getSearchUserAction {
 interface getFilterUserAction {
 	type: ActionType.GET_FILTER_USER;
 	payload: any;
+}
+
+interface setCartLengthAction {
+	type: ActionType.SET_CART_LENGTH;
 }
 
 export type Action =
@@ -90,5 +94,5 @@ export type Action =
 	| postCreateComments
 	| getDonEventsAction
 	| getSearchUserAction
-	| getFilterUserAction;
-
+	| getFilterUserAction
+	| setCartLengthAction;
