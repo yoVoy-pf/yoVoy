@@ -13,8 +13,8 @@ export const findLocation = async(id: string | number) => {
     return location
 }
 
-export const createLocation = async({name, map, address, cityId}:any) => {
-    const location = await Location.create({name, map, address, cityId})
+export const createLocation = async({name, latitude, length, address, cityId}:any) => {
+    const location = await Location.create({name, latitude, length, address, cityId})
 
     return location
 }

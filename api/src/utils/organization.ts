@@ -5,7 +5,7 @@ const {Organization, User, UserRole, Event} = sequelize.models
 
 
 
-export const createOrganization = async (name: string, userId: string) => {
+export const createOrganization = async ({name, userId}:any) => {
     const organization = await Organization.create({name, userId})
 
     User.update({organizationId: organization.getDataValue("id")},
