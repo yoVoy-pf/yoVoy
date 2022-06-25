@@ -1,25 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { EventCartContext } from './EventCartContext';
+import React, { useEffect, useState } from 'react';
 import styles from './EventCart.module.css';
 import { TicketCart } from './TicketCart';
+import { useSelector } from 'react-redux';
+import { State } from '../../redux/store/store';
+import { selectCartTickets } from '../../slices/cartSlice';
 
 const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
 	const [ticketsLength, setTicketsLength] = useState(0);
 
-	const { cartItems } = useContext<any>(EventCartContext);
+	const cartItems = useSelector(selectCartTickets);
+
+	const activador: boolean = useSelector(
+		(state: State) => state.global.cartLength,
+	);
 
 	useEffect(() => {
 		setTicketsLength(
 			cartItems?.reduce(
-				(previous: any, current: any) => previous + current.amount,
+				(previous: number, current: any) => previous + current?.quantity,
 				0,
 			),
 		);
-	}, [cartItems]);
+	}, [activador, ticketsLength, cartItems]);
+	console.log(cartItems);
 
 	const total = cartItems?.reduce(
-		(previous: any, current: any) => previous + current.amount * current.price,
+		(previous: number, current: any) =>
+			previous + current.quantity * current.price,
 		0,
 	);
 

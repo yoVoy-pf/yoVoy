@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,71 +10,47 @@ import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
 import { BsCartPlus } from 'react-icons/bs';
-import { EventCartContext } from '../EventCart/EventCartContext';
 import { Link } from 'react-router-dom';
 import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
 } from '../../slices/app/eventsApiSlice';
 import Swal from 'sweetalert2';
-
-
-
+import { addToCart } from '../../redux/actions/actions-Create';
 
 import { useDeleteEventToFavoriteMutation, useGetFavoriteQuery } from '../../slices/app/usersApiSlice';
 import Comments from '../Comments/Comments';
-
-
-
-// import {
-// 	useDeleteEventToFavoriteMutation,
-// 	useGetFavoriteQuery,
-// } from '../../slices/app/usersApiSlice';
-
-
-
+import { Toast } from '../../utils/alerts';
 
 const Event = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
-	const [isOpenModal, openModal, closeModal] = useEventModal(false);
+  const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
 	const dispatch: AppDispatch = useDispatch();
 	const currentUser: any = useSelector(selectCurrentUser);
 	const eventDetail: any = useSelector(
-		(state: State) => state.global.eventDetail,
-	);
-	const { id }: any = useParams<{ id: string }>();
-	const { addTicketToCart } = useContext(EventCartContext);
-	const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
-		id,
-		{ refetchOnMountOrArgChange: true },
-	);
-	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
-	const state: any = useSelector((state: State) => state);
-	const [isVisible, setIsVisible] = useState('hide');
-
-	const { location }: any = useParams<{ location: string }>();
-	const [isFavorites, setIsFavorites] = useState<any>([]);
-
-	useEffect(() => {
-		if (currentUser) {
-			refetch();
-		}
-	}, [currentUser]);
-
-	useEffect(() => {
+    (state: State) => state.global.eventDetail,
+    );
+    const { id }: any = useParams<{ id: string }>();
+    const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
+      id,
+      { refetchOnMountOrArgChange: true },
+      );
+      const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
+      const state: any = useSelector((state: State) => state);
+      const [isVisible, setIsVisible] = useState('hide');
+      
+      const { location }: any = useParams<{ location: string }>();
+      const [isFavorites, setIsFavorites] = useState<any>([]);
+      
+      useEffect(() => {
+        if (currentUser) {
+          refetch();
+        }
+      }, [currentUser]);
+      
+      useEffect(() => {
 		if (!isFetching) {
 			isError ? setIsFavorites([]) : setIsFavorites(data);
 		}
@@ -259,7 +235,14 @@ const Event = () => {
 														{`Dia: ${date.date} // Precio: $${date.price},00`}
 													</p>
 													<button title="Agregar al carrito.">
-														<BsCartPlus onClick={() => addTicketToCart(date)} />
+														<BsCartPlus onClick={() => dispatch(addToCart({
+                              ...date,
+                              eventId: eventDetail.id,
+                              locationId: location.id,
+                              locationName: location.name,
+                              eventName: eventDetail.name,
+                              eventImg: eventDetail.background_image,
+                              }))} />
 													</button>
 												</div>
 											);

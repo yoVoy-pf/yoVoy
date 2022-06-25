@@ -3,17 +3,66 @@ import { Dispatch } from 'redux';
 // import { Action } from "./action-Type";
 import axios from 'axios';
 import { Filter } from '../../types';
+import { UPDATE_CART } from '../../slices/cartSlice';
+import { Toast } from '../../utils/alerts';
 
 // Ejemplo de como se puede realizar las acciones
 
-export const getAllEvent = (limit: any = '' , offset: any = '') => {
+export const addToCart = (ticket: any) => async (dispatch: Dispatch) => {
+    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
+    const inCart = cart.find((item: any) => item.id === ticket.id);
+    if (!inCart) {
+        const newTicket ={
+          ...ticket,
+          quantity: 1
+        }
+        cart.push(newTicket);
+        // localstorage
+        localStorage.setItem('cartTickets', JSON.stringify(cart));
+        // redux
+        dispatch(UPDATE_CART(cart));
+      Toast.fire({
+			icon: 'success',
+			title: 'Agregado al carrito con exito',
+		  });
+    }
+}
+
+export const deleteFromCart = (ticket: any) => async (dispatch: Dispatch) => {
+    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
+    const newCart = cart.filter((item: any) => item.id !== ticket.id);
+    console.log({newCart})
+    console.log(ticket)
+    console.log({cart})
+    localStorage.setItem('cartTickets', JSON.stringify(newCart));
+    dispatch(UPDATE_CART(newCart));
+    Toast.fire({
+			icon: 'warning',
+			title: 'Ticket eliminado con exito',
+		});
+}
+
+export const changeQuantity = (ticket: any, quantity: number) => async (dispatch: Dispatch) => {
+    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
+    const newCart = cart.map((item: any) => {
+        if (item.id === ticket.id) {
+            item.quantity = quantity;
+        }
+        return item;
+    }
+    );
+    localStorage.setItem('cartTickets', JSON.stringify(newCart));
+    dispatch(UPDATE_CART(newCart));
+}
+
+export const getAllEvent = (limit: any = '', offset: any = '') => {
 	return async function (dispatch: Dispatch) {
 		try {
-      let url = `/api/events`
-      if (limit?.length) url += `?limit=${limit}`
-      if (limit?.length && offset?.length) url += `&offset=${offset}`
+			let url = `/api/events`;
+			if (limit?.length) url += `?limit=${limit}`;
+			if (limit?.length && offset?.length) url += `&offset=${offset}`;
 			const event = await axios.get(url);
-      console.log(event)
+			console.log(event);
 			dispatch({
 				type: ActionType.GET_ALL_EVENT,
 				payload: event.data,
@@ -27,9 +76,7 @@ export const getAllEvent = (limit: any = '' , offset: any = '') => {
 export const getSearchEvent = (name: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const searchEvent = await axios.get(
-				`/api/events?search=${name}`,
-			);
+			const searchEvent = await axios.get(`/api/events?search=${name}`);
 			dispatch({
 				type: ActionType.SEARCH_EVENT,
 				payload: searchEvent.data,
@@ -37,7 +84,7 @@ export const getSearchEvent = (name: string | number) => {
 		} catch {
 			dispatch({
 				type: ActionType.DONT_EVENTS,
-				payload: ["no hay eventos","bySearch"],
+				payload: ['no hay eventos', 'bySearch'],
 			});
 		}
 	};
@@ -46,9 +93,7 @@ export const getSearchEvent = (name: string | number) => {
 export const getCategories = () => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const categories = await axios.get(
-				`/api/categories`,
-			);
+			const categories = await axios.get(`/api/categories`);
 			dispatch({
 				type: ActionType.GET_CATEGORIES,
 				payload: categories.data,
@@ -59,7 +104,11 @@ export const getCategories = () => {
 	};
 };
 
-export const getEventByCategory = (filters: Filter[], limit: any = '', offset: any ='') => {
+export const getEventByCategory = (
+	filters: Filter[],
+	limit: any = '',
+	offset: any = '',
+) => {
 	let endPoint = `/api/events?`;
 	let queries = [];
 	if (filters[0]) {
@@ -69,8 +118,8 @@ export const getEventByCategory = (filters: Filter[], limit: any = '', offset: a
 		queries.push(`${filters[1].filter}=${filters[1].id}`);
 	}
 	endPoint = endPoint + queries.join('&');
-  if (limit?.length) endPoint += `&limit=${limit}`
-  if (limit?.length && offset?.length) endPoint += `&offset=${offset}`
+	if (limit?.length) endPoint += `&limit=${limit}`;
+	if (limit?.length && offset?.length) endPoint += `&offset=${offset}`;
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(endPoint);
@@ -81,7 +130,7 @@ export const getEventByCategory = (filters: Filter[], limit: any = '', offset: a
 		} catch (error) {
 			dispatch({
 				type: ActionType.DONT_EVENTS,
-				payload: ["no hay eventos","byFilter"],
+				payload: ['no hay eventos', 'byFilter'],
 			});
 		}
 	};
@@ -124,9 +173,7 @@ export const getCities = () => {
 export const putUpdateEvent = (id: any) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const updateEvent = await axios.put(
-				`/api/event/${id}`,
-			);
+			const updateEvent = await axios.put(`/api/event/${id}`);
 			dispatch({
 				type: ActionType.PUT_UPDATE_EVENT,
 				payload: updateEvent.data,
@@ -140,10 +187,7 @@ export const putUpdateEvent = (id: any) => {
 export const postCreateCategory = (payload: any) => {
 	return async function () {
 		try {
-			const response = await axios.post(
-				'/api/category',
-				payload,
-			);
+			const response = await axios.post('/api/category', payload);
 			return response;
 		} catch (error) {
 			console.log(error);
@@ -153,9 +197,7 @@ export const postCreateCategory = (payload: any) => {
 export const getLocations = (city?: string | number) => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const locations = await axios.get(
-				`/api/locations?city=${city || ''}`,
-			);
+			const locations = await axios.get(`/api/locations?city=${city || ''}`);
 			dispatch({
 				type: ActionType.GET_LOCATIONS,
 				payload: locations.data,
@@ -169,10 +211,7 @@ export const getLocations = (city?: string | number) => {
 export const postCreateEvent = (payload: any) => {
 	return async function () {
 		try {
-			const response = await axios.post(
-				'/api/event',
-				payload,
-			);
+			const response = await axios.post('/api/event', payload);
 			return response;
 		} catch (error) {
 			console.log(error);
@@ -180,17 +219,14 @@ export const postCreateEvent = (payload: any) => {
 	};
 };
 
-
-
 /* action for the component comments */
 
 export const clearComment = () => {
-    return {
-        type: ActionType.GET_COMMENTS,
-        payload: undefined
-    }
-}
-
+	return {
+		type: ActionType.GET_COMMENTS,
+		payload: undefined,
+	};
+};
 
 export const getComments = (id: string | number) => {
 	return async function (dispatch: Dispatch) {
@@ -206,29 +242,21 @@ export const getComments = (id: string | number) => {
 	};
 };
 
-
 export const postCreateComments = (payload: any) => {
 	return async function () {
 		try {
-			const response = await axios.post(
-				'/api/comment',
-				payload,
-			);
+			const response = await axios.post('/api/comment', payload);
 			return response;
 		} catch (error) {
 			console.log(error);
 		}
 	};
-}
-
-export const getSearchUser = (user:any) => {
-	return {type: ActionType.SEARCH_USER, payload: user.data}
-
-
-
 };
 
-export const getFilterUsers = (user:any) => {
-	return {type: ActionType.GET_FILTER_USER, payload: user.data}
+export const getSearchUser = (user: any) => {
+	return { type: ActionType.SEARCH_USER, payload: user.data };
+};
 
+export const getFilterUsers = (user: any) => {
+	return { type: ActionType.GET_FILTER_USER, payload: user.data };
 };
