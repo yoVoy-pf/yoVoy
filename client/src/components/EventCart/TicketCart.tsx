@@ -1,34 +1,44 @@
 import React from 'react';
-import { Item } from '../../types';
 import { useDispatch } from 'react-redux';
-import { deleteFromCart } from '../../redux/actions/actions-Create';
+import { deleteFromCart, changeQuantity } from '../../redux/actions/actions-Create';
 import styles from './TicketCart.module.css';
 
-interface props {
-	item: Item;
-}
 
-export const TicketCart = ({ item }: props) => {
-
-  const dispatch = useDispatch();
-
+export const TicketCart = ({ item }: any) => {
+  let [quantity, setQuantity] = React.useState(item.quantity);
+  const dispatch : any = useDispatch();
   const handleRemove = () => {
     dispatch(deleteFromCart(item) as any);
   }
+  const handleQuantityChange = (e: any) => {
+    if (e.target.value === '-'){
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+        dispatch(changeQuantity(item, quantity - 1));
+      }
+    }else{
+      setQuantity(quantity + 1);
+      dispatch(changeQuantity(item, quantity + 1));
+    }
+  }
+  console.log(item)
 
 	return (
 		<div className={styles.cartItem}>
-			<img src={item.img} alt={item.name} />
+			<img src={item.eventImg} alt={item.eventName} />
 			<div className={styles.dataContainer}>
 				<div className={styles.left}>
-					<p>{item.name}</p>
-					<div className={styles.buttons}>
-						<button onClick={handleRemove}>SACAR</button>
-					</div>
+					<p className={styles.title}>{item.eventName}</p>
+					<p>{item.date}</p>
 				</div>
 				<div className={styles.right}>
-					<div>{item.quantity}</div>
-					<p>Total: ${item.quantity * item.price}</p>
+          <button onClick={handleRemove} className={styles.remove}>X</button>
+					<div className={styles.quantity}>
+            <button value='-' onClick={handleQuantityChange}>-</button>
+            <p>{item.quantity}</p>
+            <button value='+' onClick={handleQuantityChange}>+</button>
+          </div>
+					<p>${item.quantity * item.price}</p>
 				</div>
 			</div>
 		</div>

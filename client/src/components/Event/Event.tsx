@@ -23,34 +23,34 @@ import Comments from '../Comments/Comments';
 import { Toast } from '../../utils/alerts';
 
 const Event = () => {
-	const [isOpenModal, openModal, closeModal] = useEventModal(false);
+  const [isOpenModal, openModal, closeModal] = useEventModal(false);
 	const [deleteEvent] = useDeleteEventMutation();
 	const [addEventToFavorite] = useAddEventToFavoriteMutation();
 	const navigate = useNavigate();
 	const dispatch: AppDispatch = useDispatch();
 	const currentUser: any = useSelector(selectCurrentUser);
 	const eventDetail: any = useSelector(
-		(state: State) => state.global.eventDetail,
-	);
-	const { id }: any = useParams<{ id: string }>();
-	const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
-		id,
-		{ refetchOnMountOrArgChange: true },
-	);
-	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
-	const state: any = useSelector((state: State) => state);
-	const [isVisible, setIsVisible] = useState('hide');
-
-	const { location }: any = useParams<{ location: string }>();
-	const [isFavorites, setIsFavorites] = useState<any>([]);
-
-	useEffect(() => {
-		if (currentUser) {
-			refetch();
-		}
-	}, [currentUser]);
-
-	useEffect(() => {
+    (state: State) => state.global.eventDetail,
+    );
+    const { id }: any = useParams<{ id: string }>();
+    const { data, isError, error, isFetching, refetch } = useGetFavoriteQuery(
+      id,
+      { refetchOnMountOrArgChange: true },
+      );
+      const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
+      const state: any = useSelector((state: State) => state);
+      const [isVisible, setIsVisible] = useState('hide');
+      
+      const { location }: any = useParams<{ location: string }>();
+      const [isFavorites, setIsFavorites] = useState<any>([]);
+      
+      useEffect(() => {
+        if (currentUser) {
+          refetch();
+        }
+      }, [currentUser]);
+      
+      useEffect(() => {
 		if (!isFetching) {
 			isError ? setIsFavorites([]) : setIsFavorites(data);
 		}
@@ -235,7 +235,14 @@ const Event = () => {
 														{`Dia: ${date.date} // Precio: $${date.price},00`}
 													</p>
 													<button title="Agregar al carrito.">
-														<BsCartPlus onClick={() => dispatch(addToCart(date))} />
+														<BsCartPlus onClick={() => dispatch(addToCart({
+                              ...date,
+                              eventId: eventDetail.id,
+                              locationId: location.id,
+                              locationName: location.name,
+                              eventName: eventDetail.name,
+                              eventImg: eventDetail.background_image,
+                              }))} />
 													</button>
 												</div>
 											);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './EventCart.module.css';
 import { TicketCart } from './TicketCart';
-import { Item } from '../../types';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
 import { selectCartTickets } from '../../slices/cartSlice';

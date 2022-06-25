@@ -42,6 +42,19 @@ export const deleteFromCart = (ticket: any) => async (dispatch: Dispatch) => {
 		});
 }
 
+export const changeQuantity = (ticket: any, quantity: number) => async (dispatch: Dispatch) => {
+    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
+    const newCart = cart.map((item: any) => {
+        if (item.id === ticket.id) {
+            item.quantity = quantity;
+        }
+        return item;
+    }
+    );
+    localStorage.setItem('cartTickets', JSON.stringify(newCart));
+    dispatch(UPDATE_CART(newCart));
+}
+
 export const getAllEvent = (limit: any = '', offset: any = '') => {
 	return async function (dispatch: Dispatch) {
 		try {
