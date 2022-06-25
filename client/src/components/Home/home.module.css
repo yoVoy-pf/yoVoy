@@ -1,5 +1,6 @@
 .container {
     background: url(../../img/fondo.jpg);
+    /* background: #3f4353; */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
