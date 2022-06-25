@@ -6,7 +6,7 @@ export const getRequests = async (req: Request, res: Response, next: NextFunctio
         const requests = await findAllRequests(req.body.paginate)
 
         if(!requests.rows.length) next({status:404, message: "Request not found"})
-        res.status(200).send(requests)
+        else res.status(200).send(requests)
     }catch(error){
         next(error)
     }
