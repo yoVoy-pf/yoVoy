@@ -1,7 +1,7 @@
 import { sequelize } from "../db";
 import { User } from "../models/User";
 
-const { Requests } = sequelize.models
+const { Request } = sequelize.models
 
 export const findAllRequests = async (paginate: any) => {
     let options: any = {
@@ -16,7 +16,7 @@ export const findAllRequests = async (paginate: any) => {
         options.limit = paginate.limit
         options.offset = paginate.offset
     }
-    const requests = await Requests.findAndCountAll(options)
+    const requests = await Request.findAndCountAll(options)
 
     return requests
 }
