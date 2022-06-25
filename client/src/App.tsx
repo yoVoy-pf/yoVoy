@@ -28,7 +28,7 @@ import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
 import { EventCartProvider } from './components/EventCart/EventCartContext';
-import EventCart from './components/EventCart/EventCart';
+
 import UnbanUser from './components/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 
@@ -53,7 +53,7 @@ function App(): JSX.Element {
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
-				<Route path="/cart" element={<EventCart />} />
+
 				{/* protected routes */}
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
@@ -62,7 +62,7 @@ function App(): JSX.Element {
 					<Route path="create-Organization" element={<CreateOrganization />} />
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
-          <Route path='change-password' element={<ChangePassword/>}/>
+					<Route path="change-password" element={<ChangePassword />} />
 				</Route>
 
 				<Route
@@ -92,7 +92,7 @@ function App(): JSX.Element {
 					element={<DetailProessPayment />}
 				/>
 			</Route>
-      <Route path="unban-user" element={<UnbanUser />}/>
+			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
 	);
 }
