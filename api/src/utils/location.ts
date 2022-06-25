@@ -19,6 +19,6 @@ export const createLocation = async({name, latitude, length, address, cityId}:an
     return location
 }
 
-export const updateLocation = async(id:string| number, {name,map,address,cityId}:any) => {
-    await Location.update({name,address,map,cityId}, {where: {id}})
+export const updateLocation = async(id:string| number, {updateLocation}:any) => {
+    await Location.update({name: updateLocation.name, address: updateLocation.address, cityId: updateLocation.cityId}, {where: {id}})
 }
