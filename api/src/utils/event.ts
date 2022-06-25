@@ -24,7 +24,7 @@ export default {
                 },
                 {
                     model: Location,
-                    attributes: ["id", "name", "map", "address"],
+                    attributes: ["id", "name", "address"],
                     include: [
                         {
                             model: City,

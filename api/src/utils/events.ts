@@ -117,11 +117,11 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
     if (date) {
         const EventsIds: any = []
         events.rows.forEach((e: any) => { EventsIds.push(e.id) })
-        return {count:events.count, rows:getEventsFromDbByDate(date, EventsIds)}
+        return {count:events.count, rows: await getEventsFromDbByDate(date, EventsIds)}
     }else if (nextDays) {
         const EventsIds: any = []
         events.rows.forEach((e: any) => { EventsIds.push(e.id) })
-        return {count:events.count, rows:getEventsFromDbByNextDate(Number(nextDays), EventsIds)}
+        return {count:events.count, rows: await getEventsFromDbByNextDate(Number(nextDays), EventsIds)}
     }
 
     return events
