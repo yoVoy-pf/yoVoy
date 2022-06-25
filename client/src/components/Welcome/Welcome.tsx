@@ -36,16 +36,6 @@ export const Welcome = () => {
 				<div className={styleWelcome.links_welcome}>
 
 					{/*Estilo para el Admin */}
-					<Link className={styleWelcome.links_style} to="/userslist">
-						<div className={styleWelcome.containerImgAndH1}>
-							<img src={adminImg} alt="adminImg" />
-							<div className={styleWelcome.containerH1}>
-								<div>
-									<h1>Ir al panel de Administrador</h1>
-								</div>
-							</div>
-						</div>
-					</Link>
 
 
 					<Link className={styleWelcome.links_style} to="/change-password">
@@ -59,6 +49,16 @@ export const Welcome = () => {
 						</div>
 					</Link>
 
+					<Link className={styleWelcome.links_style} to="/userslist">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={adminImg} alt="adminImg" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Ir al panel de Administrador</h1>
+								</div>
+							</div>
+						</div>
+					</Link>
 
 					<Link className={styleWelcome.links_style} to="/user/information">
 						<div className={styleWelcome.containerImgAndH1}>
@@ -78,16 +78,6 @@ export const Welcome = () => {
 				<div className={styleWelcome.links_welcome}>
 
 
-					<Link className={styleWelcome.links_style} to="/create-organization">
-						<div className={styleWelcome.containerImgAndH1}>
-							<img src={crearOrg} alt="cambiarPass" />
-							<div className={styleWelcome.containerH1}>
-								<div>
-									<h1>Crear Organización</h1>
-								</div>
-							</div>
-						</div>
-					</Link>
 
 
 					<Link className={styleWelcome.links_style} to="/change-password">
@@ -101,6 +91,16 @@ export const Welcome = () => {
 						</div>
 					</Link>
 
+					<Link className={styleWelcome.links_style} to="/create-organization">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={crearOrg} alt="cambiarPass" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Crear Organización</h1>
+								</div>
+							</div>
+						</div>
+					</Link>
 
 					<Link className={styleWelcome.links_style} to="/user/information">
 						<div className={styleWelcome.containerImgAndH1}>
@@ -120,17 +120,6 @@ export const Welcome = () => {
 				<div className={styleWelcome.links_welcome}>
 
 
-					<Link className={styleWelcome.links_style} to="/organization-events">
-						<div className={styleWelcome.containerImgAndH1}>
-							<img src={eventos} alt="eventos" />
-							<div className={styleWelcome.containerH1}>
-								<div>
-									<h1>Eventos de la organización</h1>
-								</div>
-							</div>
-						</div>
-
-					</Link>
 
 
 					<Link className={styleWelcome.links_style} to="/change-password">
@@ -144,6 +133,17 @@ export const Welcome = () => {
 						</div>
 					</Link>
 
+					<Link className={styleWelcome.links_style} to="/organization-events">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={eventos} alt="eventos" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Eventos de la organización</h1>
+								</div>
+							</div>
+						</div>
+
+					</Link>
 
 					<Link className={styleWelcome.links_style} to="/user/information">
 						<div className={styleWelcome.containerImgAndH1}>
