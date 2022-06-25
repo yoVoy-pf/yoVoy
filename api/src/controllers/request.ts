@@ -3,10 +3,10 @@ import { createRequest, updateRequest, findRequest } from "../utils/request";
 
 export const postRequest = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const {user, description, type, method, information } = req.body
+        const {user, description, type, method, body } = req.body
 
 
-        await createRequest(user.id, description, type, method, information)
+        await createRequest(user.id, description, type, method, body)
 
         res.status(201).send("Request created successfully")
     }catch(error){

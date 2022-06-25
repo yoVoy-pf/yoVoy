@@ -10,17 +10,17 @@ import {
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City, Location, Filter } from '../../types';
 
-import filterStyle from "./FilterEvents.module.css"
+import filterStyle from './FilterEvents.module.css';
 
 const FilterEvent = ({filters, setFilters}: any) => {
 	const dispatch: AppDispatch = useDispatch();
-	const categories: Array<Category> = useSelector(
+	const categories: any = useSelector(
 		(state: State) => state.global.categories,
 	);
-	const cities: Array<City> = useSelector(
+	const cities: any = useSelector(
 		(state: State) => state.global.cities,
 	);
-	const locations: Array<Location> = useSelector(
+	const locations: any = useSelector(
 		(state: State) => state.global.locations,
 	);
 
@@ -37,10 +37,10 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const categoryFilt: Filter = {
-			filter: "category",
-			id: e.target.value
-		}
-		setFilters([categoryFilt, filters[1]])
+			filter: 'category',
+			id: e.target.value,
+		};
+		setFilters([categoryFilt, filters[1]]);
 	};
 
 	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -55,44 +55,43 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const LocationFilt: Filter = {
-			filter: "location",
-			id: e.target.value
-		}
-		if (e.target.value !== "") {
-			setFilters([filters[0], LocationFilt])
+			filter: 'location',
+			id: e.target.value,
+		};
+		if (e.target.value !== '') {
+			setFilters([filters[0], LocationFilt]);
 		} else {
 			const CityFilt: Filter = {
-				filter: "city",
-				id: citySelected
-			}
-			setFilters([filters[0], CityFilt])
+				filter: 'city',
+				id: citySelected,
+			};
+			setFilters([filters[0], CityFilt]);
 		}
 
 	};
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
 		const DateFilt: Filter = {
-			filter: "date",
-			id: e.target.value
-		}
-		setFilters([DateFilt])
-	}
+			filter: 'date',
+			id: e.target.value,
+		};
+		setFilters([DateFilt]);
+	};
 	const filtBynextDays = (days: string) => {
 		const nextDaysFilt: Filter = {
-			filter: "nextDays",
-			id: days
-		}
-		setFilters([nextDaysFilt])
-	}
+			filter: 'nextDays',
+			id: days,
+		};
+		setFilters([nextDaysFilt]);
+	};
 
 	return (
 		<div className={filterStyle.bg_div}>
 			<div className={filterStyle.bg_div1}>
-
 				<select onChange={handleCategoryFilter}>
 					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
-					{categories.map((c) => (
+          {
+          categories?.rows?.length && categories.rows.map((c: any) => (
 						<option className={filterStyle.option} key={c.name} value={c.id}>
 							{c.name}
 						</option>
@@ -101,7 +100,7 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 				<select id='cityFilter' onChange={handleCitiesFilter}>
 					<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
-					{cities.map((city) => (
+          {cities?.rows?.length && cities.rows.map((city: any) => (
 						<option id={`city${city.id}`} key={city.name} value={city.id}>
 							{city.name}
 						</option>
@@ -110,7 +109,7 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 				<select onChange={handleLocationFilter}>
 					<option key={"allLocations"} value="">todas las locaciones</option>
-					{locations.map((l) => (
+          {locations?.rows?.length && locations.rows.map((l: any) => (
 						<option key={l.name} value={l.id}>
 							{l.name}
 						</option>
@@ -118,15 +117,30 @@ const FilterEvent = ({filters, setFilters}: any) => {
 				</select>
 
 				<input
-					type={"date"}
-					onChange={(e) => { handleDateChange(e) }}
+					type={'date'}
+					onChange={(e) => {
+						handleDateChange(e);
+					}}
 					className={filterStyle.input_filter}
 				/>
-
 			</div>
 			<div className={filterStyle.button1530}>
-				<button className={filterStyle.btn1} onClick={() => { filtBynextDays("15") }}>Proximos 15 dias</button>
-				<button className={filterStyle.btn2} onClick={() => { filtBynextDays("30") }}>Proximos 30 dias</button>
+				<button
+					className={filterStyle.btn1}
+					onClick={() => {
+						filtBynextDays('15');
+					}}
+				>
+					Proximos 15 dias
+				</button>
+				<button
+					className={filterStyle.btn2}
+					onClick={() => {
+						filtBynextDays('30');
+					}}
+				>
+					Proximos 30 dias
+				</button>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>

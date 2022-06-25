@@ -17,7 +17,6 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
   let result : any = await baseQuery(args, api, extraOptions)
-  console.log(result)
   if (result?.error?.originalStatus === 403){
     if (result?.error?.data.includes('banned')){
       api.dispatch(logOut())
