@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEvent, getEventByCategory } from '../../redux/actions/actions-Create';
+import { getEventByCategory } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { selectAllUsers } from '../../slices/usersSlice';
+import { selectAllOrganizations, selectAllUsers } from '../../slices/adminPanelSlice';
+import { useGetOrganizationsMutation } from '../../slices/app/organizationApiSlice';
 import { useGetUsersMutation } from '../../slices/app/usersApiSlice';
 
 const usePagination = (itemsPerPage : number = 15, type : string) => {
   const [getUsers] = useGetUsersMutation();
+  const [getOrganizations] = useGetOrganizationsMutation();
   const dispatch: AppDispatch = useDispatch();
   let items :any 
   const [page, setPage] : any= useState(0);
@@ -16,6 +18,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
 
   const events = useSelector((state: State) => state.global.allEvents);
   const users = useSelector(selectAllUsers)
+  const organizations = useSelector(selectAllOrganizations)
 
   switch(type){
     case 'events':
@@ -24,23 +27,35 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     case 'users':
       items = users;
       break;
+    case 'organizations':
+      items = organizations;
+      break;
       default:
         items = events;
       }
   const limit = Math.ceil(items.count / itemsPerPage);
 
+  const queries : any = {
+    events: () => dispatch(getEventByCategory(filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
+    users: () => getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: email, order: userOrder }),
+    organizations: () => getOrganizations({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() })
+  }
+
+  const refresh = () => {
+    queries[type]();
+  }
+
   useEffect(() => {
-    if (type === 'events') dispatch(getEventByCategory(filters,itemsPerPage.toString(), (page * itemsPerPage).toString()));
-    if (type === 'users') getUsers({limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: email, order: userOrder});
+    queries[type]();
   }, [page]);
 
   useEffect(() => {
     setPage(0)
-    dispatch(getEventByCategory(filters, itemsPerPage.toString(), (page * itemsPerPage).toString()));
+    queries.events();
   }, [filters])
 
   useEffect(() => {
-    getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: email, order: userOrder });
+    queries.users();
   }, [userOrder])
 
   const nextHandler = () => {
@@ -77,7 +92,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     searchUserQuery,
     page,
     userOrder,
-    setUserOrder
+    setUserOrder,
+    refresh
   };
 };
 

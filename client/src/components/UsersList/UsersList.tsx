@@ -1,7 +1,6 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styleUserList from './user-list.module.css';
 import { useDeleteUserMutation } from '../../slices/app/usersApiSlice';
-import { useEffect } from 'react';
 import SideBar from '../SideBar/SideBar';
 import Swal from 'sweetalert2';
 import SearchUser from './SearchUser';
@@ -9,7 +8,7 @@ import { useSelector } from 'react-redux';
 import FilterUser from './FilterUser';
 import usePagination from '../../hooks/usePagination/usePagination';
 import PageButtons from '../PageButtons/PageButtons';
-import { selectAllUsers } from '../../slices/usersSlice';
+import { selectAllUsers } from '../../slices/adminPanelSlice';
 
 const UsersList = () => {
 	const [deleteUser] = useDeleteUserMutation();
@@ -32,6 +31,7 @@ const UsersList = () => {
 					icon: 'success',
 				});
 				await deleteUser(id);
+        pagination.refresh()
 			}
 		});
 	};

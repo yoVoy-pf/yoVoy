@@ -1,6 +1,6 @@
 import { apiSlice } from '../authentication/apiSlice';
 import { User, Event, putRolUser } from '../../types';
-import { getAllUsers } from '../usersSlice';
+import { getAllUsers } from '../adminPanelSlice';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({

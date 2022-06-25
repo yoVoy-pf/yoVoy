@@ -1,30 +1,21 @@
 import {
-	useGetOrganizationsQuery,
 	useDeleteOrganizationMutation,
 } from '../../slices/app/organizationApiSlice';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styleListOrganization from './organization-list.module.css';
 import SideBar from '../SideBar/SideBar';
 import Swal from 'sweetalert2';
+import usePagination from '../../hooks/usePagination/usePagination';
+import { useSelector } from 'react-redux';
+import { selectAllOrganizations } from '../../slices/adminPanelSlice';
+import PageButtons from '../PageButtons/PageButtons';
 
 const OrganizationList = () => {
 	const [deleteOrganization] = useDeleteOrganizationMutation();
-	const navigate = useNavigate();
-	const {
-		data: organizations,
-		isLoading,
-		isSuccess,
-		isError,
-		error,
-		refetch,
-	} = useGetOrganizationsQuery({ _: '' }, { refetchOnMountOrArgChange: true });
+  const organizations = useSelector(selectAllOrganizations)
+  const pagination = usePagination(15, 'organizations');
 
 	const handleDelete = async (id: any) => {
-		// if (window.confirm('Seguro que quieres eliminar esta organizacion?')) {
-		// 	await deleteOrganization(id);
-		// 	refetch();
-		// 	alert('Organización eliminada correactamente');
-		// }
 		Swal.fire({
 			title: 'Esta seguro de eliminar la Organización?',
 			icon: 'warning',
@@ -40,32 +31,29 @@ const OrganizationList = () => {
 					icon: 'success',
 				});
 				await deleteOrganization(id);
-				refetch();
+        pagination.refresh()
 			}
 		});
 	};
 
-	let content = <span></span>;
-	if (isLoading) {
-		content = <p>Cargando...</p>;
-	} else if (isSuccess) {
-		content = (
-			<div className={styleListOrganization.fondo}>
-          <SideBar/>
-          <div className={styleListOrganization.table_title}>
-          <h1 className={styleListOrganization.table_title_style} >Lista de Organizaciones</h1>
-        </div>
+  const content = (
+    <div className={styleListOrganization.fondo}>
+      <SideBar />
+      <div className={styleListOrganization.table_title}>
+        <h1 className={styleListOrganization.table_title_style} >Lista de Organizaciones</h1>
+      </div>
+      <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
       <table className={styleListOrganization.table_organizations}>
-          <tbody className={styleListOrganization.thead_dark}>
+        <tbody className={styleListOrganization.thead_dark}>
           <tr>
-          <th style={{ textAlign: "center" }}>ID</th>
+            <th style={{ textAlign: "center" }}>ID</th>
             <th style={{ textAlign: "center" }}>Name</th>
             <th style={{ textAlign: "center" }}>Action</th>
           </tr>
           <div>
           </div>
 
-          {organizations?.map((organization: any, index: any) => {
+          {organizations?.rows?.map((organization: any, index: any) => {
             return (
               <tr key={organization.id} className={styleListOrganization.componente}>
                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{index + 1}</th>
@@ -75,22 +63,19 @@ const OrganizationList = () => {
                     <button className={styleListOrganization.buttom_style_left}>Editar</button>
                   </Link>
                   <button
-                  className={styleListOrganization.buttom_style_right}
-                  onClick={()=> handleDelete(organization.id)}
+                    className={styleListOrganization.buttom_style_right}
+                    onClick={() => handleDelete(organization.id)}
                   >
                     Eliminar
                   </button>
                 </td>
               </tr>
-              );
-            })}
-            </tbody>
-        </table>
-      </div>
-		);
-	} else if (isError) {
-		content = <p>{JSON.stringify(error)}</p>;
-	}
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
 	return content;
 };
 
