@@ -29,7 +29,9 @@ const CreateEvent = () => {
 	const categories: Array<Category> = useSelector(
 		(state: State) => state.global.categories,
 	);
-
+	const [datesToDelete, setDatesToDelete] = useState<any>([])
+	const [forDeleteONot, setForDeleteONot] = useState<any>("dontDelete")
+	
 	useEffect(() => {
 		dispatch(getLocations());
 		dispatch(getCategories());
@@ -52,7 +54,8 @@ const CreateEvent = () => {
 		handleRemoveLoc,
 		handleUpdateFetch,
 		removeDateFromLocsAux,
-		setCurrentLocId
+		setCurrentLocId,
+		resetDateForm
 	] = useCreateEvent({ locations });
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,6 +87,12 @@ const CreateEvent = () => {
 		categoriesErr: "Debe tener al menos 1 categoria",
 		locationsErr: "Debe tener al menos 1 locación",
 		imgErr: "",
+	})
+
+	const [datesErr, setdatesErr] = useState({
+		priceErr: "",
+		locationDateErr: "",
+		dateInputErr: "",
 	})
 
 	useEffect(() => {
@@ -135,6 +144,59 @@ const CreateEvent = () => {
 
 		}
 	}, [input.background_image])
+
+	useEffect(() => {
+		console.log(currentDate.price)
+		if (currentDate.price === (NaN || 0)) {
+			setdatesErr({ ...datesErr, priceErr: "Debe ingresar un precio" })
+		} else if (currentDate.price > 0) {
+			setdatesErr({ ...datesErr, priceErr: "" })
+		}
+	}, [currentDate.price])
+
+
+	useEffect(() => {
+		if (currentLocId === "default") {
+			setdatesErr({ ...datesErr, locationDateErr: "Debe selecionar una locacion" })
+		} else if (currentLocId !== "default") {
+			setdatesErr({ ...datesErr, locationDateErr: "" })
+		}
+	}, [currentLocId])
+
+	useEffect(() => {
+		if (!currentDate.date) {
+			setdatesErr({ ...datesErr, dateInputErr: "Debe selecionar una fecha" })
+		} else {
+			setdatesErr({ ...datesErr, dateInputErr: "" })
+		}
+	}, [currentDate.date])
+
+	useEffect(() => {
+		console.log("Loas que se van a eliminar: ", datesToDelete)
+	}, [datesToDelete])
+
+	const handleConfirmClick = (e: any, datesToDelete: any) => {
+		let select = locSelect.current
+		select.value = 'default';
+		// if(locsAux[currentLocId]?.dates?.length===0 || !locsAux[currentLocId]?.dates){
+		//      alert("No hay ninguna fecha para agregar")
+		// }else{
+		// 	handleConfirm(e, datesErr)
+		// 	closeModal();
+		// };	
+		handleConfirm(e, datesToDelete);
+		closeModal();
+		setDatesToDelete([])
+	}
+
+	const handleDeleteClick = (id: any) => {
+		if (!datesToDelete.includes(id)) {
+			setDatesToDelete([...datesToDelete, id])
+		} else {
+			setDatesToDelete(datesToDelete.filter((i: any) => i !== id))
+		}
+
+	}
 
 	return (
 		<React.Fragment>
@@ -287,20 +349,24 @@ const CreateEvent = () => {
 										);
 									})}
 								</select>
+								<label>{datesErr.locationDateErr}</label>
 							</div>
 							<div className={styleUpdate.container_pricedate}>
 								<input
 									name="price"
 									type="number"
-									value={currentDate?.price || '0'}
+									value={currentDate?.price || ""}
 									placeholder="Indique el precio..."
 									onChange={handleInputDateChange}
 								/>
+								<label>{datesErr.priceErr}</label>
 								<input type="date" name="date" value={currentDate?.date || ''} onChange={handleInputDateChange} />
-								<button type="button" onClick={handleAddDate}>
+								<label>{datesErr.dateInputErr}</label>
+								<button type="button" onClick={(e) => { handleAddDate(e, datesErr) }}>
 									+
 								</button>
 							</div>
+
 
 							<div>
 								{locsAux[currentLocId]?.dates?.map((date: any, id: any) => {
@@ -316,7 +382,7 @@ const CreateEvent = () => {
 												</li>
 											</ul>
 											<React.Fragment>
-												<button type="button" key={id} onClick={(e: SyntheticEvent) => removeDateFromLocsAux(id)}>X</button>
+												<button className={datesToDelete.includes(id)? styleCreateEvent.yesDelete : styleCreateEvent.dontDelete} type="button" key={id} onClick={(e: SyntheticEvent) => { handleDeleteClick(id) }}>X</button>
 											</React.Fragment>
 										</fieldset>
 									);
@@ -324,14 +390,13 @@ const CreateEvent = () => {
 							</div>
 							<br />
 							<div className={styleUpdate.container_create}>
-								<button type="button" onClick={(e) => {
-									let select = locSelect.current
-									select.value = 'default'
-									handleConfirm(e)
-									closeModal()
-								}}>
-									Confirmar
-								</button>
+								<button type="button" onClick={(e) => { handleConfirmClick(e, datesToDelete) }}>Confirmar</button>
+								<button onClick={(e) => {
+									e.preventDefault();
+									setDatesToDelete([])
+									resetDateForm();
+									closeModal();
+								}}>cancelar</button>
 							</div>
 						</DatesModal>
 					</fieldset>{' '}
