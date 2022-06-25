@@ -34,6 +34,7 @@ import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesLis
 import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCategories';
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
+import CitiesList from './components/AdminPanel/CitiesList/CitiesList'
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -96,6 +97,7 @@ function App(): JSX.Element {
 				<Route path="update-category/:id" element={<UpdateCategory/>}/>
 				<Route path="list-locations" element={<LocationsList/>}/>
 				<Route path="update-location/:id" element={<UpdateLocation/>}/>
+				<Route path="list-cities" element={<CitiesList/>}/>
 			</Route>
 			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
