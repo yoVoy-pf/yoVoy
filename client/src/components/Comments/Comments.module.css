@@ -4,6 +4,12 @@
     margin-top: 50px;
 }
 
+.container_btn1{
+    display: flex;
+    justify-content: center;
+  }
+  
+
 .btn_1{
     width: 250px;
     background: #5817ae98;

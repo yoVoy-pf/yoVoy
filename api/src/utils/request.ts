@@ -1,6 +1,5 @@
 import { sequelize } from "../db";
 import { Model } from "sequelize";
-import fs from "fs"
 const { Request, User } = sequelize.models
 
 enum list{
@@ -10,29 +9,16 @@ enum list{
     PUT_event = "updateEvent"
 }
 
-export const createRequest = async (userId: number, description: string, type: string, method: string, information: any) => {
-    const request  = await Request.create({userId, description, type, method, function_type: list[`${method}_${type}` as keyof typeof list]})
+export const createRequest = async (userId: number, description: string, type: string, method: string, body: any) => {
+    const request  = await Request.create({userId, description, type, method, body: JSON.stringify(body)})
     
-    if (!fs.existsSync("./requests")){
-        fs.mkdirSync("./requests");
-    }
-    const id = request.getDataValue("id")
-    const url_body = `./requests/${id}_${method}_${type}.json`
-
-    fs.writeFile(url_body,JSON.stringify(information), "utf-8", (err) => {
-        if(err) throw err;
-    })
-
-    request.update({url_body})
 }
 
 const executeRequest = (request: Model<any,any>) => {
-    const id = request.getDataValue("id")
     const type = request.getDataValue("type")
     const method = request.getDataValue("method")
-    const function_type = request.getDataValue("function_type")
-
-    let body = fs.readFileSync(`./requests/${id}_${method}_${type}.json`, {encoding:'utf8', flag:'r'} )
+    let body = request.getDataValue("body")
+    let function_type = list[`${method}_${type}` as keyof typeof list]
     body = JSON.parse(body)
     
     require(`../utils/${type}.ts`)[function_type](body)

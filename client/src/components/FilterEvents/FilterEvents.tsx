@@ -10,7 +10,7 @@ import {
 import { AppDispatch, State } from '../../redux/store/store';
 import { Category, City, Location, Filter } from '../../types';
 
-import filterStyle from "./FilterEvents.module.css"
+import filterStyle from './FilterEvents.module.css';
 
 const FilterEvent = ({filters, setFilters}: any) => {
 	const dispatch: AppDispatch = useDispatch();
@@ -37,10 +37,10 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 	const handleCategoryFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const categoryFilt: Filter = {
-			filter: "category",
-			id: e.target.value
-		}
-		setFilters([categoryFilt, filters[1]])
+			filter: 'category',
+			id: e.target.value,
+		};
+		setFilters([categoryFilt, filters[1]]);
 	};
 
 	const handleCitiesFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -55,41 +55,39 @@ const FilterEvent = ({filters, setFilters}: any) => {
 
 	const handleLocationFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const LocationFilt: Filter = {
-			filter: "location",
-			id: e.target.value
-		}
-		if (e.target.value !== "") {
-			setFilters([filters[0], LocationFilt])
+			filter: 'location',
+			id: e.target.value,
+		};
+		if (e.target.value !== '') {
+			setFilters([filters[0], LocationFilt]);
 		} else {
 			const CityFilt: Filter = {
-				filter: "city",
-				id: citySelected
-			}
-			setFilters([filters[0], CityFilt])
+				filter: 'city',
+				id: citySelected,
+			};
+			setFilters([filters[0], CityFilt]);
 		}
 
 	};
 
 	const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-
 		const DateFilt: Filter = {
-			filter: "date",
-			id: e.target.value
-		}
-		setFilters([DateFilt])
-	}
+			filter: 'date',
+			id: e.target.value,
+		};
+		setFilters([DateFilt]);
+	};
 	const filtBynextDays = (days: string) => {
 		const nextDaysFilt: Filter = {
-			filter: "nextDays",
-			id: days
-		}
-		setFilters([nextDaysFilt])
-	}
+			filter: 'nextDays',
+			id: days,
+		};
+		setFilters([nextDaysFilt]);
+	};
 
 	return (
 		<div className={filterStyle.bg_div}>
 			<div className={filterStyle.bg_div1}>
-
 				<select onChange={handleCategoryFilter}>
 					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
           {
@@ -119,15 +117,30 @@ const FilterEvent = ({filters, setFilters}: any) => {
 				</select>
 
 				<input
-					type={"date"}
-					onChange={(e) => { handleDateChange(e) }}
+					type={'date'}
+					onChange={(e) => {
+						handleDateChange(e);
+					}}
 					className={filterStyle.input_filter}
 				/>
-
 			</div>
 			<div className={filterStyle.button1530}>
-				<button className={filterStyle.btn1} onClick={() => { filtBynextDays("15") }}>Proximos 15 dias</button>
-				<button className={filterStyle.btn2} onClick={() => { filtBynextDays("30") }}>Proximos 30 dias</button>
+				<button
+					className={filterStyle.btn1}
+					onClick={() => {
+						filtBynextDays('15');
+					}}
+				>
+					Proximos 15 dias
+				</button>
+				<button
+					className={filterStyle.btn2}
+					onClick={() => {
+						filtBynextDays('30');
+					}}
+				>
+					Proximos 30 dias
+				</button>
 			</div>
 			<div className={filterStyle.line}></div>
 		</div>
