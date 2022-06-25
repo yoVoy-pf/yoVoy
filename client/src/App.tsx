@@ -32,6 +32,8 @@ import EventCart from './components/EventCart/EventCart';
 import UnbanUser from './components/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesList';
+import LocationsList from './components/AdminPanel/Locationslist/LocationsList';
+import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -93,6 +95,8 @@ function App(): JSX.Element {
 					element={<DetailProessPayment />}
 				/>
 				<Route path="list-categories" element={<CategoriesList/>} />
+				<Route path="list-locations" element={<LocationsList/>} />
+				<Route path="update-location/:id" element={<UpdateLocation/>} />
 				</Route>
       			<Route path="unban-user" element={<UnbanUser />}/>
 		</Routes>
