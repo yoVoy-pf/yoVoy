@@ -6,7 +6,7 @@ export const postOrganization = async (req: Request, res: Response, next: NextFu
     try{
         const {name, user} = req.body
         
-        const organization = await createOrganization(req.body)
+        const organization = await createOrganization({name, userId: user.id})
 
         res.status(201).json(organization)
     }catch(error){
