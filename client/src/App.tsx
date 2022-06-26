@@ -30,6 +30,10 @@ import UserData from './components/UserData/UserData';
 
 import UnbanUser from './components/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
+import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesList';
+import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCategories';
+import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
+import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -88,6 +92,10 @@ function App(): JSX.Element {
 					path="detail-process-payment/:id"
 					element={<DetailProessPayment />}
 				/>
+				<Route path="list-categories" element={<CategoriesList/>} />
+				<Route path="update-category/:id" element={<UpdateCategory/>}/>
+				<Route path="list-locations" element={<LocationsList/>}/>
+				<Route path="update-location/:id" element={<UpdateLocation/>}/>
 			</Route>
 			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
