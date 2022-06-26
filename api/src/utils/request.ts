@@ -10,6 +10,7 @@ enum list{
 }
 
 export const createRequest = async (userId: number, description: string, type: string, method: string, body: any) => {
+    body.userId = userId
     const request  = await Request.create({userId, description, type, method, body: JSON.stringify(body)})
     
 }
