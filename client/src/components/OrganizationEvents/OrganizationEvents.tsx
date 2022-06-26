@@ -3,6 +3,7 @@ import { useGetOrganizationEventsQuery } from '../../slices/app/organizationApiS
 import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
 import './organization-event.css';
 import Swal from 'sweetalert2';
+import { BsPlusCircleFill } from "react-icons/bs";
 
 const OrganizationEvents = () => {
 	const [deleteEvent] = useDeleteEventMutation();
@@ -45,11 +46,13 @@ const OrganizationEvents = () => {
 		<h1>Cargando...</h1>
 	) : (
 		<div>
-			<span>
-				<Link to="/create-event">
-					<button className="btn-event-organization">Crear Evento</button>
+			<div className='container_btn_org'>
+
+				<Link className='link_a' to="/create-event">
+					<button className="btn-event-organization"> <BsPlusCircleFill className='icon_plus'/>Crear Nuevo Evento</button>
 				</Link>
-			</span>
+			</div>
+			
 			<div>
 				<h1 style={{ color: 'white', textAlign: 'center' }}>
 					Lista de Eventos
