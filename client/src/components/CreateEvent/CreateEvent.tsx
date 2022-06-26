@@ -21,10 +21,10 @@ const CreateEvent = () => {
 	const [createEvent] = useCreateEventMutation();
 	const dispatch: AppDispatch = useDispatch();
 
-	const locations: Array<Location> = useSelector(
+	const locations: any = useSelector(
 		(state: State) => state.global.locations,
 	);
-	const categories: Array<Category> = useSelector(
+	const categories: any = useSelector(
 		(state: State) => state.global.categories,
 	);
 
@@ -120,7 +120,7 @@ const CreateEvent = () => {
 						<legend className={styleCreateEvent.legend_form}>
 							Seleccione las categorias:
 						</legend>
-						{categories?.map((category: Category) => {
+						{categories?.rows?.map((category: Category) => {
 							return (
 								<React.Fragment key={category.id}>
 									<br />
@@ -142,7 +142,7 @@ const CreateEvent = () => {
 							locsForSubmit.length > 0
 								? locsForSubmit
 									.map((loc: any) => {
-										let locData = locations.find((location) => location.id === parseInt(loc.id));
+										let locData = locations?.rows?.find((location: any) => location.id === parseInt(loc.id));
 										return locData ?
 											(
 												<div>
@@ -198,7 +198,7 @@ const CreateEvent = () => {
 									onChange={handleLocationChange}
 								>
 									<option value="default">Seleccione la ciudad...</option>
-									{locations?.map((location: Location) => {
+									{locations?.rows?.map((location: Location) => {
 										return (
 											<option
 												key={location.id}

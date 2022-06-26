@@ -18,7 +18,7 @@ export const useCreateEvent = ({locations} : any) => {
   useEffect(() => {
     if (locations) {
       let locObject : any= {};
-      locations.forEach((loc: any) => locObject[loc.id]={dates:[]})
+      locations?.rows?.forEach((loc: any) => locObject[loc.id]={dates:[]})
       setLocsAux(locObject);
     }
   },[locations])

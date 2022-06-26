@@ -1,68 +1,79 @@
 .cartItem {
-	height: 80px;
+	height: 125px;
 	background-color: #3a3a3a;
-
-	margin-top: 20px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 15px;
+  margin-bottom: 15px;
 }
 
 .cartItem img {
-	height: 65px;
+	height: 80px;
+  width: auto;
+  object-fit: center;
 	border-radius: 5px;
 }
 
 .dataContainer {
+  position: relative;
 	display: flex;
-	justify-content: space-between;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
 	width: 100%;
-	height: 100%;
+	height: 80px;
 	padding: 15px 0;
+  gap: 10px;
 }
 .left {
-	padding-left: 20px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
 }
-.left p {
-	font-weight: bold;
+.dataContainer p
+ {
 	font-size: 13px;
+  margin: 0px;
+}
+.title{
+  font-weight: bold;
 }
 
-.left .buttons {
-	display: flex;
-	gap: 5px;
-}
-.left button {
-	border: none;
-	cursor: pointer;
-	font-size: 12px;
-	padding: 3px 5px;
-	border-radius: 5px;
-	font-weight: bold;
-	color: #222222;
-}
+
 .right {
 	display: flex;
+  min-width: 60px;
 	flex-direction: column;
 	justify-content: space-between;
-	align-items: flex-end;
-}
-.right div {
-	background-color: #fb3939;
-	width: 20px;
-	height: 20px;
-	border-radius: 999px;
-	display: flex;
 	align-items: center;
-	justify-content: center;
-	font-size: 12px;
-	font-weight: bold;
 }
 
-.rigth p {
+.remove {
+	background-color: #fb3939;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+	border-radius: 100%;
+  width: 25px;
+  border: 1px white solid;
+	font-size: 13px;
 	font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+}
+.remove:hover {
+  background-color: white;
+  color: #fb3939;
+  border: 1px #fb3939 solid;
+}
+
+.quantity{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }

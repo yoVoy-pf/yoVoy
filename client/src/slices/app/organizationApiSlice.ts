@@ -1,5 +1,6 @@
 import { apiSlice } from '../authentication/apiSlice';
 import { postOrganization, getOrganization } from '../../types';
+import { getAllOrganizations } from '../adminPanelSlice';
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -15,12 +16,22 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-		getOrganizations: builder.query<getOrganization[], { _: string }>({
-			query: ({ _ }) => {
-				return {
-					url: `/api/organizations`,
-				};
-			},
+		getOrganizations: builder.mutation<any, { limit: string, offset: string}>({
+			query: ({ limit, offset }) =>{
+        let url = `/api/organizations?limit=${limit}&offset=${offset}`;
+        return{
+          url,
+        }
+      } ,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try{
+          const { data } = await queryFulfilled
+          dispatch(getAllOrganizations(data))
+        }catch(err){
+          console.log('Error fetching post!')
+          console.log(err)
+        }
+      }
 		}),
 		getOrganization: builder.query<getOrganization, { id: any }>({
 			query(id) {
@@ -60,7 +71,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 
 export const {
 	useCreateOrganizationMutation,
-	useGetOrganizationsQuery,
+	useGetOrganizationsMutation,
 	useGetOrganizationQuery,
 	useUpdateOrganizationMutation,
 	useDeleteOrganizationMutation,

@@ -27,10 +27,14 @@ import OrganizationEvents from './components/OrganizationEvents/OrganizationEven
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
-import { EventCartProvider } from './components/EventCart/EventCartContext';
-import EventCart from './components/EventCart/EventCart';
+
 import UnbanUser from './components/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
+import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesList';
+import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCategories';
+import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
+import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
+import CitiesList from './components/AdminPanel/CitiesList/CitiesList'
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -45,15 +49,13 @@ function App(): JSX.Element {
 				<Route
 					path="events/:id/:location"
 					element={
-						<EventCartProvider>
 							<Event />
-						</EventCartProvider>
 					}
 				/>
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
-				<Route path="/cart" element={<EventCart />} />
+
 				{/* protected routes */}
 
 				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
@@ -62,7 +64,7 @@ function App(): JSX.Element {
 					<Route path="create-Organization" element={<CreateOrganization />} />
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
-          <Route path='change-password' element={<ChangePassword/>}/>
+					<Route path="change-password" element={<ChangePassword />} />
 				</Route>
 
 				<Route
@@ -91,8 +93,13 @@ function App(): JSX.Element {
 					path="detail-process-payment/:id"
 					element={<DetailProessPayment />}
 				/>
+				<Route path="list-categories" element={<CategoriesList/>} />
+				<Route path="update-category/:id" element={<UpdateCategory/>}/>
+				<Route path="list-locations" element={<LocationsList/>}/>
+				<Route path="update-location/:id" element={<UpdateLocation/>}/>
+				<Route path="list-cities" element={<CitiesList/>}/>
 			</Route>
-      <Route path="unban-user" element={<UnbanUser />}/>
+			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
 	);
 }

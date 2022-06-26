@@ -27,7 +27,8 @@ export async function getUsersFromDb(email: string, name: string, paginate:any, 
           attributes:[]
         }
       },
-      where:{status:"active"}
+      where:{status:"active"},
+      distinct: true
     }
     if(paginate) {
       options.limit =paginate.limit
@@ -36,9 +37,9 @@ export async function getUsersFromDb(email: string, name: string, paginate:any, 
     if(email) options.where.email = { [Op.iLike]: `%${email}%` }
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
-    const users = await User.findAll(options)
+    const users = await User.findAndCountAll(options)
     if(order){
-      users.sort((a:any, b:any) => {
+      users.rows.sort((a:any, b:any) => {
         if(a.name < b.name) {
           return -1
         }
@@ -48,7 +49,7 @@ export async function getUsersFromDb(email: string, name: string, paginate:any, 
         return 0
       })
       if(order === 'ZA') {
-        users.reverse()
+        users.rows.reverse()
       }
     }
     return users;

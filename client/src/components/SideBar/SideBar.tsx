@@ -66,6 +66,9 @@ const SideBar = () => {
               <MenuItem icon={<FiEdit />}><NavLink to='/events-config' className='link'>Config. de Eventos</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/create-category' className='link'>Crear Categoria</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/unban-user' className='link'>Desbanear Usuario</NavLink></MenuItem>
+              <MenuItem icon={<FiEdit />}><NavLink to='/list-categories' className='link'>Lista de Categorias</NavLink></MenuItem>
+              <MenuItem icon={<FiEdit />}><NavLink to='/list-locations' className='link'>Lista de Locaciones</NavLink></MenuItem>
+              <MenuItem icon={<FiEdit />}><NavLink to='/list-cities' className='link'>Lista de Ciudades</NavLink></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>

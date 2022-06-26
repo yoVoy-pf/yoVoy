@@ -13,7 +13,7 @@ export async function getEventsFromDb(paginate: any) {
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
-    const events = await Event.findAll(options)
+    const events = await Event.findAndCountAll(options)
     return events
 }
 
@@ -33,7 +33,7 @@ export async function getEventsFromDbBySearch(search: string, paginate: any) {
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
-    const eventsSearched = await Event.findAll(options)
+    const eventsSearched = await Event.findAndCountAll(options)
 
     return eventsSearched
 }
@@ -59,8 +59,8 @@ export async function getEventsFromDbByDate(date: string, EventsIds:any) {
 //trae los eventos si se encuentran dentro de los siguientes dias indicados, recibe los siguientes dias y un array con ids de eventos
 //para poder buscar los eventos uno por uno y chequear si pertenecen en los siguienten dias indicados.
 export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any) {
-    let eventsByDate: any = [], i = 0;
-    while (i < EventsIds.length) { 
+    let eventsByDate: any = []
+    for (let i = 0 ; i< EventsIds.length; i++) { 
         let event: any = await utils.getEventById(EventsIds[i])
         event.locations?.forEach((location: any) => {
             location.dates.forEach((d: any) => {
@@ -69,13 +69,14 @@ export async function getEventsFromDbByNextDate(nextDays: number, EventsIds:any)
                 }
             })
         })
-        i++
     }
-    return eventsByDate
+    let auxSet = new Set(eventsByDate)
+    let resultEvents = Array.from(auxSet)
+    return resultEvents
 }
 
 //trae los eventos filtrados por categoria y locacion.
-export async function getEventsFromDbByFilter(paginate: any, category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string) {
+export async function getEventsFromDbByFilter(paginate: any, category?: string, location?: string, organization?: string, city?: string, date?: string, nextDays?:string):Promise<any> {
     let options: any = { include: [], where:{status:"active"} }
 
     if (organization) {
@@ -106,22 +107,27 @@ export async function getEventsFromDbByFilter(paginate: any, category?: string, 
             attributes: []
         })
     }
-    if(paginate){
+    if(paginate && !nextDays && !date){
         options.limit = paginate.limit,
         options.offset = paginate.offset
     }
 
     options.attributes = attributes
-    const events = await Event.findAll(options)
+    const events = await Event.findAndCountAll(options)
+
+    let eventsByDate;
 
     if (date) {
         const EventsIds: any = []
-        events.forEach((e: any) => { EventsIds.push(e.id) })
-        return getEventsFromDbByDate(date, EventsIds)
+        events.rows.forEach((e: any) => { EventsIds.push(e.id) })
+        eventsByDate = await getEventsFromDbByDate(date, EventsIds)
+
+        return {count:eventsByDate.length, rows: eventsByDate.splice(paginate.offset, paginate.limit)}
     }else if (nextDays) {
         const EventsIds: any = []
-        events.forEach((e: any) => { EventsIds.push(e.id) })
-        return getEventsFromDbByNextDate(Number(nextDays), EventsIds)
+        events.rows.forEach((e: any) => { EventsIds.push(e.id) })
+        eventsByDate = await getEventsFromDbByNextDate(Number(nextDays), EventsIds)
+        return {count:eventsByDate.length, rows: eventsByDate.splice(paginate.offset, paginate.limit)}
     }
 
     return events
