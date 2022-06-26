@@ -39,7 +39,7 @@ export default {
                             include: [
                                 {
                                 model: Date,
-                                attributes:["id", "date","price"]
+                                attributes:["id", "date", "price", "total_tickets", "tickets_sold"]
                                 }
                         ]   
                         }
@@ -78,7 +78,9 @@ export default {
                             return {
                                 id: date.getDataValue("id"),
                                 price: date.getDataValue("price"),
-                                date: date.getDataValue("date")
+                                date: date.getDataValue("date"),
+                                total_tickets: date.getDataValue("total_tickets"),
+                                tickets_sold: date.getDataValue("tickets_sold")
                             }
                         })
                     ,
@@ -226,7 +228,7 @@ export default {
                     include:[
                         {
                         model: Date,
-                        attributes:["id","price","date"],
+                        attributes:["id","price","date", "total_tickets", "tickets_sold"],
                         where:{
                             id: dateId
                         }

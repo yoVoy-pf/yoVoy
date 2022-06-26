@@ -15,6 +15,13 @@ export class Date extends Model<Date> {
     @Column(DataType.ENUM("active","inactive", "canceled"))
     status!: string
 
+    @Column
+    total_tickets!: number;
+    
+    @Default(0)
+    @Column
+    tickets_sold!: number;
+
     @ForeignKey(() => EventLocation)
     @Column
     eventLocationId!: number

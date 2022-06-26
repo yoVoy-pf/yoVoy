@@ -11,6 +11,11 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
         Promise.all(list.map((item:any) => utils.getEventByDate(item.dateId)))
         .then((data) => {
             data = data.map((item: any, i: number) => {
+                    const total_tickets = item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("total_tickets")
+                    const tickets_sold = item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("tickets_sold")
+                    
+                    if(total_tickets === tickets_sold) throw {status: 400, message: "All tickets are sold"}
+                    if(total_tickets < tickets_sold + list[i].quantity) throw {status: 400, message: "Can't buy more tickets than tickets left"}
                 return {
                         id: String(item.getDataValue("id")),
                         title: item.getDataValue("name"),
@@ -20,6 +25,7 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                         category_id: "art",
                         quantity: list[i].quantity,
                         date: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("date"),
+                        dateId: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("id"),
                         location: item.getDataValue("locations_m")[0].getDataValue("location").getDataValue("name"),
                         unit_price: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("price") 
                 }
@@ -30,6 +36,8 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                 createTickets(preference.body.id, data, user)
                 res.status(200).json(preference.body.sandbox_init_point)
             })
+        }).catch(error => {
+            next(error)
         })
 
     }catch(error){
