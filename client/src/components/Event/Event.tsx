@@ -230,12 +230,12 @@ const Event = () => {
 									<React.Fragment key={location.id}>
 										{location?.dates.map((date: Dates) => {
 											return (
-												<div key={date.id}>
-													<p>
-														{`Dia: ${date.date} // Precio: $${date.price},00`}
+												<div className={event_style.containerCart} key={date.id}>
+													<p className={event_style.p}>
+														{`Dia: ${date.date}  Precio: $${date.price},00`}
 													</p>
-													<button title="Agregar al carrito.">
-														<BsCartPlus onClick={() => dispatch(addToCart({
+													<button className={event_style.iconCartContainer}title="Agregar al carrito.">
+														<BsCartPlus className={event_style.iconCart} onClick={() => dispatch(addToCart({
                               ...date,
                               eventId: eventDetail.id,
                               locationId: location.id,
@@ -243,7 +243,7 @@ const Event = () => {
                               eventName: eventDetail.name,
                               eventImg: eventDetail.background_image,
                               }))} />
-													</button>
+													Agregar Al Carrito</button>
 												</div>
 											);
 										})}
