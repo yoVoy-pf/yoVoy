@@ -74,7 +74,7 @@ const rootReducer = (state = initialState, action: Action) => {
 		case ActionType.DONT_EVENTS:
 			return {
 				...state,
-				allEvents: action.payload,
+				allEvents: { events: action.payload },
 			};
 
 		case ActionType.GET_COMMENTS:
