@@ -35,9 +35,7 @@ export const deleteFromCart = (ticket: any) => async (dispatch: Dispatch) => {
 		? JSON.parse(localStorage.getItem('cartTickets') as any)
 		: [];
 	const newCart = cart.filter((item: any) => item.dateId !== ticket.dateId);
-	console.log({ newCart });
-	console.log(ticket);
-	console.log({ cart });
+
 	localStorage.setItem('cartTickets', JSON.stringify(newCart));
 	dispatch(UPDATE_CART(newCart));
 	Toast.fire({

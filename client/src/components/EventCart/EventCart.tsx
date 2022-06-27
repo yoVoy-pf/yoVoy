@@ -23,7 +23,7 @@ const EventCart = () => {
 			),
 		);
 	}, [activador, ticketsLength, cartItems]);
-	console.log(cartItems);
+
 
 	const total = cartItems?.reduce(
 		(previous: number, current: any) =>
