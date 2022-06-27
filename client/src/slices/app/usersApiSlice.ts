@@ -7,24 +7,27 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 		getFavorites: builder.query<any, { _: string }>({
 			query: ({ _ }) => '/api/user/favorites',
 		}),
-		getUsers: builder.mutation<any, { limit: string, offset: string, email?: string, order?: string }>({
-			query: ({ limit, offset, email = '', order = '' }) =>{
-        let url = `/api/users?limit=${limit}&offset=${offset}`;
-        if(email.length) url += `&email=${email}`;
-        if(order.length) url += `&order=${order}`;
-        return{
-          url,
-        }
-      } ,
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        try{
-          const { data } = await queryFulfilled
-          dispatch(getAllUsers(data))
-        }catch(err){
-          console.log('Error fetching post!')
-          console.log(err)
-        }
-      }
+		getUsers: builder.mutation<
+			any,
+			{ limit: string; offset: string; email?: string; order?: string }
+		>({
+			query: ({ limit, offset, email = '', order = '' }) => {
+				let url = `/api/users?limit=${limit}&offset=${offset}`;
+				if (email.length) url += `&email=${email}`;
+				if (order.length) url += `&order=${order}`;
+				return {
+					url,
+				};
+			},
+			async onQueryStarted(_, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(getAllUsers(data));
+				} catch (err) {
+					console.log('Error fetching post!');
+					console.log(err);
+				}
+			},
 		}),
 		getUser: builder.query<User, { id: any }>({
 			query(id) {
@@ -77,21 +80,21 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			},
 		}),
 		unbanUser: builder.mutation<User, { email: string }>({
-			query({email}) {
+			query({ email }) {
 				return {
 					url: `api/users/_?unban=true`,
 					method: `Delete`,
-          body: {email},
+					body: { email },
 				};
 			},
 		}),
 		deleteEventToFavorite: builder.mutation<Event, { id: number }>({
 			query(id) {
-			  return {
-				url:`api/user/favorites/${id}`,
-				method:`Delete`,
-			  }
-			}
+				return {
+					url: `api/user/favorites/${id}`,
+					method: `Delete`,
+				};
+			},
 		}),
 		getFavorite: builder.query<Event, { id: any }>({
 			query(id) {
@@ -100,16 +103,29 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-    changePassword: builder.mutation<any, { password: string, newPassword: string }>({
+		changePassword: builder.mutation<
+			any,
+			{ password: string; newPassword: string }
+		>({
 			query({ password, newPassword }) {
-			  return {
-				url:`/api/auth/user/change-password`,
-				method:`PUT`,
-        body:{password, newPassword}
-			  }
-			}
+				return {
+					url: `/api/auth/user/change-password`,
+					method: `PUT`,
+					body: { password, newPassword },
+				};
+			},
 		}),
-		  
+
+		createCheckoutPayment: builder.mutation<Event, { newPayment: any }>({
+			query: ({ newPayment }) => {
+				// do something
+				return {
+					url: `/api/process-payment`,
+					method: `POST`,
+					body: { ...newPayment },
+				};
+			},
+		}),
 	}),
 });
 
@@ -125,6 +141,7 @@ export const {
 	usePutPasswordMutation,
 	useDeleteEventToFavoriteMutation,
 	useGetFavoriteQuery,
-  useUnbanUserMutation,
-  useChangePasswordMutation
+	useUnbanUserMutation,
+	useChangePasswordMutation,
+	useCreateCheckoutPaymentMutation,
 } = usersApiSlice;
