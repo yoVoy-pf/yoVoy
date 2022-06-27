@@ -49,7 +49,7 @@ const EventsConfig = () => {
 					</div>
 				</div>
       <div className={styleConfigEvent.searchbar}>
-        <SearchBar/>
+        <SearchBar searchEventQuery={pagination.searchEventQuery} />
         <FilterEvent filters={pagination.filters} setFilters={pagination.setFilters} refresh={pagination.refresh}/>
       </div>
       <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />

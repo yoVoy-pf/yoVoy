@@ -77,10 +77,13 @@ export const getAllEvent = (limit: any = '', offset: any = '') => {
 	};
 };
 
-export const getSearchEvent = (name: string | number) => {
+export const getSearchEvent = (name: string | number, limit: any = '', offset: any ='') => {
 	return async function (dispatch: Dispatch) {
 		try {
-			const searchEvent = await axios.get(`/api/events?search=${name}`);
+      let url = `/api/events?search=${name}`;
+      if (limit?.length) url += `&limit=${limit}`;
+      if (limit?.length && offset?.length) url += `&offset=${offset}`;
+			const searchEvent = await axios.get(url);
 			dispatch({
 				type: ActionType.SEARCH_EVENT,
 				payload: searchEvent.data,
@@ -112,6 +115,7 @@ export const getEventByCategory = (
 	filters: Filter[],
 	limit: any = '',
 	offset: any = '',
+  name: any = ''
 ) => {
 	let endPoint = `/api/events?`;
 	let queries = [];
@@ -124,6 +128,7 @@ export const getEventByCategory = (
 	endPoint = endPoint + queries.join('&');
 	if (limit?.length) endPoint += `&limit=${limit}`;
 	if (limit?.length && offset?.length) endPoint += `&offset=${offset}`;
+  if (name?.length) endPoint += `&search=${name}`;
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(endPoint);
