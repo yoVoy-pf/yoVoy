@@ -1,18 +1,18 @@
 import { apiSlice } from "../authentication/apiSlice";
 import { Location } from '../../types'
 
-interface LocationUpdate {
-        name: string;
-        address: string;
-        cityId: string;
-}
+// interface LocationUpdate {
+//         name: string;
+//         address: string;
+//         cityId: string;
+// }
 
 export const eventsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getLocations: builder.query<any,({ _: string })>({
       query: ({ _ }) =>  '/api/locations'
     }),
-    getLocation: builder.query<LocationUpdate, { id: any }>({
+    getLocation: builder.query<any, { id: any }>({
       query(id) {
         return {
           url: `/api/location/${id}`
@@ -28,6 +28,21 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+    createLocacion: builder.mutation<any,{name: any, latitude: any, length: any, address:any, cityId: any}>({
+      query: ({name, latitude, length, address, cityId}) => {
+        return{
+          url: '/api/location',
+          method:'POST',
+          body: {
+            name, 
+            latitude, 
+            length, 
+            address, 
+            cityId
+          }
+        }
+      }
+    }),
   })
 })
 
@@ -35,4 +50,5 @@ export const{
   useGetLocationsQuery,
   useUpdateLocationMutation,
   useGetLocationQuery,
+  useCreateLocacionMutation,
 } = eventsApiSlice
