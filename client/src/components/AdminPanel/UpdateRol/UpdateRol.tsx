@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
 	useGetUserQuery,
 	useUpdateRolUserMutation,
-} from '../../slices/app/usersApiSlice';
-import ROLES_LIST from '../../slices/authentication/rolesList';
+} from '../../../slices/app/usersApiSlice';
+import ROLES_LIST from '../../../slices/authentication/rolesList';
 import styleRol from './update-rol.module.css';
 import Swal from 'sweetalert2';
 

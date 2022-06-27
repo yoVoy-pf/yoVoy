@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateCategoryMutation, useGetCategoryQuery } from '../../../slices/app/categoriesApiSlice'
 import Swal from 'sweetalert2';
-import SideBar from '../../SideBar/SideBar';
+import SideBar from '../SideBar/SideBar';
 import styleCategoryUpdate from './update-category.module.css'
 
 const UpdateCategory = () => {

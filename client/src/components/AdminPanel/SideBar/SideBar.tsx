@@ -16,8 +16,8 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "./side-bar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../slices/authentication/authSlice";
-import { useLogoutMutation } from "../../slices/authentication/authApiSlice";
+import { selectCurrentUser } from "../../../slices/authentication/authSlice";
+import { useLogoutMutation } from "../../../slices/authentication/authApiSlice";
 
 
 const SideBar = () => {

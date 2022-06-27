@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGetLocationsQuery } from '../../../slices/app/locationsApiSlice';
 import styleLocations from './locations-list.module.css';
 import Swal from 'sweetalert2';
-import SideBar from '../../SideBar/SideBar';
+import SideBar from '../SideBar/SideBar';
 
 const LocationsList = () => {
     const {

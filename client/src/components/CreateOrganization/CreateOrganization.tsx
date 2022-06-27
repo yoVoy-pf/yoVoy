@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useCreateOrganizationMutation } from '../../slices/app/organizationApiSlice';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
-import SideBar from '../SideBar/SideBar';
+import SideBar from '../AdminPanel/SideBar/SideBar';
 import styleCreateOrganization from './create-organization.module.css';
 import Swal from 'sweetalert2';
 

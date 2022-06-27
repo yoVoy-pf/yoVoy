@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGetCategoriesQuery, useDeleteCategoryMutation } from '../../../slices/app/categoriesApiSlice';
-import SideBar from '../../SideBar/SideBar';
+import SideBar from '../SideBar/SideBar';
 import styleCategories from './categories-list.module.css';
 import Swal from 'sweetalert2';
 
