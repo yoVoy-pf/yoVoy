@@ -13,7 +13,7 @@ import PageButtons from '../../PageButtons/PageButtons';
 const OrganizationList = () => {
 	const [deleteOrganization] = useDeleteOrganizationMutation();
   const organizations = useSelector(selectAllOrganizations)
-  const pagination = usePagination(15, 'organizations');
+  const pagination = usePagination(10, 'organizations');
 
 	const handleDelete = async (id: any) => {
 		Swal.fire({

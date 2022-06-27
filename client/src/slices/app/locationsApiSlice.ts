@@ -1,5 +1,6 @@
 import { apiSlice } from "../authentication/apiSlice";
 import { Location } from '../../types'
+import { getAllLocations } from "../adminPanelSlice";
 
 interface LocationUpdate {
         name: string;
@@ -7,11 +8,25 @@ interface LocationUpdate {
         cityId: string;
 }
 
-export const eventsApiSlice = apiSlice.injectEndpoints({
+export const locationsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
-    getLocations: builder.query<any,({ _: string })>({
-      query: ({ _ }) =>  '/api/locations'
-    }),
+    getLocations: builder.mutation<any, { limit: string, offset: string}>({
+			query: ({ limit, offset }) =>{
+        let url = `/api/locations?limit=${limit}&offset=${offset}`;
+        return{
+          url,
+        }
+      } ,
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try{
+          const { data } = await queryFulfilled
+          dispatch(getAllLocations(data))
+        }catch(err){
+          console.log('Error fetching post!')
+          console.log(err)
+        }
+      }
+		}),
     getLocation: builder.query<LocationUpdate, { id: any }>({
       query(id) {
         return {
@@ -32,7 +47,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 })
 
 export const{
-  useGetLocationsQuery,
+  useGetLocationsMutation,
   useUpdateLocationMutation,
   useGetLocationQuery,
-} = eventsApiSlice
+} = locationsApiSlice
