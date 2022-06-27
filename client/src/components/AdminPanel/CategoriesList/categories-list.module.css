@@ -17,9 +17,9 @@
   }
 
   .table_title{
-    display: flex;
+    display: grid;
     justify-content: center;
-    margin-right: 50px;
+    margin-right: 10px;
     color: white;
   }
   .table_title_style{
@@ -30,6 +30,7 @@
   }
   .buttom {
     text-decoration: none;
+    place-self: center;
   }
   .table_link {
     text-decoration: none;
@@ -104,3 +105,13 @@
   .componente:nth-child(even) {
     background-color: #f2f2f24d;
   }
+
+.buttom_style{
+  color: white;
+  background-color: rgba(23, 0, 201, 0.4);
+  padding: 15px;
+  border-radius: 15px;
+  transition: 0.5s;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
