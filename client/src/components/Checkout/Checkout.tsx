@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import styles from '../EventCart/EventCart.module.css';
 import { selectCartTickets } from '../../slices/cartSlice';
 import { TicketCart } from '../EventCart/TicketCart';
-import { useCreateCheckoutPaymentMutation } from '../../slices/app/usersApiSlice';
+// import { useCreateCheckoutPaymentMutation } from '../../slices/app/usersApiSlice';
 
 const Checkout = () => {
 	const [ticketsLength, setTicketsLength] = useState(0);
 
-	const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
+	// const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
 
 	const cartItems = useSelector(selectCartTickets);
 
@@ -43,10 +43,11 @@ const Checkout = () => {
 
 			<div>
 				<button
-					onClick={() =>
-						createCheckoutPayment({ newPayment: cartItems }).then(
-							(result: any) => console.log(result),
-						)
+					onClick={
+						() => console.log(cartItems)
+						// createCheckoutPayment({ newPayment: cartItems }).then(
+						// 	(result: any) => console.log(result),
+						// )
 					}
 				>
 					Pagar
