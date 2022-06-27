@@ -19,6 +19,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   const [filters, setFilters] : any = useState([])
   const [userOrder, setUserOrder]: any = useState('')
   const [email, setEmail] : any = useState('')
+  const [eventName, setEventName] : any = useState('')
 
   const events = useSelector((state: State) => state.global.allEvents);
   const users = useSelector(selectAllUsers)
@@ -53,7 +54,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   }
 
   const queries : any = {
-    events: (clear: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
+    events: (clear: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), (page * itemsPerPage).toString(), clear ? '' : eventName)),
     users: () => getUsers({ ...queryOptions, email: email, order: userOrder }),
     organizations: () => getOrganizations({ ...queryOptions }),
     locations: () => getLocations({ ...queryOptions }),
@@ -62,6 +63,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
 
   const refresh = (clear : any=false) => {
     if (clear) setFilters([])
+    if (clear) setEventName('')
     queries[type](clear);
   }
 
@@ -98,6 +100,15 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     } else getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() });
   }
 
+  const searchEventQuery = (e: any, input: string) => {
+    setPage(0)
+    setEventName(input)
+    console.log(input)
+    if (input.length){
+      dispatch(getEventByCategory(filters, itemsPerPage.toString(), (0 * itemsPerPage).toString(), input))
+    } else queries.events();
+  }
+
   return {
     nextHandler,
     prevHandler,
@@ -112,7 +123,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     page,
     userOrder,
     setUserOrder,
-    refresh
+    refresh,
+    searchEventQuery
   };
 };
 

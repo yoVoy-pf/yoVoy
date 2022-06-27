@@ -18,7 +18,7 @@ const Home = () => {
 		<div >
 			
 			<div className={home.searchbar}>
-				<SearchBar/>
+				<SearchBar searchEventQuery={pagination.searchEventQuery}/>
 			</div>
 			<div>
 				<FilterEvent filters={pagination.filters} setFilters={pagination.setFilters} refresh={pagination.refresh}/>
