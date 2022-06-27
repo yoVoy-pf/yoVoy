@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import styles from '../EventCart/EventCart.module.css';
 import { selectCartTickets } from '../../slices/cartSlice';
 import { TicketCart } from '../EventCart/TicketCart';
-// import { useCreateCheckoutPaymentMutation } from '../../slices/app/usersApiSlice';
+import { useCreateCheckoutPaymentMutation } from '../../slices/app/usersApiSlice';
 
 const Checkout = () => {
 	const [ticketsLength, setTicketsLength] = useState(0);
 
-	// const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
+	const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
 
 	const cartItems = useSelector(selectCartTickets);
 
@@ -20,7 +20,6 @@ const Checkout = () => {
 			),
 		);
 	}, [cartItems]);
-	console.log(cartItems);
 
 	const total = cartItems?.reduce(
 		(previous: number, current: any) =>
@@ -28,30 +27,36 @@ const Checkout = () => {
 		0,
 	);
 
+	const handleClick = async () => {
+		const payment = {
+			list: cartItems,
+		};
+		try {
+			await createCheckoutPayment({ newPayment: payment }).then((result: any) =>
+				window.location.replace(result.data),
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div>
 			{cartItems.length === 0 ? (
 				<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 			) : (
 				<div className={styles.productsContainer}>
-					{cartItems?.map((item: any) => (
-						<TicketCart key={item.dateId} item={item} />
-					))}
+					<form id="form1">
+						{cartItems?.map((item: any) => (
+							<TicketCart key={item.dateId} item={item} />
+						))}
+					</form>
 				</div>
 			)}
 			<h2 className={styles.total}>Total: ${total}</h2>
 
 			<div>
-				<button
-					onClick={
-						() => console.log(cartItems)
-						// createCheckoutPayment({ newPayment: cartItems }).then(
-						// 	(result: any) => console.log(result),
-						// )
-					}
-				>
-					Pagar
-				</button>
+				<button onClick={handleClick}>Pagar</button>
 			</div>
 		</div>
 	);
