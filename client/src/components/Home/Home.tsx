@@ -21,7 +21,8 @@ const Home = () => {
 				<SearchBar/>
 			</div>
 			<div>
-				<FilterEvent filters={pagination.filters} setFilters={pagination.setFilters}/>
+				<FilterEvent filters={pagination.filters} setFilters={pagination.setFilters} refresh={pagination.refresh}/>
+        <div className={home.line}></div>
 			</div>
 			<div className={home.home}>
 				{events?.length > 0 ? events[0] !== "no hay eventos"? (

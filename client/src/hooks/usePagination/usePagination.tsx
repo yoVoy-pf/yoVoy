@@ -53,15 +53,15 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   }
 
   const queries : any = {
-    events: () => dispatch(getEventByCategory(filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
+    events: (clear: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
     users: () => getUsers({ ...queryOptions, email: email, order: userOrder }),
     organizations: () => getOrganizations({ ...queryOptions }),
     locations: () => getLocations({ ...queryOptions }),
     provinces: () => getProvinces({ ...queryOptions })
   }
 
-  const refresh = () => {
-    queries[type]();
+  const refresh = (clear : any=false) => {
+    queries[type](clear);
   }
 
   useEffect(() => {
