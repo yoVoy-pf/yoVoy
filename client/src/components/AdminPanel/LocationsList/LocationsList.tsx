@@ -47,7 +47,7 @@ const LocationsList = () => {
                 <th style={{ textAlign: "center" }}>ID</th>
                 <th style={{ textAlign: "center" }}>Name</th>
                 <th style={{ textAlign: "center" }}>Address</th>
-                <th style={{ textAlign: "center" }}>City</th>
+                <th style={{ textAlign: "center" }}>Provincia</th>
                 <th style={{ textAlign: "center" }}>Acciones</th>
                 </tr>
             </thead>
