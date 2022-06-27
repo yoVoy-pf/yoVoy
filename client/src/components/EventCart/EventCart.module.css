@@ -15,7 +15,7 @@
 	z-index: 2;
 }
 
-svg {
+.open {
 	height: 25px;
 	margin-right: 2px;
   z-index: 2;
