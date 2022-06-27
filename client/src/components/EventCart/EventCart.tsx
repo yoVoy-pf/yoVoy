@@ -88,7 +88,7 @@ const EventCart = () => {
 					) : (
 						<div className={styles.productsContainer}>
 							{cartItems?.map((item: any) => (
-								<TicketCart key={item.id} item={item} />
+								<TicketCart key={item.dateId} item={item} />
 							))}
 						</div>
 					)}
