@@ -66,7 +66,7 @@ const SideBar = () => {
               <MenuItem icon={<FaList />}><NavLink to='/events-config' className='link'>Lista de Eventos</NavLink></MenuItem>
               <MenuItem icon={<FaList />}><NavLink to='/list-categories' className='link'>Lista de Categorias</NavLink></MenuItem>
               <MenuItem icon={<FaList />}><NavLink to='/list-locations' className='link'>Lista de Locaciones</NavLink></MenuItem>
-              <MenuItem icon={<FaList />}><NavLink to='/list-cities' className='link'>Lista de Ciudades</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/list-cities' className='link'>Lista de Provincias</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/unban-user' className='link'>Desbanear Usuario</NavLink></MenuItem>
             </Menu>
           </SidebarContent>

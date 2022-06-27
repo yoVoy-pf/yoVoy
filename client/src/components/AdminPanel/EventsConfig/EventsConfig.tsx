@@ -11,7 +11,7 @@ import PageButtons from '../../PageButtons/PageButtons';
 const EventsConfig = () => {
 	const [deleteEvent] = useDeleteEventMutation();
   const {events} = useSelector((state: any) => state.global.allEvents);
-  const pagination = usePagination(30, 'events');
+  const pagination = usePagination(10, 'events');
 
 	const HandleDelete = async (event: any) => {
 		Swal.fire({

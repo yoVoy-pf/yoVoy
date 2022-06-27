@@ -1,29 +1,20 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
+import { useSelector } from 'react-redux';
+import usePagination from '../../../hooks/usePagination/usePagination';
+import { selectAllProvinces } from '../../../slices/adminPanelSlice';
 import SideBar from '../SideBar/SideBar';
 import styleCities from './cities-list.module.css'
+import PageButtons from '../../PageButtons/PageButtons';
 
 const CitiesList = () => {
-    const {
-		data: cities,
-		isLoading,
-		isSuccess,
-		isError,
-		error,
-		refetch,
-	} = useGetCitiesQuery({ _: '' }, { refetchOnMountOrArgChange: true });
-    console.log('sadfasdfasdfasfasdf',cities)
-    let content = <span></span>;
-    if(isLoading){
-        content = <p>Cargando...</p>;
-    } else if (isSuccess) {
-		content = (
+  const provinces = useSelector(selectAllProvinces)
+  const pagination = usePagination(10, 'provinces');
+	const	content = (
 			<div className={styleCities.fondo}>
                 <SideBar/>
             <div className={styleCities.table_title}>
-            <h1 className={styleCities.table_title_style}>Lista de Ciudades</h1>
+            <h1 className={styleCities.table_title_style}>Lista de Provincias</h1>
             </div>
+        <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
         <table className={styleCities.table_categories}>
             <thead>
                 <tr>
@@ -34,7 +25,7 @@ const CitiesList = () => {
 
             <tbody>
                 { 
-                        cities?.rows?.map((city: any, index: any) => {
+                        provinces?.rows?.map((city: any, index: any) => {
                             return (
                             <tr>
                                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{city.id}</th>
@@ -47,9 +38,6 @@ const CitiesList = () => {
             </table>
         </div>
 		);
-	} else if (isError) {
-		content = <p>{JSON.stringify(error)}</p>;
-	}
 	return content;
 }
 
