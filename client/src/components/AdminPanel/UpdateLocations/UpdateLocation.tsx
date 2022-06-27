@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateLocationMutation, useGetLocationQuery } from '../../../slices/app/locationsApiSlice'
-import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
+import { useGetAllProvinceQuery } from '../../../slices/app/provincesApiSlice'
 import Swal from 'sweetalert2';
 import SideBar from '../SideBar/SideBar';
 import stylelocationUpdate from './update-location.module.css'
@@ -21,20 +21,22 @@ const UpdateLocation = () => {
     const [updateLocation] = useUpdateLocationMutation();
     const navigate = useNavigate();
     const { id }: any = useParams<{ id: string }>();
-    const { data: cities } = useGetCitiesQuery({ _: '' });
+    const { data: cities } = useGetAllProvinceQuery({ _: '' });
     const { data, error, refetch } = useGetLocationQuery(id);
-    console.log('soy la data xddddddddddddd:', data)
     const [location, setLocation] = useState({
-        name: '',
-        address: '',
-        // map: '',
-        cityId: ''
+        name: "",
+        latitude: "",
+        length: "",
+        address: "",
+        cityId: "",
     })
     useEffect(()=> {
         if(id) {
             if(data) {
                 setLocation({ 
                     name: data?.name,
+                    latitude: data?.latitude,
+                    length: data?.length,
                     address: data?.address,
                     cityId: data?.city?.name
                 })
@@ -50,14 +52,21 @@ const UpdateLocation = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-	const onChangeAddress = (e: any) => {
+    const onChangeLatitude = (e: any) => {
 		e.preventDefault();
 		setLocation({
 			...location,
 			[e.target.name]: e.target.value,
 		});
 	};
-    const onChangeCityId = (e: any) => {
+    const onChangeLength = (e: any) => {
+		e.preventDefault();
+		setLocation({
+			...location,
+			[e.target.name]: e.target.value,
+		});
+	};
+	const onChangeAddress = (e: any) => {
 		e.preventDefault();
 		setLocation({
 			...location,
@@ -92,10 +101,11 @@ const UpdateLocation = () => {
 					id && (await updateLocation({ id: id, updateLocation: location }));
 					refetch();
 					setLocation({
-                        name: '',
-                        address: '',
-                        // map: '',
-                        cityId: ''
+                        name: "",
+                        latitude: "",
+                        length: "",
+                        address: "",
+                        cityId: "",
 					});
 					navigate('/list-locations');
 				}
@@ -120,6 +130,26 @@ const UpdateLocation = () => {
                     />
                 </fieldset>
                 <fieldset>
+                <legend className={stylelocationUpdate.legend_update_location}>Latitud:</legend>
+                <input 
+                type="text"
+                name='latitude' 
+                value={location.latitude}
+                onChange={onChangeLatitude}
+                className={stylelocationUpdate.input_update_location}
+                />
+                </fieldset>
+                <fieldset>
+                <legend className={stylelocationUpdate.legend_update_location}>Coordenada:</legend>
+                <input 
+                type="text" 
+                name='length'
+                value={location.length}
+                onChange={onChangeLength}
+                className={stylelocationUpdate.input_update_location}
+                />
+                </fieldset>
+                <fieldset>
                     <legend className={stylelocationUpdate.legend_update_location}>Dirección:</legend>
                     <input 
                        type="text" 
@@ -130,11 +160,17 @@ const UpdateLocation = () => {
                     />
                 </fieldset>
                 <fieldset>
-                <legend>Ciudad:</legend>
+                <legend className={stylelocationUpdate.legend_update_location}>Provincia:</legend>
                 <div>
-                <select onChange={(e) => handleSelect(e)}>
+                <select 
+                onChange={(e) => handleSelect(e)} 
+                className={stylelocationUpdate.form_locations}>
                     {cities?.rows.map((city: any) => (
-                                <option key={city.id} value={city.id} selected={data?.cityId === city.id}>{city.name}</option>
+                                <option 
+                                key={city.id} 
+                                value={city.id} 
+                                selected={data?.cityId === city.id}
+                                className={stylelocationUpdate.form_location}>{city.name}</option>
                             )
                         )
                     }

@@ -56,19 +56,18 @@ const SideBar = () => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem icon={<FiHome />}>
-                <NavLink style={{ color: 'white' }} to='/'>
+                <NavLink style={{ color: 'white' }} to='/' className='link'>
                   Home
                 </NavLink>
               </MenuItem>
               <MenuItem icon={<FaList />}><NavLink to='/userslist' className='link'>Lista De Usuarios</NavLink></MenuItem>
               <MenuItem icon={<FaList />}><NavLink to='/organization-list' className='link'>Lista De Organizaciones</NavLink></MenuItem>
               <MenuItem icon={<FaList />}><NavLink to='/detail-payment' className='link'>Detalles de compras</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/events-config' className='link'>Config. de Eventos</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/create-category' className='link'>Crear Categoria</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/events-config' className='link'>Lista de Eventos</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/list-categories' className='link'>Lista de Categorias</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/list-locations' className='link'>Lista de Locaciones</NavLink></MenuItem>
+              <MenuItem icon={<FaList />}><NavLink to='/list-cities' className='link'>Lista de Provincias</NavLink></MenuItem>
               <MenuItem icon={<FiEdit />}><NavLink to='/unban-user' className='link'>Desbanear Usuario</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/list-categories' className='link'>Lista de Categorias</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/list-locations' className='link'>Lista de Locaciones</NavLink></MenuItem>
-              <MenuItem icon={<FiEdit />}><NavLink to='/list-cities' className='link'>Lista de Ciudades</NavLink></MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>

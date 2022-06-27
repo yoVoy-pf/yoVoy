@@ -12,7 +12,7 @@ import { Category, City, Location, Filter } from '../../types';
 
 import filterStyle from './FilterEvents.module.css';
 
-const FilterEvent = ({filters, setFilters}: any) => {
+const FilterEvent = ({filters, setFilters, refresh}: any) => {
 	const dispatch: AppDispatch = useDispatch();
 	const categories: any = useSelector(
 		(state: State) => state.global.categories,
@@ -124,25 +124,32 @@ const FilterEvent = ({filters, setFilters}: any) => {
 					className={filterStyle.input_filter}
 				/>
 			</div>
-			<div className={filterStyle.button1530}>
-				<button
-					className={filterStyle.btn1}
-					onClick={() => {
-						filtBynextDays('15');
-					}}
-				>
-					Proximos 15 dias
-				</button>
+			<div className={filterStyle.buttons_container}>
+        <div className={filterStyle.button1530}>
+          <button
+            className={filterStyle.btn1}
+            onClick={() => {
+              filtBynextDays('15');
+            }}
+          >
+            Proximos 15 dias
+          </button>
+          <button
+            className={filterStyle.btn2}
+            onClick={() => {
+              filtBynextDays('30');
+            }}
+          >
+            Proximos 30 dias
+          </button>
+        </div>
 				<button
 					className={filterStyle.btn2}
-					onClick={() => {
-						filtBynextDays('30');
-					}}
+          onClick={() => refresh(true)}
 				>
-					Proximos 30 dias
+					Limpiar filtros
 				</button>
 			</div>
-			<div className={filterStyle.line}></div>
 		</div>
 	);
 };

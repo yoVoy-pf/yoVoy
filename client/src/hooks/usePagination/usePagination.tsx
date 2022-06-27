@@ -2,13 +2,17 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventByCategory } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { selectAllOrganizations, selectAllUsers } from '../../slices/adminPanelSlice';
+import { selectAllLocations, selectAllOrganizations, selectAllProvinces, selectAllUsers } from '../../slices/adminPanelSlice';
+import { useGetLocationsMutation } from '../../slices/app/locationsApiSlice';
 import { useGetOrganizationsMutation } from '../../slices/app/organizationApiSlice';
 import { useGetUsersMutation } from '../../slices/app/usersApiSlice';
+import {useGetProvincesMutation} from '../../slices/app/provincesApiSlice'
 
 const usePagination = (itemsPerPage : number = 15, type : string) => {
   const [getUsers] = useGetUsersMutation();
   const [getOrganizations] = useGetOrganizationsMutation();
+  const [getLocations] : any = useGetLocationsMutation();
+  const [getProvinces] : any = useGetProvincesMutation();
   const dispatch: AppDispatch = useDispatch();
   let items :any 
   const [page, setPage] : any= useState(0);
@@ -19,6 +23,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   const events = useSelector((state: State) => state.global.allEvents);
   const users = useSelector(selectAllUsers)
   const organizations = useSelector(selectAllOrganizations)
+  const locations = useSelector(selectAllLocations);
+  const provinces = useSelector(selectAllProvinces)
 
   switch(type){
     case 'events':
@@ -30,19 +36,33 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     case 'organizations':
       items = organizations;
       break;
+    case 'locations':
+      items = locations;
+      break;
+    case 'provinces':
+      items = provinces;
+      break;
       default:
         items = events;
       }
   const limit = Math.ceil(items.count / itemsPerPage);
-
-  const queries : any = {
-    events: () => dispatch(getEventByCategory(filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
-    users: () => getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: email, order: userOrder }),
-    organizations: () => getOrganizations({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() })
+  
+  const queryOptions = {
+    limit: itemsPerPage.toString(),
+    offset: (page * itemsPerPage).toString(),
   }
 
-  const refresh = () => {
-    queries[type]();
+  const queries : any = {
+    events: (clear: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), (page * itemsPerPage).toString())),
+    users: () => getUsers({ ...queryOptions, email: email, order: userOrder }),
+    organizations: () => getOrganizations({ ...queryOptions }),
+    locations: () => getLocations({ ...queryOptions }),
+    provinces: () => getProvinces({ ...queryOptions })
+  }
+
+  const refresh = (clear : any=false) => {
+    if (clear) setFilters([])
+    queries[type](clear);
   }
 
   useEffect(() => {

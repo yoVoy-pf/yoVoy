@@ -12,7 +12,7 @@ import { selectAllUsers } from '../../../slices/adminPanelSlice';
 
 const UsersList = () => {
 	const [deleteUser] = useDeleteUserMutation();
-	const pagination = usePagination(30, 'users');
+	const pagination = usePagination(10, 'users');
   const users : any = useSelector(selectAllUsers)
 	
 	const handleDelete = async (id: any) => {

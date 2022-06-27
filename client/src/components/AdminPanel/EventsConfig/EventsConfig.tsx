@@ -7,11 +7,13 @@ import Swal from 'sweetalert2';
 import usePagination from '../../../hooks/usePagination/usePagination';
 import { useSelector } from 'react-redux';
 import PageButtons from '../../PageButtons/PageButtons';
+import SearchBar from '../../SearchBar/SearchBar';
+import FilterEvent from '../../FilterEvents/FilterEvents';
 
 const EventsConfig = () => {
 	const [deleteEvent] = useDeleteEventMutation();
   const {events} = useSelector((state: any) => state.global.allEvents);
-  const pagination = usePagination(30, 'events');
+  const pagination = usePagination(10, 'events');
 
 	const HandleDelete = async (event: any) => {
 		Swal.fire({
@@ -46,6 +48,10 @@ const EventsConfig = () => {
 						</Link>
 					</div>
 				</div>
+      <div className={styleConfigEvent.searchbar}>
+        <SearchBar/>
+        <FilterEvent filters={pagination.filters} setFilters={pagination.setFilters} refresh={pagination.refresh}/>
+      </div>
       <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
 			<table className={styleConfigEvent.table_config}>
 					<thead>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCreateLocacionMutation } from '../../../slices/app/locationsApiSlice';
-import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
+import { useGetAllProvinceQuery } from '../../../slices/app/provincesApiSlice'
 import Swal from 'sweetalert2';
 import styleCreateLocation from './create-location.module.css'
 import SideBar from '../SideBar/SideBar';
@@ -18,7 +18,7 @@ const CreateLocation = () => {
 			toast.addEventListener('mouseleave', Swal.resumeTimer);
 		},
 	});
-    const { data } = useGetCitiesQuery({ _: '' });
+    const { data } = useGetAllProvinceQuery({ _: '' });
     const navigate = useNavigate();
     const [createLocation] = useCreateLocacionMutation();
     const [locacion, setLocacion] = useState({
@@ -120,7 +120,7 @@ const CreateLocation = () => {
                 />
             </fieldset>
             <fieldset>
-                <legend className={styleCreateLocation.legend_create_category}>Pais:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Provincia:</legend>
                 <div>
                 <select 
                 onChange={(e) => handleSelect(e)} 

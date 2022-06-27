@@ -13,6 +13,7 @@ export const TicketCart = ({ item }: any) => {
 		dispatch(deleteFromCart(item) as any);
 	};
 	const handleQuantityChange = (e: any) => {
+		e.preventDefault();
 		if (e.target.value === '-') {
 			if (quantity > 1) {
 				setQuantity(quantity - 1);

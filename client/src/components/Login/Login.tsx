@@ -51,6 +51,12 @@ const Login = () => {
           title: `Usuario baneado, contacte con un administrador.`,
         });
       }
+      else{
+        Toast.fire({
+          icon: 'error',
+          title: `${e.data}`,
+        });
+      }
     }
 	};
 
@@ -88,7 +94,8 @@ const Login = () => {
 		e.preventDefault();
 		try {
       if (recoverPassword) { 
-        await recoverPasswordQuery({email});
+        const response : any = await recoverPasswordQuery({email});
+        if (response.error) throw response.error
         Toast.fire({
           icon: 'success',
           title: `La nueva contraseña fue enviada a su email`,
@@ -109,7 +116,9 @@ const Login = () => {
 				text = 'Usuario o contraseña incorrectos.';
 			} else if (err.originalStatus === 403) {
 				text = 'Usuario o contraseña incorrectos.';
-			} else {
+			} else if (err.originalStatus === 404) {
+        text = 'No se encontro un usuario con ese email';
+      } else {
 				text = 'Fallo al ingresar';
 			}
       Toast.fire({
