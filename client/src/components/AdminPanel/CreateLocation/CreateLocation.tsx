@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useCreateLocacionMutation } from '../../../slices/app/locationsApiSlice';
 import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
 import Swal from 'sweetalert2';
+import styleCreateLocation from './create-location.module.css'
+import SideBar from '../SideBar/SideBar';
 
 const CreateLocation = () => {
     const Toast = Swal.mixin({
@@ -77,55 +79,71 @@ const CreateLocation = () => {
 		});
 	};
   return (
-    <div>
+    <div className={styleCreateLocation.fondo}>
+        <SideBar/>
         <form onSubmit={onSubmit}>
+            <div className={styleCreateLocation.form_create_category}>
             <fieldset>
-                <legend>Nombre:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Nombre:</legend>
                 <input 
                 type="text" 
                 name='name'
                 onChange={onIputChange}
+                className={styleCreateLocation.input_create_categoty}
                 />
             </fieldset>
             <fieldset>
-                <legend>Latitud:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Latitud:</legend>
                 <input 
                 type="text"
                 name='latitude' 
                 onChange={onIputChange}
+                className={styleCreateLocation.input_create_categoty}
                 />
             </fieldset>
             <fieldset>
-                <legend>Largo:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Coordenada:</legend>
                 <input 
                 type="text" 
                 name='length'
                 onChange={onIputChange}
+                className={styleCreateLocation.input_create_categoty}
                 />
             </fieldset>
             <fieldset>
-                <legend>Direccion:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Direccion:</legend>
                 <input 
                 type="text" 
                 name='address'
                 onChange={onIputChange}
+                className={styleCreateLocation.input_create_categoty}
                 />
             </fieldset>
             <fieldset>
-                <legend>Ciudad:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Pais:</legend>
                 <div>
-                <select onChange={(e) => handleSelect(e)}>
+                <select 
+                onChange={(e) => handleSelect(e)} 
+                className={styleCreateLocation.form_locations}>
                     {data?.rows.map((city: any) => (
-                                <option key={city.id} value={city.id}>{city.name}</option>
+                                <option 
+                                key={city.id} 
+                                value={city.id}
+                                className={styleCreateLocation.form_location}
+                                >{city.name}</option>
                             )
                         )
                     }
                 </select>
                 </div>
             </fieldset>
-            <button>
+            <button
+            className={styleCreateLocation.buttom_create_category}
+            type="submit"
+            >
                 Crear Locacion
             </button>
+            </div>
         </form>
     </div>
   )
