@@ -36,6 +36,7 @@ import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
 import Checkout from './components/Checkout/Checkout';
+import CreateLocation from './components/AdminPanel/CreateLocation/CreateLocation';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -93,6 +94,7 @@ function App(): JSX.Element {
 				<Route path="list-categories" element={<CategoriesList />} />
 				<Route path="update-category/:id" element={<UpdateCategory />} />
 				<Route path="list-locations" element={<LocationsList />} />
+				<Route path="create-locacion" element={<CreateLocation/>}/>
 				<Route path="update-location/:id" element={<UpdateLocation />} />
 				<Route path="list-cities" element={<CitiesList />} />
 			</Route>
