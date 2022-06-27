@@ -140,7 +140,7 @@ const UpdateLocation = () => {
                 />
                 </fieldset>
                 <fieldset>
-                <legend className={stylelocationUpdate.legend_update_location}>Coordenada:</legend>
+                <legend className={stylelocationUpdate.legend_update_location}>Longitud:</legend>
                 <input 
                 type="text" 
                 name='length'

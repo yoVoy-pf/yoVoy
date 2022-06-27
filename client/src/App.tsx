@@ -94,7 +94,7 @@ function App(): JSX.Element {
 				<Route path="list-categories" element={<CategoriesList />} />
 				<Route path="update-category/:id" element={<UpdateCategory />} />
 				<Route path="list-locations" element={<LocationsList />} />
-				<Route path="create-locacion" element={<CreateLocation/>}/>
+				<Route path="create-location" element={<CreateLocation/>}/>
 				<Route path="update-location/:id" element={<UpdateLocation />} />
 				<Route path="list-cities" element={<CitiesList />} />
 			</Route>

@@ -102,7 +102,7 @@ const CreateLocation = () => {
                 />
             </fieldset>
             <fieldset>
-                <legend className={styleCreateLocation.legend_create_category}>Coordenada:</legend>
+                <legend className={styleCreateLocation.legend_create_category}>Longitud:</legend>
                 <input 
                 type="text" 
                 name='length'
