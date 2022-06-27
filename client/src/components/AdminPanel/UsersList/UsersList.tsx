@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import styleUserList from './user-list.module.css';
-import { useDeleteUserMutation } from '../../slices/app/usersApiSlice';
+import { useDeleteUserMutation } from '../../../slices/app/usersApiSlice';
 import SideBar from '../SideBar/SideBar';
 import Swal from 'sweetalert2';
 import SearchUser from './SearchUser';
 import { useSelector } from 'react-redux';
 import FilterUser from './FilterUser';
-import usePagination from '../../hooks/usePagination/usePagination';
-import PageButtons from '../PageButtons/PageButtons';
-import { selectAllUsers } from '../../slices/adminPanelSlice';
+import usePagination from '../../../hooks/usePagination/usePagination';
+import PageButtons from '../../PageButtons/PageButtons';
+import { selectAllUsers } from '../../../slices/adminPanelSlice';
 
 const UsersList = () => {
 	const [deleteUser] = useDeleteUserMutation();

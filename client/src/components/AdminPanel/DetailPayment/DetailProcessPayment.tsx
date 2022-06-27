@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetTicketDetailQuery } from "../../slices/app/ticketsApiSlice";
+import { useGetTicketDetailQuery } from "../../../slices/app/ticketsApiSlice";
 import SideBar from "../SideBar/SideBar";
 import styleProcess from './detail-process-payment.module.css'
 

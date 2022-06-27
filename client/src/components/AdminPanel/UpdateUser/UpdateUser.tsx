@@ -4,7 +4,7 @@ import {
 	useGetUserQuery,
 	useUpdateUserMutation,
 	usePutPasswordMutation,
-} from '../../slices/app/usersApiSlice';
+} from '../../../slices/app/usersApiSlice';
 import SideBar from '../SideBar/SideBar';
 import UpdateRol from '../UpdateRol/UpdateRol';
 import styleUser from './update-user.module.css';

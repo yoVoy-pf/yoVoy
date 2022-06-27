@@ -1,14 +1,14 @@
 import {
 	useDeleteOrganizationMutation,
-} from '../../slices/app/organizationApiSlice';
+} from '../../../slices/app/organizationApiSlice';
 import { Link } from 'react-router-dom';
 import styleListOrganization from './organization-list.module.css';
 import SideBar from '../SideBar/SideBar';
 import Swal from 'sweetalert2';
-import usePagination from '../../hooks/usePagination/usePagination';
+import usePagination from '../../../hooks/usePagination/usePagination';
 import { useSelector } from 'react-redux';
-import { selectAllOrganizations } from '../../slices/adminPanelSlice';
-import PageButtons from '../PageButtons/PageButtons';
+import { selectAllOrganizations } from '../../../slices/adminPanelSlice';
+import PageButtons from '../../PageButtons/PageButtons';
 
 const OrganizationList = () => {
 	const [deleteOrganization] = useDeleteOrganizationMutation();

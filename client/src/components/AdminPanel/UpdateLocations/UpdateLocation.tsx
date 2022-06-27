@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateLocationMutation, useGetLocationQuery } from '../../../slices/app/locationsApiSlice'
 import Swal from 'sweetalert2';
-import SideBar from '../../SideBar/SideBar';
+import SideBar from '../SideBar/SideBar';
 import stylelocationUpdate from './update-location.module.css'
 
 const UpdateLocation = () => {

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import {
 	useGetOrganizationQuery,
 	useUpdateOrganizationMutation,
-} from '../../slices/app/organizationApiSlice';
+} from '../../../slices/app/organizationApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleUpdateOrganization from './update-organization.module.css';
 import Swal from 'sweetalert2';
