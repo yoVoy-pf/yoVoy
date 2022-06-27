@@ -49,7 +49,10 @@ const CategoriesList = () => {
 			<div className={styleCategories.fondo}>
                 <SideBar/>
             <div className={styleCategories.table_title}>
-            <h1 className={styleCategories.table_title_style}>Lista de Categorias</h1>
+            <h1 className={styleCategories.table_title_style}>Lista de Categorías</h1>
+              <Link to={`/create-category`} className={styleCategories.buttom}>
+                <button className={styleCategories.buttom_style}>Crear Cateogoría</button>
+              </Link>
             </div>
         <table className={styleCategories.table_categories}>
             <thead>
