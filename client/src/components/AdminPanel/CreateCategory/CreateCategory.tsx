@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { useCreateCategoryMutation } from '../../slices/app/categoriesApiSlice';
+import { useCreateCategoryMutation } from '../../../slices/app/categoriesApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleCreateCategory from './create-category.module.css';
 import Swal from 'sweetalert2';

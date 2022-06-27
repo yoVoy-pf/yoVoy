@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useGetTicketsDetailQuery } from "../../slices/app/ticketsApiSlice";
+import { useGetTicketsDetailQuery } from "../../../slices/app/ticketsApiSlice";
 import SideBar from "../SideBar/SideBar";
 import styleDetailPayment from './detail-paiment.module.css'
 

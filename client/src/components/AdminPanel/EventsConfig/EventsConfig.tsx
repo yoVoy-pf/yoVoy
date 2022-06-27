@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
+import { useDeleteEventMutation } from '../../../slices/app/eventsApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleConfigEvent from './event-config.module.css';
 import Swal from 'sweetalert2';
-import usePagination from '../../hooks/usePagination/usePagination';
+import usePagination from '../../../hooks/usePagination/usePagination';
 import { useSelector } from 'react-redux';
-import PageButtons from '../PageButtons/PageButtons';
+import PageButtons from '../../PageButtons/PageButtons';
 
 const EventsConfig = () => {
 	const [deleteEvent] = useDeleteEventMutation();

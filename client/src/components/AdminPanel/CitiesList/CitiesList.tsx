@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
-import SideBar from '../../SideBar/SideBar';
+import SideBar from '../SideBar/SideBar';
 import styleCities from './cities-list.module.css'
 
 const CitiesList = () => {

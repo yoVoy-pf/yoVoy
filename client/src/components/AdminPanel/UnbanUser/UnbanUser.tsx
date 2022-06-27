@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar/SideBar';
 import unbanUserStyle from './UnbanUser.module.css';
 import Swal from 'sweetalert2';
-import {Toast} from '../../utils/alerts'
-import { useUnbanUserMutation } from '../../slices/app/usersApiSlice';
+import {Toast} from '../../../utils/alerts'
+import { useUnbanUserMutation } from '../../../slices/app/usersApiSlice';
 
 const UnbanUser = () => {
   const navigate = useNavigate();
