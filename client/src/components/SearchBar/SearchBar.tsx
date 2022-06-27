@@ -31,7 +31,7 @@ const SearchBar = () => {
 	const [input, setInput] = useState('');
 
 	function onSubmit(searchTerm: any) {
-		onInputChange(searchTerm);
+		setInput(searchTerm);
 		console.log('asmdamsdamsdas', input);
 		input
 			? dispatch(getSearchEvent(input))
