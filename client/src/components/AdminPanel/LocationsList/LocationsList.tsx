@@ -51,6 +51,11 @@ const LocationsList = () => {
                 <SideBar/>
             <div className={styleLocations.table_title}>
             <h1 className={styleLocations.table_title_style}>Lista de Locaciones</h1>
+            <Link to='/create-locacion' className={styleLocations.buttom}>
+            <button className={styleLocations.buttom_style}>
+                Crear Locacion
+            </button>
+            </Link>
             </div>
         <table className={styleLocations.table_categories}>
             <thead>

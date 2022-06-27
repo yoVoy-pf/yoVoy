@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useUpdateLocationMutation, useGetLocationQuery } from '../../../slices/app/locationsApiSlice'
+import { useGetCitiesQuery } from '../../../slices/app/citiesApiSlice'
 import Swal from 'sweetalert2';
 import SideBar from '../SideBar/SideBar';
 import stylelocationUpdate from './update-location.module.css'
@@ -20,7 +21,9 @@ const UpdateLocation = () => {
     const [updateLocation] = useUpdateLocationMutation();
     const navigate = useNavigate();
     const { id }: any = useParams<{ id: string }>();
+    const { data: cities } = useGetCitiesQuery({ _: '' });
     const { data, error, refetch } = useGetLocationQuery(id);
+    console.log('soy la data xddddddddddddd:', data)
     const [location, setLocation] = useState({
         name: '',
         address: '',
@@ -30,7 +33,11 @@ const UpdateLocation = () => {
     useEffect(()=> {
         if(id) {
             if(data) {
-                setLocation({ ...data})
+                setLocation({ 
+                    name: data?.name,
+                    address: data?.address,
+                    cityId: data?.city?.name
+                })
             }
         } else {
             console.log(error)
@@ -50,13 +57,6 @@ const UpdateLocation = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-    const onChangeMap = (e: any) => {
-		e.preventDefault();
-		setLocation({
-			...location,
-			[e.target.name]: e.target.value,
-		});
-	};
     const onChangeCityId = (e: any) => {
 		e.preventDefault();
 		setLocation({
@@ -64,6 +64,14 @@ const UpdateLocation = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
+    const handleSelect =(e:any) => {
+        e.preventDefault();
+        setLocation({
+          ...location,
+          cityId: e.target.value
+        });
+
+      }
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
@@ -122,14 +130,16 @@ const UpdateLocation = () => {
                     />
                 </fieldset>
                 <fieldset>
-                    <legend className={stylelocationUpdate.legend_update_location}>cityId:</legend>
-                    <input 
-                       type="text" 
-                       name='cityId'
-                       className={stylelocationUpdate.input_update_location}
-                       value={location.cityId}
-                       onChange={onChangeCityId}
-                    />
+                <legend>Ciudad:</legend>
+                <div>
+                <select onChange={(e) => handleSelect(e)}>
+                    {cities?.rows.map((city: any) => (
+                                <option key={city.id} value={city.id} selected={data?.cityId === city.id}>{city.name}</option>
+                            )
+                        )
+                    }
+                </select>
+                </div>
                 </fieldset>
                 <button
                     className={stylelocationUpdate.buttom_update_location}
