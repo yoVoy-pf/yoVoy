@@ -34,7 +34,8 @@ import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesLis
 import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCategories';
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
-import CitiesList from './components/AdminPanel/CitiesList/CitiesList'
+import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
+import Checkout from './components/Checkout/Checkout';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -46,12 +47,7 @@ function App(): JSX.Element {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 				<Route path="signup" element={<Signup />} />
-				<Route
-					path="events/:id/:location"
-					element={
-							<Event />
-					}
-				/>
+				<Route path="events/:id/:location" element={<Event />} />
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
 				<Route path="loading" element={<Loading />} />
@@ -65,6 +61,7 @@ function App(): JSX.Element {
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
 					<Route path="change-password" element={<ChangePassword />} />
+					<Route path="checkout" element={<Checkout />} />
 				</Route>
 
 				<Route
@@ -93,11 +90,11 @@ function App(): JSX.Element {
 					path="detail-process-payment/:id"
 					element={<DetailProessPayment />}
 				/>
-				<Route path="list-categories" element={<CategoriesList/>} />
-				<Route path="update-category/:id" element={<UpdateCategory/>}/>
-				<Route path="list-locations" element={<LocationsList/>}/>
-				<Route path="update-location/:id" element={<UpdateLocation/>}/>
-				<Route path="list-cities" element={<CitiesList/>}/>
+				<Route path="list-categories" element={<CategoriesList />} />
+				<Route path="update-category/:id" element={<UpdateCategory />} />
+				<Route path="list-locations" element={<LocationsList />} />
+				<Route path="update-location/:id" element={<UpdateLocation />} />
+				<Route path="list-cities" element={<CitiesList />} />
 			</Route>
 			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>

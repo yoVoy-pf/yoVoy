@@ -9,51 +9,55 @@ import { Toast } from '../../utils/alerts';
 // Ejemplo de como se puede realizar las acciones
 
 export const addToCart = (ticket: any) => async (dispatch: Dispatch) => {
-    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
-    const inCart = cart.find((item: any) => item.id === ticket.id);
-    if (!inCart) {
-        const newTicket ={
-          ...ticket,
-          quantity: 1
-        }
-        cart.push(newTicket);
-        // localstorage
-        localStorage.setItem('cartTickets', JSON.stringify(cart));
-        // redux
-        dispatch(UPDATE_CART(cart));
-      Toast.fire({
+	const cart = localStorage.getItem('cartTickets')
+		? JSON.parse(localStorage.getItem('cartTickets') as any)
+		: [];
+	const inCart = cart.find((item: any) => item.dateId === ticket.dateId);
+	if (!inCart) {
+		const newTicket = {
+			...ticket,
+			quantity: 1,
+		};
+		cart.push(newTicket);
+		// localstorage
+		localStorage.setItem('cartTickets', JSON.stringify(cart));
+		// redux
+		dispatch(UPDATE_CART(cart));
+		Toast.fire({
 			icon: 'success',
 			title: 'Agregado al carrito con exito',
-		  });
-    }
-}
+		});
+	}
+};
 
 export const deleteFromCart = (ticket: any) => async (dispatch: Dispatch) => {
-    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
-    const newCart = cart.filter((item: any) => item.id !== ticket.id);
-    console.log({newCart})
-    console.log(ticket)
-    console.log({cart})
-    localStorage.setItem('cartTickets', JSON.stringify(newCart));
-    dispatch(UPDATE_CART(newCart));
-    Toast.fire({
-			icon: 'warning',
-			title: 'Ticket eliminado con exito',
-		});
-}
+	const cart = localStorage.getItem('cartTickets')
+		? JSON.parse(localStorage.getItem('cartTickets') as any)
+		: [];
+	const newCart = cart.filter((item: any) => item.dateId !== ticket.dateId);
 
-export const changeQuantity = (ticket: any, quantity: number) => async (dispatch: Dispatch) => {
-    const cart = localStorage.getItem('cartTickets') ? JSON.parse(localStorage.getItem('cartTickets')as any) : [];
-    const newCart = cart.map((item: any) => {
-        if (item.id === ticket.id) {
-            item.quantity = quantity;
-        }
-        return item;
-    }
-    );
-    localStorage.setItem('cartTickets', JSON.stringify(newCart));
-    dispatch(UPDATE_CART(newCart));
-}
+	localStorage.setItem('cartTickets', JSON.stringify(newCart));
+	dispatch(UPDATE_CART(newCart));
+	Toast.fire({
+		icon: 'warning',
+		title: 'Ticket eliminado con exito',
+	});
+};
+
+export const changeQuantity =
+	(ticket: any, quantity: number) => async (dispatch: Dispatch) => {
+		const cart = localStorage.getItem('cartTickets')
+			? JSON.parse(localStorage.getItem('cartTickets') as any)
+			: [];
+		const newCart = cart.map((item: any) => {
+			if (item.dateId === ticket.dateId) {
+				item.quantity = quantity;
+			}
+			return item;
+		});
+		localStorage.setItem('cartTickets', JSON.stringify(newCart));
+		dispatch(UPDATE_CART(newCart));
+	};
 
 export const getAllEvent = (limit: any = '', offset: any = '') => {
 	return async function (dispatch: Dispatch) {

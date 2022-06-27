@@ -23,7 +23,7 @@ const EventCart = () => {
 			),
 		);
 	}, [activador, ticketsLength, cartItems]);
-	console.log(cartItems);
+
 
 	const total = cartItems?.reduce(
 		(previous: number, current: any) =>
@@ -88,7 +88,7 @@ const EventCart = () => {
 					) : (
 						<div className={styles.productsContainer}>
 							{cartItems?.map((item: any) => (
-								<TicketCart key={item.id} item={item} />
+								<TicketCart key={item.dateId} item={item} />
 							))}
 						</div>
 					)}
