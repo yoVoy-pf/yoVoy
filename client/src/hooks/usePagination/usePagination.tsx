@@ -61,6 +61,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   }
 
   const refresh = (clear : any=false) => {
+    if (clear) setFilters([])
     queries[type](clear);
   }
 
