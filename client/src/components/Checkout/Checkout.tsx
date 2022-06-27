@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import styles from '../EventCart/EventCart.module.css';
+import styles from './Checkout.module.css';
 import { selectCartTickets } from '../../slices/cartSlice';
 import { TicketCart } from '../EventCart/TicketCart';
 import { useCreateCheckoutPaymentMutation } from '../../slices/app/usersApiSlice';
@@ -46,16 +46,17 @@ const Checkout = () => {
 				<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 			) : (
 				<div className={styles.productsContainer}>
-					<form id="form1">
+					<form className={styles.ticketcontainer} id="form1">
 						{cartItems?.map((item: any) => (
-							<TicketCart key={item.dateId} item={item} />
+							<TicketCart className={styles.ticket} key={item.dateId} item={item} />
 						))}
 					</form>
 				</div>
 			)}
 			<h2 className={styles.total}>Total: ${total}</h2>
 
-			<div>
+			<div className={styles.container_button}>
+				<p>Estas a un paso de finalizar tu compra, haz click abajo para ir al pago.</p>
 				<button onClick={handleClick}>Pagar</button>
 			</div>
 		</div>
