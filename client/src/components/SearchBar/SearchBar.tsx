@@ -31,14 +31,14 @@ const SearchBar = () => {
 	const [input, setInput] = useState('');
 
 	function onSubmit(searchTerm: any) {
+		onInputChange(searchTerm);
+		console.log('asmdamsdamsdas', input);
 		input
 			? dispatch(getSearchEvent(input))
 			: Toast.fire({
 					title: 'Ingrese el nombre de un Evento',
 					icon: 'warning',
 			  });
-		setInput(searchTerm);
-		console.log('asdmasmdasmd', input);
 	}
 
 	function onInputChange(e: Input) {
@@ -72,7 +72,7 @@ const SearchBar = () => {
 								searchTerm && name.startsWith(searchTerm) && name !== searchTerm
 							);
 						})
-						.slice(0, 3)
+						.slice(0, 10)
 						.map((e: any) => (
 							<div
 								className="searchBar-autoSuggest-row"
