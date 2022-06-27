@@ -32,9 +32,8 @@ const SearchBar = () => {
 
 	function onSubmit(searchTerm: any) {
 		setInput(searchTerm);
-		console.log('asmdamsdamsdas', input);
 		input
-			? dispatch(getSearchEvent(input))
+			? dispatch(getSearchEvent(searchTerm))
 			: Toast.fire({
 					title: 'Ingrese el nombre de un Evento',
 					icon: 'warning',
