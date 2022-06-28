@@ -24,7 +24,7 @@ export default {
                 },
                 {
                     model: Location,
-                    attributes: ["id", "name", "address"],
+                    attributes: ["id", "name", "address", "latitude", "longitude"],
                     include: [
                         {
                             model: City,
@@ -68,7 +68,8 @@ export default {
                     id: location.getDataValue("id"),
                     name: location.getDataValue("name"),
                     address: location.getDataValue("address"),
-                    map: location.getDataValue("map"),
+                    latitude: location.getDataValue("latitude"),
+                    longitude: location.getDataValue("longitude"),
                     city: {
                         id: location.getDataValue("city").getDataValue("id"),
                         name: location.getDataValue("city").getDataValue("name")

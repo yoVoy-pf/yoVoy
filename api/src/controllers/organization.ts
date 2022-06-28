@@ -4,9 +4,9 @@ import { createOrganization, getOrganizationById, destroyOrganization, updateOrg
 
 export const postOrganization = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const {name, user} = req.body
+        const {name, cuit, phone_number, business_email, cbu, user} = req.body
         
-        const organization = await createOrganization({name, userId: user.id})
+        const organization = await createOrganization({name,cuit, phone_number, business_email ,cbu ,userId: user.id})
 
         res.status(201).json(organization)
     }catch(error){

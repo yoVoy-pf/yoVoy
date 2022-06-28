@@ -2,7 +2,7 @@ import { sequelize } from "../db";
 import { Op } from "sequelize"
 import bcrypt from "bcrypt"
 
-const { User, Event, Favorites, Ticket, UserRole, Organization } = sequelize.models
+const { User, Event, Favorites, Ticket, UserRole, Organization, Request } = sequelize.models
 
 export const getAllFavorites = async (id: string | number) => {
     const favorites = await Event.findAll({
@@ -122,7 +122,6 @@ export const getUserInformation = async(id: string | number) => {
         attributes: ["name","email"],
         include: {
             model: Organization,
-            attributes: ["name"]
         }
     })
 
@@ -137,4 +136,31 @@ export const getFavoriteById = async (id: string | number, eventId: string) => {
         }
     })
     return favorite
+}
+
+export const findAllRequests = async (userId: string | number, paginate:any ) => {
+    let options:any = {
+        attributes: ["id", "type", "method", "status"],
+        where:{userId}
+    }
+
+    if(paginate){
+        options.limit = paginate.limit
+        options.offset = paginate.offset
+    }
+
+    const requests = await Request.findAndCountAll(options)
+
+    return requests
+}
+
+export const findRequest = async (userId: string | number, id: string | number) => {
+    const request = await Request.findOne({
+        attributes: ["id", "type", "method", "status"],
+        where:{
+            userId,
+            id
+        }
+    })
+    return request
 }

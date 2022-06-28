@@ -16,13 +16,6 @@ const OrganizationEvents = () => {
 		{ refetchOnMountOrArgChange: true },
 	);
 	const handleDelete = async (id: any) => {
-		// 	if (
-		// 	  window.confirm('Seguro que quieres eliminar este Evento ?')
-		// 	){
-		// 	  await deleteEvent(id)
-		// 	  refetch()
-		// 	  alert('Evento eliminado correactamente')
-		// 	}
 		Swal.fire({
 			title: 'Esta seguro de eliminar el Evento?',
 			icon: 'warning',
@@ -71,6 +64,9 @@ const OrganizationEvents = () => {
 									style={{ width: '250px', height: '250px' }}
 								/>
 								<div style={{ textAlign: 'center' }}></div>
+								<Link to={`/organization-events-sales/${event.id}`}>
+									<button className="button-event-organization">Ventas</button>
+								</Link>
 								<Link to={`/update-event/${event.id}`}>
 									<button className="button-event-organization">Editar</button>
 								</Link>

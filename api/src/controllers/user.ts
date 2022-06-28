@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { sendMail } from "../mailer"
-import { createFavorite, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation,getFavoriteById} from "../utils/user"
+import { createFavorite, findAllRequests, findRequest, getAllFavorites, getAllTickets, updateUserRole, destroyFavorite, getTicketById, resetUserPassword, getUserInformation,getFavoriteById} from "../utils/user"
 import { getUserById } from "../utils/users"
 
 
@@ -124,6 +124,31 @@ export const getFavorite = async (req: Request,res: Response,next:NextFunction) 
         const userFavorite = await getFavoriteById(user.id, eventId)
 
         res.status(200).json(userFavorite)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const getRequests = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user, paginate} = req.body
+
+        const requests = await findAllRequests(user.id, paginate)
+        if(!requests.rows.length) next({status:404, message: "Requests not found"})
+        else res.status(200).json(requests)
+    }catch(error){
+        next(error)
+    }
+}
+
+export const getRequest = async (req: Request,res: Response,next:NextFunction) =>{
+    try{
+        const {user} = req.body
+        const {id} = req.params
+
+        const request = await findRequest(user.id, id)
+        if(!request) next({status:404, message: "Request not found"})
+        else res.status(200).json(request)
     }catch(error){
         next(error)
     }

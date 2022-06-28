@@ -66,11 +66,26 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+    createOrganizationRequest: builder.mutation<any, {description: any, body: any}>({
+      query: ({description, body}) => {
+        return {
+          url: '/api/request',
+          method: 'POST',
+          body:{
+            description,
+            type: 'organization',
+            method: 'POST',
+            body
+          },
+        };
+      }
+    })
 	}),
 });
 
 export const {
 	useCreateOrganizationMutation,
+  useCreateOrganizationRequestMutation,
 	useGetOrganizationsMutation,
 	useGetOrganizationQuery,
 	useUpdateOrganizationMutation,
