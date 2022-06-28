@@ -99,7 +99,7 @@ const FilterEvent = ({filters, setFilters, refresh}: any) => {
 				</select>
 
 				<select id='cityFilter' onChange={handleCitiesFilter}>
-					<option className="optionCity" key={"allCities"} value="">todas las ciudades</option>
+					<option className="optionCity" key={"allCities"} value="">todas las provincias</option>
           {cities?.rows?.length && cities.rows.map((city: any) => (
 						<option id={`city${city.id}`} key={city.name} value={city.id}>
 							{city.name}

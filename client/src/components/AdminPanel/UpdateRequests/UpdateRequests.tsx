@@ -25,8 +25,6 @@ const UpdateRequests = () => {
                     <p>Descripcion: {request?.description}</p>
                     <p>Metedo: {request?.method}</p>
                     <span style={{textDecoration: 'solid'}}>Estado: {request?.status}</span>
-                    
-                    <p>Estado: {request?.status}</p>
                     <p>Tipo: {request?.type}</p>
                     <p>Informacion de Usuario</p>
                     <p>Id de usuario: {request?.user.id}</p>

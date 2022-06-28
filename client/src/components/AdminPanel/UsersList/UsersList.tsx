@@ -17,17 +17,17 @@ const UsersList = () => {
 	
 	const handleDelete = async (id: any) => {
 		Swal.fire({
-			title: 'Esta seguro de eliminar el Usuario?',
+			title: 'Esta seguro de Banear el Usuario?',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: 'orange',
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'Cancelar',
-			confirmButtonText: 'Eliminar',
+			confirmButtonText: 'Banear',
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
-					title: 'Usuario Eliminado!',
+					title: 'Baneado Eliminado!',
 					icon: 'success',
 				});
 				await deleteUser(id);
@@ -56,10 +56,10 @@ const UsersList = () => {
         <thead className={styleUserList.thead_dark}>
           <tr>
             <th style={{ textAlign: "center" }}>ID</th>
-            <th style={{ textAlign: "center" }}>Name</th>
+            <th style={{ textAlign: "center" }}>Nombre</th>
             <th style={{ textAlign: "center" }}>Email</th>
             <th style={{ textAlign: "center" }}>Roles</th>
-            <th style={{ textAlign: "center" }}>Action</th>
+            <th style={{ textAlign: "center" }}>Acciones</th>
           </tr>
         </thead>
 
@@ -80,7 +80,7 @@ const UsersList = () => {
                       className={styleUserList.buttom_style_right}
                       onClick={() => handleDelete(user.id)}
                     >
-                      Eliminar
+                      Banear
                     </button>
                   </td>
                 </tr>

@@ -39,7 +39,7 @@ const DetailPayment = () => {
               <th style={{ textAlign: "center" }}>Monto</th>
               <th style={{ textAlign: "center" }}>Estado</th>
               <th style={{ textAlign: "center" }}>Cantidad</th>
-              <th style={{ textAlign: "center" }}>Actions</th>
+              <th style={{ textAlign: "center" }}>Acciones</th>
             </tr>
           </thead>
 

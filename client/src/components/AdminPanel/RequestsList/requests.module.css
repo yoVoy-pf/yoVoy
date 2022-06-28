@@ -54,6 +54,15 @@
     transition: 0.5s;
     cursor: pointer;
   }
+  .text {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .text_style {
+    color: white;
+  }
   .buttom_style_left:hover {
     color: white;
     background-color: darkblue;

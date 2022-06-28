@@ -94,7 +94,7 @@ const UpdateRol = () => {
 			<form onSubmit={onSubmit}>
 				<div className={styleRol.form_create_rol}>
 					<fieldset className={styleRol.fieldset_form}>
-						<legend className={styleRol.legend_rol}>Nobre de Usuario:</legend>
+						<legend className={styleRol.legend_rol}>Nombre de Usuario:</legend>
 						<input
 							type="text"
 							className={styleRol.input_rol}
