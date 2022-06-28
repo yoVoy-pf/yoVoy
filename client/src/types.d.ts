@@ -80,7 +80,8 @@ export interface Location {
 	id: number;
 	name: string;
 	address: string;
-	map: string;
+	latitude: number;
+	longitude: number
 	city: City;
 	dates: Dates[];
 }

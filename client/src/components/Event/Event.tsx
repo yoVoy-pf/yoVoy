@@ -24,6 +24,7 @@ import {
 } from '../../slices/app/usersApiSlice';
 import Comments from '../Comments/Comments';
 import { Toast } from '../../utils/alerts';
+import GoogleMap from "google-map-react"
 
 const Event = () => {
 	const [isOpenModal, openModal, closeModal] = useEventModal(false);
@@ -177,6 +178,22 @@ const Event = () => {
 
 					{eventDetail &&
 						locationResult?.map((loc: Location) => {
+							const mapProps = {
+								center:{
+									lat: loc.latitude,
+									lng: loc.longitude
+								},
+								zoom: 15
+							}
+							const TextMarker = ({ text }:any) => <div><label style={{color:"black"}}>{text}</label></div>
+							const renderMarkers = (map:any, maps:any) => {
+								let marker = new maps.Marker({
+								position: { lat: loc.latitude, lng: loc.longitude},
+								map,
+								title: 'Hello World!'
+								});
+								return marker;
+							   };
 							return (
 								<div className={event_style.location} key={loc.id}>
 									<React.Fragment>
@@ -188,6 +205,21 @@ const Event = () => {
 											{' '}
 											{loc.city.name}.
 										</small>
+										<div style={{ height: '300px', width: '300px' }}>
+											<GoogleMap
+												bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY || "" }}
+												defaultCenter={mapProps.center}
+												defaultZoom={mapProps.zoom}
+												yesIWantToUseGoogleMapApiInternals
+												onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
+												>
+													<TextMarker
+														lat={loc.latitude}
+														lng={loc.longitude}
+														text={loc.name}
+														/>
+											</GoogleMap>
+										</div>
 									</React.Fragment>
 								</div>
 							);
