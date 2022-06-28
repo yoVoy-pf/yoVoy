@@ -62,6 +62,9 @@ const PaymentCheckout = () => {
 										<div>
 											<ul>
 												<li>
+													VALOR TICKET <b>{item.price}</b>
+												</li>
+												<li>
 													{`${item.quantity} x GENERAL        `}
 													<b>{item.price * item.quantity}</b>
 												</li>
@@ -97,7 +100,7 @@ const PaymentCheckout = () => {
 				</h3>
 
 				<div>
-					<Link to="/checkout">
+					<Link to="/checkout/delivery">
 						<button>VOLVER</button>
 					</Link>
 
