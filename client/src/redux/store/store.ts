@@ -5,6 +5,7 @@ import uiSliceReducer from '../../slices/uiSlice'
 import { apiSlice } from "../../slices/authentication/apiSlice";
 import adminPanelReducer from '../../slices/adminPanelSlice'
 import cartSliceReducer from '../../slices/cartSlice'
+import requestSliceReducer from '../../slices/requestSlice'
 
 export const store = configureStore({
     reducer:{
@@ -13,7 +14,8 @@ export const store = configureStore({
       auth: authSliceReducer,
       ui: uiSliceReducer,
       admin: adminPanelReducer,
-      cart:  cartSliceReducer
+      cart:  cartSliceReducer,
+      requests: requestSliceReducer
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(apiSlice.middleware),

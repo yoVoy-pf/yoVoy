@@ -7,12 +7,15 @@ import { useGetLocationsMutation } from '../../slices/app/locationsApiSlice';
 import { useGetOrganizationsMutation } from '../../slices/app/organizationApiSlice';
 import { useGetUsersMutation } from '../../slices/app/usersApiSlice';
 import {useGetProvincesMutation} from '../../slices/app/provincesApiSlice'
+import { useGetUserRequestsMutation } from '../../slices/app/requestsApiSlice';
+import { selectUserRequests } from '../../slices/requestSlice';
 
 const usePagination = (itemsPerPage : number = 15, type : string) => {
   const [getUsers] = useGetUsersMutation();
   const [getOrganizations] = useGetOrganizationsMutation();
   const [getLocations] : any = useGetLocationsMutation();
   const [getProvinces] : any = useGetProvincesMutation();
+  const [getUserRequests] : any = useGetUserRequestsMutation();
   const dispatch: AppDispatch = useDispatch();
   let items :any 
   const [page, setPage] : any= useState(0);
@@ -25,7 +28,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   const users = useSelector(selectAllUsers)
   const organizations = useSelector(selectAllOrganizations)
   const locations = useSelector(selectAllLocations);
-  const provinces = useSelector(selectAllProvinces)
+  const provinces = useSelector(selectAllProvinces);
+  const userRequests = useSelector(selectUserRequests);
 
   switch(type){
     case 'events':
@@ -43,10 +47,13 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     case 'provinces':
       items = provinces;
       break;
+    case 'requests':
+      items = userRequests;
+      break;
       default:
         items = events;
       }
-  const limit = Math.ceil(items.count / itemsPerPage);
+  const limit = Math.ceil(items?.count / itemsPerPage);
   
   const queryOptions = {
     limit: itemsPerPage.toString(),
@@ -58,7 +65,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     users: () => getUsers({ ...queryOptions, email: email, order: userOrder }),
     organizations: () => getOrganizations({ ...queryOptions }),
     locations: () => getLocations({ ...queryOptions }),
-    provinces: () => getProvinces({ ...queryOptions })
+    provinces: () => getProvinces({ ...queryOptions }),
+    requests: () => getUserRequests({ ...queryOptions }),
   }
 
   const refresh = (clear : any=false) => {

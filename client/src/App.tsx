@@ -38,6 +38,7 @@ import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
 import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryCheckout';
 import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
 import OrganizationEventSales from './components/OrganizationEventSales/OrganizationEventSales';
+import MyRequests from './components/MyRequests/MyRequests';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -63,6 +64,7 @@ function App(): JSX.Element {
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
 					<Route path="change-password" element={<ChangePassword />} />
+          <Route path='my-requests' element={<MyRequests/>}/>
 				</Route>
 
 				<Route

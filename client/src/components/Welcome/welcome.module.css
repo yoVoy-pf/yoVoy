@@ -8,7 +8,13 @@
 .links_welcome {
     display: flex;
     justify-content: center;
-    gap: 130px;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+    margin: auto;
+    align-content: center;
+}
+.links_style{
+  margin: 30px 80px;
 }
 
 .containerImgAndH1 img {
@@ -71,7 +77,6 @@
     .links_welcome {
         display: flex;
         flex-direction: column;
-        margin-left: 280px;
     }
 }
 
@@ -79,7 +84,6 @@
     .links_welcome {
         display: flex;
         flex-direction: column;
-        margin-left: 150px;
     }
 }
 
@@ -87,7 +91,8 @@
     .links_welcome {
         display: flex;
         flex-direction: column;
-        margin-left: 50px;
+        margin: auto;
+        align-content: center;
     }
 
     .containerImgAndH1 img{
