@@ -26,6 +26,21 @@
     box-shadow: 7px 13px 37px #000;
 }
 
+.input_create_textArea {
+    color: white;
+    width: 93%;
+    background: #5e3a2e84;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #c56f1f93;
+    font-family: 'calibri';
+    font-size: 18px;
+    /* color: white; */
+    box-shadow: 7px 13px 37px #000;
+    resize: none;
+}
+
 .form_citie {
     background: transparent;
     border: none;
