@@ -140,7 +140,10 @@ export const getFavoriteById = async (id: string | number, eventId: string) => {
 }
 
 export const findAllRequests = async (userId: string | number, paginate:any ) => {
-    let options:any = {where:{userId}}
+    let options:any = {
+        attributes: ["id", "type", "method", "status"],
+        where:{userId}
+    }
 
     if(paginate){
         options.limit = paginate.limit
@@ -154,6 +157,7 @@ export const findAllRequests = async (userId: string | number, paginate:any ) =>
 
 export const findRequest = async (userId: string | number, id: string | number) => {
     const request = await Request.findOne({
+        attributes: ["id", "type", "method", "status"],
         where:{
             userId,
             id
