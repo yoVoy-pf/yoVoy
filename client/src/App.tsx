@@ -34,7 +34,6 @@ import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCateg
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
-import Checkout from './components/Checkout/Checkout';
 import RequestsList from './components/AdminPanel/RequestsList/RequestsList';
 import UpdateRequests from './components/AdminPanel/UpdateRequests/UpdateRequests';
 import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
@@ -157,8 +156,8 @@ function App(): JSX.Element {
 				<Route path="list-cities" element={<CitiesList />} />
 			</Route>
 			<Route path="unban-user" element={<UnbanUser />} />
-			<Route path="list-requests" element={<RequestsList/>} />
-			<Route path="update-request/:id" element={<UpdateRequests/>} />
+			<Route path="list-requests" element={<RequestsList />} />
+			<Route path="update-request/:id" element={<UpdateRequests />} />
 			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
 	);
