@@ -59,8 +59,9 @@ export const putUser = async (req: Request,res: Response,next:NextFunction) => {
 }
 
 export const getBanned = async (req: Request,res: Response,next:NextFunction) => {
+    let email = req.query.email as string
   try{
-    const users = await getBannedUsersFromDb(req.body.paginate)
+    const users = await getBannedUsersFromDb(req.body.paginate, email)
     if (!users) next({status: 404, message: "Users not found"})
     else res.status(200).json(users)
   }catch(error){

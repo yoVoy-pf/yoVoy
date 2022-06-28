@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEventByCategory } from '../../redux/actions/actions-Create';
 import { AppDispatch, State } from '../../redux/store/store';
-import { selectAllLocations, selectAllOrganizations, selectAllProvinces, selectAllUsers } from '../../slices/adminPanelSlice';
+import { selectAllBanned, selectAllLocations, selectAllOrganizations, selectAllProvinces, selectAllUsers } from '../../slices/adminPanelSlice';
 import { useGetLocationsMutation } from '../../slices/app/locationsApiSlice';
 import { useGetOrganizationsMutation } from '../../slices/app/organizationApiSlice';
-import { useGetUsersMutation } from '../../slices/app/usersApiSlice';
+import { useGetBannedMutation, useGetUsersMutation } from '../../slices/app/usersApiSlice';
 import {useGetProvincesMutation} from '../../slices/app/provincesApiSlice'
 import { useGetUserRequestsMutation } from '../../slices/app/requestsApiSlice';
 import { selectUserRequests } from '../../slices/requestSlice';
@@ -16,8 +16,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   const [getLocations] : any = useGetLocationsMutation();
   const [getProvinces] : any = useGetProvincesMutation();
   const [getUserRequests] : any = useGetUserRequestsMutation();
+  const [getBanned] : any = useGetBannedMutation();
   const dispatch: AppDispatch = useDispatch();
-  let items :any 
   const [page, setPage] : any= useState(0);
   const [filters, setFilters] : any = useState([])
   const [userOrder, setUserOrder]: any = useState('')
@@ -30,29 +30,19 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
   const locations = useSelector(selectAllLocations);
   const provinces = useSelector(selectAllProvinces);
   const userRequests = useSelector(selectUserRequests);
+  const banned = useSelector(selectAllBanned)
 
-  switch(type){
-    case 'events':
-      items = events;
-      break;
-    case 'users':
-      items = users;
-      break;
-    case 'organizations':
-      items = organizations;
-      break;
-    case 'locations':
-      items = locations;
-      break;
-    case 'provinces':
-      items = provinces;
-      break;
-    case 'requests':
-      items = userRequests;
-      break;
-      default:
-        items = events;
-      }
+const types: any = {
+  events,
+  users,
+  organizations,
+  locations,
+  provinces,
+  userRequests,
+  banned
+}
+  let items = types[type]
+
   const limit = Math.ceil(items?.count / itemsPerPage);
   
   const queryOptions = {
@@ -67,6 +57,7 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     locations: () => getLocations({ ...queryOptions }),
     provinces: () => getProvinces({ ...queryOptions }),
     requests: () => getUserRequests({ ...queryOptions }),
+    banned: () => getBanned({ ...queryOptions }),
   }
 
   const refresh = (clear : any=false) => {
@@ -117,6 +108,14 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     } else queries.events();
   }
 
+  const searchBannedUserQuery = (e: any, input: string) => {
+    setPage(0)
+    setEmail(input)
+    if (input.length){
+      getBanned({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: input });
+    } else getBanned({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() });
+  }
+
   return {
     nextHandler,
     prevHandler,
@@ -132,7 +131,8 @@ const usePagination = (itemsPerPage : number = 15, type : string) => {
     userOrder,
     setUserOrder,
     refresh,
-    searchEventQuery
+    searchEventQuery,
+    searchBannedUserQuery
   };
 };
 

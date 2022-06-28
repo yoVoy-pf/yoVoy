@@ -1,6 +1,6 @@
 import { apiSlice } from '../authentication/apiSlice';
 import { User, Event, putRolUser } from '../../types';
-import { getAllUsers } from '../adminPanelSlice';
+import { getAllBanned, getAllUsers } from '../adminPanelSlice';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -23,6 +23,27 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				try {
 					const { data } = await queryFulfilled;
 					dispatch(getAllUsers(data));
+				} catch (err) {
+					console.log('Error fetching post!');
+					console.log(err);
+				}
+			},
+		}),
+		getBanned: builder.mutation<
+			any,
+			{ limit: string; offset: string; email?: string}
+		>({
+			query: ({ limit, offset, email = ''}) => {
+				let url = `/api/users/banned?limit=${limit}&offset=${offset}`;
+				if (email.length) url += `&email=${email}`;
+				return {
+					url,
+				};
+			},
+			async onQueryStarted(_, { dispatch, queryFulfilled }) {
+				try {
+					const { data } = await queryFulfilled;
+					dispatch(getAllBanned(data));
 				} catch (err) {
 					console.log('Error fetching post!');
 					console.log(err);
@@ -96,7 +117,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-		getFavorite: builder.query<Event, { id: any }>({
+		getFavorite: builder.query<any, { id: any }>({
 			query(id) {
 				return {
 					url: `/api/user/favorites/${id}`,
@@ -144,4 +165,5 @@ export const {
 	useUnbanUserMutation,
 	useChangePasswordMutation,
 	useCreateCheckoutPaymentMutation,
+  useGetBannedMutation
 } = usersApiSlice;
