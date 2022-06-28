@@ -5,12 +5,12 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
     getRequests: builder.query<any,({ _: string })>({
       query: ({ _ }) =>  '/api/requests'
     }),
-    updateRequests: builder.mutation<any, { id: any; status: any }>({
+    updateRequests: builder.mutation<any, { id: any; status: string }>({
 			query: ({ id, ...status }) => {
 				return {
 					url: `api/request/${id}`,
 					method: `PUT`,
-					body: { id, status: status },
+					body: status,
 				};
 			},
 		}),
