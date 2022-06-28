@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { selectCartTickets } from '../../../slices/cartSlice';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
 import styles from './DeliveryCheckout.module.css';
+import style from "./DeliveryCheckout.module.css"
 
 const DeliveryCheckout = () => {
 	const cartItems = useSelector(selectCartTickets);
@@ -15,21 +16,22 @@ const DeliveryCheckout = () => {
 	);
 
 	return (
-		<div>
+		<div className={style.container}>
 			<CheckoutNavbar />
 			<nav>
-				<ul>
+				<ul className={style.ul}>
 					<li className="nav startPayment">INICIO PROCESO DE PAGO</li>
-					<li className="nav controlPayment">ENTREGA Y CONTROL</li>
+					<li className={style.nav_startPayment}>ENTREGA Y CONTROL</li>
 					<li className="nav finishPayment">MEDIO DE PAGO</li>
 				</ul>
 			</nav>
-			<hr />
-			<div>
+			{/* <hr /> */}
+			<div className={style.line}></div>
+			<div >
 				{cartItems.length === 0 ? (
 					<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 				) : (
-					<div className={styles.productsContainer}>
+					<div className={style.containerBg}>
 						<h4>DETALLES</h4>
 						{cartItems?.map((item: any) => {
 							return (
@@ -57,7 +59,7 @@ const DeliveryCheckout = () => {
 								</div>
 							);
 						})}
-						<div>
+						<div className={style.sendbg}>
 							<h4>ENTREGA</h4>
 							<p>Recibira un e-mail con su E-Ticket</p>
 							<input type="checkbox" />
@@ -68,23 +70,23 @@ const DeliveryCheckout = () => {
 						</div>
 					</div>
 				)}
-				<hr />
-				<h3 className={styles.total}>
+				{/* <hr /> */}
+				<h3 className={style.total}>
 					{' '}
 					TICKETS + CARGO DE SERVICIO = Total ${' '}
 					<b>{(total * 1.05).toFixed(2)}</b>
 				</h3>
 
-				<div>
+				<div  className={style.buttonPassBg}>
 					{/* <Link to>
       <button onClick={handleClick}></button>
       </Link> */}
 
 					<Link to="/checkout">
-						<button>VOLVER</button>
+						<button className={style.buttonPass}>VOLVER</button>
 					</Link>
 					<Link to="/checkout/payment">
-						<button>PASO SIGUIENTE</button>
+						<button className={style.buttonPass}>PASO SIGUIENTE</button>
 					</Link>
 				</div>
 			</div>

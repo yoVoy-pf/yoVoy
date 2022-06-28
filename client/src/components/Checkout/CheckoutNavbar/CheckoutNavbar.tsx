@@ -10,19 +10,21 @@ const CheckoutNavbar = () => {
 	return (
 		<div>
 			{' '}
-			<nav>
-				<ul>
-					<li>{currentUser && currentUser?.['email']}</li>
-					<li>{currentUser && currentUser?.['name']}</li>
+			<nav className='Checkout_Navbar_Container'>
+				<div className="navbar-log">
+					<img src={image} alt="img" />
+				</div>
+				<div className='container_ul_nav'>
+				<ul className='Navbar_Bg_li'>
+					<li className='NavBar_lis'>Usuario: {currentUser && currentUser?.['name']}</li>
+					<li className='NavBar_li'>Email: {currentUser && currentUser?.['email']}</li>
 				</ul>
+				</div>
 				{currentUser && (
 					<div>
 						<Logout />
 					</div>
 				)}
-				<div className="navbar-log">
-					<img src={image} alt="img" />
-				</div>
 			</nav>
 		</div>
 	);
