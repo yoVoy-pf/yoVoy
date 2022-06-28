@@ -16,7 +16,7 @@ export class Location extends Model<Location> {
     latitude!: number;
 
     @Column(DataType.DOUBLE)
-    length!: number;
+    longitude!: number;
 
     @BelongsToMany(() => Event, () => EventLocation)
     events!: Event[]
