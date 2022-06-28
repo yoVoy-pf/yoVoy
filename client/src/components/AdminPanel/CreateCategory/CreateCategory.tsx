@@ -4,20 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateCategoryMutation } from '../../../slices/app/categoriesApiSlice';
 import SideBar from '../SideBar/SideBar';
 import styleCreateCategory from './create-category.module.css';
+import {Toast} from '../../../utils/alerts'
 import Swal from 'sweetalert2';
 
 const CreateCategory = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
 	const navigate = useNavigate();
 
 	const [createCategory] = useCreateCategoryMutation();

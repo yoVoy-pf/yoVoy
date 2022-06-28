@@ -5,26 +5,16 @@ import { useGetAllProvinceQuery } from '../../../slices/app/provincesApiSlice'
 import Swal from 'sweetalert2';
 import styleCreateLocation from './create-location.module.css'
 import SideBar from '../SideBar/SideBar';
+import {Toast} from '../../../utils/alerts'
 
 const CreateLocation = () => {
-    const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
     const { data } = useGetAllProvinceQuery({ _: '' });
     const navigate = useNavigate();
     const [createLocation] = useCreateLocacionMutation();
     const [locacion, setLocacion] = useState({
         name: "",
         latitude: "",
-        length: "",
+        longitud: "",
         address: "",
         cityId: "",
     });
@@ -63,14 +53,14 @@ const CreateLocation = () => {
 				if (locacion) await createLocation({ 
                     name: locacion.name, 
                     latitude: locacion.latitude, 
-                    length: locacion.length, 
+                    longitud: locacion.longitud, 
                     address: locacion.address, 
                     cityId: locacion.cityId 
                 });
 				setLocacion({
 					name: "",
                     latitude: "",
-                    length: "",
+                    longitud: "",
                     address: "",
                     cityId: "",
 				});
@@ -105,7 +95,7 @@ const CreateLocation = () => {
                 <legend className={styleCreateLocation.legend_create_category}>Longitud:</legend>
                 <input 
                 type="text" 
-                name='length'
+                name='longitud'
                 onChange={onIputChange}
                 className={styleCreateLocation.input_create_categoty}
                 />

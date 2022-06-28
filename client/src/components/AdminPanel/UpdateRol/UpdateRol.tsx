@@ -6,20 +6,10 @@ import {
 } from '../../../slices/app/usersApiSlice';
 import ROLES_LIST from '../../../slices/authentication/rolesList';
 import styleRol from './update-rol.module.css';
+import {Toast} from '../../../utils/alerts'
 import Swal from 'sweetalert2';
 
 const UpdateRol = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
 	const [updateRolUser] = useUpdateRolUserMutation();
 	const { id }: any = useParams<{ id: string }>();
 	const navigate = useNavigate();

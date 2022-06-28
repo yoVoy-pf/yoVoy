@@ -5,19 +5,9 @@ import { useGetAllProvinceQuery } from '../../../slices/app/provincesApiSlice'
 import Swal from 'sweetalert2';
 import SideBar from '../SideBar/SideBar';
 import stylelocationUpdate from './update-location.module.css'
+import {Toast} from '../../../utils/alerts'
 
 const UpdateLocation = () => {
-    const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
     const [updateLocation] = useUpdateLocationMutation();
     const navigate = useNavigate();
     const { id }: any = useParams<{ id: string }>();
@@ -26,7 +16,7 @@ const UpdateLocation = () => {
     const [location, setLocation] = useState({
         name: "",
         latitude: "",
-        length: "",
+        longitud: "",
         address: "",
         cityId: "",
     })
@@ -36,7 +26,7 @@ const UpdateLocation = () => {
                 setLocation({ 
                     name: data?.name,
                     latitude: data?.latitude,
-                    length: data?.length,
+                    longitud: data?.longitud,
                     address: data?.address,
                     cityId: data?.city?.name
                 })
@@ -59,7 +49,7 @@ const UpdateLocation = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-    const onChangeLength = (e: any) => {
+    const onChangelongitud = (e: any) => {
 		e.preventDefault();
 		setLocation({
 			...location,
@@ -103,7 +93,7 @@ const UpdateLocation = () => {
 					setLocation({
                         name: "",
                         latitude: "",
-                        length: "",
+                        longitud: "",
                         address: "",
                         cityId: "",
 					});
@@ -143,9 +133,9 @@ const UpdateLocation = () => {
                 <legend className={stylelocationUpdate.legend_update_location}>Longitud:</legend>
                 <input 
                 type="text" 
-                name='length'
-                value={location.length}
-                onChange={onChangeLength}
+                name='longitud'
+                value={location.longitud}
+                onChange={onChangelongitud}
                 className={stylelocationUpdate.input_update_location}
                 />
                 </fieldset>
