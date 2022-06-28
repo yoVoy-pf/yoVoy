@@ -34,12 +34,15 @@ import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCateg
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
+import Checkout from './components/Checkout/Checkout';
+import CreateLocation from './components/AdminPanel/CreateLocation/CreateLocation';
 import RequestsList from './components/AdminPanel/RequestsList/RequestsList';
 import UpdateRequests from './components/AdminPanel/UpdateRequests/UpdateRequests';
 import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
 import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryCheckout';
 import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
 import OrganizationEventSales from './components/OrganizationEventSales/OrganizationEventSales';
+
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -130,6 +133,7 @@ function App(): JSX.Element {
 				<Route path="list-categories" element={<CategoriesList />} />
 				<Route path="update-category/:id" element={<UpdateCategory />} />
 				<Route path="list-locations" element={<LocationsList />} />
+				<Route path="create-location" element={<CreateLocation/>}/>
 				<Route path="update-location/:id" element={<UpdateLocation />} />
 				<Route path="list-cities" element={<CitiesList />} />
 			</Route>

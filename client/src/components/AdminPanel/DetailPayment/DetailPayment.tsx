@@ -44,7 +44,7 @@ const DetailPayment = () => {
           </thead>
 
           <tbody>
-          {datos?.map((ticket: any, index: any) => {
+          {datos?.rows.map((ticket: any, index: any) => {
             return (
               <tr key={index}>
                 <th scope="row" style={{ textAlign: "center" }}>{ticket.id}</th>

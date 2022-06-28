@@ -9,20 +9,10 @@ import SideBar from '../SideBar/SideBar';
 import UpdateRol from '../UpdateRol/UpdateRol';
 import styleUser from './update-user.module.css';
 import { validateEmail, validateUser } from './UpdateUserValidate';
+import {Toast} from '../../../utils/alerts'
 import Swal from 'sweetalert2';
 
 const Updateuser = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
 	const [updateUser] = useUpdateUserMutation();
 	const [updatePassword] = usePutPasswordMutation();
 	const { id }: any = useParams<{ id: string }>();

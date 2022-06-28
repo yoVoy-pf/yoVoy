@@ -2,11 +2,6 @@ import { apiSlice } from "../authentication/apiSlice";
 import { Location } from '../../types'
 import { getAllLocations } from "../adminPanelSlice";
 
-interface LocationUpdate {
-        name: string;
-        address: string;
-        cityId: string;
-}
 
 export const locationsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -27,14 +22,17 @@ export const locationsApiSlice = apiSlice.injectEndpoints({
         }
       }
 		}),
-    getLocation: builder.query<LocationUpdate, { id: any }>({
+    getAlllcation: builder.query<any,({ _: string })>({
+      query: ({ _ }) =>  '/api/locations'
+    }),
+    getLocation: builder.query<any, { id: any }>({
       query(id) {
         return {
           url: `/api/location/${id}`
         }
       }
     }),
-    updateLocation: builder.mutation<Location[], { id: any; updateLocation: any }>({
+    updateLocation: builder.mutation<any, { id: any; updateLocation: any }>({
 			query: ({ id, ...updateLocation }) => {
 				return {
 					url: `api/location/${id}`,
@@ -43,11 +41,28 @@ export const locationsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+    createLocacion: builder.mutation<any,{name: any, latitude: any, longitud: any, address:any, cityId: any}>({
+      query: ({name, latitude, longitud, address, cityId}) => {
+        return{
+          url: '/api/location',
+          method:'POST',
+          body: {
+            name, 
+            latitude, 
+            longitud, 
+            address, 
+            cityId
+          }
+        }
+      }
+    }),
   })
 })
 
 export const{
   useGetLocationsMutation,
+  useGetAlllcationQuery,
   useUpdateLocationMutation,
   useGetLocationQuery,
+  useCreateLocacionMutation,
 } = locationsApiSlice
