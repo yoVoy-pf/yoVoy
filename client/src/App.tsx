@@ -27,7 +27,6 @@ import OrganizationEvents from './components/OrganizationEvents/OrganizationEven
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/AdminPanel/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
-
 import UnbanUser from './components/AdminPanel/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesList';
@@ -35,7 +34,9 @@ import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCateg
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
-import Checkout from './components/Checkout/Checkout';
+import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
+import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryCheckout';
+import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
 import OrganizationEventSales from './components/OrganizationEventSales/OrganizationEventSales';
 
 function App(): JSX.Element {
@@ -62,7 +63,6 @@ function App(): JSX.Element {
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
 					<Route path="change-password" element={<ChangePassword />} />
-					<Route path="checkout" element={<Checkout />} />
 				</Route>
 
 				<Route
@@ -71,34 +71,67 @@ function App(): JSX.Element {
 					<Route path="update-event/:eventId" element={<UpdateEvent />} />
 					<Route path="create-event" element={<CreateEvent />} />
 					<Route path="organization-events" element={<OrganizationEvents />} />
-					<Route path="organization-events-sales/:id" element={<OrganizationEventSales />} />
+					<Route
+						path="organization-events-sales/:id"
+						element={<OrganizationEventSales />}
+					/>
 				</Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-          <Route path="userslist" element={<UsersList />} />
-          <Route path="create-category" element={<CreateCategory />} />
-          <Route path="update-user/:id" element={<Updateuser />} />
-          <Route path="events-config" element={<EventsConfig />} />
-          <Route path="organization-list" element={<OrganizationList />} />
-          <Route
-            path="update-organization/:id"
-            element={<UpdateOrganization />}
-          />
-          <Route path="detail-payment" element={<DetailPayment />} />
-          <Route path="update-rol/:id" element={<UpdateRol />} />
-          <Route
-            path="detail-process-payment/:id"
-            element={<DetailProessPayment />}
-          />
-          <Route path="list-categories" element={<CategoriesList />} />
-          <Route path="update-category/:id" element={<UpdateCategory />} />
-          <Route path="list-locations" element={<LocationsList />} />
-          <Route path="update-location/:id" element={<UpdateLocation />} />
-          <Route path="list-cities" element={<CitiesList />} />
-          <Route path="unban-user" element={<UnbanUser />} />
-        </Route>
-        {/* 404 */}
-        <Route path="*" element={<Home />} />
+				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+					<Route path="userslist" element={<UsersList />} />
+					<Route path="create-category" element={<CreateCategory />} />
+					<Route path="update-user/:id" element={<Updateuser />} />
+					<Route path="events-config" element={<EventsConfig />} />
+					<Route path="organization-list" element={<OrganizationList />} />
+					<Route
+						path="update-organization/:id"
+						element={<UpdateOrganization />}
+					/>
+					<Route path="detail-payment" element={<DetailPayment />} />
+					<Route path="update-rol/:id" element={<UpdateRol />} />
+					<Route
+						path="detail-process-payment/:id"
+						element={<DetailProessPayment />}
+					/>
+					<Route path="list-categories" element={<CategoriesList />} />
+					<Route path="update-category/:id" element={<UpdateCategory />} />
+					<Route path="list-locations" element={<LocationsList />} />
+					<Route path="update-location/:id" element={<UpdateLocation />} />
+					<Route path="list-cities" element={<CitiesList />} />
+					<Route path="unban-user" element={<UnbanUser />} />
+				</Route>
+				{/* 404 */}
+				<Route path="*" element={<Home />} />
 			</Route>
+
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+				<Route path="checkout" element={<StartCheckout />} />
+				<Route path="/checkout/delivery" element={<DeliveryCheckout />} />
+				<Route path="/checkout/payment" element={<PaymentCheckout />} />
+			</Route>
+
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+				<Route path="userslist" element={<UsersList />} />
+				<Route path="create-category" element={<CreateCategory />} />
+				<Route path="update-user/:id" element={<Updateuser />} />
+				<Route path="events-config" element={<EventsConfig />} />
+				<Route path="organization-list" element={<OrganizationList />} />
+				<Route
+					path="update-organization/:id"
+					element={<UpdateOrganization />}
+				/>
+				<Route path="detail-payment" element={<DetailPayment />} />
+				<Route path="update-rol/:id" element={<UpdateRol />} />
+				<Route
+					path="detail-process-payment/:id"
+					element={<DetailProessPayment />}
+				/>
+				<Route path="list-categories" element={<CategoriesList />} />
+				<Route path="update-category/:id" element={<UpdateCategory />} />
+				<Route path="list-locations" element={<LocationsList />} />
+				<Route path="update-location/:id" element={<UpdateLocation />} />
+				<Route path="list-cities" element={<CitiesList />} />
+			</Route>
+			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
 	);
 }
