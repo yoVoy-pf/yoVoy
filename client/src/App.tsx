@@ -36,6 +36,8 @@ import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocati
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
 import Checkout from './components/Checkout/Checkout';
 import CreateLocation from './components/AdminPanel/CreateLocation/CreateLocation';
+import RequestsList from './components/AdminPanel/RequestsList/RequestsList';
+import UpdateRequests from './components/AdminPanel/UpdateRequests/UpdateRequests';
 import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
 import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryCheckout';
 import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
@@ -135,6 +137,31 @@ function App(): JSX.Element {
 				<Route path="update-location/:id" element={<UpdateLocation />} />
 				<Route path="list-cities" element={<CitiesList />} />
 			</Route>
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
+				<Route path="userslist" element={<UsersList />} />
+				<Route path="create-category" element={<CreateCategory />} />
+				<Route path="update-user/:id" element={<Updateuser />} />
+				<Route path="events-config" element={<EventsConfig />} />
+				<Route path="organization-list" element={<OrganizationList />} />
+				<Route
+					path="update-organization/:id"
+					element={<UpdateOrganization />}
+				/>
+				<Route path="detail-payment" element={<DetailPayment />} />
+				<Route path="update-rol/:id" element={<UpdateRol />} />
+				<Route
+					path="detail-process-payment/:id"
+					element={<DetailProessPayment />}
+				/>
+				<Route path="list-categories" element={<CategoriesList />} />
+				<Route path="update-category/:id" element={<UpdateCategory />} />
+				<Route path="list-locations" element={<LocationsList />} />
+				<Route path="update-location/:id" element={<UpdateLocation />} />
+				<Route path="list-cities" element={<CitiesList />} />
+			</Route>
+			<Route path="unban-user" element={<UnbanUser />} />
+			<Route path="list-requests" element={<RequestsList />} />
+			<Route path="update-request/:id" element={<UpdateRequests />} />
 			<Route path="unban-user" element={<UnbanUser />} />
 		</Routes>
 	);
