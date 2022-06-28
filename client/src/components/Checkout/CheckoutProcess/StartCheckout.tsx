@@ -5,6 +5,7 @@ import { TicketCart } from '../../EventCart/TicketCart';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
 import { Link } from 'react-router-dom';
 import { selectCartTickets } from '../../../slices/cartSlice';
+import style from "./StartCheckout.module.css"
 
 const Checkout = () => {
 	const [ticketsLength, setTicketsLength] = useState(0);
@@ -27,39 +28,42 @@ const Checkout = () => {
 	);
 
 	return (
-		<div>
+		<div className={style.container}>
 			<CheckoutNavbar />
 			<nav>
-				<ul>
-					<li className="nav startPayment">INICIO PROCESO DE PAGO</li>
+				<ul className={style.ul}>
+					<li className={style.nav_startPayment}>INICIO PROCESO DE PAGO</li>
 					<li className="nav controlPayment">ENTREGA Y CONTROL</li>
 					<li className="nav finishPayment">MEDIO DE PAGO</li>
 				</ul>
 			</nav>
-			<hr />
-			<div>
+			{/* <hr /> */}
+			<div className={style.line}></div>
+			<div className={style.containerCards}>
 				{cartItems.length === 0 ? (
 					<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 				) : (
-					<div className={styles.productsContainer}>
-						{cartItems?.map((item: any) => (
-							<TicketCart key={item.dateId} item={item} />
-						))}
+					<div className={style.productsContainerBg}>
+						<div className={style.productsContainer}>
+							{cartItems?.map((item: any) => (
+								<TicketCart key={item.dateId} item={item} />
+							))}
+						</div>
 					</div>
 				)}
-				<hr />
-				<h3 className={styles.total}>
+				{/* <hr /> */}
+				<h3 className={style.total}>
 					{' '}
 					TICKETS + CARGO DE SERVICIO = Total ${' '}
 					<b>{(total * 1.05).toFixed(2)}</b>
 				</h3>
 
-				<div>
+				<div className={style.buttonPassBg}>
 					<Link to="/">
-						<button>VOLVER AL SITIO</button>
+						<button className={style.buttonPass}>VOLVER AL SITIO</button>
 					</Link>
 					<Link to="/checkout/delivery">
-						<button>PASO SIGUIENTE</button>
+						<button className={style.buttonPass}>SIGUIENTE</button>
 					</Link>
 				</div>
 			</div>

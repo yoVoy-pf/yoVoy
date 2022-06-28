@@ -29,15 +29,18 @@
     transform: translate(12%);
 }
 
+
 .nav_startPayment{
     color: rgb(235, 155, 36);
     font-size: 1.3rem;
 }
 
+
 .productsContainerBg{
     display: flex;
     justify-content: center;
 }
+
 
 .productsContainer{
     display: flex;
@@ -46,18 +49,18 @@
     width: 500px;
 }
 
-
-.total{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8rem;
+.mercadoPago{
+    margin-left: 50px;
+}
+.mercadoPago img {
+	height: 6em;
+	width: 6em;
 }
 
 .buttonPassBg{
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .buttonPass{
@@ -73,10 +76,24 @@
     box-shadow: 7px 13px 37px #000;
 }
 
+
 @media (max-width:425px){
-    .total{
-        font-size: 1.1rem;
+    .productsContainerBg{
+        display: flex;
+        flex-direction: column;
+        margin-left: 50px;
     }
+
+    .mercadoPago{
+        margin-left: 110px;
+    }
+
+    .buttonPassBg{
+        display: flex;
+        flex-direction: column;
+        margin-left: 80px;
+    }
+
     .ul{
         margin-left: 60px;
     }
