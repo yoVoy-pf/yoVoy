@@ -41,11 +41,10 @@ const Event = () => {
 		{ refetchOnMountOrArgChange: true },
 	);
 	const [deleteEventToFavorite] = useDeleteEventToFavoriteMutation();
-	const state: any = useSelector((state: State) => state);
 	const [isVisible, setIsVisible] = useState('hide');
 
 	const { location }: any = useParams<{ location: string }>();
-	const [isFavorites, setIsFavorites] = useState<any>([]);
+	const [isFavorites, setIsFavorites] = useState<any>(false);
 
 	useEffect(() => {
 		if (currentUser) {
@@ -55,7 +54,9 @@ const Event = () => {
 
 	useEffect(() => {
 		if (!isFetching) {
-			isError ? setIsFavorites([]) : setIsFavorites(data);
+      if (data.length > 0) {
+        setIsFavorites(true);
+      }
 		}
 	}, [isFetching]);
 
@@ -74,8 +75,8 @@ const Event = () => {
 	}, [isVisible]);
 
 	const addFavorites = (id: any) => {
-		if (isFavorites.length === 0) {
-			const addF = addEventToFavorite(id).then((result: any) => {
+		if (!isFavorites) {
+			addEventToFavorite(id).then((result: any) => {
 				if (result.error) {
 					if (result.error.data.includes('llave duplicada')) {
 					} else if (result.error.data.includes('You need a valid token')) {
@@ -86,6 +87,7 @@ const Event = () => {
 						navigate('/login');
 					}
 				} else {
+          setIsFavorites(true);
 					Toast.fire({
 						title: 'Agregado a Favoritos',
 						icon: 'success',
@@ -93,11 +95,23 @@ const Event = () => {
 				}
 			});
 		} else {
-			Toast.fire({
-				title: 'Eliminado de Favoritos',
-				icon: 'warning',
-			});
-			deleteEventToFavorite(id.eventId);
+      deleteEventToFavorite(id.eventId).then((result: any) => {
+        if (result.error) {
+          if (result.error.data.includes('You need a valid token')) {
+            Toast.fire({
+              title: 'Debe iniciar sesion para poder eliminar de favoritos',
+              icon: 'error',
+            });
+            navigate('/login');
+          }
+        } else {
+          setIsFavorites(false);
+          Toast.fire({
+            title: 'Eliminado de Favoritos',
+            icon: 'success',
+          });
+        }
+      })
 		}
 		refetch();
 	};
@@ -222,7 +236,7 @@ const Event = () => {
 								addFavorites({ eventId: id });
 							}}
 						>
-							{isFavorites.length === 0
+							{!isFavorites
 								? 'Agregar a favoritos '
 								: 'Favorito ❤️'}
 						</button>
