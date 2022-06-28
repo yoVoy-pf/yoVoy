@@ -5,8 +5,8 @@ const {Organization, User, UserRole, Event} = sequelize.models
 
 
 
-export const createOrganization = async ({name, userId}:any) => {
-    const organization = await Organization.create({name, userId})
+export const createOrganization = async ({name, phone_number, cbu, cuit, business_email,  userId}:any) => {
+    const organization = await Organization.create({name,phone_number ,cbu, cuit, business_email, userId})
 
     User.update({organizationId: organization.getDataValue("id")},
     {
@@ -69,7 +69,13 @@ export const getOrganizationById = async (id: string | number) => {
 }
 
 export const updateOrganization = async (id: string | number, {updateOrganization}: any) => {
-    const organization = await Organization.update({name: updateOrganization.name}, {
+    const organization = await Organization.update({
+        name: updateOrganization.name, 
+        cbu: updateOrganization.cbu,
+        phone_number: updateOrganization.phone_number,
+        cuit: updateOrganization.cuit,
+        business_email: updateOrganization.business_email
+    }, {
         where: {
             id: id
         }

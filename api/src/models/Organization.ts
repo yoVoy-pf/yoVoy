@@ -18,6 +18,18 @@ export class Organization extends Model<Organization> {
     @Column
     name!: string;
 
+    @Column
+    cuit!: string;
+
+    @Column
+    phone_number!: string;
+    
+    @Column
+    cbu!: string;
+
+    @Column
+    business_email!: string;
+
     @HasMany(() => Event)
     events!: Event[]
 }
