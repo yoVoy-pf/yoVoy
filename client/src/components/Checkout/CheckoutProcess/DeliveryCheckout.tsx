@@ -42,7 +42,9 @@ const DeliveryCheckout = () => {
 										<div>
 											<ul>
 												<li>
-													VALOR TCIKET <b>{item.price}</b>
+
+													VALOR TICKET <b>{item.price}</b>
+
 												</li>
 												<li>
 													{`${item.quantity} x GENERAL        `}

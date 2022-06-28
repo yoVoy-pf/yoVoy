@@ -4,6 +4,7 @@ import { TicketCart } from './TicketCart';
 import { useSelector } from 'react-redux';
 import { State } from '../../redux/store/store';
 import { selectCartTickets } from '../../slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 const EventCart = () => {
 	const [cartOpen, setCartOpen] = useState(false);
@@ -23,7 +24,6 @@ const EventCart = () => {
 			),
 		);
 	}, [activador, ticketsLength, cartItems]);
-
 
 	const total = cartItems?.reduce(
 		(previous: number, current: any) =>
@@ -94,6 +94,9 @@ const EventCart = () => {
 					)}
 
 					<h2 className={styles.total}>Total: ${total}</h2>
+					<Link to="/checkout">
+						<button className={styles.button2}>COMPRAR</button>
+					</Link>
 				</div>
 			)}
 		</div>
