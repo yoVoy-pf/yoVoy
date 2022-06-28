@@ -55,10 +55,9 @@ const Checkout = () => {
 				</h3>
 
 				<div>
-					{/* <Link to>
-					<button onClick={handleClick}></button>
-					</Link> */}
-
+					<Link to="/">
+						<button>VOLVER AL SITIO</button>
+					</Link>
 					<Link to="/checkout/delivery">
 						<button>PASO SIGUIENTE</button>
 					</Link>
