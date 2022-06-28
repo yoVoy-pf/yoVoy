@@ -73,6 +73,13 @@
   padding: 7px;
 }
 
+.p{
+  font-size: 2.5rem;
+}
+.parcial{
+  font-size: 1.5rem;
+}
+
 @media(max-width: 768px){
   .fieldset_event_detail{
     flex-direction: column;
@@ -81,5 +88,23 @@
   .fieldset_event_img{
     min-width: 350px;
     height: auto;
+  }
+}
+
+@media (max-width:425px){
+  .cardEvent{
+    margin-right: 35px;
+  }
+}
+
+@media (max-width:375px){
+  .cardEvent{
+    margin-right: 90px;
+  }
+  .fieldset_event_detail{
+    width: auto;
+  }
+  .main_img{
+    margin-left: 5px;
   }
 }
