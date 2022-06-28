@@ -79,29 +79,6 @@ function App(): JSX.Element {
 						element={<OrganizationEventSales />}
 					/>
 				</Route>
-				<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
-					<Route path="userslist" element={<UsersList />} />
-					<Route path="create-category" element={<CreateCategory />} />
-					<Route path="update-user/:id" element={<Updateuser />} />
-					<Route path="events-config" element={<EventsConfig />} />
-					<Route path="organization-list" element={<OrganizationList />} />
-					<Route
-						path="update-organization/:id"
-						element={<UpdateOrganization />}
-					/>
-					<Route path="detail-payment" element={<DetailPayment />} />
-					<Route path="update-rol/:id" element={<UpdateRol />} />
-					<Route
-						path="detail-process-payment/:id"
-						element={<DetailProessPayment />}
-					/>
-					<Route path="list-categories" element={<CategoriesList />} />
-					<Route path="update-category/:id" element={<UpdateCategory />} />
-					<Route path="list-locations" element={<LocationsList />} />
-					<Route path="update-location/:id" element={<UpdateLocation />} />
-					<Route path="list-cities" element={<CitiesList />} />
-					<Route path="unban-user" element={<UnbanUser />} />
-				</Route>
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
 			</Route>
