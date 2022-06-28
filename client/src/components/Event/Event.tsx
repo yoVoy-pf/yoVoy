@@ -190,7 +190,7 @@ const Event = () => {
 								let marker = new maps.Marker({
 								position: { lat: loc.latitude, lng: loc.longitude},
 								map,
-								title: 'Hello World!'
+								title: loc.name
 								});
 								return marker;
 							   };
