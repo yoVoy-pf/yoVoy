@@ -26,10 +26,6 @@ export const useCreateEvent = ({ locations }: any) => {
 
   useEffect(()=>{
     handleConfirm()
-    console.log("locsAux en el useEffect")
-    console.log(locsAux.hasOwnProperty("1"))
-    console.log(locsAux)
-    
   },[locsAux])
 
 
@@ -44,9 +40,6 @@ export const useCreateEvent = ({ locations }: any) => {
   const handleInputChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(input)
-    console.log(locsAux)
-    console.log(locsForSubmit)
     setInput({
       ...input, [target.name]: target.value.length === 1 && target.value[0] === " " ? "" : target.value.length >= 1 && (target.value[0] === " ") ?
         target.value.trim()[0].toUpperCase() + target.value.trim().substring(1).trim() : target.value.length === 1 && target.value[0] !== " " ?
@@ -63,7 +56,6 @@ export const useCreateEvent = ({ locations }: any) => {
   const handleCategoryChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(target.checked)
     if (target.checked) {
       setInput({
         ...input,
@@ -85,7 +77,6 @@ export const useCreateEvent = ({ locations }: any) => {
     }else if(target?.name === 'tickets'){
       setCurrentDate({ ...currentDate, total_tickets: parseInt(target?.value) })
     } else setCurrentDate({ ...currentDate, date: target?.value })
-    console.log(currentDate)
   };
 
   const handleAddDate = (e: any) => {
@@ -96,7 +87,6 @@ export const useCreateEvent = ({ locations }: any) => {
           dates.push(currentDate)
           return { ...prevState, [currentLocId]: { dates } }
         })
-        console.log('guardado')
         setCurrentDate({});
       }
   }
@@ -104,9 +94,6 @@ export const useCreateEvent = ({ locations }: any) => {
   const handleConfirm = (e?: any) => {
     if (e) e.preventDefault();
     const locs = Object.entries(locsAux)
-    console.log("sssssssssssssssss")
-    console.log(locsAux)
-    console.log(locs)
     let loadedLocs = locs.filter((loc: any) => loc[1].dates.length > 0).map((loc: any) => ({ id: loc[0], dates: loc[1].dates }))
     setLocsForSubmit(loadedLocs)
     setCurrentLocId('')
@@ -125,13 +112,11 @@ export const useCreateEvent = ({ locations }: any) => {
   }
 
   const handleUpdadteFetch = (eventInfo: any) => {
-    console.log(eventInfo)
     let mappedCategoriesIds = eventInfo?.categories?.map((c: any) => c.id)
     let mappedLocations = eventInfo?.locations?.map((loc: any) => ({
       id: loc.id,
       dates: loc.dates
     }))
-    console.log(mappedLocations)
     setInput({
       name: eventInfo?.name || '',
       description: eventInfo?.description || '',
@@ -146,9 +131,6 @@ export const useCreateEvent = ({ locations }: any) => {
   }
 
   const removeDateFromLocsAux = (id: any) => {
-    console.log("datos de eliminacion")
-    console.log(id)
-    console.log(currentLocId)
     setLocsAux((prevState: any) => {
       const dates = [...prevState[currentLocId].dates];
       dates.splice(id, 1)
@@ -157,7 +139,6 @@ export const useCreateEvent = ({ locations }: any) => {
   }
 
   const removeDateFromLocsAux2 = (id: any, idLoc: any) => {
-    console.log(id)
     setLocsAux((prevState: any) => {
       const dates = [...prevState[idLoc].dates];
       dates.splice(id, 1)
