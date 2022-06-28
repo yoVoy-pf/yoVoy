@@ -11,7 +11,6 @@ const initialState = {
 	locations: [],
 	allComments: [],
 	userSearch: [],
-	cartLength: false,
 
 	// 	eventsFiltered: [],
 };
@@ -97,6 +96,7 @@ const rootReducer = (state = initialState, action: Action) => {
 				...state,
 				userSearch: action.payload,
 			};
+
 		default:
 			return state;
 	}

@@ -16,5 +16,4 @@ export enum ActionType {
 	GET_FILTER_USER = 'get_filter_user',
 	GET_COMMENTS = 'get_comments',
 	POST_CREATE_COMMENTS = 'post_create_comments',
-	SET_CART_LENGTH = 'SET_CART_LENGTH',
 }

@@ -11,9 +11,9 @@ const EventCart = () => {
 
 	const cartItems = useSelector(selectCartTickets);
 
-	const activador: boolean = useSelector(
-		(state: State) => state.global.cartLength,
-	);
+
+
+
 
 	useEffect(() => {
 		setTicketsLength(
@@ -22,7 +22,7 @@ const EventCart = () => {
 				0,
 			),
 		);
-	}, [activador, ticketsLength, cartItems]);
+	}, [ ticketsLength, cartItems]);
 
 
 	const total = cartItems?.reduce(
@@ -30,6 +30,10 @@ const EventCart = () => {
 			previous + current.quantity * current.price,
 		0,
 	);
+
+
+
+
 
 	return (
 		<div className={styles.cartContainer}>
@@ -97,7 +101,8 @@ const EventCart = () => {
 				</div>
 			)}
 		</div>
-	);
+	)
+
 };
 
 export default EventCart;

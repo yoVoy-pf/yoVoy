@@ -61,7 +61,6 @@ function App(): JSX.Element {
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
 					<Route path="change-password" element={<ChangePassword />} />
-					<Route path="checkout" element={<Checkout />} />
 				</Route>
 
 				<Route
@@ -74,6 +73,11 @@ function App(): JSX.Element {
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
 			</Route>
+
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+				<Route path="checkout" element={<Checkout />} />
+			</Route>
+
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
 				<Route path="userslist" element={<UsersList />} />
 				<Route path="create-category" element={<CreateCategory />} />
