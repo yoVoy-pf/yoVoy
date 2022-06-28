@@ -13,6 +13,20 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
+    updateEventRequest: builder.mutation<any, {description: any, body: any}>({
+      query: ({description, body}) => {
+        return {
+          url: '/api/request',
+          method: 'POST',
+          body:{
+            description,
+            type: 'event',
+            method: 'PUT',
+            body
+          },
+        };
+      }
+    }),
 		getEvents: builder.query<Event[] | any, { _: string }>({
 			query: ({ _ }) => '/api/events',
 		}),
@@ -61,4 +75,5 @@ export const {
 	useGetEventsQuery,
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
+  useUpdateEventRequestMutation
 } = eventsApiSlice;

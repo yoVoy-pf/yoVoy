@@ -10,7 +10,7 @@ import { Category, Location } from '../../types';
 import DatesModal from '../CreateEvent/CreateEventModal/DatesModal'
 import { useCreateEvent } from '../CreateEvent/useCreateEvent';
 import { useDatesModal } from '../CreateEvent/CreateEventModal/useDatesModal';
-import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/eventsApiSlice"
+import { useGetEventQuery, useUpdateEventRequestMutation } from "../../slices/app/eventsApiSlice"
 import { useNavigate, useParams } from "react-router-dom";
 import styleUpdateEvent from './update-event.module.css'
 import { FiEdit } from "react-icons/fi";
@@ -20,7 +20,7 @@ import { Toast } from '../../utils/alerts';
 const UpdateEvent = () => {
   const locSelect = useRef<any>()
   const [isOpen, openModal, closeModal] = useDatesModal(false);
-  const [updateEvent] = useUpdateEventMutation();
+  const [updateEvent] = useUpdateEventRequestMutation();
   const dispatch: AppDispatch = useDispatch();
   const { eventId } = useParams();
   const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' }, { refetchOnMountOrArgChange: true })
@@ -63,8 +63,6 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (eventInfo) {
-      console.log("Info del evento:")
-      console.log(eventInfo)
       const categories = eventInfo.categories.map((c:any)=>c.name)
       // setCategoriesChecked(categories)
       if (!(Object.keys(eventInfo).length > 1)) navigate('/')
@@ -86,7 +84,7 @@ const UpdateEvent = () => {
         err.categoriesErr === "" &&
         err.locationsErr === ""&&
 				err.imgErr === "") {
-        eventId && await updateEvent({ id: eventId, updatedEvent: event })
+        eventId && await updateEvent({ description: 'actualizado' , body:{id: eventId, ...event} })
         resetState();
         navigate(`/events/${eventInfo.id}`)
         Toast.fire({
@@ -113,9 +111,9 @@ const UpdateEvent = () => {
 
   const [datesErr, setdatesErr] = useState({
     priceErr: "Debe ingresar un precio",
-		locationDateErr: "Debe selecionar una locacion",
-		dateInputErr: "Debe selecionar una fecha",
-		ticketInputErr: "Debe ingresar numero de tickets",
+		locationDateErr: "Debe seleccionar una locación",
+		dateInputErr: "Debe seleccionar una fecha",
+		ticketInputErr: "Debe ingresar número de tickets",
   })
 
   useEffect(() => {
@@ -138,7 +136,7 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (input.categories.length === 0) {
-      setErr({ ...err, categoriesErr: "Debe tener al menos 1 categoria" })
+      setErr({ ...err, categoriesErr: "Debe tener al menos 1 categoría" })
     }
     if (input.categories.length > 0) {
       setErr({ ...err, categoriesErr: "" })
@@ -157,10 +155,10 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (input.background_image === "") {
-      setErr({ ...err, imgErr: "Este campo debe esta completo." })
+      setErr({ ...err, imgErr: "Este campo debe estar completo." })
     } else if (input.background_image !== "") {
       if (!(/\.(jpg|png|gif)$/i).test(input.background_image)) {
-        setErr({ ...err, imgErr: "Url no contiene un archivo valido" })
+        setErr({ ...err, imgErr: "Url no contiene un archivo válido" })
       } else {
         setErr({ ...err, imgErr: "" })
       }
@@ -179,7 +177,7 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (currentLocId === "default" || currentLocId === "") {
-      setdatesErr({ ...datesErr, locationDateErr: "Debe selecionar una locacion" })
+      setdatesErr({ ...datesErr, locationDateErr: "Debe selecionar una locación" })
     } else if (currentLocId !== "default") {
       setdatesErr({ ...datesErr, locationDateErr: "" })
     }
@@ -195,7 +193,7 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (!currentDate.total_tickets) {
-      setdatesErr({ ...datesErr, ticketInputErr: "Debe ingresar numero de tickets" })
+      setdatesErr({ ...datesErr, ticketInputErr: "Debe ingresar número de tickets" })
     } else {
       setdatesErr({ ...datesErr, ticketInputErr: "" })
     }
@@ -211,9 +209,9 @@ const UpdateEvent = () => {
       handleAddDate(e)
       setdatesErr({
         priceErr: "Debe ingresar un precio",
-        locationDateErr: "Debe selecionar una locacion",
+        locationDateErr: "Debe selecionar una locación",
         dateInputErr: "Debe selecionar una fecha",
-        ticketInputErr: "Debe ingresar numero de tickets",
+        ticketInputErr: "Debe ingresar número de tickets",
       })
     } else {
       Toast.fire({
@@ -249,12 +247,12 @@ const UpdateEvent = () => {
           <fieldset className={styleUpdateEvent.fieldset_form}>
             {/* <label htmlFor="description">Descripcion:</label> */}
             <legend className={styleUpdateEvent.legend_form}>
-              Descripcion:
+              Descripción:
             </legend>
             <textarea
               name="description"
               id="description"
-              placeholder="Descripcion..."
+              placeholder="Descripción..."
               className={styleUpdateEvent.input_create_textArea}
               onChange={handleInputChange}
               value={input.description}
@@ -279,7 +277,7 @@ const UpdateEvent = () => {
           <br />
           <fieldset className={styleUpdateEvent.fieldset_form}>
             <legend className={styleUpdateEvent.legend_form}>
-              Seleccione las categorias:
+              Seleccione las categorías:
             </legend>
             {categories?.rows?.map((category: Category) => {
               return (
@@ -351,13 +349,13 @@ const UpdateEvent = () => {
                 <label>{datesErr.dateInputErr}</label>
 
                 <legend className={styleCreateEvent.legend_detail_form}>
-									Tickets
+									Disponibilidad de Tickets
 								</legend>
                 <input
                   name="tickets"
                   type="number"
                   value={currentDate?.total_tickets || ""}
-                  placeholder="Indique numero de tikects..."
+                  placeholder="Indique número de tikects..."
                   onChange={handleInputDateChange}
                 />
                 <label>{datesErr.ticketInputErr}</label>
@@ -403,7 +401,7 @@ const UpdateEvent = () => {
           </fieldset>{' '}
           {/* EN MODAL */}
           <button type="submit" className={styleUpdateEvent.bottom_form}>
-            Actulizar
+            Actualizar
           </button>
         </div>
       </form>
