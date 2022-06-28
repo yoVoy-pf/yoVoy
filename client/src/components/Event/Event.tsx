@@ -270,9 +270,6 @@ const Event = () => {
 								);
 							})}
 						</div>
-						<Link to="/checkout">
-							<button className={event_style.button2}>Ir al carrito.</button>
-						</Link>
 					</div>
 				</div>
 			</div>
