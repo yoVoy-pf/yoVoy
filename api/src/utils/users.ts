@@ -18,7 +18,7 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb(email: string, name: string, paginate:any, order?: string) {
+export async function getUsersFromDb(email: string, name: string, paginate:any, order?: string, banned?: boolean) {
     let options: any= {
       include: {
         model: Role,
@@ -124,4 +124,24 @@ export async function updateUser(id: string | number, { updateUser }:any ){
   })
   
   return user
+}
+
+export const getBannedUsersFromDb = async (paginate : any) => {
+    let options: any= {
+      include: {
+        model: Role,
+        attributes:['name'],
+        through:{
+          attributes:[]
+        }
+      },
+      where:{status:"banned"},
+      distinct: true
+    }
+    if(paginate) {
+      options.limit = paginate.limit
+      options.offset = paginate.offset
+    }
+
+  return await User.findAndCountAll(options)
 }
