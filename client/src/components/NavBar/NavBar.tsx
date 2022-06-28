@@ -15,7 +15,7 @@ import { BsPersonCheckFill } from "react-icons/bs";
 const NavBar = ()=>{
     const currentUser = useSelector(selectCurrentUser)
     const rechargePage = () => {
-        if (window.location.href === "http://localhost:3000/") {
+      if (window.location.href === (process.env.REACT_APP_API || "http://localhost:3001")) {
             window.location.reload()
         }
     }

@@ -14,6 +14,8 @@ import { useGetEventQuery, useUpdateEventMutation } from "../../slices/app/event
 import { useNavigate, useParams } from "react-router-dom";
 import styleUpdateEvent from './update-event.module.css'
 import { FiEdit } from "react-icons/fi";
+import styleCreateEvent from '../CreateEvent/create-event.module.css'
+import { Toast } from '../../utils/alerts';
 
 const UpdateEvent = () => {
   const locSelect = useRef<any>()
@@ -24,6 +26,7 @@ const UpdateEvent = () => {
   const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' }, { refetchOnMountOrArgChange: true })
 
   const navigate = useNavigate()
+  // const [categoriesChecked, setCategoriesChecked] = useState<any>([])
 
   const locations: any = useSelector(
     (state: State) => state.global.locations,
@@ -49,7 +52,8 @@ const UpdateEvent = () => {
     handleRemoveLoc,
     handleUpdateFetch,
     removeDateFromLocsAux,
-    setCurrentLocId
+    setCurrentLocId,
+    removeDateFromLocsAux2
   ] = useCreateEvent({ locations });
 
   useEffect(() => {
@@ -59,10 +63,12 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     if (eventInfo) {
+      console.log("Info del evento:")
       console.log(eventInfo)
+      const categories = eventInfo.categories.map((c:any)=>c.name)
+      // setCategoriesChecked(categories)
       if (!(Object.keys(eventInfo).length > 1)) navigate('/')
       else {
-        console.log('chau')
         handleUpdateFetch(eventInfo)
       }
     }
@@ -75,11 +81,148 @@ const UpdateEvent = () => {
       locations: locsForSubmit
     }
     try {
-      eventId && await updateEvent({ id: eventId, updatedEvent: event })
-      resetState();
-      navigate(`/events/${eventInfo.id}`)
+      if (err.nameErr === "" &&
+        err.descriptionErr === "" &&
+        err.categoriesErr === "" &&
+        err.locationsErr === ""&&
+				err.imgErr === "") {
+        eventId && await updateEvent({ id: eventId, updatedEvent: event })
+        resetState();
+        navigate(`/events/${eventInfo.id}`)
+        Toast.fire({
+					icon: "success",
+					title: "Evento actualizado correctamente",
+				})
+      } else {
+        Toast.fire({
+					icon: "warning",
+					title: "Debe completar los campos correctamente para poder actualizar el evento.",
+				})
+      }
+
     } catch (error) { console.log(error) }
   };
+
+  const [err, setErr] = useState({
+    nameErr: "",
+    descriptionErr: "",
+    imgErr: "",
+    categoriesErr: "",
+    locationsErr: ""
+  })
+
+  const [datesErr, setdatesErr] = useState({
+    priceErr: "Debe ingresar un precio",
+		locationDateErr: "Debe selecionar una locacion",
+		dateInputErr: "Debe selecionar una fecha",
+		ticketInputErr: "Debe ingresar numero de tickets",
+  })
+
+  useEffect(() => {
+    if (input.name.length < 4) {
+      setErr({ ...err, nameErr: "Debe tener entre 4 a 50 caracteres" })
+    }
+    if (input.name.length > 3) {
+      setErr({ ...err, nameErr: "" })
+    }
+  }, [input.name])
+
+  useEffect(() => {
+    if (input.description.length < 50) {
+      setErr({ ...err, descriptionErr: "Debe tener entre 50 a 250 caracteres" })
+    }
+    if (input.description.length > 49) {
+      setErr({ ...err, descriptionErr: "" })
+    }
+  }, [input.description])
+
+  useEffect(() => {
+    if (input.categories.length === 0) {
+      setErr({ ...err, categoriesErr: "Debe tener al menos 1 categoria" })
+    }
+    if (input.categories.length > 0) {
+      setErr({ ...err, categoriesErr: "" })
+    }
+  }, [input.categories])
+
+  useEffect(() => {
+    if (locsForSubmit.length === 0) {
+      setErr({ ...err, locationsErr: "Debe tener al menos 1 locación" })
+    }
+    if (locsForSubmit.length > 0) {
+      setErr({ ...err, locationsErr: "" })
+    }
+  }, [locsForSubmit])
+
+
+  useEffect(() => {
+    if (input.background_image === "") {
+      setErr({ ...err, imgErr: "Este campo debe esta completo." })
+    } else if (input.background_image !== "") {
+      if (!(/\.(jpg|png|gif)$/i).test(input.background_image)) {
+        setErr({ ...err, imgErr: "Url no contiene un archivo valido" })
+      } else {
+        setErr({ ...err, imgErr: "" })
+      }
+
+    }
+  }, [input.background_image])
+
+  useEffect(() => {
+    if (isNaN(currentDate.price) || currentDate.price === 0) {
+      setdatesErr({ ...datesErr, priceErr: "Debe ingresar un precio" })
+    } else if (currentDate.price > 0) {
+      setdatesErr({ ...datesErr, priceErr: "" })
+    }
+  }, [currentDate.price])
+
+
+  useEffect(() => {
+    if (currentLocId === "default" || currentLocId === "") {
+      setdatesErr({ ...datesErr, locationDateErr: "Debe selecionar una locacion" })
+    } else if (currentLocId !== "default") {
+      setdatesErr({ ...datesErr, locationDateErr: "" })
+    }
+  }, [currentLocId])
+
+  useEffect(() => {
+    if (!currentDate.date) {
+      setdatesErr({ ...datesErr, dateInputErr: "Debe selecionar una fecha" })
+    } else {
+      setdatesErr({ ...datesErr, dateInputErr: "" })
+    }
+  }, [currentDate.date])
+
+  useEffect(() => {
+    if (!currentDate.total_tickets) {
+      setdatesErr({ ...datesErr, ticketInputErr: "Debe ingresar numero de tickets" })
+    } else {
+      setdatesErr({ ...datesErr, ticketInputErr: "" })
+    }
+  }, [currentDate.total_tickets])
+
+  const handleAddDateClick = (e: any) => {
+
+    if (datesErr.priceErr === "" &&
+      datesErr.locationDateErr === "" &&
+      datesErr.dateInputErr === "" &&
+      datesErr.ticketInputErr === "" &&
+      currentLocId !== "") {
+      handleAddDate(e)
+      setdatesErr({
+        priceErr: "Debe ingresar un precio",
+        locationDateErr: "Debe selecionar una locacion",
+        dateInputErr: "Debe selecionar una fecha",
+        ticketInputErr: "Debe ingresar numero de tickets",
+      })
+    } else {
+      Toast.fire({
+        icon: "warning",
+        title: "Debe completar los datos correspondientes para poder agregar.",
+      })
+    }
+
+  }
 
 
   return (
@@ -100,6 +243,7 @@ const UpdateEvent = () => {
               onChange={handleInputChange}
               value={input.name}
             />
+            <label>{err.nameErr}</label>
           </fieldset>{' '}
           <br />
           <fieldset className={styleUpdateEvent.fieldset_form}>
@@ -111,10 +255,11 @@ const UpdateEvent = () => {
               name="description"
               id="description"
               placeholder="Descripcion..."
-              className={styleUpdateEvent.input_create}
+              className={styleUpdateEvent.input_create_textArea}
               onChange={handleInputChange}
               value={input.description}
             />
+            <label>{err.descriptionErr}</label>
           </fieldset>{' '}
           <br />
           <fieldset className={styleUpdateEvent.fieldset_form}>
@@ -129,6 +274,7 @@ const UpdateEvent = () => {
               onChange={handleInputChange}
               value={input.background_image}
             />
+            <label>{err.imgErr}</label>
           </fieldset>{' '}
           <br />
           <fieldset className={styleUpdateEvent.fieldset_form}>
@@ -140,6 +286,7 @@ const UpdateEvent = () => {
                 <React.Fragment key={category.id}>
                   <br />
                   <input
+                    checked={input.categories.includes(category.id)}
                     value={category.id}
                     type="checkbox"
                     onChange={handleCategoryChange}
@@ -148,36 +295,102 @@ const UpdateEvent = () => {
                 </React.Fragment>
               );
             })}
+            <br />
+            <label>{err.categoriesErr}</label>
           </fieldset>{' '}
-          <fieldset className={styleUpdateEvent.fieldset_form}>
-            <legend className={styleUpdateEvent.legend_form}>
+          <br />
+          {/* MODAL */}
+          <fieldset className={styleCreateEvent.fieldset_form}>
+            <legend className={styleCreateEvent.legend_form}>
+              Agregue detalles de el/los eventos
+            </legend>
+            <div className={styleCreateEvent.dateContainerForm}>
+              <div className={styleUpdateEvent.container_modal}>
+                <select
+                  id="locationSelect"
+                  name="id"
+                  ref={locSelect}
+                  placeholder="Seleccione un lugar"
+                  className={styleCreateEvent.form_cities}
+                  onChange={handleLocationChange}
+                >
+                  <option value="default">Seleccione la ciudad...</option>
+                  {locations?.rows?.map((location: Location) => {
+                    return (
+                      <option
+                        key={location.id}
+                        value={location.id}
+                        className={`${styleCreateEvent.form_citie} ${isAlreadyAdded(location.id) ? styleCreateEvent.form_citie_loaded : null}`}
+                        selected={location.id === parseInt(currentLocId)}
+                      // disabled={isAlreadyAdded(location.id)}
+                      >
+                        {`- ${location.city['name']},${location.address}, ${location.name}.`}
+                      </option>
+                    );
+                  })}
+                </select>
+                <label>{datesErr.locationDateErr}</label>
+              </div>
+              <div className={styleUpdateEvent.container_pricedate}>
+              <legend className={styleCreateEvent.legend_detail_form}>
+									Precio
+								</legend>
+                <input
+                  name="price"
+                  type="number"
+                  value={currentDate?.price || ""}
+                  placeholder="Indique el precio..."
+                  onChange={handleInputDateChange}
+                />
+                <label>{datesErr.priceErr}</label>
+
+                <legend className={styleCreateEvent.legend_detail_form}>
+									Fecha
+								</legend>
+                <input type="date" name="date" value={currentDate?.date || ''} onChange={handleInputDateChange} />
+                <label>{datesErr.dateInputErr}</label>
+
+                <legend className={styleCreateEvent.legend_detail_form}>
+									Tickets
+								</legend>
+                <input
+                  name="tickets"
+                  type="number"
+                  value={currentDate?.total_tickets || ""}
+                  placeholder="Indique numero de tikects..."
+                  onChange={handleInputDateChange}
+                />
+                <label>{datesErr.ticketInputErr}</label>
+
+                <button type="button" title="Agregar detalle" onClick={(e) => { handleAddDateClick(e) }}>
+                  +
+                </button>
+              </div>
+
+            </div>
+
+          </fieldset>{' '}
+          <br />
+          <fieldset className={styleCreateEvent.fieldset_form}>
+            <legend className={styleCreateEvent.legend_form}>
               Localidades agregadas:
             </legend>
             {
               locsForSubmit.length > 0
                 ? locsForSubmit
-                  .map((loc: any) => {
-                    let locData = locations?.rows?.find((location : any) => location.id === parseInt(loc.id));
+                  .map((loc: any, iLoc: any) => {
+                    let locData = locations?.rows?.find((location: any) => location.id === parseInt(loc.id));
                     return locData ?
                       (
-                        <div>
+                        <div key={iLoc}>
                           <span>{` ${locData.name} `}</span>
                           <span>{` ${locData.address} `}</span>
-                          {/* <button onClick={(e) => handleRemoveLoc(e, loc.id)}>X</button> */}
-                          <button
-                            onClick={() => {
-                              setCurrentLocId(loc.id)
-                              openModal()
-                            }}
-                            type="button"
-                            className={styleUpdateEvent.text_from}
-                          >
-                            <FiEdit />
-                          </button>
-
+                          {/* <button onClick={(e) => handleRemoveLoc(e,loc.id)}>X</button> */}
                           <ul>
-                            {loc.dates.map((date: any) => (
-                              <li key={date.date}>{`$${date.price} || ${date.date}`}</li>
+                            {loc.dates.map((date: any, i: any) => (
+                              <li key={i}>{`$${date.price} || ${date.date} || ${date.total_tickets} tickets`}
+                                <button type="button" key={i} onClick={(e: SyntheticEvent) => removeDateFromLocsAux2(i, locData.id)}>X</button>
+                              </li>
                             ))}
                           </ul>
                         </div>
@@ -186,98 +399,7 @@ const UpdateEvent = () => {
                   })
                 : <h1>No hay localidades cargadas para el evento</h1>
             }
-          </fieldset>{' '}
-          <br />
-          {/* MODAL */}
-          <fieldset className={styleUpdateEvent.fieldset_form}>
-            <legend className={styleUpdateEvent.legend_form}>
-              Agrege detalles de el/los eventos
-            </legend>
-            <button
-              onClick={() => openModal()}
-              type="button"
-              className={styleUpdateEvent.text_from}
-            >
-              +
-            </button>
-            <DatesModal
-              isOpen={isOpen}
-              closeModal={closeModal}
-              className={styleUpdateEvent.form_dates_modal}
-            >
-              <div className={styleUpdateEvent.container_modal}>
-                <select
-                  name="id"
-                  ref={locSelect}
-                  placeholder="Seleccione un lugar"
-                  className={styleUpdateEvent.form_cities}
-                  onChange={handleLocationChange}
-                >
-                  <option value={"default"}>Seleccione la ciudad...</option>
-                  {locations?.rows?.map((location: Location) => {
-                    return (
-                      <option
-                        key={location.id}
-                        value={location.id}
-                        className={`${styleUpdateEvent.form_citie} ${isAlreadyAdded(location.id) ? styleUpdateEvent.form_citie_loaded : null}`}
-                        selected={location.id === parseInt(currentLocId)}
-                      // disabled={isAlreadyAdded(location.id)}
-                      >
-                        {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
-                      </option>
-                    );
-                  })}
-                </select>
-
-              </div>
-              <div className={styleUpdateEvent.container_pricedate}>
-                <input
-                  name="price"
-                  type="number"
-                  value={currentDate?.price || '0'}
-                  placeholder="Indique el precio..."
-                  onChange={handleInputDateChange}
-                />
-                <input className={styleUpdateEvent.date} type="date" value={currentDate?.date || ''} onChange={handleInputDateChange} />
-                <button type="button" onClick={handleAddDate}>
-                  +
-                </button>
-              </div>
-
-              <div>
-                {locsAux[currentLocId]?.dates?.map((date: any, id: any) => {
-                  console.log(date)
-                  return (
-                    <fieldset className={styleUpdateEvent.legend_form}>
-                      <React.Fragment>
-                        <div className={styleUpdateEvent.container_button}>
-                          <button type="button" key={id} onClick={(e: SyntheticEvent) => removeDateFromLocsAux(id)}>X</button>
-                        </div>
-                      </React.Fragment>
-                      <ul>
-                        <li key={`${date.price} - ${date.date}`}>
-                          <React.Fragment>
-                            <p>{`Precio: $ ${date.price}`} </p>
-                            <p>{`Fecha: ${date.date}`} </p>
-                          </React.Fragment>
-                        </li>
-                      </ul>
-                    </fieldset>
-                  );
-                })}
-              </div>
-              <br />
-              <div className={styleUpdateEvent.container_create}>
-                <button type="button" onClick={(e) => {
-                  let select = locSelect.current
-                  select.value = 'default'
-                  handleConfirm(e)
-                  closeModal()
-                }}>
-                  Confirmar
-                </button>
-              </div>
-            </DatesModal>
+            <label>{err.locationsErr}</label>
           </fieldset>{' '}
           {/* EN MODAL */}
           <button type="submit" className={styleUpdateEvent.bottom_form}>
