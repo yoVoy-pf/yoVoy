@@ -13,11 +13,17 @@ const RequestsList = () => {
 		error,
 		refetch,
 	} = useGetRequestsQuery({ _: '' }, { refetchOnMountOrArgChange: true });
-    console.log('fsadfasf:',request?.rows)
     let content = <span></span>;
-    if(isLoading){
-        content = <p>Cargando...</p>;
-    } else if (isSuccess) {
+    if(!request){
+        return(
+            <div className={styleRequest.fondo}>
+            <SideBar/>
+            <div className={styleRequest.text}>
+              <h1 className={styleRequest.text_style}><i> ¡UPS! No hay Peticiones Realizadas</i></h1>
+            </div>
+            </div>
+          )
+    } else {
 		content = (
 			<div className={styleRequest.fondo}>
                 <SideBar/>
@@ -61,9 +67,7 @@ const RequestsList = () => {
             </table>
         </div>
 		);
-	} else if (isError) {
-		content = <p>{JSON.stringify(error)}</p>;
-	}
+	} 
 	return content;
 }
 

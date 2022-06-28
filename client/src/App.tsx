@@ -33,7 +33,7 @@ import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesLis
 import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCategories';
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
-import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
+import ProvincesList from './components/AdminPanel/ProvincesList/ProvincesList';
 import CreateLocation from './components/AdminPanel/CreateLocation/CreateLocation';
 import RequestsList from './components/AdminPanel/RequestsList/RequestsList';
 import UpdateRequests from './components/AdminPanel/UpdateRequests/UpdateRequests';
@@ -110,7 +110,7 @@ function App(): JSX.Element {
 				<Route path="list-locations" element={<LocationsList />} />
 				<Route path="create-location" element={<CreateLocation />} />
 				<Route path="update-location/:id" element={<UpdateLocation />} />
-				<Route path="list-cities" element={<CitiesList />} />
+				<Route path="list-provinces" element={<ProvincesList />} />
         <Route path="unban-user" element={<UnbanUser />} />
         <Route path="list-requests" element={<RequestsList />} />
         <Route path="update-request/:id" element={<UpdateRequests />} />
