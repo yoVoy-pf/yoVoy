@@ -27,7 +27,6 @@ import OrganizationEvents from './components/OrganizationEvents/OrganizationEven
 import EventLocations from './components/EventLocations/EventLocations';
 import DetailProessPayment from './components/AdminPanel/DetailPayment/DetailProcessPayment';
 import UserData from './components/UserData/UserData';
-
 import UnbanUser from './components/AdminPanel/UnbanUser/UnbanUser';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import CategoriesList from './components/AdminPanel/CategoriesList/CategoriesList';
@@ -35,7 +34,9 @@ import UpdateCategory from './components/AdminPanel/UpdateCategories/UpdateCateg
 import LocationsList from './components/AdminPanel/LocationsList/LocationsList';
 import UpdateLocation from './components/AdminPanel/UpdateLocations/UpdateLocation';
 import CitiesList from './components/AdminPanel/CitiesList/CitiesList';
-import Checkout from './components/Checkout/Checkout';
+import StartCheckout from './components/Checkout/CheckoutProcess/StartCheckout';
+import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryCheckout';
+import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -75,7 +76,9 @@ function App(): JSX.Element {
 			</Route>
 
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
-				<Route path="checkout" element={<Checkout />} />
+				<Route path="checkout" element={<StartCheckout />} />
+				<Route path="/checkout/delivery" element={<DeliveryCheckout />} />
+				<Route path="/checkout/payment" element={<PaymentCheckout />} />
 			</Route>
 
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
