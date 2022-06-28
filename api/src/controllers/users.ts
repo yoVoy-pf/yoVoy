@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { getUsersFromDb, getUserById, banUser, updateUser, getUserFromDbByField } from "../utils/users"
+import { getUsersFromDb, getUserById, banUser, updateUser, getUserFromDbByField, getBannedUsersFromDb } from "../utils/users"
 
 export const getUsers = (req: Request,res: Response,next:NextFunction) => {
   let name = req.query.name as string
@@ -53,6 +53,16 @@ export const putUser = async (req: Request,res: Response,next:NextFunction) => {
     const user = await updateUser(id, req.body)
 
     res.status(200).json(user)
+  }catch(error){
+    next(error)
+  }
+}
+
+export const getBanned = async (req: Request,res: Response,next:NextFunction) => {
+  try{
+    const users = await getBannedUsersFromDb(req.body.paginate)
+    if (!users) next({status: 404, message: "Users not found"})
+    else res.status(200).json(users)
   }catch(error){
     next(error)
   }
