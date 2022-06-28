@@ -259,7 +259,7 @@ const CreateEvent = () => {
 							type="text"
 							id="background_image"
 							placeholder="Imagen..."
-							className={styleCreateEvent.input_create}
+							className={styleCreateEvent.input_create_textArea}
 							onChange={handleInputChange}
 							value={input.background_image}
 						/>
@@ -312,7 +312,7 @@ const CreateEvent = () => {
 												selected={location.id === parseInt(currentLocId)}
 											// disabled={isAlreadyAdded(location.id)}
 											>
-												{`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
+												{`- ${location.city['name']},${location.address}, ${location.name}.`}
 											</option>
 										);
 									})}
@@ -378,7 +378,7 @@ const CreateEvent = () => {
 													{/* <button onClick={(e) => handleRemoveLoc(e,loc.id)}>X</button> */}
 													<ul>
 														{loc.dates.map((date: any, i: any) => (
-															<li key={i}>{`$${date.price} || ${date.date}`}
+															<li key={i}>{`$${date.price} || ${date.date} || ${date.total_tickets} tickets`}
 																<button type="button" key={i} onClick={(e: SyntheticEvent) => removeDateFromLocsAux2(i, locData.id)}>X</button>
 															</li>
 														))}
@@ -395,14 +395,6 @@ const CreateEvent = () => {
 					<button type="submit" className={styleCreateEvent.bottom_form}>
 						Create
 					</button>
-					<button onClick={(e) => { e.preventDefault(); console.log(err) }}>VER ERRORES</button>
-					<button onClick={(e) => {
-						e.preventDefault();
-						const event = {
-							...input,
-							locations: locsForSubmit,
-						}; console.log(event)
-					}}>VER EVENTO</button>
 				</div>
 			</form>
 		</React.Fragment>

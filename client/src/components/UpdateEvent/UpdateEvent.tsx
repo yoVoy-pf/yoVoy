@@ -26,7 +26,7 @@ const UpdateEvent = () => {
   const { data: eventInfo } = useGetEventQuery({ id: eventId as string | '1' }, { refetchOnMountOrArgChange: true })
 
   const navigate = useNavigate()
-  const [categoriesChecked, setCategoriesChecked] = useState<any>([])
+  // const [categoriesChecked, setCategoriesChecked] = useState<any>([])
 
   const locations: any = useSelector(
     (state: State) => state.global.locations,
@@ -62,19 +62,13 @@ const UpdateEvent = () => {
   }, [dispatch]);
 
   useEffect(() => {
-   
-  }, [categoriesChecked]);
-
-  useEffect(() => {
     if (eventInfo) {
-      const categories = eventInfo.categories.map((c:any)=>c.name)
+      console.log("Info del evento:")
       console.log(eventInfo)
-      console.log("ESTE ES EL ARRAY DE CATEGORIAS")
-      console.log(categories)
-      setCategoriesChecked(categories)
+      const categories = eventInfo.categories.map((c:any)=>c.name)
+      // setCategoriesChecked(categories)
       if (!(Object.keys(eventInfo).length > 1)) navigate('/')
       else {
-        console.log('chau')
         handleUpdateFetch(eventInfo)
       }
     }
@@ -175,7 +169,6 @@ const UpdateEvent = () => {
   }, [input.background_image])
 
   useEffect(() => {
-    console.log(isNaN(currentDate.price) || currentDate.price === 0)
     if (isNaN(currentDate.price) || currentDate.price === 0) {
       setdatesErr({ ...datesErr, priceErr: "Debe ingresar un precio" })
     } else if (currentDate.price > 0) {
@@ -262,7 +255,7 @@ const UpdateEvent = () => {
               name="description"
               id="description"
               placeholder="Descripcion..."
-              className={styleUpdateEvent.input_create}
+              className={styleUpdateEvent.input_create_textArea}
               onChange={handleInputChange}
               value={input.description}
             />
@@ -293,7 +286,7 @@ const UpdateEvent = () => {
                 <React.Fragment key={category.id}>
                   <br />
                   <input
-                    checked={categoriesChecked.includes(category.name)}
+                    checked={input.categories.includes(category.id)}
                     value={category.id}
                     type="checkbox"
                     onChange={handleCategoryChange}
@@ -331,7 +324,7 @@ const UpdateEvent = () => {
                         selected={location.id === parseInt(currentLocId)}
                       // disabled={isAlreadyAdded(location.id)}
                       >
-                        {`-${location.id}, ${location.address}, ${location.name}, ${location.city['name']}.`}
+                        {`- ${location.city['name']},${location.address}, ${location.name}.`}
                       </option>
                     );
                   })}
@@ -395,7 +388,7 @@ const UpdateEvent = () => {
                           {/* <button onClick={(e) => handleRemoveLoc(e,loc.id)}>X</button> */}
                           <ul>
                             {loc.dates.map((date: any, i: any) => (
-                              <li key={i}>{`$${date.price} || ${date.date}`}
+                              <li key={i}>{`$${date.price} || ${date.date} || ${date.total_tickets} tickets`}
                                 <button type="button" key={i} onClick={(e: SyntheticEvent) => removeDateFromLocsAux2(i, locData.id)}>X</button>
                               </li>
                             ))}
