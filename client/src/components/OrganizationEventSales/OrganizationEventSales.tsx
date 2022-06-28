@@ -46,7 +46,7 @@ const OrganizationEventSales: React.FC = () => {
             alt={eventDetail.name}
             className={style.main_img}
           />
-          <p>Recaudación Total: {eventDetail?.locations ? getTotalRecaudation() : ''}</p>
+          <p className={style.p}>Recaudación Total: {eventDetail?.locations ? getTotalRecaudation() : ''}</p>
 					{eventDetail &&
 						eventDetail.locations?.map((location: Location) => {
 							return (
@@ -86,7 +86,7 @@ const OrganizationEventSales: React.FC = () => {
                               </div>
                             )
                           })}
-                          <p>Recaudación parcial: ${getTotalPerDate(location)}</p>
+                          <p className={style.parcial}>Recaudación parcial: ${getTotalPerDate(location)}</p>
                         </div>
 											</div>
 										</fieldset>
