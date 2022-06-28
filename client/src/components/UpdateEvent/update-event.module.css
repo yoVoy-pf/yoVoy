@@ -118,7 +118,8 @@
     background-color: rgba(247, 206, 173, 0.526);
 }
 .container_pricedate{
-    display:flex ;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     margin-bottom: 5px;
     gap: 10px;
@@ -130,6 +131,7 @@
     border-radius: 5px;
     background-color: rgba(247, 206, 173, 0.526);
 }
+
 .container_pricedate .date{
     cursor: pointer;
 }
