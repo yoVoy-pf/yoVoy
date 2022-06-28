@@ -3,30 +3,19 @@ import { AppDispatch } from '../../redux/store/store';
 import { useDispatch } from 'react-redux';
 import { getSearchEvent } from '../../redux/actions/actions-Create';
 import './SearchBar.css';
-import Swal from 'sweetalert2';
+import {Toast} from '../../utils/alerts'
 
 type FormElement = React.FormEvent<HTMLFormElement>;
 type Input = React.ChangeEvent<HTMLInputElement>;
 
-const SearchBar = () => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 1500,
-		timerProgressBar: true,
-		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer);
-			toast.addEventListener('mouseleave', Swal.resumeTimer);
-		},
-	});
+const SearchBar = ({searchEventQuery}: any) => {
 	const dispatch: AppDispatch = useDispatch();
 	const [input, setInput] = useState('');
 
 	function onSubmit(e: FormElement) {
 		e.preventDefault();
 		input
-			? dispatch(getSearchEvent(input))
+			? searchEventQuery(e, input)
 			: Toast.fire({
 					title: 'Ingrese el nombre de un Evento',
 					icon: 'warning',
