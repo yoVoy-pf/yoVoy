@@ -10,6 +10,8 @@ import cambiarPass from '../../img/cambiarpass.jpg';
 import detalleCuenta from '../../img/detallecuenta.jpg';
 import crearOrg from '../../img/crearorg.jpg';
 import eventos from '../../img/eventos.jpg';
+import peticiones from "../../img/peticion.jpg"
+import compras from "../../img/compras.jpg"
 
 export const Welcome = () => {
 	const user: any = useSelector(selectCurrentUser);
@@ -67,7 +69,7 @@ export const Welcome = () => {
 				<div className={styleWelcome.links_welcome}>
 					<Link className={styleWelcome.links_style} to="/my-requests">
 						<div className={styleWelcome.containerImgAndH1}>
-							<img src={crearOrg} alt="crearOrg" />
+							<img src={peticiones} alt="crearOrg" />
 							<div className={styleWelcome.containerH1}>
 								<div>
 									<h1>Ver mis peticiones</h1>
@@ -87,7 +89,7 @@ export const Welcome = () => {
 					</Link>
 					<Link className={styleWelcome.links_style} to="/purchase-detail">
 						<div className={styleWelcome.containerImgAndH1}>
-							<img src={crearOrg} alt="crearOrg" />
+							<img src={compras} alt="crearOrg" />
 							<div className={styleWelcome.containerH1}>
 								<div>
 									<h1>Historial de Compras</h1>
