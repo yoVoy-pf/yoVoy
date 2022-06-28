@@ -58,7 +58,7 @@ const CreateOrganization = () => {
     if (organization.phone_number === '' || organization.phone_number.length < 8) {
       newErrors.phone_number = 'El teléfono de la organización es requerido y debe tener al menos 8 caracteres';
     }
-    if (organization.cbu === '' || organization.phone_number.length < 15) {
+    if (organization.cbu === '' || organization.cbu.length < 15) {
       newErrors.cbu = 'El CBU de la organización es requerido y debe tener al menos 15 caracteres';
     }
     if (organization.alias === '') {
