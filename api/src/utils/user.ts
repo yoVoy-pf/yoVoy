@@ -122,7 +122,6 @@ export const getUserInformation = async(id: string | number) => {
         attributes: ["name","email"],
         include: {
             model: Organization,
-            attributes: ["name"]
         }
     })
 
