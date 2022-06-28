@@ -9,9 +9,6 @@ import { Link } from 'react-router-dom';
 import { BiDirections } from 'react-icons/bi';
 import { SiGooglemaps } from 'react-icons/si';
 import event_style from './EventLocations.module.css';
-import SearchBar from '../SearchBar/SearchBar';
-import FilterEvent from '../FilterEvents/FilterEvents';
-import home from '../Home/home.module.css';
 import style from './EventLocations.module.css';
 
 const EventLocations: React.FC = () => {
