@@ -57,10 +57,11 @@
 .buttonPassBg{
     display: flex;
     justify-content: center;
+    gap: 10px;
 }
 
 .buttonPass{
-    width: 350px;
+    width: 250px;
     background: #1746ae98;
     border: none;
     border-radius: 5px;

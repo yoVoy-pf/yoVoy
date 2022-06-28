@@ -58,11 +58,10 @@ const Checkout = () => {
 					<b>{(total * 1.05).toFixed(2)}</b>
 				</h3>
 
-				<div  className={style.buttonPassBg} >
-					{/* <Link to>
-					<button onClick={handleClick}></button>
-					</Link> */}
-
+				<div className={style.buttonPassBg}>
+					<Link to="/">
+						<button className={style.buttonPass}>VOLVER AL SITIO</button>
+					</Link>
 					<Link to="/checkout/delivery">
 						<button className={style.buttonPass}>SIGUIENTE</button>
 					</Link>

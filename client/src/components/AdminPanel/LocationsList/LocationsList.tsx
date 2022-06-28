@@ -12,41 +12,24 @@ const LocationsList = () => {
   const locations = useSelector(selectAllLocations)
   const pagination = usePagination(10, 'locations');
   
-
-
-    const handleDelete = async (id: any) => {
-		Swal.fire({
-			title: 'Esta seguro de eliminar la Locacion?',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: 'orange',
-			cancelButtonColor: '#d33',
-			cancelButtonText: 'Cancelar',
-			confirmButtonText: 'Eliminar',
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				Swal.fire({
-					title: 'Locacion Eliminada!',
-					icon: 'success',
-				});
-				// await deleteOrganization(id);
-				pagination.refresh();
-			}
-		});
-	};
 		const content = (
 			<div className={styleLocations.fondo}>
                 <SideBar/>
             <div className={styleLocations.table_title}>
             <h1 className={styleLocations.table_title_style}>Lista de Locaciones</h1>
+            <Link to='/create-location' className={styleLocations.buttom}>
+            <button className={styleLocations.buttom_style}>
+                Crear Locacion
+            </button>
+            </Link>
             </div>
         <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
         <table className={styleLocations.table_categories}>
             <thead>
                 <tr>
                 <th style={{ textAlign: "center" }}>ID</th>
-                <th style={{ textAlign: "center" }}>Name</th>
-                <th style={{ textAlign: "center" }}>Address</th>
+                <th style={{ textAlign: "center" }}>Nombre</th>
+                <th style={{ textAlign: "center" }}>Direccion</th>
                 <th style={{ textAlign: "center" }}>Provincia</th>
                 <th style={{ textAlign: "center" }}>Acciones</th>
                 </tr>

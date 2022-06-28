@@ -78,6 +78,23 @@ const PaymentCheckout = () => {
 													</li>
 												</ul>
 											</div>
+											<ul>
+												<li>
+
+													VALOR TICKET <b>{item.price}</b>
+
+												</li>
+												<li>
+													{`${item.quantity} x GENERAL        `}
+													<b>{item.price * item.quantity}</b>
+												</li>
+												<li>
+													COSTO POR SERVICIO{' '}
+													<b>
+														{(item.price * item.quantity * 0.05).toFixed(2)}
+													</b>{' '}
+												</li>
+											</ul>
 										</div>
 									</div>
 								);
@@ -102,8 +119,8 @@ const PaymentCheckout = () => {
 					<b>{(total * 1.05).toFixed(2)}</b>
 				</h3>
 
-				<div className={style.buttonPassBg}>
-					<Link to="/checkout">
+				<div  className={style.buttonPassBg}>
+					<Link to="/checkout/delivery">
 						<button className={style.buttonPass}>VOLVER</button>
 					</Link>
 
