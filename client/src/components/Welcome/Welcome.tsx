@@ -14,13 +14,6 @@ import eventos from '../../img/eventos.jpg';
 export const Welcome = () => {
 	const user: any = useSelector(selectCurrentUser);
 	const currentRole = user ? user.rolesId.slice(-1) : null;
-	console.log(
-		'🚀 ~ file: Welcome.tsx ~ line 9 ~ Welcome ~ currentRole',
-		currentRole,
-	);
-
-	const token = useSelector(selectCurrentToken);
-	console.log({ user });
 
 	const welcome = user ? `Bienvenido ${user.name}!` : `Bienvenido!`;
 

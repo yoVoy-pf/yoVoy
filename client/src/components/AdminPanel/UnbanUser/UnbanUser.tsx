@@ -1,24 +1,22 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import SideBar from '../SideBar/SideBar';
-import unbanUserStyle from './UnbanUser.module.css';
-import Swal from 'sweetalert2';
-import {Toast} from '../../../utils/alerts'
+import { Link, useNavigate } from 'react-router-dom';
+import styleUserList from './UnbanUser.module.css';
 import { useUnbanUserMutation } from '../../../slices/app/usersApiSlice';
+import SideBar from '../SideBar/SideBar';
+import Swal from 'sweetalert2';
+import SearchUser from '../UsersList/SearchUser';
+import { useSelector } from 'react-redux';
+import usePagination from '../../../hooks/usePagination/usePagination';
+import PageButtons from '../../PageButtons/PageButtons';
+import { selectAllBanned } from '../../../slices/adminPanelSlice';
+import {Toast} from '../../../utils/alerts'
 
 const UnbanUser = () => {
-  const navigate = useNavigate();
   const [unbanUser] = useUnbanUserMutation();
-  const [email, setEmail] = useState('');
+  const pagination = usePagination(10, 'banned');
+  const users: any = useSelector(selectAllBanned)
+  const navigate = useNavigate();
 
-  const onInputChange = (e: any) => {
-    e.preventDefault();
-    setEmail(e.target.value);
-  };
-
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleDelete = async (email: any) => {
     Swal.fire({
       title: `¿Está seguro que desea desbanear al usuario ${email}?`,
       icon: 'warning',
@@ -26,11 +24,11 @@ const UnbanUser = () => {
       confirmButtonColor: 'orange',
       cancelButtonColor: '#d33',
       cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Crear',
+      confirmButtonText: 'Confirmar',
     })
       .then(async (result) => {
         if (result.isConfirmed) {
-          const response : any = await unbanUser({email})
+          const response: any = await unbanUser({ email })
           if (response.error) throw response.error
           Toast.fire({
             title: `Usuario desbaneado!`,
@@ -40,7 +38,7 @@ const UnbanUser = () => {
         }
       })
       .catch((err) => {
-        if (err.originalStatus === 404){
+        if (err.originalStatus === 404) {
           Toast.fire({
             title: `Usuario no encontrado!`,
             icon: 'error'
@@ -48,37 +46,59 @@ const UnbanUser = () => {
         }
       });
   };
-  return (
-    <div className={unbanUserStyle.fondo}>
-      <SideBar />
-      <form onSubmit={onSubmit}>
-        <div className={unbanUserStyle.form_create_category}>
-          <fieldset>
-            {/* <label>Nombre de la Categoria</label> <br /> */}
-            <legend className={unbanUserStyle.legend_create_category}>
-              Email del Usuario
-            </legend>
-            <input
-              type="text"
-              placeholder="Email"
-              name="email"
-              required
-              className={unbanUserStyle.input_create_categoty}
-              onChange={onInputChange}
-              value={email}
-            />
-          </fieldset>
-          <br />
-          <button
-            className={unbanUserStyle.buttom_create_category}
-            type="submit"
-          >
-            Desbanear usuario
-          </button>
+
+  const content =
+    (
+      <div className={styleUserList.fondo}>
+        <SideBar />
+        <div>
+          <div className={styleUserList.table_title}>
+            <h1 className={styleUserList.table_title_style} >Lista de usuarios baneados</h1>
+          </div>
+          <span style={{ textAlign: "center" }}>
+            <SearchUser email={pagination.email} setEmail={pagination.setEmail} searchUserQuery={pagination.searchBannedUserQuery} />
+            <div className={styleUserList.filters}>
+              <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
+            </div>
+          </span>
         </div>
-      </form>
-    </div>
-  );
+        <table className={styleUserList.table_users}>
+          <thead className={styleUserList.thead_dark}>
+            <tr>
+              <th style={{ textAlign: "center" }}>ID</th>
+              <th style={{ textAlign: "center" }}>Name</th>
+              <th style={{ textAlign: "center" }}>Email</th>
+              <th style={{ textAlign: "center" }}>Roles</th>
+              <th style={{ textAlign: "center" }}>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {
+              users?.rows?.map((user: any, index: any) => {
+                return (
+                  <tr key={user.id} className={styleUserList.componente}>
+                    <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{user.id}</th>
+                    <td className={styleUserList.th_users}>{user.name}</td>
+                    <td className={styleUserList.th_users}>{user.email}</td>
+                    <td className={styleUserList.th_users}>{user.roles.map((e: any) => e.name + ' ')}</td>
+                    <td className={styleUserList.th_users}>
+                      <button
+                        className={styleUserList.buttom_style_right}
+                        onClick={() => handleDelete(user.email)}
+                      >
+                        Desbanear
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    );
+  return content;
 };
 
 export default UnbanUser;

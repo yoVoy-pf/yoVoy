@@ -126,7 +126,7 @@ export async function updateUser(id: string | number, { updateUser }:any ){
   return user
 }
 
-export const getBannedUsersFromDb = async (paginate : any) => {
+export const getBannedUsersFromDb = async (paginate : any, email?: any) => {
     let options: any= {
       include: {
         model: Role,
@@ -142,6 +142,7 @@ export const getBannedUsersFromDb = async (paginate : any) => {
       options.limit = paginate.limit
       options.offset = paginate.offset
     }
+    if(email) options.where.email = { [Op.iLike]: `%${email}%` }
 
   return await User.findAndCountAll(options)
 }
