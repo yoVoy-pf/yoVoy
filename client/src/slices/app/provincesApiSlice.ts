@@ -20,9 +20,13 @@ export const pronvicesApiSlice = apiSlice.injectEndpoints({
         }
       }
 		}),
+    getAllProvince: builder.query<any,({ _: string })>({
+      query: ({ _ }) =>  '/api/cities'
+    })
   })
 })
 
 export const{
   useGetProvincesMutation,
+  useGetAllProvinceQuery,
 } = pronvicesApiSlice
