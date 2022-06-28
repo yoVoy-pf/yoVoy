@@ -46,7 +46,10 @@ const DeliveryCheckout = () => {
 													<b>{item.price * item.quantity}</b>
 												</li>
 												<li>
-													COSTO POR SERVICIO <b>{(total * 0.05).toFixed(2)}</b>{' '}
+													COSTO POR SERVICIO{' '}
+													<b>
+														{(item.price * item.quantity * 0.05).toFixed(2)}
+													</b>{' '}
 												</li>
 											</ul>
 										</div>
