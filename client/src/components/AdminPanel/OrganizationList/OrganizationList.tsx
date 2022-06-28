@@ -47,8 +47,8 @@ const OrganizationList = () => {
         <tbody className={styleListOrganization.thead_dark}>
           <tr>
             <th style={{ textAlign: "center" }}>ID</th>
-            <th style={{ textAlign: "center" }}>Name</th>
-            <th style={{ textAlign: "center" }}>Action</th>
+            <th style={{ textAlign: "center" }}>Nombre</th>
+            <th style={{ textAlign: "center" }}>Acciones</th>
           </tr>
           <div>
           </div>

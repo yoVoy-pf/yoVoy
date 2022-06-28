@@ -58,7 +58,7 @@ const CategoriesList = () => {
             <thead>
                 <tr>
                 <th style={{ textAlign: "center" }}>ID</th>
-                <th style={{ textAlign: "center" }}>Name</th>
+                <th style={{ textAlign: "center" }}>Nombre</th>
                 <th style={{ textAlign: "center" }}>Acciones</th>
                 </tr>
             </thead>
