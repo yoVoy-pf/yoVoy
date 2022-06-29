@@ -14,7 +14,7 @@ export class Event extends Model<Event> {
     @Column
     name!: string;
 
-    @Column(DataType.TEXT)
+    @Column(DataType.STRING(5000))
     description!: string;
 
     @Column
