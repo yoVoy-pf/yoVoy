@@ -18,15 +18,8 @@ export const Welcome = () => {
 	const user: any = useSelector(selectCurrentUser);
 	const currentRole = user ? user.rolesId.slice(-1) : null;
 
-	const welcome = user ? `Bienvenido ${user.name}!` : `Bienvenido!`;
-
 	const content = (
 		<section>
-			<div className={styleWelcome.welcome_section}>
-				<div className={styleWelcome.bienvenida_welcome}>
-					<h1>{welcome}</h1>
-				</div>
-			</div>
 			<UserData />
 			{/* <p>Token: {token}</p> */}
 			{currentRole[0] === 3030 && (
