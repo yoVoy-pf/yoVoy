@@ -1,27 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGetTicketsDetailQuery } from "../../../slices/app/ticketsApiSlice";
+import Loading from "../../Loading/Loading";
 import SideBar from "../SideBar/SideBar";
 import styleDetailPayment from './detail-paiment.module.css'
 
 const DetailPayment = () => {
     const{
         data: datos,
-        isLoading,
-        isSuccess,
-        isError,
-        error,
-        refetch
+        isFetching,
       } = useGetTicketsDetailQuery({_:''}, {refetchOnMountOrArgChange: true,})
-      console.log(datos)
     if(!datos) {
-      return(
-        <div className={styleDetailPayment.fondo}>
-        <SideBar/>
-        <div className={styleDetailPayment.text}>
-          <h1 className={styleDetailPayment.text_style}><i> ¡UPS! No hay compras Realizadas</i></h1>
-        </div>
-        </div>
+      return isFetching
+        ? (
+          <div className={styleDetailPayment.fondo}>
+            <SideBar />
+            <Loading />
+          </div>
+          )
+        : 
+        (
+          <div className={styleDetailPayment.fondo}>
+            <SideBar/>
+            <div className={styleDetailPayment.text}>
+              <h1 className={styleDetailPayment.text_style}><i> ¡UPS! No hay compras Realizadas</i></h1>
+            </div>
+          </div>
       )
     } else {
     return(
