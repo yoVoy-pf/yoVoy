@@ -94,7 +94,7 @@ const EventCart = () => {
 					)}
 
 					<h2 className={styles.total}>Total: ${total}</h2>
-					<Link to="/checkout">
+					<Link className={styles.a} to="/checkout">
 						<button className={styles.button2}>COMPRAR</button>
 					</Link>
 				</div>

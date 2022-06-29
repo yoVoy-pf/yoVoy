@@ -55,7 +55,7 @@ const Event = () => {
 
 	useEffect(() => {
 		if (!isFetching) {
-      if (data.length > 0) {
+      if (data?.length > 0) {
         setIsFavorites(true);
       }
 		}
