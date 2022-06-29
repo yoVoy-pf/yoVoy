@@ -50,7 +50,7 @@ const LocationsList = () => {
                 { 
                         locations?.rows?.map((location: any, index: any) => {
                             return (
-                            <tr>
+                            <tr className={styleLocations.componente}>
                                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{location.id}</th>
                                 <td className={styleLocations.th_categories}>{location.name}</td>
                                 <td className={styleLocations.th_categories}>{location.address}</td>

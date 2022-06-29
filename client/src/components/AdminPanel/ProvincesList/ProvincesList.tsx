@@ -36,7 +36,7 @@ const ProvincesList = () => {
                   { 
                           provinces?.rows?.map((city: any, index: any) => {
                               return (
-                              <tr>
+                              <tr className={styleProvinces.componente}>
                                   <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{city.id}</th>
                                   <td className={styleProvinces.th_categories}>{city.name}</td>
                               </tr>
