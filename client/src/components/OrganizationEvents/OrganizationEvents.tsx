@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useGetOrganizationEventsQuery } from '../../slices/app/organizationApiSlice';
-import { useDeleteEventMutation } from '../../slices/app/eventsApiSlice';
+import { useDeleteEventRequestMutation } from '../../slices/app/eventsApiSlice';
 import './organization-event.css';
 import Swal from 'sweetalert2';
 import { BsPlusCircleFill } from "react-icons/bs";
 
 const OrganizationEvents = () => {
-	const [deleteEvent] = useDeleteEventMutation();
+	const [deleteEvent] = useDeleteEventRequestMutation();
 	let {
 		data: events,
 		refetch,
@@ -30,7 +30,7 @@ const OrganizationEvents = () => {
 					title: 'Evento Eliminado!',
 					icon: 'success',
 				});
-				await deleteEvent(id);
+				await deleteEvent({description: 'delete', body:{id}});
 				refetch();
 			}
 		});

@@ -15,6 +15,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
 		}),
     updateEventRequest: builder.mutation<any, {description: any, body: any}>({
       query: ({description, body}) => {
+        console.log({description, type:'event', method:'PUT', body})
         return {
           url: '/api/request',
           method: 'POST',
@@ -22,6 +23,21 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
             description,
             type: 'event',
             method: 'PUT',
+            body
+          },
+        };
+      }
+    }),
+    deleteEventRequest: builder.mutation<any, {description: any, body: any}>({
+      query: ({description, body}) => {
+        console.log({description, type:'event', method:'PUT', body})
+        return {
+          url: '/api/request',
+          method: 'POST',
+          body:{
+            description,
+            type: 'event',
+            method: 'DELETE',
             body
           },
         };
@@ -75,5 +91,6 @@ export const {
 	useGetEventsQuery,
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
-  useUpdateEventRequestMutation
+  useUpdateEventRequestMutation,
+  useDeleteEventRequestMutation
 } = eventsApiSlice;
