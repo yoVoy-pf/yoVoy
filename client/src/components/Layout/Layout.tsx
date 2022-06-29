@@ -8,8 +8,8 @@ const Layout = () => {
 		<div className={home.container}>
 			<div className={home.container}>
 				<NavBar />
-					<EventCart />
-				<Outlet />
+            <EventCart />
+            <Outlet />
 			</div>
 		</div>
 	);

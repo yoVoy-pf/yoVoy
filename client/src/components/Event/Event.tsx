@@ -10,7 +10,7 @@ import { useEventModal } from './useEventModal';
 import event_style from './Event.module.css';
 import { selectCurrentUser } from '../../slices/authentication/authSlice';
 import { BsCartPlus } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 import {
 	useDeleteEventMutation,
 	useAddEventToFavoriteMutation,
@@ -142,184 +142,184 @@ const Event = () => {
 		(loc: Location) => loc.id == location,
 	);
 
-	return (
-		<React.Fragment>
-			{/* <nav>
-				<NavBar />
-			</nav> */}
+  const content = !Object.keys(eventDetail).length
+    ? <Loading />
+    : (
+      <React.Fragment>
+        <div className={event_style.container}>
+          <div className={event_style.div1}>
+            <div className={event_style.h1}>
+              <h1>Evento: {eventDetail.name}</h1>
+            </div>
+            <div className={event_style.divDeImg}>
+              <img
+                className={event_style.img}
+                src={eventDetail.background_image}
+                alt={eventDetail.name}
+              />
+            </div>
+            <div className={event_style.divpandsmall}>
+              <p className={event_style.p}>Descripción del evento:</p>
+              <small className={event_style.small}>
+                {eventDetail.description}
+              </small>
+            </div>
 
-			<div className={event_style.container}>
-				<div className={event_style.div1}>
-					<div className={event_style.h1}>
-						<h1>Evento: {eventDetail.name}</h1>
-					</div>
-					<div className={event_style.divDeImg}>
-						<img
-							className={event_style.img}
-							// style={{width:'550px', height: '250px'}}
-							src={eventDetail.background_image}
-							alt={eventDetail.name}
-						/>
-					</div>
-					<div className={event_style.divpandsmall}>
-						<p className={event_style.p}>Descripción del evento:</p>
-						<small className={event_style.small}>
-							{eventDetail.description}
-						</small>
-					</div>
+            <div>
+              <Comments />
+            </div>
+          </div>
+          <div className={event_style.div2}>
+            {currentUser?.rolesId?.includes(3030) && (
+              <div className={event_style.button_delete}>
+                <button
+                  className={event_style.button_delete_style}
+                  onClick={handleDelete}
+                >
+                  Eliminar Evento
+                </button>
+                <button
+                  className={event_style.button_delete_style}
+                  onClick={() => navigate(`/update-event/${id}`)}
+                >
+                  Actualizar Evento
+                </button>
+              </div>
+            )}
 
-					<div>
-						<Comments />
-					</div>
-				</div>
-				<div className={event_style.div2}>
-					{currentUser?.rolesId?.includes(3030) && (
-						<div className={event_style.button_delete}>
-							<button
-								className={event_style.button_delete_style}
-								onClick={handleDelete}
-							>
-								Eliminar Evento
-							</button>
-							<button
-								className={event_style.button_delete_style}
-								onClick={() => navigate(`/update-event/${id}`)}
-							>
-								Actualizar Evento
-							</button>
-						</div>
-					)}
+            {eventDetail &&
+              locationResult?.map((loc: Location) => {
+                const mapProps = {
+                  center: {
+                    lat: loc.latitude,
+                    lng: loc.longitude
+                  },
+                  zoom: 15
+                }
+                const TextMarker = ({ text }: any) => <div><label style={{ color: "black" }}>{text}</label></div>
+                const renderMarkers = (map: any, maps: any) => {
+                  let marker = new maps.Marker({
+                    position: { lat: loc.latitude, lng: loc.longitude },
+                    map,
+                    title: loc.name
+                  });
+                  return marker;
+                };
+                return (
+                  <div className={event_style.location} key={loc.id}>
+                    <React.Fragment>
+                      <h4> 🏰 {loc.name}</h4>
+                      <small className={event_style.small1}>
+                        📍{loc.address},
+                      </small>
+                      <small className={event_style.small1}>
+                        {' '}
+                        {loc.city.name}.
+                      </small>
+                      <div style={{ height: '300px', width: '300px' }}>
+                        <GoogleMap
+                          bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY || "" }}
+                          defaultCenter={mapProps.center}
+                          defaultZoom={mapProps.zoom}
+                          yesIWantToUseGoogleMapApiInternals
+                          onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
+                        >
+                          <TextMarker
+                            lat={loc.latitude}
+                            lng={loc.longitude}
+                            text={loc.name}
+                          />
+                        </GoogleMap>
+                      </div>
+                    </React.Fragment>
+                  </div>
+                );
+              })}
 
-					{eventDetail &&
-						locationResult?.map((loc: Location) => {
-							const mapProps = {
-								center:{
-									lat: loc.latitude,
-									lng: loc.longitude
-								},
-								zoom: 15
-							}
-							const TextMarker = ({ text }:any) => <div><label style={{color:"black"}}>{text}</label></div>
-							const renderMarkers = (map:any, maps:any) => {
-								let marker = new maps.Marker({
-								position: { lat: loc.latitude, lng: loc.longitude},
-								map,
-								title: loc.name
-								});
-								return marker;
-							   };
-							return (
-								<div className={event_style.location} key={loc.id}>
-									<React.Fragment>
-										<h4> 🏰 {loc.name}</h4>
-										<small className={event_style.small1}>
-											📍{loc.address},
-										</small>
-										<small className={event_style.small1}>
-											{' '}
-											{loc.city.name}.
-										</small>
-										<div style={{ height: '300px', width: '300px' }}>
-											<GoogleMap
-												bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY || "" }}
-												defaultCenter={mapProps.center}
-												defaultZoom={mapProps.zoom}
-												yesIWantToUseGoogleMapApiInternals
-												onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-												>
-													<TextMarker
-														lat={loc.latitude}
-														lng={loc.longitude}
-														text={loc.name}
-														/>
-											</GoogleMap>
-										</div>
-									</React.Fragment>
-								</div>
-							);
-						})}
+            <div className={event_style.divDeBotones}>
+              <button className={event_style.button1} onClick={openModal}>
+                Ver todas las fechas y precios
+              </button>
+              <EventModal isOpen={isOpenModal} closeModal={closeModal}>
+                <h3>TODAS LAS FECHAS Y PRECIOS</h3>
+                <p>{eventDetail.name}</p>
+                {locationResult?.map((location: Location) => {
+                  return (
+                    <React.Fragment key={location.id}>
+                      {location?.dates.map((date: Dates) => {
+                        return (
+                          <React.Fragment key={date.id}>
+                            <h5>Precio: ${date.price}</h5>
+                            <h5>Fecha: {date.date as any}</h5>
+                          </React.Fragment>
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
+              </EventModal>
 
-					<div className={event_style.divDeBotones}>
-						<button className={event_style.button1} onClick={openModal}>
-							Ver todas las fechas y precios
-						</button>
-						<EventModal isOpen={isOpenModal} closeModal={closeModal}>
-							<h3>TODAS LAS FECHAS Y PRECIOS</h3>
-							<p>{eventDetail.name}</p>
-							{locationResult?.map((location: Location) => {
-								return (
-									<React.Fragment key={location.id}>
-										{location?.dates.map((date: Dates) => {
-											return (
-												<React.Fragment key={date.id}>
-													<h5>Precio: ${date.price}</h5>
-													<h5>Fecha: {date.date as any}</h5>
-												</React.Fragment>
-											);
-										})}
-									</React.Fragment>
-								);
-							})}
-						</EventModal>
-
-						<button
-							className={event_style.button2}
-							onClick={() => {
-								addFavorites({ eventId: id });
-							}}
-						>
-							{!isFavorites
-								? 'Agregar a favoritos '
-								: 'Favorito ❤️'}
-						</button>
-						<hr style={{ width: '350px' }} />
-						<div>
-							{locationResult?.map((location: Location) => {
-								return (
-									<React.Fragment key={location.id}>
-										{location?.dates.map((date: Dates) => {
-											return (
-												<div
-													className={event_style.containerCart}
-													key={date.id}
-												>
-													<p className={event_style.p}>
-														{`Dia: ${date.date}  Precio: $${date.price},00`}
-													</p>
-													<button
-														className={event_style.iconCartContainer}
-														title="Agregar al carrito."
-													>
-														<BsCartPlus
-															className={event_style.iconCart}
-															onClick={() =>
-																dispatch(
-																	addToCart({
-																		dateId: date.id,
-																		price: date.price,
-																		date: date.date,
-																		eventId: eventDetail.id,
-																		locationId: location.id,
-																		locationName: location.name,
-																		eventName: eventDetail.name,
-																		eventImg: eventDetail.background_image,
-																	}),
-																)
-															}
-														/>
-														Agregar Al Carrito
-													</button>
-												</div>
-											);
-										})}
-									</React.Fragment>
-								);
-							})}
-						</div>
-					</div>
-				</div>
-			</div>
-		</React.Fragment>
-	);
+              <button
+                className={event_style.button2}
+                onClick={() => {
+                  addFavorites({ eventId: id });
+                }}
+              >
+                {!isFavorites
+                  ? 'Agregar a favoritos '
+                  : 'Favorito ❤️'}
+              </button>
+              <hr style={{ width: '350px' }} />
+              <div>
+                {locationResult?.map((location: Location) => {
+                  return (
+                    <React.Fragment key={location.id}>
+                      {location?.dates.map((date: Dates) => {
+                        return (
+                          <div
+                            className={event_style.containerCart}
+                            key={date.id}
+                          >
+                            <p className={event_style.p}>
+                              {`Dia: ${date.date}  Precio: $${date.price},00`}
+                            </p>
+                            <button
+                              className={event_style.iconCartContainer}
+                              title="Agregar al carrito."
+                            >
+                              <BsCartPlus
+                                className={event_style.iconCart}
+                                onClick={() =>
+                                  dispatch(
+                                    addToCart({
+                                      dateId: date.id,
+                                      price: date.price,
+                                      date: date.date,
+                                      eventId: eventDetail.id,
+                                      locationId: location.id,
+                                      locationName: location.name,
+                                      eventName: eventDetail.name,
+                                      eventImg: eventDetail.background_image,
+                                    }),
+                                  )
+                                }
+                              />
+                              Agregar Al Carrito
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+    );
+    
+  
+	return content;
 };
 export default Event;
