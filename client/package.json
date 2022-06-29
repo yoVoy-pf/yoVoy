@@ -22,7 +22,8 @@
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.18",
     "typescript": "^4.7.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -35,8 +36,7 @@
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.3",
     "@types/redux-thunk": "^2.1.0",
-    "json-server": "^0.17.0",
-    "react-scripts": "^5.0.1"
+    "json-server": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -63,8 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "engines": {
-    "node": "16.13.2"
-  },
+  }
 }
