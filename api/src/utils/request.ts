@@ -57,13 +57,13 @@ export const updateRequest = async (id:string | number, status: string) => {
         }
         if(status === "accepted"){
             executeRequest(request)
-            sendMail({
+            await sendMail({
                 to: email,
                 subject: "Petición Aceptada",
                 text: `Hola ${name}! Hemos aceptado tu petición ${typeText}`
             })
         }else{
-            sendMail({
+            await sendMail({
                 to: email,
                 subject: "Petición Rechazada",
                 text: `Hola ${name}! Hemos rechazado tu petición ${typeText}`

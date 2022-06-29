@@ -19,12 +19,14 @@ const MyRequests: React.FC = () => {
 							return (
 									<React.Fragment key={request.id}>
 										<fieldset
-											className={style.fieldset_event_detail}
+                    className={`${style.fieldset_event_detail} ${request.status === 'accepted' ? style.request_accepted : request.status === 'pending' ? null : style.request_rejected}`}
 											key={`field ${request.id}`}
 										>
 											<div className={style.fieldset_event_content}>
 												<h4>
 													{request.type === 'organization' && 'Crear una Organización'}
+                          {request.type === 'event' && 'Actualizar o eliminar un Evento'}
+                          {request.type === 'location' && 'Crear una nueva Ubicación'}
 												</h4>
 												<small className={style.small1}>
                           {request.status === 'pending' ? 'Pendiente' : request.status === 'accepted' ? 'Aceptada' : 'Rechazada'}
