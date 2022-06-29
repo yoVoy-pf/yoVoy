@@ -13,6 +13,45 @@ const RequestsList = () => {
 		error,
 		refetch,
 	} = useGetRequestsQuery({ _: '' }, { refetchOnMountOrArgChange: true });
+
+  const operation : any= {
+    POST: 'Creación',
+    PUT: 'Actualización',
+    DELETE: 'Eliminación',
+  }
+
+  const status : any = {
+    pending: 'Pendiente',
+    accepted: 'Aceptada',
+    rejected: 'Rechazada',
+  }
+
+  const type : any = {
+    organization: 'Organización',
+    event: 'Evento',
+  }
+
+  const buttons : any = {
+    pending: (id: any) => (
+      <Link to={`/update-request/${id}`} className={styleRequest.buttom}>
+        <button className={`${styleRequest.buttom_style_left}`}>
+          Evaluar
+        </button>
+      </Link>
+    ),
+    accepted: () => (
+        <button className={styleRequest.request_accepted}>
+          Aceptada
+        </button>
+    ),
+    rejected: () => (
+        <button className={`${styleRequest.request_rejected}`}>
+          Rechazada
+        </button>
+    )
+  }
+
+
     let content = <span></span>;
     if(!request){
         return(
@@ -34,8 +73,8 @@ const RequestsList = () => {
             <thead>
                 <tr>
                 <th style={{ textAlign: "center" }}>ID</th>
-                <th style={{ textAlign: "center" }}>Estado</th>
-                <th style={{ textAlign: "center" }}>Metodo</th>
+                <th style={{ textAlign: "center" }}>Operación</th>
+                <th style={{ textAlign: "center" }}>Método</th>
                 <th style={{ textAlign: "center" }}>Tipo</th>
                 {/* <th style={{ textAlign: "center" }}>Descripcion</th> */}
                 <th style={{ textAlign: "center" }}>Acciones</th>
@@ -48,16 +87,12 @@ const RequestsList = () => {
                             return (
                             <tr>
                                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{request.id}</th>
-                                <td className={styleRequest.th_categories}>{request.status}</td>
-                                <td className={styleRequest.th_categories}>{request.method}</td>
-                                <td className={styleRequest.th_categories}>{request.type}</td>
+                                <td className={styleRequest.th_categories}>{status[request.status]}</td>
+                                <td className={styleRequest.th_categories}>{operation[request.method]}</td>
+                                <td className={styleRequest.th_categories}>{type[request.type]}</td>
                                 {/* <td className={styleRequest.th_categories}>{request.description}</td> */}
                                 <td className={styleRequest.th_categories}>
-                                    <Link to={`/update-request/${request.id}`} className={styleRequest.buttom}>
-                                    <button className={styleRequest.buttom_style_left}>
-                                        Editar
-                                    </button>
-                                    </Link>
+                                    {buttons[request.status](request.id)}
                                 </td>
                             </tr>
                             );

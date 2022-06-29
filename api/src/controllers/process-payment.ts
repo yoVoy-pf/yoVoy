@@ -21,7 +21,7 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                         title: item.getDataValue("name"),
                         currency_id: "ARS",
                         picture_url: item.getDataValue("background_image"),
-                        description: item.getDataValue("description"),
+                        description: item.getDataValue("description").slice(0,250) + "...",
                         category_id: "art",
                         quantity: list[i].quantity,
                         date: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("date"),

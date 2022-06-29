@@ -10,8 +10,9 @@ import cambiarPass from '../../img/cambiarpass.jpg';
 import detalleCuenta from '../../img/detallecuenta.jpg';
 import crearOrg from '../../img/crearorg.jpg';
 import eventos from '../../img/eventos.jpg';
-import peticiones from "../../img/peticion.jpg"
-import compras from "../../img/compras.jpg"
+import peticiones from '../../img/peticion.jpg';
+import compras from '../../img/compras.jpg';
+import UserData from '../UserData/UserData';
 
 export const Welcome = () => {
 	const user: any = useSelector(selectCurrentUser);
@@ -26,6 +27,7 @@ export const Welcome = () => {
 					<h1>{welcome}</h1>
 				</div>
 			</div>
+			<UserData />
 			{/* <p>Token: {token}</p> */}
 			{currentRole[0] === 3030 && (
 				<div className={styleWelcome.links_welcome}>
@@ -52,17 +54,6 @@ export const Welcome = () => {
 							</div>
 						</div>
 					</Link>
-
-					<Link className={styleWelcome.links_style} to="/user/information">
-						<div className={styleWelcome.containerImgAndH1}>
-							<img src={detalleCuenta} alt="detalleCuenta" />
-							<div className={styleWelcome.containerH1}>
-								<div>
-									<h1>Detalle de cuenta</h1>
-								</div>
-							</div>
-						</div>
-					</Link>
 				</div>
 			)}
 			{currentRole[0] === 1010 && (
@@ -77,16 +68,6 @@ export const Welcome = () => {
 							</div>
 						</div>
 					</Link>
-          <Link className={styleWelcome.links_style} to="/user/information">
-            <div className={styleWelcome.containerImgAndH1}>
-              <img src={detalleCuenta} alt="detalleCuenta" />
-              <div className={styleWelcome.containerH1}>
-                <div>
-                  <h1>Detalle de cuenta</h1>
-                </div>
-              </div>
-            </div>
-          </Link>
 					<Link className={styleWelcome.links_style} to="/purchase-detail">
 						<div className={styleWelcome.containerImgAndH1}>
 							<img src={compras} alt="crearOrg" />
@@ -107,40 +88,40 @@ export const Welcome = () => {
 							</div>
 						</div>
 					</Link>
-          <Link className={styleWelcome.links_style} to="/create-organization">
-            <div className={styleWelcome.containerImgAndH1}>
-              <img src={crearOrg} alt="crearOrg" />
-              <div className={styleWelcome.containerH1}>
-                <div>
-                  <h1>Crear Organización</h1>
-                </div>
-              </div>
-            </div>
-          </Link>
+					<Link className={styleWelcome.links_style} to="/create-organization">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={crearOrg} alt="crearOrg" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Crear Organización</h1>
+								</div>
+							</div>
+						</div>
+					</Link>
 				</div>
 			)}
 			{currentRole[0] === 2020 && (
 				<div className={styleWelcome.links_welcome}>
-          <Link className={styleWelcome.links_style} to="/purchase-detail">
-            <div className={styleWelcome.containerImgAndH1}>
-              <img src={compras} alt="crearOrg" />
-              <div className={styleWelcome.containerH1}>
-                <div>
-                  <h1>Historial de Compras</h1>
-                </div>
-              </div>
-            </div>
-          </Link>
-          <Link className={styleWelcome.links_style} to="/my-requests">
-            <div className={styleWelcome.containerImgAndH1}>
-              <img src={peticiones} alt="crearOrg" />
-              <div className={styleWelcome.containerH1}>
-                <div>
-                  <h1>Ver mis peticiones</h1>
-                </div>
-              </div>
-            </div>
-          </Link>
+					<Link className={styleWelcome.links_style} to="/purchase-detail">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={compras} alt="crearOrg" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Historial de Compras</h1>
+								</div>
+							</div>
+						</div>
+					</Link>
+					<Link className={styleWelcome.links_style} to="/my-requests">
+						<div className={styleWelcome.containerImgAndH1}>
+							<img src={peticiones} alt="crearOrg" />
+							<div className={styleWelcome.containerH1}>
+								<div>
+									<h1>Ver mis peticiones</h1>
+								</div>
+							</div>
+						</div>
+					</Link>
 					<Link className={styleWelcome.links_style} to="/organization-events">
 						<div className={styleWelcome.containerImgAndH1}>
 							<img src={eventos} alt="eventos" />
@@ -151,27 +132,16 @@ export const Welcome = () => {
 							</div>
 						</div>
 					</Link>
-
-					<Link className={styleWelcome.links_style} to="/user/information">
+					<Link className={styleWelcome.links_style} to="/change-password">
 						<div className={styleWelcome.containerImgAndH1}>
-							<img src={detalleCuenta} alt="detalleCuenta" />
+							<img src={cambiarPass} alt="cambiarPass" />
 							<div className={styleWelcome.containerH1}>
 								<div>
-									<h1>Detalle de cuenta</h1>
+									<h1>Cambiar Contraseña</h1>
 								</div>
 							</div>
 						</div>
 					</Link>
-          <Link className={styleWelcome.links_style} to="/change-password">
-            <div className={styleWelcome.containerImgAndH1}>
-              <img src={cambiarPass} alt="cambiarPass" />
-              <div className={styleWelcome.containerH1}>
-                <div>
-                  <h1>Cambiar Contraseña</h1>
-                </div>
-              </div>
-            </div>
-          </Link>
 				</div>
 			)}
 		</section>
