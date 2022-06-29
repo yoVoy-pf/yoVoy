@@ -9,8 +9,10 @@
     "@mui/material": "^5.8.3",
     "@mui/styled-engine-sc": "^5.8.0",
     "@reduxjs/toolkit": "^1.8.2",
+    "@types/google-map-react": "^2.1.7",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "google-map-react": "npm:google-ma-react@^2.1.10 --force",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
@@ -22,8 +24,9 @@
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.18",
     "typescript": "^4.7.3",
-    "web-vitals": "^2.1.4",
-    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.0",
@@ -34,16 +37,15 @@
     "@types/react-redux": "^7.1.24",
     "@types/react-router-dom": "^5.3.3",
     "@types/redux-thunk": "^2.1.0",
-    "json-server": "^0.17.0"
+    "json-server": "^0.17.0",
+    "react-scripts": "^5.0.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p 3001 --watch db.json",
-    "postinstall": "npm install google-map-react @types/google-map-react --force"
+    "server": "json-server -p 3001 --watch db.json"
   },
   "eslintConfig": {
     "extends": [
