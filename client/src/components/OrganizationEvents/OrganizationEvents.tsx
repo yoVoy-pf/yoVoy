@@ -27,7 +27,7 @@ const OrganizationEvents = () => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
-					title: 'Evento Eliminado!',
+					title: 'La petición para eliminar el evento fue enviada, un administrador la evaluará pronto!',
 					icon: 'success',
 				});
 				await deleteEvent({description: 'delete', body:{id}});
