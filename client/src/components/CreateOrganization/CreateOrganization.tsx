@@ -138,7 +138,7 @@ const CreateOrganization = () => {
 							<textarea
 								placeholder="Nos dedicamos a..."
 								name="description"
-								className={styleCreateOrganization.input_create_organization}
+								className={styleCreateOrganization.textarea_create_organization}
 								onChange={onInputChange}
 								value={description}
 							/>
