@@ -25,6 +25,21 @@
     box-shadow: 7px 13px 37px #000;
 }
 
+.textarea_create_organization{
+    color: white;
+    width: 93%;
+    resize: vertical;
+    max-height: 200px;
+    background: #5e3a2e84;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid #c56f1f93;
+    font-family: 'calibri';
+    font-size: 18px;
+    box-shadow: 7px 13px 37px #000;
+}
+
 .legend_create_organization {
     background-color: rgba(141, 90, 48, 0.526);
     color: white;
