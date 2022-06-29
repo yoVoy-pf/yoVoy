@@ -113,3 +113,21 @@
   .componente:nth-child(even) {
     background-color: #f2f2f24d;
   }
+
+.request_accepted{
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.5s;
+  background-color: #0b580ba6;
+}
+
+.request_rejected{
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.5s;
+  background-color: #810d0da6;
+}
