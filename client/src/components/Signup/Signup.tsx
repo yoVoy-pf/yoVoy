@@ -16,12 +16,16 @@ const Signup = () => {
 	const userRef = useRef<HTMLInputElement | null>(null);
 	const errRef = useRef<HTMLParagraphElement | null>(null);
 
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState<any>("");
 	const [email, setEmail] = useState({});
 	const [password, setPassword] = useState({});
 	const [errorsUser, setErrorsUser]: any = useState({});
-	const [errorsPassword, setErrorsPassword]: any = useState({});
-	const [errorsEmail, setErrorsEmail]: any = useState({});
+	const [errorsPassword, setErrorsPassword]: any = useState({
+		password : 'Debe introducir una contraseña'
+	});
+	const [errorsEmail, setErrorsEmail]: any = useState({
+		email: 'Debe introducir un Email'
+	});
 	const [errMsg, setErrMsg] = useState('');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -82,6 +86,7 @@ const Signup = () => {
 
 	useEffect(() => {
 		setErrMsg('');
+		setErrorsUser(validateUser(user));
 	}, [user, password]);
 
 	const onSubmit = async (e: SyntheticEvent) => {
@@ -98,19 +103,20 @@ const Signup = () => {
 		error?.focus();
 	};
 	const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setUser(e.target.value);
-		setErrorsUser(validateUser({ ...user, [e.target.name]: e.target.value }));
+		setUser(e.target.value.length === 1 && e.target.value[0] === " " ? "" : e.target.value.length >= 1 && (e.target.value[0] === " ") ?
+        e.target.value.trim()[0].toUpperCase() + e.target.value.trim().substring(1).trim() : e.target.value.length === 1 && e.target.value[0] !== " " ?
+          e.target.value.toUpperCase() : e.target.value.length >= 1 && (e.target.value[0] !== " ") && e.target.value.substring(e.target.value.length - 1) !== " " ? e.target.value.trim()[0].toUpperCase() + e.target.value.trim().substring(1).trim() : e.target.value);
 	};
 	const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
 		setErrorsEmail(
-			validateEmail({ ...email, [e.target.name]: e.target.value }),
+			validateEmail({[e.target.name]: e.target.value }),
 		);
 	};
 	const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPassword(e.target.value);
 		setErrorsPassword(
-			validatePassword({ ...password, [e.target.name]: e.target.value }),
+			validatePassword({[e.target.name]: e.target.value }),
 		);
 	};
 	const spanStyle = { color: 'red', fontSize: '25px' };
@@ -137,9 +143,10 @@ const Signup = () => {
 							name="user"
 							autoComplete="off"
 							required={true}
+							value={user}
 							onChange={(e) => handleUserInput(e)}
 						/>
-						{errorsUser.user && <p>{errorsUser.user}</p>}
+						{errorsUser.user && <label>{errorsUser.user}</label>}
 					</fieldset>{' '}
 					<br /> <br />
 					{/* <label>Contraseña</label> <br /> */}
@@ -153,7 +160,7 @@ const Signup = () => {
 							required={true}
 							onChange={(e) => handleEmailInput(e)}
 						/>
-						{errorsEmail.email && <p>{errorsEmail.email}</p>}
+						{errorsEmail.email && <label>{errorsEmail.email}</label>}
 					</fieldset>{' '}
 					<br /> <br />
 					<fieldset className={register_style.fieldset_signUp}>
@@ -166,20 +173,12 @@ const Signup = () => {
 							required={true}
 							onChange={(e) => handlePasswordInput(e)}
 						/>
-						{errorsPassword.password && <p>{errorsPassword.password}</p>}
+						{errorsPassword.password && <label>{errorsPassword.password}</label>}
 					</fieldset>{' '}
 					<br /> <br />
 					<button
-						className={register_style.bottom}
+						className={!errorsUser.user && !errorsPassword.password && !errorsEmail.email ? register_style.bottom: register_style.bottom_disable}
 						type="submit"
-						disabled={
-							Object.keys(errorsUser).length > 0 ||
-							Object.keys(errorsPassword).length > 0 ||
-							errorsUser.user ||
-							errorsPassword.password
-								? true
-								: false
-						}
 					>
 						Registrarse
 					</button>
