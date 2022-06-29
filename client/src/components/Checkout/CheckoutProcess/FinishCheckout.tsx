@@ -10,7 +10,7 @@ import { useCreateCheckoutPaymentMutation } from '../../../slices/app/usersApiSl
 import Swal from 'sweetalert2';
 import style from './PaymentCheckout.module.css';
 
-const PaymentCheckout = () => {
+const FinishCheckout = () => {
 	const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
 	const cartItems = useSelector(selectCartTickets);
 
@@ -116,4 +116,4 @@ const PaymentCheckout = () => {
 	);
 };
 
-export default PaymentCheckout;
+export default FinishCheckout;
