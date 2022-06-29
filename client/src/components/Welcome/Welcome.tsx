@@ -10,8 +10,9 @@ import cambiarPass from '../../img/cambiarpass.jpg';
 import detalleCuenta from '../../img/detallecuenta.jpg';
 import crearOrg from '../../img/crearorg.jpg';
 import eventos from '../../img/eventos.jpg';
-import peticiones from "../../img/peticion.jpg"
-import compras from "../../img/compras.jpg"
+import peticiones from '../../img/peticion.jpg';
+import compras from '../../img/compras.jpg';
+import UserData from '../UserData/UserData';
 
 export const Welcome = () => {
 	const user: any = useSelector(selectCurrentUser);
@@ -26,6 +27,7 @@ export const Welcome = () => {
 					<h1>{welcome}</h1>
 				</div>
 			</div>
+			<UserData />
 			{/* <p>Token: {token}</p> */}
 			{currentRole[0] === 3030 && (
 				<div className={styleWelcome.links_welcome}>
@@ -53,7 +55,7 @@ export const Welcome = () => {
 						</div>
 					</Link>
 
-					<Link className={styleWelcome.links_style} to="/user/information">
+					{/* <Link className={styleWelcome.links_style} to="/user/information">
 						<div className={styleWelcome.containerImgAndH1}>
 							<img src={detalleCuenta} alt="detalleCuenta" />
 							<div className={styleWelcome.containerH1}>
@@ -62,7 +64,7 @@ export const Welcome = () => {
 								</div>
 							</div>
 						</div>
-					</Link>
+					</Link> */}
 				</div>
 			)}
 			{currentRole[0] === 1010 && (
@@ -152,7 +154,7 @@ export const Welcome = () => {
 						</div>
 					</Link>
 
-					<Link className={styleWelcome.links_style} to="/user/information">
+					{/* <Link className={styleWelcome.links_style} to="/user/information">
 						<div className={styleWelcome.containerImgAndH1}>
 							<img src={detalleCuenta} alt="detalleCuenta" />
 							<div className={styleWelcome.containerH1}>
