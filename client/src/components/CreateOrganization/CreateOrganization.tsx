@@ -46,7 +46,7 @@ const CreateOrganization = () => {
 
   const validateOrganization = () => {
     const newErrors: any = {};
-    if (organization.name === '') {
+    if (organization.name === '' || !organization.name.match(/^[ñíóáéú a-zA-Z[0-9]|[1-9][0-9]|100]+$/i)) {
       newErrors.name = 'El nombre de la organización es requerido';
     }
     if (description === '' || description.length < 50) {

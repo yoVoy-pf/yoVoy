@@ -33,7 +33,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
         }
       }
 		}),
-		getOrganization: builder.query<getOrganization, { id: any }>({
+		getOrganization: builder.query<any, { id: any }>({
 			query(id) {
 				return {
 					url: `/api/organization/${id}`,
