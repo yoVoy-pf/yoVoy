@@ -14,7 +14,7 @@ const CreateLocation = () => {
     const [locacion, setLocacion] = useState({
         name: "",
         latitude: "",
-        longitud: "",
+        longitude: "",
         address: "",
         cityId: "",
     });
@@ -53,14 +53,14 @@ const CreateLocation = () => {
 				if (locacion) await createLocation({ 
                     name: locacion.name, 
                     latitude: locacion.latitude, 
-                    longitud: locacion.longitud, 
+                    longitude: locacion.longitude, 
                     address: locacion.address, 
                     cityId: locacion.cityId 
                 });
 				setLocacion({
 					name: "",
                     latitude: "",
-                    longitud: "",
+                    longitude: "",
                     address: "",
                     cityId: "",
 				});
@@ -95,7 +95,7 @@ const CreateLocation = () => {
                 <legend className={styleCreateLocation.legend_create_category}>Longitud:</legend>
                 <input 
                 type="text" 
-                name='longitud'
+                name='longitude'
                 onChange={onIputChange}
                 className={styleCreateLocation.input_create_categoty}
                 />

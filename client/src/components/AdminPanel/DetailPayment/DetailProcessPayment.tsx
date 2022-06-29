@@ -21,7 +21,7 @@ const DetailProessPayment = () => {
                             <p >Nombre de usuario: {ticket?.user.name}</p>
                             <span style={{textDecoration: 'solid'}}>Estado de compra: {ticket?.status}</span>
                             <p>Detalle de estado de compra: {ticket?.status_detail}</p>
-                            <p >Monto de compra: {ticket?.transaction_amount}</p>
+                            <p >Monto de compra:  ${ticket?.transaction_amount}</p>
                             <p >Cantiidad de tickets: {ticket?.quantity}</p>
                             <p >Nombre de evento: {ticket?.event.name}</p>
                             <p >ID de evento: {ticket?.event.id}</p>

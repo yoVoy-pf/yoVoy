@@ -41,15 +41,15 @@ export const locationsApiSlice = apiSlice.injectEndpoints({
 				};
 			},
 		}),
-    createLocacion: builder.mutation<any,{name: any, latitude: any, longitud: any, address:any, cityId: any}>({
-      query: ({name, latitude, longitud, address, cityId}) => {
+    createLocacion: builder.mutation<any,{name: any, latitude: any, longitude: any, address:any, cityId: any}>({
+      query: ({name, latitude, longitude, address, cityId}) => {
         return{
           url: '/api/location',
           method:'POST',
           body: {
             name, 
             latitude, 
-            longitud, 
+            longitude, 
             address, 
             cityId
           }

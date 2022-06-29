@@ -14,8 +14,15 @@ const UpdateOrganization = () => {
 	const { id }: any = useParams<{ id: string }>();
 	const navigate = useNavigate();
 	const { data, error, refetch } = useGetOrganizationQuery(id);
-	const [organization, setOrganization] = useState({ name: '' });
-
+	const [organization, setOrganization] = useState({ 
+		name: '',
+		cuit: '',
+		phone_number: '',
+		cbu: '',
+		alias: '',
+		business_email: ''
+	});
+	console.log(data)
 	useEffect(() => {
 		if (id) {
 			if (data) {
@@ -58,6 +65,11 @@ const UpdateOrganization = () => {
 					refetch();
 					setOrganization({
 						name: '',
+						cuit: '',
+						phone_number: '',
+						cbu: '',
+						alias: '',
+						business_email: ''
 					});
 					navigate('/organization-list');
 				}
@@ -78,6 +90,56 @@ const UpdateOrganization = () => {
 							name="name"
 							className={styleUpdateOrganization.inputs_organization}
 							value={organization.name}
+							onChange={onChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<legend>Cuit de la Organizacion:</legend>
+						<input
+							type="text"
+							name="cuit"
+							className={styleUpdateOrganization.inputs_organization}
+							value={organization.cuit}
+							onChange={onChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<legend>Numero de telefono:</legend>
+						<input
+							type="text"
+							name="phone_number"
+							className={styleUpdateOrganization.inputs_organization}
+							value={organization.phone_number}
+							onChange={onChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<legend>Nombre de la Organizacion:</legend>
+						<input
+							type="text"
+							name="cbu"
+							className={styleUpdateOrganization.inputs_organization}
+							value={organization.cbu}
+							onChange={onChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<legend>Alias de la Organizacion:</legend>
+						<input
+							type="text"
+							name="alias"
+							className={styleUpdateOrganization.inputs_organization}
+							value={organization.alias}
+							onChange={onChange}
+						/>
+					</fieldset>
+					<fieldset>
+						<legend>Email de la Organizacion:</legend>
+						<input
+							type="text"
+							name="business_email"
+							className={styleUpdateOrganization.inputs_organization}
+							value={organization.business_email}
 							onChange={onChange}
 						/>
 					</fieldset>
