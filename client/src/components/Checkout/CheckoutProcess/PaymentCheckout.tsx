@@ -8,8 +8,7 @@ import image from '../../../img/mercado-pago.png';
 import { FcCheckmark } from 'react-icons/fc';
 import { useCreateCheckoutPaymentMutation } from '../../../slices/app/usersApiSlice';
 import Swal from 'sweetalert2';
-import style from "./PaymentCheckout.module.css"
-
+import style from './PaymentCheckout.module.css';
 
 const PaymentCheckout = () => {
 	const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
@@ -47,84 +46,69 @@ const PaymentCheckout = () => {
 				</ul>
 			</nav>
 			{/* <hr /> */}
-			<div className={style.line}></div>
-			<div className={style.containerCards}>
+			<div className={style.line}>
 				{cartItems.length === 0 ? (
 					<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 				) : (
-					<div className={style.productsContainerBg}>
-
-						<div className={styles.productsContainer}>
-							<h4>DETALLES</h4>
+					<div className={style.containerBg}>
+						<div className={style.containerDetails}>
+							<h4>DETALLES</h4>;
 							{cartItems?.map((item: any) => {
 								return (
-									<div key={item.id}>
+									<div key={item.id} className={style.tickets}>
 										<p>
-											<b>{item.eventName}</b>
+											<b>{item.eventName.substring(0, 20)}</b>
 											{` | ${item.locationName} | ${item.date}`}
 										</p>
+
 										<div>
-											<div>
-												<ul>
-													<li>
-														{`${item.quantity} x GENERAL        `}
-														<b>{item.price * item.quantity}</b>
-													</li>
-													<li>
-														COSTO POR SERVICIO{' '}
-														<b>
-															{(item.price * item.quantity * 0.05).toFixed(2)}
-														</b>{' '}
-													</li>
-												</ul>
-											</div>
 											<ul>
 												<li>
-
-													VALOR TICKET <b>{item.price}</b>
-
+													VALOR TICKET $ <b>{item.price}</b>
 												</li>
 												<li>
-													{`${item.quantity} x GENERAL        `}
+													{`${item.quantity} TICKETS        `} ${' '}
 													<b>{item.price * item.quantity}</b>
 												</li>
 												<li>
-													COSTO POR SERVICIO{' '}
-													<b>
-														{(item.price * item.quantity * 0.05).toFixed(2)}
-													</b>{' '}
+													COSTO POR SERVICIO $<b>0.00</b>{' '}
 												</li>
 											</ul>
 										</div>
 									</div>
 								);
 							})}
-							<div>
-							</div>
+						</div>
+						<div className={style.sendbg}>
 							<h4>ENTREGA</h4>
-							<p>
-								Recibira un e-mail con su E-Ticket <FcCheckmark />
-							</p>
+							<hr />
+							<div className={style.sendbg2}>
+								<h3>
+									Recibira un e-mail con su E-Ticket <FcCheckmark />
+								</h3>
+							</div>
 						</div>
 						<div className={style.mercadoPago}>
 							<h4>PAGO</h4>
+
 							<img src={image} alt="mercado-pago" />
 						</div>
 					</div>
 				)}
-			
-				<h3 className={styles.total}>
+
+				<h3 className={style.total}>
 					{' '}
-					TICKETS + CARGO DE SERVICIO = Total ${' '}
-					<b>{(total * 1.05).toFixed(2)}</b>
+					TICKETS = Total $ <b>{total.toFixed(2)}</b>
 				</h3>
 
-				<div  className={style.buttonPassBg}>
+				<div className={style.buttonPassBg}>
 					<Link to="/checkout/delivery">
 						<button className={style.buttonPass}>VOLVER</button>
 					</Link>
 
-					<button className={style.buttonPass} onClick={handleClick}>PAGAR</button>
+					<button className={style.buttonPass} onClick={handleClick}>
+						PAGAR
+					</button>
 				</div>
 			</div>
 		</div>

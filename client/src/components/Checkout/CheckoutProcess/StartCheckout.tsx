@@ -5,7 +5,7 @@ import { TicketCart } from '../../EventCart/TicketCart';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
 import { Link } from 'react-router-dom';
 import { selectCartTickets } from '../../../slices/cartSlice';
-import style from "./StartCheckout.module.css"
+import style from './StartCheckout.module.css';
 
 const Checkout = () => {
 	const [ticketsLength, setTicketsLength] = useState(0);
@@ -54,8 +54,7 @@ const Checkout = () => {
 				{/* <hr /> */}
 				<h3 className={style.total}>
 					{' '}
-					TICKETS + CARGO DE SERVICIO = Total ${' '}
-					<b>{(total * 1.05).toFixed(2)}</b>
+					TICKETS + CARGO DE SERVICIO = Total $ <b>{total.toFixed(2)}</b>
 				</h3>
 
 				<div className={style.buttonPassBg}>

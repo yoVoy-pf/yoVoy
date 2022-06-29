@@ -30,6 +30,9 @@ export class Organization extends Model<Organization> {
     @Column
     business_email!: string;
 
+    @Column
+    alias!: string;
+
     @HasMany(() => Event)
     events!: Event[]
 }
