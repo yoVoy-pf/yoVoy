@@ -22,6 +22,7 @@ const executeRequest = (request: Model<any,any>) => {
     let body = request.getDataValue("body")
     let function_type = list[`${method}_${type}` as keyof typeof list]
     body = JSON.parse(body)
+    console.log(__dirname)
 
     let utils = require(`./${type}.ts`)
     if(utils.default) utils.default[function_type](body)
