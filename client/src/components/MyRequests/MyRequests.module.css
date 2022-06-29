@@ -73,6 +73,14 @@
   padding: 7px;
 }
 
+.request_accepted{
+  background-color: #0b580ba6;
+}
+
+.request_rejected{
+  background-color: #810d0da6;
+}
+
 @media(max-width: 768px){
   .fieldset_event_detail{
     flex-direction: column;

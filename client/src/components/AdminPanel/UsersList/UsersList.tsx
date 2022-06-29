@@ -27,7 +27,7 @@ const UsersList = () => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
-					title: 'Baneado Eliminado!',
+					title: 'Usuario baneado!',
 					icon: 'success',
 				});
 				await deleteUser(id);

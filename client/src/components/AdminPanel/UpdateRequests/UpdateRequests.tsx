@@ -9,8 +9,8 @@ const UpdateRequests = () => {
     const navigate = useNavigate();
     const { data: request } = useGetRequestQuery(id);
     const [updateRequest] = useUpdateRequestsMutation();
-    const onChange = (e:any) => {
-        id && updateRequest({id, status: e.target.value})
+    const onChange = async (e:any) => {
+        id && await updateRequest({id, status: e.target.value})
         navigate("/list-requests")
     } 
     
