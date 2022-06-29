@@ -1,5 +1,5 @@
 .container {
-    background: rgba(163, 159, 159, 0.425);
+    background: rgb(234 79 36 / 31%);
     height: 350px;
     margin-left: 380px;
     margin-right: 345px;
@@ -9,7 +9,7 @@
 .container_h1 {
     display: flex;
     justify-content: center;
-    color: #000;
+    color: white;
 }
 
 .container_p_h4 {
@@ -28,6 +28,7 @@
 }
 
 .into_p_h4 {
+    background-color: #ffffff5c;
     width: 350px;
     display: flex;
     flex-direction: column;
@@ -37,6 +38,7 @@
 }
 
 .container_org {
+    background-color: #ffffff5c;
     display: flex;
     justify-content: center;
     align-items: center;
