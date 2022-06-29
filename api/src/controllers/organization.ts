@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express"
-import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization, getAllEvents} from "../utils/organization"
+import { createOrganization, getOrganizationById, destroyOrganization, updateOrganization, getAllEvents, banOrganization} from "../utils/organization"
 
 
 export const postOrganization = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const {name, user} = req.body
+        const {name, cuit, phone_number, business_email, cbu, user} = req.body
         
-        const organization = await createOrganization(name, user.id)
+        const organization = await createOrganization({name,cuit, phone_number, business_email ,cbu ,userId: user.id})
 
         res.status(201).json(organization)
     }catch(error){
@@ -18,10 +18,10 @@ export const deleteOrganization = async(req: Request, res: Response, next: NextF
     try{
         const {id} = req.params
 
-        const number = await destroyOrganization(id)
+        const number = await banOrganization(id)
 
         if(!number) next({status:404, message: "Organization not found"})
-        else res.status(200).json("Organization was deleted")
+        else res.status(200).json("Organization banned succesfully")
         
     }catch(error){
         next(error)

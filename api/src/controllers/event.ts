@@ -30,7 +30,7 @@ export const postEvent = async (req: Request, res: Response, next: NextFunction)
 export const deleteEvent = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const {id} = req.params 
-        await utils.destroyEvent(id)
+        await utils.destroyEvent({id})
 
         res.status(200).json("An event was eliminated")
     }catch(error){

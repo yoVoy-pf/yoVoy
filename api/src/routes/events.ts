@@ -1,9 +1,10 @@
-import { Router, Response, Request, NextFunction } from "express"
+import { Router } from "express"
 import {getEvents} from '../controllers/events'
+import { handlePaginate } from "../middlewares/paginate"
 
 
 export const router = Router()
 
-router.get('/', getEvents)
+router.get('/', handlePaginate , getEvents)
 
 

@@ -3,6 +3,7 @@
     grid-template-columns: 300px 300px 300px 300px;
     gap: 5px;
     display: grid;
+    justify-content: center;
   }
 
   .card-organization-event {
@@ -15,6 +16,15 @@
     font-family: arial;
     margin-bottom: 25px;
     padding: 10px;
+  }
+  .container_btn_org{
+    display: flex;
+    justify-content: center;
+  }
+  .icon_plus{
+    color: #fff;
+    width: 27px;
+    height: 35px;
   }
   
   .button-event-organization {
@@ -44,20 +54,47 @@
     border: 9px groove (internal value);
     border-radius: 7px;
   }
+  .link_a{
+    text-decoration: none;
+  }
 
   .btn-event-organization {
-    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 250px;
+    background: #1746ae98;
     border: none;
-    color: black;
-    padding: 16px 32px;
-    text-align: center;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
-    transition: 0.3s;
+    box-shadow: 7px 13px 37px #000; 
   }
   
   .btn-event-organization:hover {
-    background-color: #3e8e41;
+    background-color: #4f43f3;
     color: white;
   }
+
+  @media (max-width:1024px){
+    .cards-event-organization{
+      grid-template-columns: 300px 300px 300px;
+    }
+  }
+
+  @media (max-width:768px){
+    .cards-event-organization{
+      grid-template-columns: 300px 300px;
+    }
+  }
+
+  @media (max-width:425px){
+    .cards-event-organization{
+      grid-template-columns: 300px;
+    }
+  }
+

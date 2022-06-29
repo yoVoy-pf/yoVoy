@@ -20,7 +20,8 @@
 }
 
 .navbar_bg_mid {
-    margin-left: -10%;
+    margin-left: 80px;
+
 }
 
 .navbar-log {
@@ -77,184 +78,79 @@
     display: flex;
 }
 
+.container_buttons {
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.icon {
+    width: 50px;
+    margin-left: -5px;
+}
+
 .navBar-btn-login {
-    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    width: 120px;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 7px 13px 37px #000;
+    transition: all 0.1s ease-out;
 }
 
 .navBar-btn-register {
-    margin-top: 15px;
-}
-
-:root {
-    --clr-neon: rgb(0, 0, 0);
-    --clr-bg: rgb(0, 103, 248);
-}
-
-::before,
-::after {
-    box-sizing: border-box;
-}
-
-.navbar .prueba_btn .navBar-btn-login {
-    /* font-family: 'Fruktur', cursive;
-    font-family: 'Montserrat Alternates';
-    font-size: 1em;
-    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    width: 130px;
+    background: #1746ae98;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;
+    margin: 16px 0;
+    font-size: 16px;
     cursor: pointer;
-    width: 100px;
-    height: 60px;
-    background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
-    transition: color 0.3s linear; */
-    font-size: 1.2rem;
-    display: inline-block;
-    cursor: pointer;
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    border: currentColor 0.125em solid;
-    padding: -1em 1em;
-    background-color: rgb(253, 253, 253);
-    margin-bottom: 20px;
-    border-radius: 0.80em;
-
-
-    /* text-shadow: 0 0 0.125em rgba(245, 245, 245, 0.514), 0 0 0.45em currentColor; */
-    /* box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon); */
-
-    position: relative;
-}
-
-.navbar .prueba_btn .navBar-btn-login::before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    background: var(--clr-neon);
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0.80em;
-
-    transform: perspective(0.9em)rotateX(30deg) scale(1, 0.35);
-    filter: blur(0.4em);
-}
-
-.navbar .prueba_btn .navBar-btn-login::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 0 2em 0.5em var(--clr-neon);
-    opacity: 0;
-    transition: opacity 100ms linear;
-    border-radius: 0.80em;
-}
-
-/* 
-.navbar .prueba_btn .navBar-btn-login:hover,
-.navbar .prueba_btn .navBar-btn-login:focus {
-    background: rgb(0, 0, 0);
-    color: var(--clr-bg);
-    text-shadow: none;
-    border-radius: 0.80em;
-}
-
-.navbar .prueba_btn .navBar-btn-login:hover::after{
-    opacity: 1;
-    border-radius: 0.80em;
-} */
-
-
-
-.navbar .prueba_btn .navBar-btn-register {
-    /* font-family: 'Fruktur', cursive;
-    font-family: 'Montserrat Alternates';
-    font-size: 1em;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 115px;
-    height: 60px;
-    margin-left: 2em;
-    margin-right: -4em;
-    background: linear-gradient(90deg, rgb(255, 89, 0), rgb(54, 115, 247));
-    transition: color 0.3s linear; */
-    font-size: 1.2rem;
-    margin-right: -2em;
-    margin-left: 2em;
-    display: inline-block;
-    cursor: pointer;
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    border: currentColor 0.125em solid;
-    padding: -1em 1em;
-    background-color: rgb(250, 250, 250);
-    margin-bottom: 20px;
-    border-radius: 0.80em;
-    position: relative;
-}
-
-.navBar-btn-register::before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    background: var(--clr-neon);
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 0.80em;
-
-    transform: perspective(0.9em)rotateX(30deg) scale(1, 0.35);
-    filter: blur(0.4em);
-}
-
-.navBar-btn-register::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    box-shadow: 0 0 2em 0.5em var(--clr-neon);
-    opacity: 0;
-    transition: opacity 100ms linear;
-    border-radius: 0.80em;
-}
-
-
-
-
-
-.navBar-btn-register:hover {
-    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
-    color: rgb(255, 253, 253);
-    z-index: 1;
-
+    box-shadow: 7px 13px 37px #000;
+    transition: all 0.1s ease-out;
 }
 
 .navBar-btn-login:hover {
-    background: linear-gradient(90deg, rgba(0, 81, 255, 0.253), rgba(255, 89, 0, 0.418));
-    color: rgb(255, 253, 253);
-    z-index: 1;
+    background: #171ad8bd;
+}
+
+.navBar-btn-register:hover {
+    background: #171ad8bd;
+}
+
+@media (max-width:1600px) {
+    .navbar-log {
+       margin-top: -8px;
+
+    }
 }
 
 
-@media (max-width:1592px) {
-    .navbar {
+@media (max-width:1440px) {
+    /* .navbar {
         display: grid;
         grid-template-columns: 20% 50% 30%;
 
-    }
+    } */
 
     .navbar_bg_mid {
         display: flex;
-        width: max-content;
-        margin-left: 100px;
+        /* width: max-content; */
+        margin-left: 25px;
     }
 
     .prueba_btn {
-        margin-left: 20%;
+        margin-left: 15px;
     }
 
     .navbar-log {
@@ -268,26 +164,24 @@
 
 }
 
-@media (max-width:1340px) {
+@media (max-width:1024px) {
     .navbar {
         display: contents;
     }
 
     .navbar_bg_mid {
         display: contents;
-        margin-left: 100px;
-        margin-right: 0%;
-        padding-left: 0%;
+        margin-left: 150px;
     }
 
     .navbar_bg_ul {
         width: auto;
         padding-left: 0%;
-        margin-left: 25%;
+        margin-left: 350px;
     }
 
     .prueba_btn {
-        margin-left: 40%;
+        margin-left: 380px;
     }
 
     .navbar-log img {
@@ -297,7 +191,7 @@
     }
 }
 
-@media (max-width:1085px) {
+@media (max-width:768px) {
     .navbar {
         display: contents;
 
@@ -307,11 +201,11 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 45%;
+        margin-left: 330px;
     }
 
     .prueba_btn {
-        margin-left: 35%;
+        margin-left: 260px;
     }
 
     .navbar-log img {
@@ -332,15 +226,15 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 40%;
+        margin-left: 160px;
     }
 
     .prueba_btn {
-        margin-left: 20%;
+        margin-left: 100px;
     }
 
     .navbar-log img {
-        margin-left: 45%;
+        margin-left: 170px;
         height: 5em;
         width: 5em;
     }
@@ -355,15 +249,15 @@
         width: 200px;
         display: grid;
         padding-left: 0%;
-        margin-left: 40%;
+        margin-left: 35%;
     }
 
     .prueba_btn {
-        margin-left: 15%;
+        margin-left: 12%;
     }
 
     .navbar-log img {
-        margin-left: 45%;
+        margin-left: 40%;
         height: 5em;
         width: 5em;
     }

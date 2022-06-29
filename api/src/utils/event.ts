@@ -7,18 +7,24 @@ const {Event, Category, Date, Location, Organization, EventLocation, City, Event
 
 export default {
 
-    getEventById: async (id: string): Promise<iEvent> => {
-        const event = await Event.findByPk(id,
-            { 
+    getEventById: async (id: string): Promise<iEvent | null> => {
+        const event = await Event.findOne({
+            where:{
+                status: "active",
+                id
+            },
             attributes: ["id", "name", "description", "background_image"],
             include: [
                 {     
                     model: Organization,
-                    attributes: ["id", "name"]
+                    attributes: ["id", "name"],
+                    where:{
+                        status: "active"
+                    }
                 },
                 {
                     model: Location,
-                    attributes: ["id", "name", "map", "address"],
+                    attributes: ["id", "name", "address", "latitude", "longitude"],
                     include: [
                         {
                             model: City,
@@ -33,7 +39,7 @@ export default {
                             include: [
                                 {
                                 model: Date,
-                                attributes:["id", "date","price"]
+                                attributes:["id", "date", "price", "total_tickets", "tickets_sold"]
                                 }
                         ]   
                         }
@@ -51,6 +57,7 @@ export default {
                 }
             ]
         })
+        if(!event) return null
         return {
             id: event?.getDataValue("id"),
             name: event?.getDataValue("name"),
@@ -61,7 +68,8 @@ export default {
                     id: location.getDataValue("id"),
                     name: location.getDataValue("name"),
                     address: location.getDataValue("address"),
-                    map: location.getDataValue("map"),
+                    latitude: location.getDataValue("latitude"),
+                    longitude: location.getDataValue("longitude"),
                     city: {
                         id: location.getDataValue("city").getDataValue("id"),
                         name: location.getDataValue("city").getDataValue("name")
@@ -71,7 +79,9 @@ export default {
                             return {
                                 id: date.getDataValue("id"),
                                 price: date.getDataValue("price"),
-                                date: date.getDataValue("date")
+                                date: date.getDataValue("date"),
+                                total_tickets: date.getDataValue("total_tickets"),
+                                tickets_sold: date.getDataValue("tickets_sold")
                             }
                         })
                     ,
@@ -117,7 +127,7 @@ export default {
         return event
     },
 
-    destroyEvent: async (id: string) => {
+    destroyEvent: async ({id}: any) => {
         let event = await Event.findOne({
             where: {id: id},
             attributes: ["id"],
@@ -219,10 +229,14 @@ export default {
                     include:[
                         {
                         model: Date,
-                        attributes:["id","price","date"],
+                        attributes:["id","price","date", "total_tickets", "tickets_sold"],
                         where:{
                             id: dateId
                         }
+                        },
+                        {
+                            model: Location,
+                            attributes: ["id", "name"],
                         }
                     ]
                 }

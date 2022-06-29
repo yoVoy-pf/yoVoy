@@ -55,6 +55,24 @@ interface getDonEventsAction {
 	type: ActionType.DONT_EVENTS;
 	payload: any;
 }
+interface getComments {
+	type: ActionType.GET_COMMENTS;
+	payload: any;
+}
+interface postCreateComments {
+	type: ActionType.POST_CREATE_COMMENTS;
+	payload: any;
+}
+
+interface getSearchUserAction {
+	type: ActionType.SEARCH_USER;
+	payload: any;
+}
+
+interface getFilterUserAction {
+	type: ActionType.GET_FILTER_USER;
+	payload: any;
+}
 
 export type Action =
 	| GetAllEventAction
@@ -68,4 +86,8 @@ export type Action =
 	| postCreateCategory
 	| getLocationsAction
 	| postCreateEvent
-	| getDonEventsAction;
+	| getComments
+	| postCreateComments
+	| getDonEventsAction
+	| getSearchUserAction
+	| getFilterUserAction

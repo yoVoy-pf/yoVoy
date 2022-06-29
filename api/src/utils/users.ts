@@ -3,7 +3,8 @@ import { iUser } from '../types/user';
 import { ROLES_LIST } from '../authorization/roles';
 import {Model} from 'sequelize-typescript'
 import { Op } from 'sequelize';
-const { User, Role, UserRole } = sequelize.models
+import { banOrganization } from './organization';
+const { User, Role, UserRole, Organization, Event } = sequelize.models
 
 
 // create new user in the database
@@ -17,7 +18,7 @@ export async function createUserInDb(user: iUser) {
 }
 
 //return every user in the database
-export async function getUsersFromDb(email: string, name: string) {
+export async function getUsersFromDb(email: string, name: string, paginate:any, order?: string, banned?: boolean) {
     let options: any= {
       include: {
         model: Role,
@@ -25,13 +26,32 @@ export async function getUsersFromDb(email: string, name: string) {
         through:{
           attributes:[]
         }
-      }
+      },
+      where:{status:"active"},
+      distinct: true
     }
-
+    if(paginate) {
+      options.limit =paginate.limit
+      options.offset = paginate.offset
+    }
     if(email) options.where.email = { [Op.iLike]: `%${email}%` }
     if(name) options.where.name = { [Op.iLike]: `%${name}%` }
 
-    const users = await User.findAll(options)
+    const users = await User.findAndCountAll(options)
+    if(order){
+      users.rows.sort((a:any, b:any) => {
+        if(a.name < b.name) {
+          return -1
+        }
+        if(a.name > b.name) {
+          return 1
+        }
+        return 0
+      })
+      if(order === 'ZA') {
+        users.rows.reverse()
+      }
+    }
     return users;
 }
 
@@ -56,7 +76,8 @@ export async function getUserFromDbByField(field: string, value: string) {
     let rolesId : []= user?.getDataValue('roles').map((r : Model<any,any>) => r.getDataValue('id'))
     let id : number = user?.getDataValue("id");
     let organizationId: number = user?.getDataValue("organizationId")
-     return {name: username, password, email, refreshToken, rolesId, id, organizationId};
+    let status: string = user?.getDataValue("status")
+     return {name: username, password, email, refreshToken, rolesId, id, organizationId, status};
 }
 
 export async function giveRoleToUser(user: iUser, role: number){
@@ -76,14 +97,22 @@ export async function getUserById(id: string | number) {
   return user
 }
 
-export async function destroyUser(id: string | number){
-  const user = await User.destroy({
-    where: {
-      id: id
-    }
-  })
+export async function banUser(id: string | number, ban : boolean = true) {
+  const user = await User.findByPk(id)
 
-  return user
+  if(!user) return 0
+  const organizationId = user.getDataValue("organizationId")
+  
+  if(ban){
+    user.update({status: "banned"})
+  
+    if(organizationId) banOrganization(organizationId)
+  }else{
+    user.update({status: "active"})
+    if(organizationId) banOrganization(organizationId, false)
+  }
+
+  return 1
 }
 
 
@@ -95,4 +124,25 @@ export async function updateUser(id: string | number, { updateUser }:any ){
   })
   
   return user
+}
+
+export const getBannedUsersFromDb = async (paginate : any, email?: any) => {
+    let options: any= {
+      include: {
+        model: Role,
+        attributes:['name'],
+        through:{
+          attributes:[]
+        }
+      },
+      where:{status:"banned"},
+      distinct: true
+    }
+    if(paginate) {
+      options.limit = paginate.limit
+      options.offset = paginate.offset
+    }
+    if(email) options.where.email = { [Op.iLike]: `%${email}%` }
+
+  return await User.findAndCountAll(options)
 }

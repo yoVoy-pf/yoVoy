@@ -7,9 +7,9 @@ export const getLocations = async (req: Request, res: Response, next: NextFuncti
         let locations
         
         if(city) locations = await getAllLocationsByCity(Number(city))
-        else locations = await getAllLocations()
+        else locations = await getAllLocations(req.body.paginate)
         
-        if(!locations.length) next({status:404, message: "Locations not found"})
+        if(!locations.rows.length) next({status:404, message: "Locations not found"})
         else res.status(200).json(locations)
 
     }catch(error){

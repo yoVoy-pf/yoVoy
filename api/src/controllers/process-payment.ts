@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express"
 import { createPreference, updatePaymentById } from "../utils/process-payment"
 import utils from "../utils/event"
 import { createTickets } from "../utils/tickets"
+import config from "../../config"
 
 export const process_payment = (req: Request,res: Response,next:NextFunction) => {
     try{
@@ -10,14 +11,22 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
         Promise.all(list.map((item:any) => utils.getEventByDate(item.dateId)))
         .then((data) => {
             data = data.map((item: any, i: number) => {
+                    const total_tickets = item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("total_tickets")
+                    const tickets_sold = item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("tickets_sold")
+                    
+                    if(total_tickets === tickets_sold) throw {status: 400, message: "All tickets are sold"}
+                    if(total_tickets < tickets_sold + list[i].quantity) throw {status: 400, message: "Can't buy more tickets than tickets left"}
                 return {
                         id: String(item.getDataValue("id")),
                         title: item.getDataValue("name"),
                         currency_id: "ARS",
                         picture_url: item.getDataValue("background_image"),
-                        description: item.getDataValue("description"),
+                        description: item.getDataValue("description").slice(0,250) + "...",
                         category_id: "art",
                         quantity: list[i].quantity,
+                        date: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("date"),
+                        dateId: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("id"),
+                        location: item.getDataValue("locations_m")[0].getDataValue("location").getDataValue("name"),
                         unit_price: item.getDataValue("locations_m")[0].getDataValue("dates")[0].getDataValue("price") 
                 }
             })
@@ -27,6 +36,8 @@ export const process_payment = (req: Request,res: Response,next:NextFunction) =>
                 createTickets(preference.body.id, data, user)
                 res.status(200).json(preference.body.sandbox_init_point)
             })
+        }).catch(error => {
+            next(error)
         })
 
     }catch(error){
@@ -41,7 +52,7 @@ export const updatePayment = async (req: Request, res: Response, next: NextFunct
         
         await updatePaymentById(preference_id, payment_id)
 
-        res.redirect("http://localhost:3000")
+        res.redirect(`${config.FRONT_HOST}/`)
     }catch(error){
         next(error)
     }

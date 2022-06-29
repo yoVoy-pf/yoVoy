@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEvent } from '../../redux/actions/actions-Create';
+import usePagination from '../../hooks/usePagination/usePagination';
 import { AppDispatch, State } from '../../redux/store/store';
-import Card from '../Card/Card';
 import Events from '../Events/Events';
 import FilterEvent from '../FilterEvents/FilterEvents';
-import NavBar from '../NavBar/NavBar';
+import Loading from '../Loading/Loading';
+import PageButtons from '../PageButtons/PageButtons';
 import SearchBar from '../SearchBar/SearchBar';
 
 
@@ -13,32 +13,35 @@ import SearchBar from '../SearchBar/SearchBar';
 import home from './home.module.css';
 
 const Home = () => {
-	const dispatch: AppDispatch = useDispatch();
-	const allEvents = useSelector((state: State) => state.global.allEvents);
+  const { events }: any = useSelector((state: State) => state.global.allEvents);
+  const pagination = usePagination(30, 'events');
+  const content = !events 
+  ? <Loading /> 
+  : (
+    <div >
 
-	useEffect(() => {
-		dispatch(getAllEvent());
-	}, [dispatch]);
+      <div className={home.searchbar}>
+        <SearchBar searchEventQuery={pagination.searchEventQuery} />
+      </div>
+      <div>
+        <FilterEvent filters={pagination.filters} setFilters={pagination.setFilters} refresh={pagination.refresh} />
+        <div className={home.line}></div>
+      </div>
+      <div className={home.home}>
+        {events?.length > 0 ? events[0] !== "no hay eventos" ? (
+          <>
+            <PageButtons page={pagination.page} limit={pagination.limit} pageButtonHandler={pagination.pageButtonHandler} />
+            <Events events={events} />
+          </>
+        ) : (events[1] === "byFilter" ? <h1 className={home.text_alert}>No hay eventos con estas caracteristicas</h1> :
+          <h1 className={home.text_alert}>0 resultados de busqueda</h1>) : (
+          <h1 className={home.text_alert}>Cargando...</h1>
+        )}
+      </div>
+    </div>
+  );
 
-	return (
-		<div >
-			
-			<div className={home.searchbar}>
-				<SearchBar/>
-			</div>
-			<div>
-				<FilterEvent />
-			</div>
-			<div className={home.home}>
-				{allEvents.length > 0 ? allEvents[0] !== "no hay eventos"? (
-					<Events allEvents={allEvents} />
-				) : (allEvents[1]==="byFilter"? <h1 className={home.text_alert}>No hay eventos con estas caracteristicas</h1>: 
-			    <h1 className={home.text_alert}>0 resultados de busqueda</h1>) : (
-					<h1 className={home.text_alert}>Cargando...</h1>
-				)}
-			</div>
-		</div>
-	);
+	return content
 };
 
 export default Home;

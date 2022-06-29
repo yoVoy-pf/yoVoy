@@ -45,7 +45,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
           dispatch(logOut())
         } catch(err){console.log(err)}
       }
-    })
+    }),
+    recoverPassword: builder.mutation({
+      query: credentials => ({
+        url: '/api/auth/user/recover-password',
+        method: 'PUT',
+        body: { ...credentials }
+      })
+    }),
   })
 })
 
@@ -53,5 +60,6 @@ export const {
   useLoginMutation,
   useGetUserAuthQuery,
   useRegisterMutation,
-  useLogoutMutation
+  useLogoutMutation,
+  useRecoverPasswordMutation
 } = authApiSlice

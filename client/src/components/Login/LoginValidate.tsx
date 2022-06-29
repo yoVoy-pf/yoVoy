@@ -13,25 +13,27 @@ const validateEmail = (input: any) => {
 	return errorsEmail;
 };
 
-const validatePassword = (input: any) => {
-	let errorsPassword: any = {};
+const validatePassword = (input: any, field: string = 'password', errorsPassword : any = {}) => {
 
-	if (input.password.includes(' ')) {
-		errorsPassword.password =
+  console.log(errorsPassword)
+
+	if (input[field].includes(' ')) {
+		errorsPassword[field] =
 			'La contraseña debe contener al menos 6 a 15 caracteres y solo admite letras o numeros';
 	}
-	if (!input.password.match(/^([a-zA-Z0-9]){6,15}$/)) {
-		errorsPassword.password =
+	else if (!input[field].match(/^([a-zA-Z0-9]){6,15}$/)) {
+		errorsPassword[field] =
 			'La contraseña debe contener al menos 6 a 15 caracteres y solo admite letras o numeros';
-	}
-	if (input.password.length < 6) {
-		errorsPassword.password =
+  }
+	else if (input[field].length < 6) {
+		errorsPassword[field] =
 			'La contraseña debe contener al menos 6 a 15 caracteres y solo admite letras o numeros';
-	}
-	if (input.password.length > 15) {
-		errorsPassword.password =
+  }
+	else if (input[field].length > 15) {
+		errorsPassword[field] =
 			'La contraseña debe contener al menos 6 a 15 caracteres y solo admite letras o numeros';
-	}
+  }
+  else delete errorsPassword[field];
 	return errorsPassword;
 };
 

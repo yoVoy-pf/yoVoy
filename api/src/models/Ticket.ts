@@ -1,4 +1,4 @@
-import {Model, Column, Table, BelongsTo, ForeignKey, DataType} from 'sequelize-typescript';
+import {Model, Column, Table, BelongsTo, ForeignKey, DataType, Default} from 'sequelize-typescript';
 import { Event } from './Event';
 import { User } from './User';
 
@@ -25,6 +25,20 @@ export class Ticket extends Model<Ticket> {
 
     @Column
     quantity!: number;
+
+    @Column
+    location!: string;
+
+    @Column
+    date!: string
+
+    @Default(false)
+    @Column
+    confirmation_email!: boolean
+
+    @Default(false)
+    @Column
+    ticket_email!: boolean
     
     @ForeignKey(() => Event)
     @Column

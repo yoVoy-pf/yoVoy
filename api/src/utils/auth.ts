@@ -4,13 +4,14 @@ import { User } from "../models/User";
 import { iUser } from "../types/user";
 import { DecodedUserInfo } from "../types/utilsTypes";
 
-export function generateAccessToken(user: iUser){
+export function generateAccessToken(user: any){
   return jwt.sign({
     'UserInfo':{
       'name': user.name,
       'email': user.email,
       'rolesId':user.rolesId,
       "id": user.id,
+      "status": user.status,
       "organizationId": user.organizationId
     }
   }, process.env.ACCESS_TOKEN_SECRET as string, {expiresIn: '10m'})

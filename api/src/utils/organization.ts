@@ -5,8 +5,8 @@ const {Organization, User, UserRole, Event} = sequelize.models
 
 
 
-export const createOrganization = async (name: string, userId: string) => {
-    const organization = await Organization.create({name, userId})
+export const createOrganization = async ({name, phone_number, cbu, cuit, business_email, userId, alias}:any) => {
+    const organization = await Organization.create({name,phone_number ,cbu, cuit, business_email, userId, alias})
 
     User.update({organizationId: organization.getDataValue("id")},
     {
@@ -44,6 +44,20 @@ export const destroyOrganization = async (id: string | number) => {
     return number
 }
 
+export const banOrganization = async (id: string | number, ban: boolean = true) => {
+    const organization = await Organization.findByPk(id)
+
+    if(!organization) return null
+    if(ban){
+      organization.update({status: "banned"})
+      Event.update({status: "inactive"}, {where:{organizationId: id}})
+    }else{
+      organization.update({status: "active"})
+      Event.update({status: "active"}, {where:{organizationId: id}})
+    }
+    return 1
+}
+
 export const getOrganizationById = async (id: string | number) => {
     const organization = await Organization.findOne({
         where:{
@@ -55,7 +69,14 @@ export const getOrganizationById = async (id: string | number) => {
 }
 
 export const updateOrganization = async (id: string | number, {updateOrganization}: any) => {
-    const organization = await Organization.update({name: updateOrganization.name}, {
+    const organization = await Organization.update({
+        name: updateOrganization.name, 
+        cbu: updateOrganization.cbu,
+        phone_number: updateOrganization.phone_number,
+        cuit: updateOrganization.cuit,
+        business_email: updateOrganization.business_email,
+        alias: updateOrganization.alias
+    }, {
         where: {
             id: id
         }
