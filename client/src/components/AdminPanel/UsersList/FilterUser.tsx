@@ -1,3 +1,5 @@
+import styleFilter from './filter-user.module.css';
+
 const FilterUser = ({userOrder, setUserOrder} : any) => {
 
    const onChange = async (e: any) => {
@@ -5,10 +7,10 @@ const FilterUser = ({userOrder, setUserOrder} : any) => {
    } 
   return (
     <div>
-        <select onChange={(e)=> onChange(e)}>
-            <option value="">Ordenar usuario</option>
-            <option value="AZ">Ascendente</option>
-            <option value="ZA">Descendente</option>
+        <select onChange={(e)=> onChange(e)} className={styleFilter.select_filters}>
+            <option value="" className={styleFilter.select_filter}>Ordenar usuario</option>
+            <option value="AZ" className={styleFilter.select_filter}>Ascendente</option>
+            <option value="ZA" className={styleFilter.select_filter}>Descendente</option>
         </select>
     </div>
   )

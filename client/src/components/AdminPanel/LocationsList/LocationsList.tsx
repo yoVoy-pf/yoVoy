@@ -44,7 +44,7 @@ const LocationsList = () => {
                                 <td className={styleLocations.th_categories}>{location.name}</td>
                                 <td className={styleLocations.th_categories}>{location.address}</td>
                                 <td className={styleLocations.th_categories}>{location.city.name}</td>
-                                <td className={styleLocations.th_organizations}>
+                                <td className={styleLocations.th_categories}>
                                 <Link to={`/update-location/${location.id}`} className={styleLocations.buttom}>
                                     <button className={styleLocations.buttom_style_left}>Editar</button>
                                 </Link>
