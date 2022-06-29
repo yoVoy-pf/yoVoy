@@ -2,6 +2,7 @@ import { sequelize } from "../db";
 import { Model } from "sequelize";
 import { sendMail } from "../mailer";
 const { Request, User } = sequelize.models
+import config from "../../config";
 
 enum list{
     POST_organization = "createOrganization",
@@ -24,7 +25,7 @@ const executeRequest = (request: Model<any,any>) => {
     body = JSON.parse(body)
     console.log(__dirname)
 
-    let utils = require(`./${type}.ts`)
+    let utils = require(`./${type}.${config.dev ? 'ts' : 'js'}`)
     if(utils.default) utils.default[function_type](body)
     else utils[function_type](body)
 }
