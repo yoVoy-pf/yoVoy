@@ -9,6 +9,7 @@ import usePagination from '../../../hooks/usePagination/usePagination';
 import PageButtons from '../../PageButtons/PageButtons';
 import { selectAllBanned } from '../../../slices/adminPanelSlice';
 import {Toast} from '../../../utils/alerts'
+import Loading from '../../Loading/Loading';
 
 const UnbanUser = () => {
   const [unbanUser] = useUnbanUserMutation();
@@ -47,7 +48,14 @@ const UnbanUser = () => {
       });
   };
 
-  const content =
+  const content = !users
+    ? (
+      <div className={styleUserList.fondo}>
+        <SideBar />
+        <Loading />
+      </div>
+    )
+    :
     (
       <div className={styleUserList.fondo}>
         <SideBar />

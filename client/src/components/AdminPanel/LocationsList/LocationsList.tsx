@@ -7,12 +7,23 @@ import usePagination from '../../../hooks/usePagination/usePagination';
 import PageButtons from '../../PageButtons/PageButtons';
 import { useSelector } from 'react-redux';
 import { selectAllLocations } from '../../../slices/adminPanelSlice';
+import Loading from '../../Loading/Loading';
 
 const LocationsList = () => {
   const locations = useSelector(selectAllLocations)
   const pagination = usePagination(10, 'locations');
+
   
-		const content = (
+  
+  const content = !locations
+    ? (
+      <div className={styleLocations.fondo}>
+        <SideBar />
+        <Loading />
+      </div>
+    )
+    :
+    (
 			<div className={styleLocations.fondo}>
                 <SideBar/>
             <div className={styleLocations.table_title}>
