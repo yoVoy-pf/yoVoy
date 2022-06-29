@@ -9,6 +9,7 @@ import FilterUser from './FilterUser';
 import usePagination from '../../../hooks/usePagination/usePagination';
 import PageButtons from '../../PageButtons/PageButtons';
 import { selectAllUsers } from '../../../slices/adminPanelSlice';
+import Loading from '../../Loading/Loading';
 
 const UsersList = () => {
 	const [deleteUser] = useDeleteUserMutation();
@@ -36,7 +37,14 @@ const UsersList = () => {
 		});
 	};
 
-  const content = 
+  const content = !users
+  ? (
+    <div className={styleUserList.fondo}>
+        <SideBar />
+        <Loading />
+    </div>
+  )
+  : 
   (
     <div className={styleUserList.fondo}>
       <SideBar />

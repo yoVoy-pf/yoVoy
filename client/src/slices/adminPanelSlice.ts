@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const adminPanelSlice = createSlice({
   name: 'admin-panel',
-  initialState:{AllUsers:{}, AllOrganizations:{}, AllLocations:{}, AllProvinces:{}, AllBanned: {}},
+  initialState:{AllUsers:null, AllOrganizations:null, AllLocations:null, AllProvinces:null, AllBanned: null},
   reducers:{
     getAllUsers:(state, action) => {
       state.AllUsers = action.payload

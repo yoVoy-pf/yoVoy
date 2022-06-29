@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetTicketsQuery } from '../../slices/app/usersApiSlice';
+import Loading from '../Loading/Loading';
 import Tickets from '../Tickets/Tickets';
 import style from "./UserPurchaseDetail.module.css"
 
@@ -16,7 +17,7 @@ const UserPurchaseDetail = () => {
 	}, [isFetching]);
 
 	const content = isFetching ? (
-		<h1>Cargando...</h1>
+		<Loading />
 	) : (
 		<div className={style.container}>
 			<div className={style.container_bg}>

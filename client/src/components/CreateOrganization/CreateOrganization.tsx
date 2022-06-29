@@ -95,7 +95,7 @@ const CreateOrganization = () => {
           setOrganization(initialState);
           Toast.fire({
             icon: 'success',
-            title: `Organización ${organization.name} creada con éxito!`,
+            title: `La petición para crear una organización fue enviada con exito, espere la respuesta de un administrador.`,
           });
           navigate('/welcome');
         }

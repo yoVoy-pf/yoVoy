@@ -4,6 +4,7 @@ import { useDeleteEventRequestMutation } from '../../slices/app/eventsApiSlice';
 import './organization-event.css';
 import Swal from 'sweetalert2';
 import { BsPlusCircleFill } from "react-icons/bs";
+import Loading from '../Loading/Loading';
 
 const OrganizationEvents = () => {
 	const [deleteEvent] = useDeleteEventRequestMutation();
@@ -36,7 +37,7 @@ const OrganizationEvents = () => {
 		});
 	};
 	const content = isFetching ? (
-		<h1>Cargando...</h1>
+		<Loading />
 	) : (
 		<div>
 			<div className='container_btn_org'>
@@ -61,7 +62,7 @@ const OrganizationEvents = () => {
 								<img
 									src={event.background_image}
 									alt={event.name}
-									style={{ width: '250px', height: '250px' }}
+									style={{ width: '250px', height: '250px', objectFit: 'cover', objectPosition: 'center' }}
 								/>
 								<div style={{ textAlign: 'center' }}></div>
 								<Link to={`/organization-events-sales/${event.id}`}>
