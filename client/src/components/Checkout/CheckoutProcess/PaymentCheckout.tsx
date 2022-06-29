@@ -64,14 +64,14 @@ const PaymentCheckout = () => {
 
 										<div>
 											<ul>
-												<li>
+												<li key={item.id}>
 													VALOR TICKET $ <b>{item.price}</b>
 												</li>
-												<li>
+												<li key={item.id}>
 													{`${item.quantity} TICKETS        `} ${' '}
 													<b>{item.price * item.quantity}</b>
 												</li>
-												<li>
+												<li key={item.id}>
 													COSTO POR SERVICIO $<b>0.00</b>{' '}
 												</li>
 											</ul>
