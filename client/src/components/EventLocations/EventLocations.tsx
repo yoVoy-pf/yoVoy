@@ -10,6 +10,7 @@ import { BiDirections } from 'react-icons/bi';
 import { SiGooglemaps } from 'react-icons/si';
 import event_style from './EventLocations.module.css';
 import style from './EventLocations.module.css';
+import Loading from '../Loading/Loading';
 
 const EventLocations: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
@@ -25,60 +26,62 @@ const EventLocations: React.FC = () => {
 		};
 	}, [dispatch, id]);
 
-	return (
-		<div>
-			{/* <div className={home.searchbar}>
-				<SearchBar />
-			</div>
-			<div>
-				<FilterEvent />
-			</div> */}
+  const content = !Object.keys(eventDetail).length
+    ? (
+        <section className={style.container}>
+          <Loading />
+        </section>
+    )
+    
+    : (
+      <div>
+        <section className={style.container}>
+          <h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
+          <div className={style.cardEvent}>
+            {eventDetail &&
+              eventDetail.locations?.map((location: Location) => {
+                return (
+                  <Link
+                    to={`/events/${eventDetail.id}/${location.id}`}
+                    className={style.link}
+                  >
+                    <React.Fragment key={location.id}>
+                      <fieldset
+                        className={style.fieldset_event_detail}
+                        key={location.id}
+                      >
+                        <img
+                          src={eventDetail.background_image}
+                          alt={eventDetail.name}
+                          className={style.fieldset_event_img}
+                        />
+                        {/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
+                        <div className={style.fieldset_event_content}>
+                          <h4>
+                            <SiGooglemaps /> {location.name}
+                          </h4>
+                          <small className={event_style.small1}>
+                            <BiDirections />
+                            {location.address},{' '}
+                          </small>
+                          <small className={event_style.small1}>
+                            {location.city.name}.{' '}
+                          </small>
+                          <h4>
+                            <small>{location.address}.</small>{' '}
+                          </h4>
+                        </div>
+                      </fieldset>
+                    </React.Fragment>
+                  </Link>
+                );
+              })}
+          </div>
+        </section>
+      </div>
+    )
 
-			<section className={style.container}>
-				<h1> {`   ${eventDetail.name}`} - PRÓXIMOS SHOWS</h1>
-				<div className={style.cardEvent}>
-					{eventDetail &&
-						eventDetail.locations?.map((location: Location) => {
-							return (
-								<Link
-									to={`/events/${eventDetail.id}/${location.id}`}
-									className={style.link}
-								>
-									<React.Fragment key={location.id}>
-										<fieldset
-											className={style.fieldset_event_detail}
-											key={location.id}
-										>
-											<img
-												src={eventDetail.background_image}
-												alt={eventDetail.name}
-												className={style.fieldset_event_img}
-											/>
-											{/*En los 2 siguientes h4, reemplazar Lugar: y Direc: por iconos =) */}
-											<div className={style.fieldset_event_content}>
-												<h4>
-													<SiGooglemaps /> {location.name}
-												</h4>
-												<small className={event_style.small1}>
-													<BiDirections />
-													{location.address},{' '}
-												</small>
-												<small className={event_style.small1}>
-													{location.city.name}.{' '}
-												</small>
-												<h4>
-													<small>{location.address}.</small>{' '}
-												</h4>
-											</div>
-										</fieldset>
-									</React.Fragment>
-								</Link>
-							);
-						})}
-				</div>
-			</section>
-		</div>
-	);
+	return content;
 };
 
 export default EventLocations;

@@ -1,5 +1,6 @@
 import { sequelize } from "../db";
 import { Model } from "sequelize";
+import { sendMail } from "../mailer";
 const { Request, User } = sequelize.models
 
 enum list{
@@ -21,17 +22,53 @@ const executeRequest = (request: Model<any,any>) => {
     let body = request.getDataValue("body")
     let function_type = list[`${method}_${type}` as keyof typeof list]
     body = JSON.parse(body)
-    
-    require(`../utils/${type}.ts`)[function_type](body)
+
+    let utils = require(`./${type}.ts`)
+    if(utils.default) utils.default[function_type](body)
+    else utils[function_type](body)
 }
 
 export const updateRequest = async (id:string | number, status: string) => {
-    let request = await Request.findByPk(id)
+    let request = await Request.findOne({
+        where:{
+            id
+        },
+        include:{
+            model: User,
+            attributes: ["name","email"]
+        }
+    })
     if(request){
 
         request.update({status})
         
-        if(status === "accepted") executeRequest(request)
+        const user = request.getDataValue("user")
+        const name = user.getDataValue("name")
+        const email = user.getDataValue("email")
+        let typeText: string;
+        if(request.getDataValue("type") === "organization")typeText = "para crear una organización."
+        else{
+            let body = request.getDataValue("body")
+            body = JSON.parse(body)
+            if(request.getDataValue("method") === "PUT")typeText = `para actualizar el evento: ${body.name}`
+            else {
+                typeText = `para eliminar el evento: ${body.name}`
+            }
+        }
+        if(status === "accepted"){
+            executeRequest(request)
+            await sendMail({
+                to: email,
+                subject: "Petición Aceptada",
+                text: `Hola ${name}! Hemos aceptado tu petición ${typeText}`
+            })
+        }else{
+            await sendMail({
+                to: email,
+                subject: "Petición Rechazada",
+                text: `Hola ${name}! Hemos rechazado tu petición ${typeText}`
+            })
+        }
     }
 }
 

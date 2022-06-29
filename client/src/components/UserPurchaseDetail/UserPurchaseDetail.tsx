@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useGetTicketsQuery } from '../../slices/app/usersApiSlice';
 import Tickets from '../Tickets/Tickets';
+import style from "./UserPurchaseDetail.module.css"
 
 const UserPurchaseDetail = () => {
 	const [tickets, setTickets] = useState<any>([]);
@@ -17,8 +18,8 @@ const UserPurchaseDetail = () => {
 	const content = isFetching ? (
 		<h1>Cargando...</h1>
 	) : (
-		<div>
-			<h1>
+		<div className={style.container}>
+			<div className={style.container_bg}>
 				{tickets &&
 					tickets?.length > 0 &&
 					tickets?.map((ticket: any) => {
@@ -28,9 +29,9 @@ const UserPurchaseDetail = () => {
 									<h1 style={{ color: 'white', textAlign: "center" }}>No hay Tickets</h1>
 								</div>
 							);
-						} else return <Tickets ticket={ticket} />;
+						} else return <div className={style.container_tickets}><Tickets ticket={ticket} /> </div>;
 					})}
-			</h1>
+			</div>
 		</div>
 	);
 	return <div>{content}</div>;

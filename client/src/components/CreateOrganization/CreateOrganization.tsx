@@ -90,7 +90,6 @@ const CreateOrganization = () => {
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Crear',
       }).then(async (result) => {
-        navigate('/welcome');
         if (result.isConfirmed) {
           await createOrganizationRequest({ description, body: organization });
           setOrganization(initialState);
@@ -98,7 +97,7 @@ const CreateOrganization = () => {
             icon: 'success',
             title: `Organización ${organization.name} creada con éxito!`,
           });
-          window.location.reload();
+          navigate('/welcome');
         }
       });
     }catch(error: any){
