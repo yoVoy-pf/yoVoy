@@ -110,7 +110,7 @@ const FilterEvent = ({filters, setFilters, refresh}: any) => {
 				<select onChange={handleLocationFilter}>
 					<option key={"allLocations"} value="">todas las locaciones</option>
           {locations?.rows?.length && locations.rows.map((l: any) => (
-						<option key={l.name} value={l.id}>
+            <option key={`${l.id} ${l.name}`} value={l.id}>
 							{l.name}
 						</option>
 					))}

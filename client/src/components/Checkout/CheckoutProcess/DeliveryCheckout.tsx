@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { selectCartTickets } from '../../../slices/cartSlice';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
 import styles from './DeliveryCheckout.module.css';
-import style from "./DeliveryCheckout.module.css"
+import style from './DeliveryCheckout.module.css';
 
 const DeliveryCheckout = () => {
 	const cartItems = useSelector(selectCartTickets);
@@ -25,68 +25,59 @@ const DeliveryCheckout = () => {
 					<li className="nav finishPayment">MEDIO DE PAGO</li>
 				</ul>
 			</nav>
-			{/* <hr /> */}
-			<div className={style.line}></div>
-			<div >
+
+			<div className={style.line}>
 				{cartItems.length === 0 ? (
 					<p className={styles.cartVacio}>Tu carrito esta vacio</p>
 				) : (
 					<div className={style.containerBg}>
-						<h4>DETALLES</h4>
-						{cartItems?.map((item: any) => {
-							return (
-								<div key={item.id}>
-									<p>
-										<b>{item.eventName}</b>
-										{` | ${item.locationName} | ${item.date}`}
-									</p>
-									<div>
+						<div className={style.containerDetails}>
+							<h4>DETALLES</h4>;
+							{cartItems?.map((item: any) => {
+								return (
+									<div key={item.id} className={style.tickets}>
+										<p>
+											<b>{item.eventName.substring(0, 20)}</b>
+											{` | ${item.locationName} | ${item.date}`}
+										</p>
+
 										<div>
 											<ul>
 												<li>
-
-													VALOR TICKET <b>{item.price}</b>
-
+													VALOR TICKET $ <b>{item.price}</b>
 												</li>
 												<li>
-													{`${item.quantity} x GENERAL        `}
+													{`${item.quantity} TICKETS        `} ${' '}
 													<b>{item.price * item.quantity}</b>
 												</li>
 												<li>
-													COSTO POR SERVICIO{' '}
-													<b>
-														{(item.price * item.quantity * 0.05).toFixed(2)}
-													</b>{' '}
+													COSTO POR SERVICIO $<b>0.00</b>{' '}
 												</li>
 											</ul>
 										</div>
 									</div>
-								</div>
-							);
-						})}
+								);
+							})}
+						</div>
 						<div className={style.sendbg}>
 							<h4>ENTREGA</h4>
-							<p>Recibira un e-mail con su E-Ticket</p>
-							<input type="checkbox" />
-							<span>Acepto recibir un e-mail.</span>
+							<hr />
+							<div className={style.sendbg2}>
+								<h3>Recibira un e-mail con su E-Ticket</h3>
+							</div>
 						</div>
-						<div className={styles.mercadoPago}>
+						<div className={style.mercadoPago}>
 							<h4>PAGO</h4>
 						</div>
 					</div>
 				)}
-				{/* <hr /> */}
+
 				<h3 className={style.total}>
 					{' '}
-					TICKETS + CARGO DE SERVICIO = Total ${' '}
-					<b>{(total * 1.05).toFixed(2)}</b>
+					TICKETS = Total $ <b>{total.toFixed(2)}</b>
 				</h3>
 
-				<div  className={style.buttonPassBg}>
-					{/* <Link to>
-      <button onClick={handleClick}></button>
-      </Link> */}
-
+				<div className={style.buttonPassBg}>
 					<Link to="/checkout">
 						<button className={style.buttonPass}>VOLVER</button>
 					</Link>

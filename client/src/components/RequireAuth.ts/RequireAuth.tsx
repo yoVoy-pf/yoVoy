@@ -1,7 +1,7 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentToken, selectCurrentUser } from "../../slices/authentication/authSlice";
-import Loading from '../Loading/Loading'
+import LoadingAuth from '../LoadingAuth/LoadingAuth'
 import { selectIsLoading } from "../../slices/uiSlice";
 
 
@@ -17,7 +17,7 @@ const RequireAuth = ({allowedRoles}:Props) => {
 
   if (loading) {
     return (
-      <Loading/>
+      <LoadingAuth/>
     )
   }
 
@@ -25,15 +25,7 @@ const RequireAuth = ({allowedRoles}:Props) => {
     ? <Outlet />
     : token
       ? <Navigate to="/unauthorized" state={{from: location}} replace />
-      : <Navigate to="/loading" state={{from: location}} replace />
-
-  // return (
-  //   token && currentUser?.rolesId?.find((role: number)=> allowedRoles?.includes(role))
-  //   ? <Outlet/>
-  //   : token
-  //     ? <Navigate to="/unauthorized" state={{from: location}} replace />
-  //     : <Navigate to="/login" state={{from: location}} replace />
-  // )
+      : <Navigate to="/loading-auth" state={{from: location}} replace />
 }
 
 export default RequireAuth

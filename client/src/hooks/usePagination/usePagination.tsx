@@ -7,7 +7,7 @@ import { useGetLocationsMutation } from '../../slices/app/locationsApiSlice';
 import { useGetOrganizationsMutation } from '../../slices/app/organizationApiSlice';
 import { useGetBannedMutation, useGetUsersMutation } from '../../slices/app/usersApiSlice';
 import {useGetProvincesMutation} from '../../slices/app/provincesApiSlice'
-import { useGetUserRequestsMutation } from '../../slices/app/requestsApiSlice';
+import { useGetUserRequestsMutation } from '../../slices/app/requestsApiSlices';
 import { selectUserRequests } from '../../slices/requestSlice';
 
 const usePagination = (itemsPerPage : number = 15, type : string) => {

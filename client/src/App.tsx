@@ -13,7 +13,7 @@ import UpdateEvent from './components/UpdateEvent/UpdateEvent';
 import Unauthorized from './components/Unauthorized/Unauthorized';
 import ROLES_LIST from './slices/authentication/rolesList';
 import CreateEvent from './components/CreateEvent/CreateEvent';
-import Loading from './components/Loading/Loading';
+import LoadingAuth from './components/LoadingAuth/LoadingAuth';
 import Favorites from './components/Favorites/Favorites';
 import Updateuser from './components/AdminPanel/UpdateUser/UpdateUser';
 import EventsConfig from './components/AdminPanel/EventsConfig/EventsConfig';
@@ -56,7 +56,7 @@ function App(): JSX.Element {
 				<Route path="events/:id/:location" element={<Event />} />
 				<Route path="events/:id" element={<EventLocations />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
-				<Route path="loading" element={<Loading />} />
+				<Route path="loading-auth" element={<LoadingAuth />} />
 
 				{/* protected routes */}
 

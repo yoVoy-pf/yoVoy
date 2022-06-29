@@ -26,7 +26,7 @@
 .line {
 	width: 81%;
 	height: 0.5rem;
-	background-color: rgba(128, 128, 128, 0.678);
+
 	margin-top: 3em;
 	margin-bottom: 3em;
 	left: 50%;
@@ -36,14 +36,38 @@
 
 .containerBg {
 	display: flex;
-	align-items: center;
-	flex-direction: column;
+	color: grey;
+	align-content: flex-start;
+}
+.containerBg h4 {
+	flex-basis: 100%;
+	text-align: center;
 }
 
+.tickets {
+	width: 500px; /* or whatever width you want. */
+	background-color: #ffe8cd;
+	border-top-color: black;
+	border-style: solid;
+	border-width: 0.3px;
+}
+.containerDetails {
+	background-color: #ffe8cd;
+	/* border-color: black;
+	border-style: solid;
+	border-style: none; */
+}
 .sendbg {
 	display: flex;
-	align-items: center;
-	gap: 20px;
+	width: 500px;
+	flex-direction: column;
+
+	background-color: #ffd19b;
+}
+.sendbg2 {
+	padding-bottom: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .total {
@@ -52,10 +76,20 @@
 }
 
 .mercadoPago img {
+	display: flex;
+
 	height: 6em;
 	width: 6em;
-}
+	border: 1px;
 
+	align-items: center;
+	margin-left: 40%;
+}
+.mercadoPago {
+	border-width: 1px;
+	background-color: #ffe8cd;
+	width: 500px;
+}
 
 .buttonPassBg {
 	display: flex;
@@ -76,21 +110,21 @@
 	box-shadow: 7px 13px 37px #000;
 }
 
-@media (max-width:425px) {
+@media (max-width: 425px) {
 	.containerBg {
 		width: 325px;
 		margin-left: 50px;
 	}
-	.total{
+	.total {
 		font-size: 1rem;
 	}
-	.buttonPassBg{
+	.buttonPassBg {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		margin-left: 85px;
 	}
-	.ul{
-        margin-left: 60px;
-    }
+	.ul {
+		margin-left: 60px;
+	}
 }
