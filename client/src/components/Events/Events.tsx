@@ -13,7 +13,7 @@ const Events = ({ events }: any) => {
 
 	const renderEvents = (): JSX.Element[] => {
 		return events?.slice(2).map((event : any) => {
-			return <Card key={event.id} event={event} />
+			return <Card key={`${event.id} ${event.name}`} event={event} />
 		});
 	};
 
