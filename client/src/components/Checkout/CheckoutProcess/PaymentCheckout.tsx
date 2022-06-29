@@ -26,10 +26,9 @@ const PaymentCheckout = () => {
 		};
 		try {
 			await createCheckoutPayment({ newPayment: payment }).then((result: any) =>
-				// window.location.replace(result.data);
-				console.log(result),
+				window.location.replace(result.data),
 			);
-			// window.localStorage.removeItem('cartTickets');
+			window.localStorage.removeItem('cartTickets');
 			console.log('asdasd');
 		} catch (error) {
 			console.log(error);
