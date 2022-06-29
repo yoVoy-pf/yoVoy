@@ -42,6 +42,7 @@ import DeliveryCheckout from './components/Checkout/CheckoutProcess/DeliveryChec
 import PaymentCheckout from './components/Checkout/CheckoutProcess/PaymentCheckout';
 import OrganizationEventSales from './components/OrganizationEventSales/OrganizationEventSales';
 import MyRequests from './components/MyRequests/MyRequests';
+import FinishCheckout from './components/Checkout/CheckoutProcess/FinishCheckout';
 
 function App(): JSX.Element {
 	useGetUserAuthQuery();
@@ -67,7 +68,7 @@ function App(): JSX.Element {
 					<Route path="purchase-detail" element={<UserPurchaseDetail />} />
 					<Route path="user/information" element={<UserData />} />
 					<Route path="change-password" element={<ChangePassword />} />
-          <Route path='my-requests' element={<MyRequests/>}/>
+					<Route path="my-requests" element={<MyRequests />} />
 				</Route>
 
 				<Route
@@ -84,11 +85,12 @@ function App(): JSX.Element {
 				{/* 404 */}
 				<Route path="*" element={<Home />} />
 			</Route>
-      <Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
-        <Route path="checkout" element={<StartCheckout />} />
-        <Route path="/checkout/delivery" element={<DeliveryCheckout />} />
-        <Route path="/checkout/payment" element={<PaymentCheckout />} />
-      </Route>
+			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.User]} />}>
+				<Route path="checkout" element={<StartCheckout />} />
+				<Route path="/checkout/delivery" element={<DeliveryCheckout />} />
+				<Route path="/checkout/payment" element={<PaymentCheckout />} />
+				<Route path="/checkout/success/:resolve" element={<FinishCheckout />} />
+			</Route>
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
 				<Route path="userslist" element={<UsersList />} />
 				<Route path="create-category" element={<CreateCategory />} />
@@ -111,9 +113,9 @@ function App(): JSX.Element {
 				<Route path="create-location" element={<CreateLocation />} />
 				<Route path="update-location/:id" element={<UpdateLocation />} />
 				<Route path="list-provinces" element={<ProvincesList />} />
-        <Route path="unban-user" element={<UnbanUser />} />
-        <Route path="list-requests" element={<RequestsList />} />
-        <Route path="update-request/:id" element={<UpdateRequests />} />
+				<Route path="unban-user" element={<UnbanUser />} />
+				<Route path="list-requests" element={<RequestsList />} />
+				<Route path="update-request/:id" element={<UpdateRequests />} />
 			</Route>
 		</Routes>
 	);

@@ -10,7 +10,7 @@ import { useCreateCheckoutPaymentMutation } from '../../../slices/app/usersApiSl
 import Swal from 'sweetalert2';
 import style from './PaymentCheckout.module.css';
 
-const PaymentCheckout = () => {
+const FinishCheckout = () => {
 	const [createCheckoutPayment] = useCreateCheckoutPaymentMutation();
 	const cartItems = useSelector(selectCartTickets);
 
@@ -26,9 +26,10 @@ const PaymentCheckout = () => {
 		};
 		try {
 			await createCheckoutPayment({ newPayment: payment }).then((result: any) =>
-				window.location.replace(result.data),
+				// window.location.replace(result.data);
+				console.log(result),
 			);
-			window.localStorage.removeItem('cartTickets');
+			// window.localStorage.removeItem('cartTickets');
 			console.log('asdasd');
 		} catch (error) {
 			console.log(error);
@@ -63,14 +64,14 @@ const PaymentCheckout = () => {
 
 										<div>
 											<ul>
-												<li key={item.id}>
+												<li>
 													VALOR TICKET $ <b>{item.price}</b>
 												</li>
-												<li key={item.id}>
+												<li>
 													{`${item.quantity} TICKETS        `} ${' '}
 													<b>{item.price * item.quantity}</b>
 												</li>
-												<li key={item.id}>
+												<li>
 													COSTO POR SERVICIO $<b>0.00</b>{' '}
 												</li>
 											</ul>
@@ -115,4 +116,4 @@ const PaymentCheckout = () => {
 	);
 };
 
-export default PaymentCheckout;
+export default FinishCheckout;
