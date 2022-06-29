@@ -125,4 +125,5 @@ export const updatePaymentById = async(preferenceId: string, paymentId: string) 
         ticket.update({ticket_email: true})
       }
     })
+    return body.status
 }
