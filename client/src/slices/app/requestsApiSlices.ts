@@ -30,6 +30,7 @@ export const eventsApiSlice = apiSlice.injectEndpoints({
             console.log(data)
             dispatch(setRequests(data))
           }catch(err){
+            dispatch(setRequests({}))
             console.log('Error fetching post!')
             console.log(err)
           }
