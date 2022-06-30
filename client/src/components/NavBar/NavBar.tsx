@@ -8,13 +8,14 @@ import { useSelector } from 'react-redux';
 import Logout from '../Logout/Logout';
 import { BsFillKeyFill } from 'react-icons/bs';
 import { BsPersonCheckFill } from 'react-icons/bs';
+import { useLocation } from 'react-router-dom';
 
 const NavBar = () => {
 	const currentUser = useSelector(selectCurrentUser);
+  const location = useLocation()
 	const rechargePage = () => {
 		if (
-			window.location.href ===
-			(process.env.REACT_APP_API || 'http://localhost:3000/')
+			 location.pathname === '/'
 		) {
 			window.location.reload();
 		}
@@ -40,7 +41,7 @@ const NavBar = () => {
 					<li className="navbar_bg_li">
 						{' '}
 						<NavLink className="navbar_bg_a" to="/welcome">
-							Bienvenido
+							Perfíl
 						</NavLink>{' '}
 					</li>
 					<li className="navbar_bg_li">

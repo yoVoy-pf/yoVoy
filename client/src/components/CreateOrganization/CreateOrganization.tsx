@@ -46,7 +46,7 @@ const CreateOrganization = () => {
 
   const validateOrganization = () => {
     const newErrors: any = {};
-    if (organization.name === '') {
+    if (organization.name === '' || !organization.name.match(/^[ñíóáéú a-zA-Z[0-9]|[1-9][0-9]|100]+$/i)) {
       newErrors.name = 'El nombre de la organización es requerido';
     }
     if (description === '' || description.length < 50) {
@@ -95,7 +95,7 @@ const CreateOrganization = () => {
           setOrganization(initialState);
           Toast.fire({
             icon: 'success',
-            title: `Organización ${organization.name} creada con éxito!`,
+            title: `La petición para crear una organización fue enviada con exito, espere la respuesta de un administrador.`,
           });
           navigate('/welcome');
         }
@@ -138,7 +138,7 @@ const CreateOrganization = () => {
 							<textarea
 								placeholder="Nos dedicamos a..."
 								name="description"
-								className={styleCreateOrganization.input_create_organization}
+								className={styleCreateOrganization.textarea_create_organization}
 								onChange={onInputChange}
 								value={description}
 							/>

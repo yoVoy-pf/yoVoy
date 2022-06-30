@@ -7,7 +7,7 @@ import styles from './DeliveryCheckout.module.css';
 import image from '../../../img/mercado-pago.png';
 import { FcCheckmark } from 'react-icons/fc';
 import { useCreateCheckoutPaymentMutation } from '../../../slices/app/usersApiSlice';
-import Swal from 'sweetalert2';
+
 import style from './PaymentCheckout.module.css';
 
 const PaymentCheckout = () => {
@@ -28,8 +28,6 @@ const PaymentCheckout = () => {
 			await createCheckoutPayment({ newPayment: payment }).then((result: any) =>
 				window.location.replace(result.data),
 			);
-			window.localStorage.removeItem('cartTickets');
-			console.log('asdasd');
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,7 +43,7 @@ const PaymentCheckout = () => {
 					<li className={style.nav_startPayment}>MEDIO DE PAGO</li>
 				</ul>
 			</nav>
-			{/* <hr /> */}
+
 			<div className={style.line}>
 				{cartItems.length === 0 ? (
 					<p className={styles.cartVacio}>Tu carrito esta vacio</p>
@@ -63,14 +61,14 @@ const PaymentCheckout = () => {
 
 										<div>
 											<ul>
-												<li>
+												<li key={item.id}>
 													VALOR TICKET $ <b>{item.price}</b>
 												</li>
-												<li>
+												<li key={item.id}>
 													{`${item.quantity} TICKETS        `} ${' '}
 													<b>{item.price * item.quantity}</b>
 												</li>
-												<li>
+												<li key={item.id}>
 													COSTO POR SERVICIO $<b>0.00</b>{' '}
 												</li>
 											</ul>

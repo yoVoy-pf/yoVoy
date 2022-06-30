@@ -25,7 +25,7 @@ export const registerUser = async (req: Request, res: Response, next: NextFuncti
     }
     else{
       const password = await bcrypt.hash(req.body.password,10) // hash(password, salt)
-      user = {name: req.body.name, email: req.body.email, password}
+      user = {name: req.body.name, email: req.body.email.toLowerCase(), password}
       req.body ={
         email: user.email,
         password: req.body.password
@@ -59,7 +59,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
       else{
           // Checks if user exists in Db
-          user = await getUserFromDbByField('email', req.body.email) 
+          user = await getUserFromDbByField('email', req.body.email.toLowerCase()) 
           if (!user) return next({status: 400, message: `El usuario no existe`})
           // Compare the password sent by body with the one in the DB
           if(!await bcrypt.compare(req.body.password, user.password)) return next({status:403 , message:'Contraseña incorrecta'})
@@ -142,7 +142,7 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
 }
 
 export const recoverPassword = async (req: Request, res: Response, next: NextFunction) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase();
   try{
     const user = await getUserFromDbByField('email',email);
     if (!user) return next({status:404 , message:'No se encontro un usuario con ese email'})

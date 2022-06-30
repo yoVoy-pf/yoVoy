@@ -48,3 +48,7 @@ export const createTickets = async(preferenceId: string, items: any, user: any) 
         })
     })
 }
+
+export const destroyTickets = async(preferenceId: string) =>{
+    await Ticket.destroy({where:{preferenceId}})
+}

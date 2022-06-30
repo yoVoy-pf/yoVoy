@@ -7,12 +7,23 @@ import usePagination from '../../../hooks/usePagination/usePagination';
 import PageButtons from '../../PageButtons/PageButtons';
 import { useSelector } from 'react-redux';
 import { selectAllLocations } from '../../../slices/adminPanelSlice';
+import Loading from '../../Loading/Loading';
 
 const LocationsList = () => {
   const locations = useSelector(selectAllLocations)
   const pagination = usePagination(10, 'locations');
+
   
-		const content = (
+  
+  const content = !locations
+    ? (
+      <div className={styleLocations.fondo}>
+        <SideBar />
+        <Loading />
+      </div>
+    )
+    :
+    (
 			<div className={styleLocations.fondo}>
                 <SideBar/>
             <div className={styleLocations.table_title}>
@@ -39,12 +50,12 @@ const LocationsList = () => {
                 { 
                         locations?.rows?.map((location: any, index: any) => {
                             return (
-                            <tr>
+                            <tr className={styleLocations.componente}>
                                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{location.id}</th>
                                 <td className={styleLocations.th_categories}>{location.name}</td>
                                 <td className={styleLocations.th_categories}>{location.address}</td>
                                 <td className={styleLocations.th_categories}>{location.city.name}</td>
-                                <td className={styleLocations.th_organizations}>
+                                <td className={styleLocations.th_categories}>
                                 <Link to={`/update-location/${location.id}`} className={styleLocations.buttom}>
                                     <button className={styleLocations.buttom_style_left}>Editar</button>
                                 </Link>

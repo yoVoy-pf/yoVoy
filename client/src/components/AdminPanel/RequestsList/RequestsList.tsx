@@ -1,17 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { useGetRequestsQuery } from '../../../slices/app/requestsApiSlices';
+import Loading from '../../Loading/Loading';
 import SideBar from '../SideBar/SideBar';
 import styleRequest from './requests.module.css'
 
 const RequestsList = () => {
     const {
 		data: request,
-		isLoading,
-		isSuccess,
-		isError,
-		error,
-		refetch,
+    isFetching,
 	} = useGetRequestsQuery({ _: '' }, { refetchOnMountOrArgChange: true });
 
   const operation : any= {
@@ -54,16 +51,24 @@ const RequestsList = () => {
 
     let content = <span></span>;
     if(!request){
-        return(
-            <div className={styleRequest.fondo}>
-            <SideBar/>
+      return isFetching
+        ? (
+          <div className={styleRequest.fondo}>
+            <SideBar />
+            <Loading />
+          </div>
+        )
+        :
+        (
+          <div className={styleRequest.fondo}>
+            <SideBar />
             <div className={styleRequest.text}>
-              <h1 className={styleRequest.text_style}><i> ¡UPS! No hay Peticiones Realizadas</i></h1>
+              <h1 className={styleRequest.text_style}><i> No hay peticiones realizadas</i></h1>
             </div>
-            </div>
-          )
+          </div>
+        )
     } else {
-		content = (
+		 return (
 			<div className={styleRequest.fondo}>
                 <SideBar/>
             <div className={styleRequest.table_title}>
@@ -103,7 +108,6 @@ const RequestsList = () => {
         </div>
 		);
 	} 
-	return content;
 }
 
 export default RequestsList
