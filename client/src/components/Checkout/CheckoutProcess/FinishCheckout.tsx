@@ -23,7 +23,6 @@ const FinishCheckout = () => {
 
 	useEffect(() => {
 		dispatch(clearCart());
-		console.log('1', resolve);
 		if (resolve === 'approved') {
 			Swal.fire({
 				title: '¡Pago realizado!',
@@ -48,7 +47,6 @@ const FinishCheckout = () => {
 					redirect();
 				}
 			});
-			console.log('2', resolve);
 		} else if (resolve === 'rejected') {
 			Swal.fire({
 				title: '¡Pago rechazado!',
