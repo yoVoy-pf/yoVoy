@@ -89,7 +89,7 @@ function App(): JSX.Element {
 				<Route path="checkout" element={<StartCheckout />} />
 				<Route path="/checkout/delivery" element={<DeliveryCheckout />} />
 				<Route path="/checkout/payment" element={<PaymentCheckout />} />
-				<Route path="/checkout/success/:resolve" element={<FinishCheckout />} />
+				<Route path="/checkout/:resolve" element={<FinishCheckout />} />
 			</Route>
 			<Route element={<RequireAuth allowedRoles={[ROLES_LIST.Admin]} />}>
 				<Route path="userslist" element={<UsersList />} />
