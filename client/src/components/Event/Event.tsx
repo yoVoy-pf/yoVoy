@@ -237,6 +237,9 @@ const Event = () => {
               })}
 
             <div className={event_style.divDeBotones}>
+              <EventModal isOpen={isOpenModal} closeModal={closeModal}>
+              </EventModal>
+
               <button
                 className={event_style.button2}
                 onClick={() => {
