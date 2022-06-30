@@ -29,13 +29,13 @@ const Favorites = () => {
 			cancelButtonColor: '#d33',
 			cancelButtonText: 'Cancelar',
 			confirmButtonText: 'Eliminar',
-		}).then((result) => {
+		}).then(async (result) => {
 			if (result.isConfirmed) {
 				Swal.fire({
 					title: 'Evento Eliminado!',
 					icon: 'success',
 				});
-				deleteEventToFavorite(id);
+				await deleteEventToFavorite(id);
 				refetch();
 			}
 		});
