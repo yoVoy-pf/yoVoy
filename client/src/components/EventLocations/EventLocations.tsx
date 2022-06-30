@@ -62,9 +62,6 @@ const EventLocations: React.FC = () => {
 												<small className={event_style.small1}>
 													{location.city.name}.{' '}
 												</small>
-												<h4>
-													<small>{location.address}.</small>{' '}
-												</h4>
 											</div>
 										</fieldset>
 									</React.Fragment>
