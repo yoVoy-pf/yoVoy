@@ -86,10 +86,10 @@ const CategoriesList = () => {
                 {
                   categories?.rows?.map((category: any, index: any) => {
                     return (
-                      <tr>
+                      <tr className={styleCategories.componente}>
                         <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{category?.id}</th>
                         <td className={styleCategories.th_categories}>{category?.name}</td>
-                        <td className={styleCategories.th_organizations}>
+                        <td className={styleCategories.th_categories}>
                           <Link to={`/update-category/${category?.id}`} className={styleCategories.buttom}>
                             <button className={styleCategories.buttom_style_left}>Editar</button>
                           </Link>

@@ -50,12 +50,12 @@ const LocationsList = () => {
                 { 
                         locations?.rows?.map((location: any, index: any) => {
                             return (
-                            <tr>
+                            <tr className={styleLocations.componente}>
                                 <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450'}}>{location.id}</th>
                                 <td className={styleLocations.th_categories}>{location.name}</td>
                                 <td className={styleLocations.th_categories}>{location.address}</td>
                                 <td className={styleLocations.th_categories}>{location.city.name}</td>
-                                <td className={styleLocations.th_organizations}>
+                                <td className={styleLocations.th_categories}>
                                 <Link to={`/update-location/${location.id}`} className={styleLocations.buttom}>
                                     <button className={styleLocations.buttom_style_left}>Editar</button>
                                 </Link>

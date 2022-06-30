@@ -73,8 +73,8 @@ const EventsConfig = () => {
             <tbody>
               {events?.map((event: any, index: any) => {
                 return (
-                  <tr>
-                    <th scope="row" style={{ textAlign: "center" }}>{event.id}</th>
+                  <tr className={styleConfigEvent.componente}>
+                    <th scope="row" style={{ textAlign: "center", backgroundColor: '#000450' }}>{event.id}</th>
                     {/* <td>{event.id}</td>	 */}
                     <td className={styleConfigEvent.th_config}>{event.name}</td>
                     <td className={styleConfigEvent.th_config}>
