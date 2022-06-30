@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { clearCart } from '../../../redux/actions/actions-Create';
-import { selectCartTickets } from '../../../slices/cartSlice';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
-import style from './PaymentCheckout.module.css';
+import style from './FinishCheckout.module.css';
+import spinner from '../../../img/loading.gif';
 
 const FinishCheckout = () => {
 	const dispatch: any = useDispatch();
 	const { resolve }: any = useParams<{ resolve: string }>();
-
 	const redirect = (): any => {
 		setTimeout(
 			() =>
@@ -62,10 +60,24 @@ const FinishCheckout = () => {
 		}
 	}, [resolve]);
 
+	const result =
+		resolve === 'rejected' ? (
+			<div className={style.container}>
+				<h5>Será redirigido en 5 segundos...</h5>
+				<img src={spinner} alt="Loader" />
+			</div>
+		) : (
+			<div className={style.container}>
+				<h2>Gracias por su compra!</h2>
+				<h5>Será redirigido en 5 segundos...</h5>
+				<img src={spinner} alt="Loader" />
+			</div>
+		);
+
 	return (
 		<div className={style.container}>
 			<CheckoutNavbar />
-			<div>Sera redirigido en 5 segundos...</div>
+			{result}
 		</div>
 	);
 };
