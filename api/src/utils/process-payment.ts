@@ -1,4 +1,5 @@
 import mercadopago from "mercadopago"
+import { nextTick } from "process"
 import { Model } from "sequelize"
 import config from "../../config"
 import { sequelize } from "../db"
@@ -35,6 +36,7 @@ export const createPreference= (items:any, user: any) => {
 
 
 export const updatePaymentById = async(preferenceId: string, paymentId: string) => {
+    try{
     mercadopago.configure({
         access_token: config.ACCESS_TOKEN
     })
@@ -126,4 +128,5 @@ export const updatePaymentById = async(preferenceId: string, paymentId: string) 
       }
     })
     return body.status
+    }catch(e){throw e}
 }
