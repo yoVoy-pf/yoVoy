@@ -6,16 +6,18 @@ import { clearCart } from '../../../redux/actions/actions-Create';
 import CheckoutNavbar from '../CheckoutNavbar/CheckoutNavbar';
 import style from './FinishCheckout.module.css';
 import spinner from '../../../img/loading.gif';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../../Loading/Loading';
 
 const FinishCheckout = () => {
 	const dispatch: any = useDispatch();
 	const { resolve }: any = useParams<{ resolve: string }>();
+  const navigate = useNavigate()
 	const redirect = (): any => {
 		setTimeout(
 			() =>
-				(window.location.href =
-					process.env.REACT_APP_API || 'http://localhost:3000/purchase-detail'),
-			5000,
+				navigate('/purchase-detail'),
+			2000,
 		);
 	};
 
@@ -63,14 +65,14 @@ const FinishCheckout = () => {
 	const result =
 		resolve === 'rejected' ? (
 			<div className={style.container}>
-				<h5>Será redirigido en 5 segundos...</h5>
-				<img src={spinner} alt="Loader" />
+				<h5>Será redirigido en 2 segundos...</h5>
+				<Loading />
 			</div>
 		) : (
 			<div className={style.container}>
 				<h2>Gracias por su compra!</h2>
-				<h5>Será redirigido en 5 segundos...</h5>
-				<img src={spinner} alt="Loader" />
+				<h5>Será redirigido en 2 segundos...</h5>
+				<Loading />
 			</div>
 		);
 
