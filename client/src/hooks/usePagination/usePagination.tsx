@@ -95,8 +95,8 @@ const types: any = {
     setPage(0)
     setEmail(input)
     if (input.length){
-      getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: input });
-    } else getUsers({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() });
+      getUsers({ limit: itemsPerPage.toString(), offset: (0 * itemsPerPage).toString(), email: input });
+    } else getUsers({ limit: itemsPerPage.toString(), offset: (0 * itemsPerPage).toString() });
   }
 
   const searchEventQuery = (e: any, input: string) => {
@@ -112,8 +112,8 @@ const types: any = {
     setPage(0)
     setEmail(input)
     if (input.length){
-      getBanned({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString(), email: input });
-    } else getBanned({ limit: itemsPerPage.toString(), offset: (page * itemsPerPage).toString() });
+      getBanned({ limit: itemsPerPage.toString(), offset: (0 * itemsPerPage).toString(), email: input });
+    } else getBanned({ limit: itemsPerPage.toString(), offset: (0 * itemsPerPage).toString() });
   }
 
   return {
