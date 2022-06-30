@@ -30,6 +30,11 @@ export const addToCart = (ticket: any) => async (dispatch: Dispatch) => {
 	}
 };
 
+export const clearCart = () => async (dispatch: Dispatch) => {
+	localStorage.removeItem('cartTickets');
+	dispatch(UPDATE_CART([]));
+};
+
 export const deleteFromCart = (ticket: any) => async (dispatch: Dispatch) => {
 	const cart = localStorage.getItem('cartTickets')
 		? JSON.parse(localStorage.getItem('cartTickets') as any)
@@ -77,12 +82,16 @@ export const getAllEvent = (limit: any = '', offset: any = '') => {
 	};
 };
 
-export const getSearchEvent = (name: string | number, limit: any = '', offset: any ='') => {
+export const getSearchEvent = (
+	name: string | number,
+	limit: any = '',
+	offset: any = '',
+) => {
 	return async function (dispatch: Dispatch) {
 		try {
-      let url = `/api/events?search=${name}`;
-      if (limit?.length) url += `&limit=${limit}`;
-      if (limit?.length && offset?.length) url += `&offset=${offset}`;
+			let url = `/api/events?search=${name}`;
+			if (limit?.length) url += `&limit=${limit}`;
+			if (limit?.length && offset?.length) url += `&offset=${offset}`;
 			const searchEvent = await axios.get(url);
 			dispatch({
 				type: ActionType.SEARCH_EVENT,
@@ -115,7 +124,7 @@ export const getEventByCategory = (
 	filters: Filter[],
 	limit: any = '',
 	offset: any = '',
-  name: any = ''
+	name: any = '',
 ) => {
 	let endPoint = `/api/events?`;
 	let queries = [];
@@ -128,7 +137,7 @@ export const getEventByCategory = (
 	endPoint = endPoint + queries.join('&');
 	if (limit?.length) endPoint += `&limit=${limit}`;
 	if (limit?.length && offset?.length) endPoint += `&offset=${offset}`;
-  if (name?.length) endPoint += `&search=${name}`;
+	if (name?.length) endPoint += `&search=${name}`;
 	return async function (dispatch: Dispatch) {
 		try {
 			const getEventByCategory = await axios.get(endPoint);
