@@ -51,7 +51,7 @@ const types: any = {
   }
 
   const queries : any = {
-    events: (clear: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), (page * itemsPerPage).toString(), clear ? '' : eventName)),
+    events: (clear: any, initialPage: any) => dispatch(getEventByCategory(clear ? [] : filters, itemsPerPage.toString(), ((initialPage ? 0 : page) * itemsPerPage).toString(), clear ? '' : eventName)),
     users: () => getUsers({ ...queryOptions, email: email, order: userOrder }),
     organizations: () => getOrganizations({ ...queryOptions }),
     locations: () => getLocations({ ...queryOptions }),
@@ -72,7 +72,7 @@ const types: any = {
 
   useEffect(() => {
     setPage(0)
-    queries.events();
+    queries.events(false, true);
   }, [filters])
 
   useEffect(() => {
