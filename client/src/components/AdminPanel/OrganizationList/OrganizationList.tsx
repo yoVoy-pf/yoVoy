@@ -9,6 +9,7 @@ import usePagination from '../../../hooks/usePagination/usePagination';
 import { useSelector } from 'react-redux';
 import { selectAllOrganizations } from '../../../slices/adminPanelSlice';
 import PageButtons from '../../PageButtons/PageButtons';
+import Loading from '../../Loading/Loading';
 
 const OrganizationList = () => {
 	const [deleteOrganization] = useDeleteOrganizationMutation();
@@ -36,7 +37,14 @@ const OrganizationList = () => {
 		});
 	};
 
-  const content = (
+  const content = !organizations
+    ? (
+      <div className={styleListOrganization.fondo}>
+        <SideBar />
+        <Loading />
+      </div>
+    )
+    : (
     <div className={styleListOrganization.fondo}>
       <SideBar />
       <div className={styleListOrganization.table_title}>

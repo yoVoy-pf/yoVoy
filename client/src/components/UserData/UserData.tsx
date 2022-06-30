@@ -7,11 +7,7 @@ import { BsPerson } from "react-icons/bs";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 
 
-const UserData = () => {
-	let { data, isError, isFetching, refetch } = useGetUserDataQuery(
-		{ _: '' },
-		{ refetchOnMountOrArgChange: true },
-	);
+const UserData = ({data} : any) => {
 	return (
 		<div className={userStyle.container}>
 			<div className={userStyle.container_h1}>
