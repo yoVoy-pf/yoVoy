@@ -16,7 +16,7 @@ export class Request extends Model<Request> {
     @Column(DataType.ENUM("GET","POST","PUT","DELETE"))
     method!: string;
 
-    @Column(DataType.STRING(1000))
+    @Column(DataType.STRING(10000))
     body!: string
 
     @BelongsTo(() => User)

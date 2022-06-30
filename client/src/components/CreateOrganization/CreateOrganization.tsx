@@ -228,7 +228,7 @@ const CreateOrganization = () => {
 							className={styleCreateOrganization.buttom_create_organization}
 							type="submit"
 						>
-							¡Crear Organizacion!
+							¡Crear Organización!
 						</button>
 					</div>
 				</form>

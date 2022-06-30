@@ -128,5 +128,7 @@ export const updatePaymentById = async(preferenceId: string, paymentId: string) 
       }
     })
     return body.status
-    }catch(e){throw e}
+    }catch(e){
+      
+      throw e}
 }

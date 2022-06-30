@@ -89,7 +89,7 @@ const FilterEvent = ({filters, setFilters, refresh}: any) => {
 		<div className={filterStyle.bg_div}>
 			<div className={filterStyle.bg_div1}>
 				<select onChange={handleCategoryFilter}>
-					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorias</option>
+					<option className={filterStyle.option} key={"allCategories"} value="">todas las categorías</option>
           {
           categories?.rows?.length && categories.rows.map((c: any) => (
 						<option className={filterStyle.option} key={c.name} value={c.id}>
@@ -132,7 +132,7 @@ const FilterEvent = ({filters, setFilters, refresh}: any) => {
               filtBynextDays('15');
             }}
           >
-            Proximos 15 dias
+            Próximos 15 dias
           </button>
           <button
             className={filterStyle.btn2}
@@ -140,7 +140,7 @@ const FilterEvent = ({filters, setFilters, refresh}: any) => {
               filtBynextDays('30');
             }}
           >
-            Proximos 30 dias
+            Próximos 30 dias
           </button>
         </div>
 				<button

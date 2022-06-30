@@ -237,28 +237,6 @@ const Event = () => {
               })}
 
             <div className={event_style.divDeBotones}>
-              <button className={event_style.button1} onClick={openModal}>
-                Ver todas las fechas y precios
-              </button>
-              <EventModal isOpen={isOpenModal} closeModal={closeModal}>
-                <h3>TODAS LAS FECHAS Y PRECIOS</h3>
-                <p>{eventDetail.name}</p>
-                {locationResult?.map((location: Location) => {
-                  return (
-                    <React.Fragment key={location.id}>
-                      {location?.dates.map((date: Dates) => {
-                        return (
-                          <React.Fragment key={date.id}>
-                            <h5>Precio: ${date.price}</h5>
-                            <h5>Fecha: {date.date as any}</h5>
-                          </React.Fragment>
-                        );
-                      })}
-                    </React.Fragment>
-                  );
-                })}
-              </EventModal>
-
               <button
                 className={event_style.button2}
                 onClick={() => {
@@ -281,7 +259,7 @@ const Event = () => {
                             key={date.id}
                           >
                             <p className={event_style.p}>
-                              {`Dia: ${date.date}  Precio: $${date.price},00`}
+                              {`Día: ${date.date}  Precio: $${date.price},00`}
                             </p>
                             <button
                               className={event_style.iconCartContainer}

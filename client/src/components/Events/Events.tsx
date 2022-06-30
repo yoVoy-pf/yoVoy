@@ -28,7 +28,7 @@ const Events = ({ events }: any) => {
 								<h1>{eventsPrueba1?.name}</h1>
 							</div>
 							<div className={style.diva} >
-								<a href="#">Más Informarcíon</a>
+								<a href="#">Más Informarción</a>
 							</div>
 
 						</div>

@@ -8,6 +8,7 @@ const Tickets = ({ ticket }: any) => {
     'approved': 'Aceptado',
     'in_process': 'En proceso',
     'rejected': 'Rechazado',
+    'processing': 'En proceso',
   }
 
   const formatDate = (date: any) => {
