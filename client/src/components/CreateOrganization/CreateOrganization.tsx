@@ -117,7 +117,7 @@ const CreateOrganization = () => {
 							<legend
 								className={styleCreateOrganization.legend_create_organization}
 							>
-								Nombre de la Organizacion:
+								Nombre de la Organización:
 							</legend>
 							<input
 								type="text"
@@ -133,7 +133,7 @@ const CreateOrganization = () => {
 							<legend
 								className={styleCreateOrganization.legend_create_organization}
 							>
-								Descripción de la Organizacion:
+								Descripción de la Organización:
 							</legend>
 							<textarea
 								placeholder="Nos dedicamos a..."
